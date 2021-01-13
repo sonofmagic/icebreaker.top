@@ -1,40 +1,42 @@
 <template>
-  <div class="border border-gray-300 rounded">
-    <div class="toolbar bg-gray-100 h-10"></div>
-    <div class="p-2">
-      <div class="relative">
-        <el-input
-          v-model="formValue.comment"
-          type="textarea"
-          :rows="5"
-          placeholder="Leave a comment"
-          :disabled="!isRealLogined"
-        ></el-input>
-        <div
-          v-if="!isRealLogined"
-          class="absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center"
-        >
+  <ClientOnly>
+    <div class="border border-gray-300 rounded">
+      <div class="toolbar bg-gray-100 h-10"></div>
+      <div class="p-2">
+        <div class="relative">
+          <el-input
+            v-model="formValue.comment"
+            type="textarea"
+            :rows="5"
+            placeholder="Leave a comment"
+            :disabled="!isRealLogined"
+          ></el-input>
           <div
-            class="text-lg text-blue-500 cursor-pointer hover:underline"
-            @click.stop="signInVisible = true"
+            v-if="!isRealLogined"
+            class="absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center"
           >
-            Click here for Login
+            <div
+              class="text-lg text-blue-500 cursor-pointer hover:underline"
+              @click.stop="signInVisible = true"
+            >
+              Click here for Login
+            </div>
           </div>
         </div>
+        <div class="flex flex-row-reverse pt-4">
+          <el-button
+            size="small"
+            type="primary"
+            :disabled="btnDisabled || !isRealLogined"
+            @click="doComment"
+          >
+            {{ isRealLogined ? 'Comment' : 'You should login first' }}
+          </el-button>
+        </div>
       </div>
-      <div class="flex flex-row-reverse pt-4">
-        <el-button
-          size="small"
-          type="primary"
-          :disabled="btnDisabled || !isRealLogined"
-          @click="doComment"
-        >
-          {{ isRealLogined ? 'Comment' : 'You should login first' }}
-        </el-button>
-      </div>
+      <SignInPopup v-model="signInVisible" />
     </div>
-    <SignInPopup v-model="signInVisible" />
-  </div>
+  </ClientOnly>
 </template>
 
 <script>
