@@ -136,6 +136,7 @@ export const actions = {
 
 export const getters = {
   user: (state) => state.user,
+  // 匿名登录也算登录
   isLogined(state) {
     return state.isLogined
   },
@@ -145,5 +146,8 @@ export const getters = {
     } else {
       return false
     }
+  },
+  isRealLogined(state, getters) {
+    return getters.isLogined && !getters.isAnony
   },
 }

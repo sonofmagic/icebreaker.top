@@ -1,6 +1,6 @@
 <template>
   <section>
-    <el-form ref="form" :model="formData" :rules="formRules">
+    <el-form ref="form" class="w-64" :model="formData" :rules="formRules">
       <el-form-item ref="username" prop="username">
         <el-input
           v-model.trim="formData.username"
@@ -18,11 +18,15 @@
           @keyup.native.enter="login"
         >
           <template #suffix>
-            <i
-              style="cursor: pointer"
-              :class="passwordVisible ? 'el-icon-refresh-left' : 'el-icon-view'"
-              @click="switchPasswordType"
-            ></i>
+            <div class="pr-1">
+              <i
+                style="cursor: pointer"
+                :class="
+                  passwordVisible ? 'el-icon-refresh-left' : 'el-icon-view'
+                "
+                @click="switchPasswordType"
+              ></i>
+            </div>
           </template>
         </el-input>
       </el-form-item>

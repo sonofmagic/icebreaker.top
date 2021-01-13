@@ -22,7 +22,7 @@
     </div>
     <client-only>
       <div class="tail flex justify-end flex-grow sm:flex-grow-0">
-        <template v-if="isLogined && !isAnony">
+        <template v-if="isRealLogined">
           <el-dropdown
             key="drop"
             class="outline-none"
@@ -64,39 +64,25 @@
           </button>
         </template>
       </div>
-      <SomPopup
-        v-model="SignInVisible"
-        title="登录"
-        @closed="clearValidate('signin')"
-      >
-        <SignIn ref="signin" @success="SignInSuccess"></SignIn>
-      </SomPopup>
-      <SomPopup
-        v-model="RegisterVisible"
-        title="注册"
-        @closed="clearValidate('register')"
-      >
-        <Register ref="register" @success="RegisterSuccess" />
-      </SomPopup>
+      <SignInPopup v-model="SignInVisible"></SignInPopup>
+      <RegisterPopup v-model="RegisterVisible"></RegisterPopup>
     </client-only>
   </header>
 </template>
 
 <script>
 import Logo from '@/assets/img/icon.png'
-import Register from '@/components/public/Register/index'
-import SignIn from '@/components/public/SignIn/index'
 import defaultAvatar from '@/assets/img/default-avatar.png'
 import HeaderSearchBar from '@/components/article/HeaderSearchBar'
 import { mapGetters } from 'vuex'
 import { Dialog } from 'vant'
-import SomPopup from '@/components/public/SomPopup'
+import SignInPopup from './SignInPopup'
+import RegisterPopup from './RegisterPopup'
 export default {
   components: {
-    Register,
-    SignIn,
     HeaderSearchBar,
-    SomPopup,
+    SignInPopup,
+    RegisterPopup,
   },
   data() {
     return {
@@ -125,19 +111,9 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('user', ['user', 'isLogined', 'isAnony']),
+    ...mapGetters('user', ['user', 'isRealLogined']),
   },
   methods: {
-    clearValidate(refName) {
-      this.$refs[refName].clearValidate()
-    },
-    RegisterSuccess() {
-      this.RegisterVisible = false
-    },
-    SignInSuccess() {
-      this.SignInVisible = false
-      this.hasLogined = true
-    },
     go2Profile() {
       this.$router.push('/profile')
     },

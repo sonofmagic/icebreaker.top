@@ -19,11 +19,15 @@
           @keyup.native.enter="submit"
         >
           <template #suffix>
-            <i
-              style="cursor: pointer"
-              :class="passwordVisible ? 'el-icon-refresh-left' : 'el-icon-view'"
-              @click="switchPasswordType"
-            ></i>
+            <div class="pr-1">
+              <i
+                style="cursor: pointer"
+                :class="
+                  passwordVisible ? 'el-icon-refresh-left' : 'el-icon-view'
+                "
+                @click="switchPasswordType"
+              ></i>
+            </div>
           </template>
         </el-input>
       </el-form-item>

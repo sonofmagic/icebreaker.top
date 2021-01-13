@@ -1,9 +1,13 @@
 <template>
   <van-popup
     v-model="visible"
+    round
     get-container="body"
     :close-on-click-overlay="false"
     v-bind="$attrs"
+    :overlay-style="{
+      zIndex: 1024,
+    }"
     v-on="$listeners"
   >
     <div class="px-4 pb-4">
