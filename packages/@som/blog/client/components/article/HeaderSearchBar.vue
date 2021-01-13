@@ -1,67 +1,77 @@
 <template>
-  <!-- <el-select
-    v-model="searchText"
-    filterable
-    remote
-    placeholder="Search or jump to…"
-    size="mini"
-    :loading="loading"
-    :remote-method="searchByTitle"
-    class="header-search-wrapper"
-  >
-    <el-option
-      v-for="item in options"
-      :key="item.path"
-      :label="item.title"
-      :value="item.path"
+  <div>
+    <el-autocomplete
+      v-model="searchText"
+      :fetch-suggestions="searchByTitle"
+      placeholder="Search or jump to…"
+      size="mini"
+      class="header-search-wrapper"
+      :debounce="300"
+      highlight-first-item
+      :trigger-on-focus="false"
+      @select="handleSelect"
     >
-    </el-option>
-  </el-select> -->
-  <el-autocomplete
-    v-model="searchText"
-    :fetch-suggestions="searchByTitle"
-    placeholder="Search or jump to…"
-    size="mini"
-    class="header-search-wrapper"
-    :debounce="300"
-    highlight-first-item
-    :trigger-on-focus="false"
-    @select="handleSelect"
-  >
-    <template #default="{ item }">
-      <div class="flex justify-between items-center">
-        <div class="truncate">{{ item.title }}</div>
-        <div class="text-sm text-gray-600">{{ item.date | dayFilter }}</div>
-      </div>
-    </template>
-  </el-autocomplete>
+      <template #default="{ item }">
+        <div class="flex justify-between items-center">
+          <template v-if="item.needLogin">
+            <div class="text-blue-500">Click here for Login</div>
+          </template>
+          <template v-else>
+            <div class="truncate">{{ item.title }}</div>
+            <div class="text-sm text-gray-600">{{ item.date | dayFilter }}</div>
+          </template>
+        </div>
+      </template>
+    </el-autocomplete>
+    <SignInPopup v-model="signInVisible"></SignInPopup>
+  </div>
 </template>
 
 <script>
+import SignInPopup from '@/components/layout/SignInPopup'
+import { mapGetters } from 'vuex'
 export default {
   name: 'HeaderSearchBar',
+  components: { SignInPopup },
   data() {
     return {
       searchText: '',
       options: [],
       loading: false,
+      signInVisible: false,
     }
+  },
+  computed: {
+    ...mapGetters('user', ['isRealLogined']),
   },
   methods: {
     async searchByTitle(queryString, cb) {
-      const options = await this.$content('articles', {
-        deep: true,
-      })
-        .sortBy('date', 'desc')
-        .only(['title', 'tags', 'date', 'slug'])
-        .limit(6)
-        .search(queryString)
-        .fetch()
+      if (this.isRealLogined) {
+        const options = await this.$content('articles', {
+          deep: true,
+        })
+          .sortBy('date', 'desc')
+          .only(['title', 'tags', 'date', 'slug'])
+          .limit(6)
+          .search(queryString)
+          .fetch()
 
-      cb(options)
+        cb(options)
+      } else {
+        // eslint-disable-next-line node/no-callback-literal
+        cb([
+          {
+            needLogin: true,
+          },
+        ])
+      }
     },
     handleSelect(item) {
-      this.$router.push(item.path)
+      if (item.needLogin) {
+        this.signInVisible = true
+      } else {
+        this.$router.push(item.path)
+      }
     },
   },
 }
