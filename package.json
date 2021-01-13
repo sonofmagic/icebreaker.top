@@ -1,0 +1,38 @@
+{
+  "name": "sonofmagic.github.io",
+  "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "description": "a serverless nuxt website",
+  "author": "icebreaker99 <qq1324318532@gmail.com>",
+  "homepage": "http://www.icebreaker.top/",
+  "directories": {
+    "packages": "packages"
+  },
+  "files": [
+    "packages"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sonofmagic/sonofmagic.github.io.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sonofmagic/sonofmagic.github.io/issues"
+  },
+  "scripts": {
+    "dev": "lerna run dev --scope @som/blog",
+    "gen": "lerna run gen",
+    "deploy": "lerna run deploy",
+    "genChangelog": "node scripts/genChangelog.js"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "dotenv": "^8.2.0",
+    "execa": "^5.0.0",
+    "lerna": "^3.22.1",
+    "lerna-changelog": "^1.0.1",
+    "prettier": "^2.2.1",
+    "simple-git": "^2.31.0",
+    "yargs": "^16.2.0"
+  }
+}

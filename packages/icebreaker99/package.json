@@ -1,0 +1,49 @@
+{
+  "name": "icebreaker99",
+  "version": "1.0.0",
+  "description": "icebreaker99-official-account-sls",
+  "author": "SonOfMagic <qq1324318532@gmail.com>",
+  "homepage": "http://www.icebreaker.top/packages/icebreaker99",
+  "license": "ISC",
+  "main": "app.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npm.taobao.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sonofmagic/sonofmagic.github.io.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1",
+    "gen": "node ./scripts/genCfg.js",
+    "deploy": "npm run gen && serverless deploy"
+  },
+  "bugs": {
+    "url": "https://github.com/sonofmagic/sonofmagic.github.io/issues"
+  },
+  "dependencies": {
+    "@cloudbase/node-sdk": "^2.4.7",
+    "@koa/router": "^10.0.0",
+    "co-wechat": "^2.4.0",
+    "co-wechat-api": "^3.11.0",
+    "dayjs": "^1.9.8",
+    "flat-cache": "^3.0.4",
+    "html-entities": "^2.0.2",
+    "koa": "^2.13.0"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0",
+    "eslint": "^7.16.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "js-yaml": "^3.14.1"
+  }
+}
