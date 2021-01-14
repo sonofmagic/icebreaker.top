@@ -13,7 +13,7 @@
         <OutSideLink
           class="text-base hover:text-gray-700 mr-5"
           raw
-          href="https://github.com/sonofmagic/sonofmagic.github.io"
+          href="https://github.com/sonofmagic/icebreaker.top"
         >
           <FontAwesomeIcon :icon="['fab', 'github']" />
         </OutSideLink>
