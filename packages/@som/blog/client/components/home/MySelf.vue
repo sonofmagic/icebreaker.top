@@ -6,6 +6,11 @@
         <div>某热爱技术的小码农一枚</div>
         <!-- <OutSideLink href="https://www.shareplus.cn/"></OutSideLink> -->
         <div>对Vue/Nuxt,小程序,nodejs等有较深入的理解</div>
+        <div>
+          热爱的事业：<OutSideLink href="https://www.shareplus.cn/"
+            >Shareplus</OutSideLink
+          >
+        </div>
       </div>
     </div>
     <div class="space-y-4">

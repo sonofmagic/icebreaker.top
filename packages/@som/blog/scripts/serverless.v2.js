@@ -30,6 +30,8 @@ const {
   TENCENT_SECRET_KEY,
   TENCENT_SECRET_ID,
   TENCENT_APIGATEWAY_SERVICEID,
+  GITHUB_CLIENT_ID,
+  GITHUB_CLIENT_SECRET,
 } = process.env
 // https://github.com/serverless-components/tencent-nuxtjs/blob/master/docs/configure.md
 const config = {
@@ -65,6 +67,8 @@ const config = {
           TENCENT_CLOUDBASE_ENVID,
           TENCENT_SECRET_KEY,
           TENCENT_SECRET_ID,
+          GITHUB_CLIENT_ID,
+          GITHUB_CLIENT_SECRET,
         },
       },
     },
