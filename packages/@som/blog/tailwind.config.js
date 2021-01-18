@@ -27,6 +27,7 @@ module.exports = {
           css: {
             a: {
               color: theme('colors.primary.500'),
+              textDecoration: 'underline',
             },
             h2: {
               paddingBottom: theme('padding.2'),
