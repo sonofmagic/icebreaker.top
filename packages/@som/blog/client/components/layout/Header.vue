@@ -98,11 +98,11 @@ export default {
       SignInVisible: false,
       outSideLinks: [
         {
-          href: 'https://github.com/sonofmagic/sonofmagic.github.io/pulls',
+          href: 'https://github.com/sonofmagic/icebreaker.top/pulls',
           title: 'Pull requests',
         },
         {
-          href: 'https://github.com/sonofmagic/sonofmagic.github.io/issues',
+          href: 'https://github.com/sonofmagic/icebreaker.top/issues',
           title: 'Issues',
         },
         {
