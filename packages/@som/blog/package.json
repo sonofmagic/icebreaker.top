@@ -115,7 +115,7 @@
     "sass": "^1.32.2",
     "sass-loader": "^10.1.0",
     "serverless-config-generator": "^1.0.4",
-    "serverless-layer-deployer": "^0.2.1",
+    "serverless-layer-deployer": "^0.2.2",
     "stylelint": "^13.8.0",
     "stylelint-config-prettier": "^8.0.2",
     "stylelint-config-recommended-scss": "^4.2.0",
