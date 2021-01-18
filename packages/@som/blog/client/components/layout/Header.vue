@@ -12,12 +12,19 @@
           v-for="item in outSideLinks"
           :key="item.title"
           target="_blank"
-          class="link mr-4 cursor-pointer font-semibold whitespace-no-wrap text-sm"
+          class="link"
           rel="nofollow"
           :href="item.href"
         >
           <span>{{ item.title }}</span>
         </a>
+        <nuxt-link
+          v-for="inlink in inSideLinks"
+          :key="inlink.key"
+          class="link"
+          :to="inlink.to"
+          >{{ inlink.title }}</nuxt-link
+        >
       </nav>
     </div>
     <client-only>
@@ -98,6 +105,10 @@ export default {
           href: 'https://github.com/sonofmagic/sonofmagic.github.io/issues',
           title: 'Issues',
         },
+        {
+          href: 'https://www.npmjs.com/~icebreaker',
+          title: 'Packages',
+        },
         // {
         //   href: 'https://github.com/marketplace',
         //   title: 'Marketplace',
@@ -106,6 +117,13 @@ export default {
         //   href: 'https://github.com/explore',
         //   title: 'Explore',
         // },
+      ],
+      inSideLinks: [
+        {
+          key: 100,
+          to: '/utils',
+          title: 'Utils',
+        },
       ],
       defaultAvatar,
     }
@@ -135,6 +153,7 @@ export default {
   .header-middle-area {
     .nav {
       .link {
+        @apply mr-4 cursor-pointer font-semibold whitespace-no-wrap text-sm;
         &:hover,
         &:focus {
           color: hsla(0, 0%, 100%, 0.7);
