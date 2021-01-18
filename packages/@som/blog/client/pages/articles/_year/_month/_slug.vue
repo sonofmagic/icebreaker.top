@@ -14,8 +14,8 @@
               to="/"
             >
               <i class="el-icon-back"></i>
-              回到上一级</nuxt-link
-            >
+              回到上一级
+            </nuxt-link>
           </div>
           <div
             v-for="t in toc"
@@ -37,7 +37,7 @@
       <div
         class="mb-4 lg:mb-0 mr-4 bg-white p-8 shadow w-full content-max-width"
       >
-        <div class="border-b border-solid border-gray-300 pb-4 mb-4">
+        <div class="pb-4 mb-4">
           <h1 class="text-3xl mb-2">{{ article.title }}</h1>
           <div class="flex justify-between items-center">
             <tags :tags="tags"></tags>
