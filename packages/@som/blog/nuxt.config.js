@@ -90,6 +90,7 @@ const config = {
 
     '@fortawesome/fontawesome-svg-core/styles.css',
     '@/assets/scss/global.scss',
+    'github-markdown-css/github-markdown.css',
   ],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)

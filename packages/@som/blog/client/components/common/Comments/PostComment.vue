@@ -1,16 +1,38 @@
 <template>
   <ClientOnly>
     <div class="border border-gray-300 rounded">
-      <div class="toolbar bg-gray-100 h-10"></div>
+      <div class="toolbar bg-gray-100 h-12 pl-2 flex items-end">
+        <button
+          v-for="tab in tabList"
+          :key="tab"
+          class="tab"
+          :class="{ active: tabActiveName === tab }"
+          @click.stop="tabActiveName = tab"
+        >
+          {{ tab }}
+        </button>
+      </div>
       <div class="p-2">
         <div class="relative">
           <el-input
+            v-show="isWrite"
             v-model="formValue.comment"
             type="textarea"
             :rows="5"
             placeholder="Leave a comment"
             :disabled="!isRealLogined"
           ></el-input>
+          <div
+            v-show="isPreview"
+            class="preview-area antialiased nuxt-content-container"
+          >
+            <div
+              v-if="previewHtml"
+              class="markdown-body"
+              v-html="previewHtml"
+            ></div>
+            <div v-else>Nothing to preview</div>
+          </div>
           <div
             v-if="!isRealLogined"
             class="absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center"
@@ -43,6 +65,8 @@
 import { mapGetters } from 'vuex'
 import trim from 'lodash/trim'
 import SignInPopup from '@/components/layout/SignInPopup'
+import marked from 'marked'
+import DOMPurify from 'dompurify'
 export default {
   name: 'PostCommentZone',
   components: {
@@ -54,6 +78,9 @@ export default {
         comment: '',
       },
       signInVisible: false,
+      tabActiveName: 'Write',
+      tabList: ['Write', 'Preview'],
+      previewHtml: '',
     }
   },
   computed: {
@@ -61,8 +88,30 @@ export default {
     btnDisabled() {
       return !this.formValue.comment
     },
+    isWrite() {
+      return this.tabActiveName === 'Write'
+    },
+    isPreview() {
+      return this.tabActiveName === 'Preview'
+    },
+  },
+  watch: {
+    tabActiveName(nv) {
+      if (nv === 'Preview') {
+        this.doPreview()
+      }
+    },
   },
   methods: {
+    doPreview() {
+      this.previewHtml = this.getPreviewHtml()
+    },
+    getPreviewHtml() {
+      return this.getSafeHtml(marked(this.formValue.comment))
+    },
+    getSafeHtml(dirty) {
+      return DOMPurify.sanitize(dirty)
+    },
     async doComment() {
       await this.$store.dispatch('user/comment', {
         id: this.$route.path,
@@ -74,3 +123,21 @@ export default {
   },
 }
 </script>
+<style lang="scss" scoped>
+.tab {
+  @apply py-2 px-4 text-sm border border-transparent;
+
+  border-bottom: 0;
+  &.active {
+    @apply bg-white  border-solid border-gray-300;
+
+    border-radius: 6px 6px 0 0;
+  }
+}
+
+.preview-area {
+  @apply p-2 text-sm;
+
+  min-height: 116px;
+}
+</style>
