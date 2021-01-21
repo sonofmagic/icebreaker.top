@@ -1,5 +1,11 @@
 <template>
-  <el-image :src="innerSrc" :lazy="lazy" v-bind="$attrs" v-on="$listeners">
+  <el-image
+    :src="innerSrc"
+    :lazy="lazy"
+    :preview-src-list="srcList"
+    v-bind="$attrs"
+    v-on="$listeners"
+  >
     <template #placeholder>
       <slot name="placeholder"></slot>
     </template>
@@ -37,11 +43,23 @@ export default {
       type: Boolean,
       default: true,
     },
+    preview: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
       innerSrc: '',
     }
+  },
+  computed: {
+    srcList() {
+      if (this.preview) {
+        return [this.innerSrc]
+      }
+      return null
+    },
   },
   watch,
   methods: {
