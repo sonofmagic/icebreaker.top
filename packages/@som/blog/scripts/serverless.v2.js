@@ -53,7 +53,7 @@ const config = {
     layers: [
       {
         name: layerName,
-        version: 15,
+        version: 16,
       },
     ],
     functionConf: {

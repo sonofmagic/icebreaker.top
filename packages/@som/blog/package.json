@@ -16,6 +16,7 @@
     "rollup:listener": "cross-env NODE_ENV=development rollup -c",
     "start:listener": "cross-env NODE_ENV=development SLS_ENV=dev DEBUG=nuxt:* node --inspect=9229 dist/listener.js",
     "gen": "cross-env SLS_ENV=release NODE_ENV=production node ./scripts/genCfg.js",
+    "build:local": "cross-env SLS_ENV=test nuxt build",
     "build:sls": "cross-env SLS_ENV=release nuxt build",
     "start:sls": "cross-env SLS_ENV=release nuxt start",
     "build:server": "cross-env NODE_ENV=production rollup -c",
