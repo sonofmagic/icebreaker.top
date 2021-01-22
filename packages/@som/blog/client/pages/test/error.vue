@@ -13,6 +13,7 @@ export default {
         path: 'this is path',
         statusCode: 404,
       })
+      // throw new Error('sentry test')
     }
   },
 }

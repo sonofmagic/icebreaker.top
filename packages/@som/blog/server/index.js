@@ -2,12 +2,34 @@ import path from 'path'
 import dotenv from 'dotenv'
 import { loadNuxt, build } from 'nuxt'
 import express from 'express'
+// import * as Sentry from '@sentry/node'
+// import * as Tracing from '@sentry/tracing'
 dotenv.config({
   path: path.resolve(process.cwd(), '.env'),
 })
 const app = express()
 const isDev = process.env.NODE_ENV !== 'production'
 
+// Sentry.init({
+//   dsn: process.env.SENTRY_NUXT_DSN,
+//   integrations: [
+//     // enable HTTP calls tracing
+//     new Sentry.Integrations.Http({ tracing: true }),
+//     // enable Express.js middleware tracing
+//     new Tracing.Integrations.Express({
+//       // to trace all requests to the default router
+//       app,
+//       // alternatively, you can specify the routes you want to trace:
+//       // router: someRouter,
+//     }),
+//   ],
+//   tracesSampleRate: 1.0,
+// })
+// // if (process.env.SENTRY_NUXT_DSN) {
+// //   Sentry.init({ dsn: process.env.SENTRY_NUXT_DSN })
+// // }
+// app.use(Sentry.Handlers.requestHandler())
+// app.use(Sentry.Handlers.tracingHandler())
 // const noReportRoutes = ['/_nuxt', '/static', '/favicon.ico']
 // https://github.com/nuxt/content/issues/136
 async function createServer() {
@@ -38,6 +60,7 @@ async function createServer() {
     build(nuxt)
   }
   app.binaryTypes = ['*/*']
+  // app.use(Sentry.Handlers.errorHandler())
 
   return app
 }

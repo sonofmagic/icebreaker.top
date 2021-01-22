@@ -156,7 +156,12 @@ const config = {
     '@nuxtjs/apollo',
     // '@nuxtjs/svg-sprite',
     '@nuxtjs/sitemap',
+    '@nuxtjs/sentry',
   ],
+  sentry: {
+    dsn: process.env.SENTRY_NUXT_DSN, // Enter your project's DSN here
+    config: {}, // Additional config
+  },
   // monaco: {},
   sitemap,
   content: {
@@ -247,6 +252,7 @@ const config = {
   env: {
     TENCENT_CLOUDBASE_ENVID: process.env.TENCENT_CLOUDBASE_ENVID,
     SLS_ENV: process.env.SLS_ENV,
+    SENTRY_VUE_DSN: process.env.SENTRY_VUE_DSN,
   },
   generate: {
     dir: 'docs',

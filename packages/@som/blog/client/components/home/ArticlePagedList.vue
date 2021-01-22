@@ -29,6 +29,7 @@
 
         <div
           class="w-5/12 hidden flex-auto text-gray-600 cursor-pointer sm:block"
+          @click.stop="$router.push(article.path)"
         >
           {{ article.description }}
         </div>
