@@ -8,11 +8,11 @@ export default {
   asyncData(ctx) {
     if (process.server) {
       // throw new Error('hello world')
-      return ctx.error({
-        message: 'ccav',
-        path: 'this is path',
-        statusCode: 404,
-      })
+      // return ctx.error({
+      //   message: 'ccav',
+      //   path: 'this is path',
+      //   statusCode: 404,
+      // })
       // throw new Error('sentry test')
     }
   },

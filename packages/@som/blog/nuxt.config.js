@@ -252,7 +252,7 @@ const config = {
   env: {
     TENCENT_CLOUDBASE_ENVID: process.env.TENCENT_CLOUDBASE_ENVID,
     SLS_ENV: process.env.SLS_ENV,
-    SENTRY_VUE_DSN: process.env.SENTRY_VUE_DSN,
+    // SENTRY_VUE_DSN: process.env.SENTRY_VUE_DSN,
   },
   generate: {
     dir: 'docs',
