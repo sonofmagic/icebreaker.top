@@ -15,6 +15,9 @@ export default {
       },
     }
   },
+  mounted() {
+    // myUndefinedFunction()
+  },
 }
 </script>
 

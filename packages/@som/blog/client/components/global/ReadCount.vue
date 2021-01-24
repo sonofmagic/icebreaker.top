@@ -1,5 +1,5 @@
 <template>
-  <span v-loading="loading" class="text-xs text-gray-900"
+  <span v-loading="loading" class="text-xs text-gray-900 whitespace-no-wrap"
     >阅读&nbsp;{{ readCount }}</span
   >
 </template>
