@@ -55,12 +55,12 @@
 import { getPageList } from '@/api/article'
 export default {
   name: 'ArticlePagedList',
-  props: {
-    init: {
-      type: [Object],
-      default: () => {},
-    },
-  },
+  // props: {
+  //   init: {
+  //     type: [Object],
+  //     default: () => {},
+  //   },
+  // },
   data() {
     return {
       listLoading: false,
@@ -70,7 +70,6 @@ export default {
         perPage: 10,
       },
       total: 0,
-      // paginationDisabled: false,
     }
   },
   watch: {
@@ -78,10 +77,13 @@ export default {
       this.getList()
     },
   },
-  created() {
-    const { query, total, articles } = this.init
-    Object.assign(this.$data, { query, total, articles })
+  async mounted() {
+    await this.getList()
   },
+  // created() {
+  //   const { query, total, articles } = this.init
+  //   Object.assign(this.$data, { query, total, articles })
+  // },
   methods: {
     async getList() {
       try {
