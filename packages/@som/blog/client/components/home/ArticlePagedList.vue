@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-loading="listLoading" class="border border-gray-300 rounded-md">
+    <div class="border border-gray-300 rounded-md">
       <div class="bg-blue-100 flex justify-between p-4 text-sm">
         <div class="flex text-gray-900 items-center">icebreaker的随笔</div>
         <div class="flex text-gray-900 items-baseline">
@@ -12,31 +12,41 @@
           </div>
         </div>
       </div>
-      <div
-        v-for="article in articles"
-        :key="article.path"
-        class="flex text-sm px-4 py-2"
-      >
-        <nuxt-link class="w-1/6 flex-auto flex items-center" :to="article.path">
-          <div class="mr-3">
-            <FontAwesomeIcon :icon="['far', 'file']" style="color: #6a737d" />
-          </div>
-          <span
-            class="text-gray-800 truncate hover:underline hover:text-blue-600"
-            >{{ article.title }}</span
-          >
-        </nuxt-link>
-
+      <template v-if="listLoading">
+        <div v-for="i in 10" :key="i" class="text-sm px-4 py-2">
+          <div class="bg-gray-200 h-5 animate-pulse"></div>
+        </div>
+      </template>
+      <template v-else>
         <div
-          class="w-5/12 hidden flex-auto text-gray-600 cursor-pointer sm:block"
-          @click.stop="$router.push(article.path)"
+          v-for="article in articles"
+          :key="article.path"
+          class="flex text-sm px-4 py-2"
         >
-          {{ article.description }}
+          <nuxt-link
+            class="w-1/6 flex-auto flex items-center"
+            :to="article.path"
+          >
+            <div class="mr-3">
+              <FontAwesomeIcon :icon="['far', 'file']" style="color: #6a737d" />
+            </div>
+            <span
+              class="text-gray-800 truncate hover:underline hover:text-blue-600"
+              >{{ article.title }}</span
+            >
+          </nuxt-link>
+
+          <div
+            class="w-5/12 hidden flex-auto text-gray-600 cursor-pointer sm:block"
+            @click.stop="$router.push(article.path)"
+          >
+            {{ article.description }}
+          </div>
+          <div style="flex-basis: 100px" class="text-right text-gray-600">
+            {{ article.date | timespanFilter }}
+          </div>
         </div>
-        <div style="flex-basis: 100px" class="text-right text-gray-600">
-          {{ article.date | timespanFilter }}
-        </div>
-      </div>
+      </template>
     </div>
     <div class="flex justify-center">
       <el-pagination
@@ -63,7 +73,7 @@ export default {
   // },
   data() {
     return {
-      listLoading: false,
+      listLoading: true,
       articles: [],
       query: {
         page: 1,
