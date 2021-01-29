@@ -12,12 +12,12 @@
           </div>
         </div>
       </div>
-      <template v-if="listLoading">
+      <div v-show="listLoading">
         <div v-for="i in 10" :key="i" class="text-sm px-4 py-2">
           <div class="bg-gray-200 h-5 animate-pulse"></div>
         </div>
-      </template>
-      <template v-else>
+      </div>
+      <div v-show="!listLoading">
         <div
           v-for="article in articles"
           :key="article.path"
@@ -46,7 +46,7 @@
             {{ article.date | timespanFilter }}
           </div>
         </div>
-      </template>
+      </div>
     </div>
     <div class="flex justify-center">
       <el-pagination
