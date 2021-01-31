@@ -7,9 +7,7 @@
         <!-- <OutSideLink href="https://www.shareplus.cn/"></OutSideLink> -->
         <div>对Vue/Nuxt,小程序,nodejs等有较深入的理解</div>
         <div>
-          热爱的事业：<OutSideLink href="https://www.shareplus.cn/"
-            >Shareplus</OutSideLink
-          >
+          <OutSideLink href="https://www.shareplus.cn/">Shareplus</OutSideLink>
         </div>
       </div>
     </div>

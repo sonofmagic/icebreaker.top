@@ -13,34 +13,48 @@
         </div>
       </div>
       <div v-show="listLoading">
-        <div v-for="i in 10" :key="i" class="text-sm px-4 py-2">
-          <div class="bg-gray-200 h-5 animate-pulse"></div>
+        <div
+          v-for="i in 10"
+          :key="i"
+          class="flex text-sm px-4 py-3 border-t border-solid border-gray-300"
+        >
+          <div class="w-1/6 flex-auto">
+            <div class="w-1/2 bg-gray-200 h-3 animate-pulse"></div>
+          </div>
+          <div class="w-5/12 flex-auto hidden sm:block">
+            <div class="w-1/2 bg-gray-200 h-3 animate-pulse"></div>
+          </div>
+          <div
+            class="bg-gray-200 h-3 animate-pulse"
+            style="flex-basis: 100px"
+          ></div>
         </div>
       </div>
       <div v-show="!listLoading">
         <div
           v-for="article in articles"
           :key="article.path"
-          class="flex text-sm px-4 py-2"
+          class="flex text-sm px-4 py-2 border-t border-solid border-gray-300 hover:bg-gray-100"
         >
-          <nuxt-link
-            class="w-1/6 flex-auto flex items-center"
-            :to="article.path"
-          >
+          <div class="w-1/6 flex-auto flex items-center">
             <div class="mr-3">
               <FontAwesomeIcon :icon="['far', 'file']" style="color: #6a737d" />
             </div>
-            <span
-              class="text-gray-800 truncate hover:underline hover:text-blue-600"
-              >{{ article.title }}</span
-            >
-          </nuxt-link>
+            <nuxt-link :to="article.path">
+              <span
+                class="text-gray-800 truncate hover:underline hover:text-blue-600"
+                >{{ article.title }}</span
+              >
+            </nuxt-link>
+          </div>
 
-          <div
-            class="w-5/12 hidden flex-auto text-gray-600 cursor-pointer sm:block"
-            @click.stop="$router.push(article.path)"
-          >
-            {{ article.description }}
+          <div class="w-5/12 hidden flex-auto text-gray-600 sm:block">
+            <span
+              class="cursor-pointer hover:underline hover:text-blue-600"
+              @click.stop="$router.push(article.path)"
+            >
+              {{ article.description }}</span
+            >
           </div>
           <div style="flex-basis: 100px" class="text-right text-gray-600">
             {{ article.date | timespanFilter }}
@@ -62,6 +76,7 @@
 </template>
 
 <script>
+// #f6f8fa
 import { getPageList } from '@/api/article'
 export default {
   name: 'ArticlePagedList',
@@ -111,4 +126,4 @@ export default {
 }
 </script>
 
-<style></style>
+<style lang="scss" scoped></style>
