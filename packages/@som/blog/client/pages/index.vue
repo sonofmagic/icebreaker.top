@@ -24,6 +24,15 @@ export default {
     MySelf,
     Comments,
   },
+  // mounted() {
+  //   new Promise((resolve, reject) => {
+  //     resolve('icebreaker')
+
+  //     console.log('after icebreaker')
+  //   }).then((res) => {
+  //     console.log('hi i am ' + res)
+  //   })
+  // },
   // in case of memory leak
   // async asyncData({ $content, error }) {
   //   try {

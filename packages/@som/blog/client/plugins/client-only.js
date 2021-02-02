@@ -1,6 +1,7 @@
 import Vue from 'vue'
 
 import svg4everybody from 'svg4everybody'
+import mobile from 'is-mobile'
 // import * as Sentry from '@sentry/vue'
 // import { Integrations } from '@sentry/tracing'
 import BaiduMap from 'vue-baidu-map'
@@ -25,4 +26,7 @@ export default (ctx, inject) => {
   // console.log(ctx)
   // Injec  t $hello(msg) in Vue, context and store.
   // inject('hello', (msg) => console.log(`Hello ${msg}!`))
+  const isMobile = mobile()
+  console.log(`isMobile:${isMobile}`)
+  ctx.store.dispatch('device/setIsMobile', isMobile)
 }

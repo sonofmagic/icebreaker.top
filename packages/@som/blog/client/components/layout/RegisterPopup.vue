@@ -5,12 +5,10 @@
 </template>
 
 <script>
-import SomPopup from '@/components/public/SomPopup'
 import Register from '@/components/public/Register'
 export default {
   name: 'RegisterPopup',
   components: {
-    SomPopup,
     Register,
   },
   props: {

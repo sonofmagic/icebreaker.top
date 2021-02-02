@@ -5,12 +5,10 @@
 </template>
 
 <script>
-import SomPopup from '@/components/public/SomPopup'
 import SignIn from '@/components/public/SignIn/index'
 export default {
   name: 'SignInPopup',
   components: {
-    SomPopup,
     SignIn,
   },
   props: {

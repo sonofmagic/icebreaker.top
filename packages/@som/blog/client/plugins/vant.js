@@ -1,4 +1,4 @@
 import Vue from 'vue'
-import { Popup, Dialog } from 'vant'
+import { Popup, Dialog, Toast } from 'vant'
 
-Vue.use(Popup).use(Dialog)
+Vue.use(Popup).use(Dialog).use(Toast)

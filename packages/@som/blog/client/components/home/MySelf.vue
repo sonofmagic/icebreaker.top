@@ -1,7 +1,14 @@
 <template>
   <div class="px-4 space-y-3">
     <div class="space-y-4">
-      <div class="font-semibold">About icebreaker</div>
+      <div class="font-semibold">
+        About
+        <span
+          class="cursor-pointer hover:text-blue-600 hover:underline"
+          @click.stop="icebreakerQrcodeVisible = true"
+          >icebreaker</span
+        >
+      </div>
       <div class="text-sm text-gray-800">
         <div>某热爱技术的小码农一枚</div>
         <!-- <OutSideLink href="https://www.shareplus.cn/"></OutSideLink> -->
@@ -49,21 +56,52 @@
     </div>
     <!-- <som-player></som-player> -->
     <!-- <a @click="openVideo">video</a> -->
+    <SomPopup v-model="icebreakerQrcodeVisible">
+      <div class="text-center px-4">
+        <div class="text-gray-900 text-opacity-75">
+          打开微信扫一扫以下二维码
+        </div>
+        <SomImage class="w-64 h-64" :src="icebreakerQrcodeUrl"></SomImage>
+        <div class="mb-2 text-gray-900 text-opacity-75">
+          或者手动添加微信号：
+        </div>
+        <div
+          class="flex justify-center items-center rounded border border-solid border-gray-400 py-2 truncate cursor-pointer hover:bg-green-100"
+          @click="copyText('icebreaker1995')"
+        >
+          <span class="text-gray-900"
+            >icebreaker1995<FontAwesomeIcon
+              class="ml-2"
+              size="sm"
+              :icon="['far', 'copy']"
+            ></FontAwesomeIcon
+          ></span>
+        </div>
+      </div>
+    </SomPopup>
   </div>
 </template>
 
 <script>
 import toEmoji from 'gemoji/name-to-emoji.json'
-import SomPlayer from '../global/SomPlayer.vue'
-
+// import SomPlayer from '../global/SomPlayer.vue'
+import { wechat } from '@/assets/img/cloud'
+// import copy from 'copy-text-to-clipboard'
+import { Toast } from 'vant'
+let copy
+if (process.browser) {
+  copy = require('copy-text-to-clipboard').default
+}
 export default {
   name: 'MySelf',
-  components: { SomPlayer },
+  components: {},
   data() {
     return {
       joy: toEmoji.joy,
       rofl: toEmoji.rofl,
       smirk: toEmoji.smirk,
+      icebreakerQrcodeVisible: false,
+      icebreakerQrcodeUrl: wechat.myQrcode2,
       // langs: [
       //   ['fab', 'html5'],
       //   ['fab', 'css3-alt'],
@@ -79,6 +117,10 @@ export default {
     }
   },
   methods: {
+    copyText(text) {
+      copy(text)
+      Toast.success('复制成功!')
+    },
     // openVideo() {},
   },
 }

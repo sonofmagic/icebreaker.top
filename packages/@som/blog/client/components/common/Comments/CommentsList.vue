@@ -40,7 +40,7 @@
             </div>
           </el-tooltip>
         </div>
-        <div class="px-4 leading-10">{{ comment.content }}</div>
+        <div class="px-4 py-2 leading-8">{{ comment.content }}</div>
       </div>
     </div>
 
