@@ -5,7 +5,7 @@
         v-for="route in matchedArr"
         :key="route.name"
         class="text-green-600"
-        :to="route.path"
+        :to="{ name: route.name }"
       >
         {{ route.name }}
       </nuxt-link>
@@ -22,9 +22,10 @@ export default {
     }
   },
   mounted() {
-    this.matchedArr = this.$router.options.routes.filter((x) =>
-      x.path.startsWith(this.$route.path + '/')
-    )
+    const perfRoute = this.$router.options.routes.find((x) => {
+      return x.path === '/perf'
+    })
+    this.matchedArr = perfRoute.children
   },
 }
 </script>
