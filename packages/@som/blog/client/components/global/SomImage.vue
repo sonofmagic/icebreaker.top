@@ -4,6 +4,7 @@
     :lazy="lazy"
     :preview-src-list="srcList"
     v-bind="$attrs"
+    :style="imageStyle"
     v-on="$listeners"
   >
     <template #placeholder>
@@ -47,6 +48,14 @@ export default {
       type: Boolean,
       default: false,
     },
+    height: {
+      type: [String, Number],
+      default: null,
+    },
+    width: {
+      type: [String, Number],
+      default: null,
+    },
   },
   data() {
     return {
@@ -54,11 +63,18 @@ export default {
     }
   },
   computed: {
-    srcList() {
-      if (this.preview) {
-        return [this.innerSrc]
+    srcList({ preview, innerSrc }) {
+      if (preview) {
+        return [innerSrc]
       }
       return null
+    },
+    imageStyle({ width, height }) {
+      const obj = {
+        width,
+        height,
+      }
+      return obj
     },
   },
   watch,
