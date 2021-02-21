@@ -46,14 +46,19 @@ export const mutations = {
 
 export const actions = {
   async getSingleUrl(_, url) {
-    const { fileList } = await this.$cloudbase.getTempFileURL({
-      fileList: [
-        {
-          fileID: url,
-          maxAge: 1000 * 60 * 5,
-        },
-      ],
-    })
+    const { fileList } = await this.$cloudbase.getTempFileURL(
+      {
+        fileList: [
+          {
+            fileID: url,
+            maxAge: 1000 * 60 * 5,
+          },
+        ],
+      }
+      // {
+      //   timeout: 1000 * 60 * 5,
+      // }
+    )
     return fileList[0].tempFileURL
   },
   async getBatchUrl(_, urls) {

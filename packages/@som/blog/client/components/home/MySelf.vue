@@ -4,7 +4,7 @@
       <div class="font-semibold">
         About
         <span
-          class="cursor-pointer hover:text-blue-600 hover:underline"
+          class="cursor-pointer text-blue-600 hover:underline"
           @click.stop="icebreakerQrcodeVisible = true"
           >icebreaker</span
         >
@@ -52,6 +52,12 @@
           :icon="icon"
           class="mr-2 text-blue-400"
         /> -->
+      </div>
+    </div>
+    <div class="space-y-4">
+      <div class="font-semibold">Mini Programs</div>
+      <div>
+        <MiniPrograms></MiniPrograms>
       </div>
     </div>
     <!-- <som-player></som-player> -->
