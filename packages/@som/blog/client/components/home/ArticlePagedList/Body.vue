@@ -9,11 +9,11 @@
         <div class="mr-3">
           <FontAwesomeIcon :icon="['far', 'file']" style="color: #6a737d" />
         </div>
-        <nuxt-link :to="article.path">
-          <span
-            class="text-gray-800 truncate hover:underline hover:text-blue-600"
-            >{{ article.title }}</span
-          >
+        <nuxt-link
+          class="truncate text-gray-800 hover:underline hover:text-blue-600"
+          :to="article.path"
+        >
+          {{ article.title }}
         </nuxt-link>
       </div>
 
