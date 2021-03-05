@@ -1,25 +1,26 @@
 <template>
   <div class="flex flex-col space-y-4">
     <div>
-      <div class="text-sm">给公司写的(一部分)：</div>
-      <div
-        v-for="item in companyQrcode"
-        :key="item.alt"
-        class="text-center w-48 text-sm my-2"
-      >
-        <img class="w-48" :src="item.src" :alt="item.alt" />
-        <div class="mt-2">{{ item.alt }}</div>
-      </div>
-    </div>
-    <hr />
-    <div>
       <div class="text-sm">自己写着玩的：</div>
       <div
         v-for="item in selfQrcode"
         :key="item.alt"
-        class="text-center w-48 text-sm my-2"
+        class="text-center w-40 text-sm my-2"
       >
-        <img class="w-48" :src="item.src" :alt="item.alt" />
+        <img class="w-40" :src="item.src" :alt="item.alt" />
+        <div class="mt-2">{{ item.alt }}</div>
+      </div>
+    </div>
+
+    <hr />
+    <div>
+      <div class="text-sm">给公司写的(一部分)：</div>
+      <div
+        v-for="item in companyQrcode"
+        :key="item.alt"
+        class="text-center w-40 text-sm my-2"
+      >
+        <img class="w-40" :src="item.src" :alt="item.alt" />
         <div class="mt-2">{{ item.alt }}</div>
       </div>
     </div>
