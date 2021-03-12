@@ -3,11 +3,12 @@ const fs = require('fs')
 const path = require('path')
 const os = require('os')
 const COS = require('cos-nodejs-sdk-v5')
-const dayjs = require('dayjs')
+// const dayjs = require('dayjs')
 const klaw = require('klaw')
 // const trimStart = require('lodash/trimStart')
-
+// const { nanoid } = require('nanoid')
 const isWindows = os.type() === 'Windows_NT'
+
 const root = path.resolve(__dirname, '..')
 const {
   TENCENT_SECRET_KEY,
@@ -56,7 +57,7 @@ async function uploadFile(Key, Body, opts) {
     console.log(err)
   }
 }
-const cloudPath = `www/${SLS_ENV}/${dayjs().format('YYYYMMDD')}`
+const cloudPath = require('../publicPath.js') // fs.readFileSync(path.resolve(root,'')) `www/${SLS_ENV}/${nanoid()}`
 
 async function uploadDir(prefix, targetPath) {
   const absTargetPath = path.resolve(root, targetPath)
@@ -77,6 +78,10 @@ async function main() {
     uploadDir(`www/${SLS_ENV}`, 'client/static'),
     uploadDir(cloudPath, '.nuxt/dist/client'),
   ])
+  await fs.writeFileSync(
+    path.resolve(__dirname, '../publicPath.js'),
+    `export default '${cloudPath}'`
+  )
 }
 
 main()

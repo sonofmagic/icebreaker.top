@@ -15,6 +15,7 @@ const include = [
   'content',
   'serverMiddleware',
   'loadServerMiddleware',
+  'publicPath.js',
 ]
 const exclude = rootList.reduce((acc, cur) => {
   if (!include.includes(cur)) {

@@ -2,22 +2,41 @@
 // import theme from '@nuxt/content-theme-docs'
 
 import fs from 'fs'
-import dayjs from 'dayjs'
+// import dayjs from 'dayjs'
 import dotenv from 'dotenv'
 // import MonacoWebpackPlugin from 'monaco-editor-webpack-plugin'
+import { nanoid } from 'nanoid'
 import hooks from './nuxt.config/hooks.js'
 import sitemap from './nuxt.config/sitemap.js'
-
 // const isDev = process.env.NODE_ENV === 'development'
 const isProd = process.env.NODE_ENV === 'production'
 const isRelease = process.env.SLS_ENV === 'release'
 // import serverMiddleware from './serverMiddleware/index.js'
 dotenv.config()
+const slsEnv = process.env.SLS_ENV
+const cdnSite = 'https://cdn.icebreaker.top/'
+
+let publicPathsuffix = `www/${slsEnv}/${nanoid(10)}`
+// 平时打包生成publicPath.js
+if (process.env.SLS_ENTRY_FILE !== 'sls.js') {
+  fs.writeFileSync('./publicPath.js', `module.exports = '${publicPathsuffix}'`)
+} else {
+  // 线上运行时，上传publicPath.js
+  publicPathsuffix = require('./publicPath.js').default
+}
+const prodPublicPath = `${cdnSite}${publicPathsuffix}`
+// const isPublicPathExist = fs.existsSync('./publicPath.js')
+
+// const publicPathFilePath = './publicPath.tmp'
+// if (fs.existsSync(publicPathFilePath)) {
+//   prodPublicPath = `${cdnSite}${fs.readFileSync(publicPathFilePath, {
+//     encoding: 'utf-8',
+//   })}`
+// }
 
 // const isLoadMonaco = false
 // console.log(process.env)
-const slsEnv = process.env.SLS_ENV
-const cdnSite = 'https://cdn.icebreaker.top/'
+
 const script =
   isProd && isRelease
     ? [
@@ -185,8 +204,11 @@ const config = {
   build: {
     publicPath:
       isRelease && isProd
-        ? `${cdnSite}www/${slsEnv}/${dayjs().format('YYYYMMDD')}`
-        : '/_nuxt/',
+        ? prodPublicPath
+        : //  isPublicPathExist
+          //   ? require('./publicPath.js').default
+          //   : prodPublicPath
+          '/_nuxt/',
     quiet: false,
     extractCSS: isProd,
     optimizeCSS: isProd,
