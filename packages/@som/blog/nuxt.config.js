@@ -8,9 +8,9 @@ import dotenv from 'dotenv'
 import { nanoid } from 'nanoid'
 import hooks from './nuxt.config/hooks.js'
 import sitemap from './nuxt.config/sitemap.js'
+import { isProd, isRelease } from './constants.js'
 // const isDev = process.env.NODE_ENV === 'development'
-const isProd = process.env.NODE_ENV === 'production'
-const isRelease = process.env.SLS_ENV === 'release'
+
 // import serverMiddleware from './serverMiddleware/index.js'
 dotenv.config()
 const slsEnv = process.env.SLS_ENV

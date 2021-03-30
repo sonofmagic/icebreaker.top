@@ -109,6 +109,14 @@ export default {
           href: 'https://www.npmjs.com/~icebreaker',
           title: 'Packages',
         },
+        {
+          href: 'https://shahu-1257725330.file.myqcloud.com',
+          title: 'Shahu',
+        },
+        {
+          href: 'https://www.shareplus.cn/',
+          title: 'Shareplus',
+        },
         // {
         //   href: 'https://github.com/marketplace',
         //   title: 'Marketplace',

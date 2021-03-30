@@ -1,11 +1,20 @@
 // https://github.com/lerna/lerna/blob/main/commands/run/index.js
 // lerna run 时，只会把 result.stdout 给 output
 
+// const path = require('path')
+
+// const jsonfile = require('jsonfile')
+
 function log(...args) {
   process.stdout.write(args.join(' ') + '\n')
   // console.log(...args)
 }
+// let count = 0
 module.exports = {
+  // 'content:file:beforeParse': (file) => {
+  //   console.log(++count)
+  //   jsonfile.writeFileSync('/articles.json', file, { spaces: 2, flag: 'a' })
+  // },
   build: {
     before(nuxt, buildOptions) {
       log('build before')
