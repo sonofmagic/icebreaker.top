@@ -172,7 +172,7 @@ const config = {
     // ...require('../serverMiddleware'),
     '../loadServerMiddleware',
     '@nuxt/content',
-    '@nuxtjs/apollo',
+    //'@nuxtjs/apollo',
     // '@nuxtjs/svg-sprite',
     '@nuxtjs/sitemap',
     '@nuxtjs/sentry',
@@ -191,13 +191,13 @@ const config = {
       },
     },
   },
-  apollo: {
-    clientConfigs: {
-      default: {
-        httpEndpoint: 'http://localhost:3000/graphql/gql',
-      },
-    },
-  },
+  // apollo: {
+  //   clientConfigs: {
+  //     default: {
+  //       httpEndpoint: 'http://localhost:3000/graphql/gql',
+  //     },
+  //   },
+  // },
 
   // serverMiddleware: process.static ? [] : serverMiddleware,
   // Build Configuration (https://go.nuxtjs.dev/config-build)

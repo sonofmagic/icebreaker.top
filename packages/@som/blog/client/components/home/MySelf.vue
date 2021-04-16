@@ -6,8 +6,7 @@
         <span
           class="cursor-pointer text-blue-600 hover:underline"
           @click.stop="icebreakerQrcodeVisible = true"
-          >icebreaker</span
-        >
+        >icebreaker</span>
       </div>
       <div class="text-sm text-gray-800">
         <div>某热爱技术的小码农一枚</div>
@@ -67,7 +66,10 @@
         <div class="text-gray-900 text-opacity-75">
           打开微信扫一扫以下二维码
         </div>
-        <SomImage class="w-64 h-64" :src="icebreakerQrcodeUrl"></SomImage>
+        <SomImage
+          class="w-64 h-64"
+          :src="icebreakerQrcodeUrl"
+        ></SomImage>
         <div class="mb-2 text-gray-900 text-opacity-75">
           或者手动添加微信号：
         </div>
@@ -75,13 +77,11 @@
           class="flex justify-center items-center rounded border border-solid border-gray-400 py-2 truncate cursor-pointer hover:bg-green-100"
           @click="copyText('icebreaker1995')"
         >
-          <span class="text-gray-900"
-            >icebreaker1995<FontAwesomeIcon
+          <span class="text-gray-900">icebreaker1995<FontAwesomeIcon
               class="ml-2"
               size="sm"
               :icon="['far', 'copy']"
-            ></FontAwesomeIcon
-          ></span>
+            ></FontAwesomeIcon></span>
         </div>
       </div>
     </SomPopup>
@@ -89,7 +89,8 @@
 </template>
 
 <script>
-import toEmoji from 'gemoji/name-to-emoji.json'
+//const { nameToEmoji } = require('gemoji')
+//import { nameToEmoji } from 'gemoji'
 // import SomPlayer from '../global/SomPlayer.vue'
 import { wechat } from '@/assets/img/cloud'
 // import copy from 'copy-text-to-clipboard'
@@ -103,9 +104,9 @@ export default {
   components: {},
   data() {
     return {
-      joy: toEmoji.joy,
-      rofl: toEmoji.rofl,
-      smirk: toEmoji.smirk,
+      joy: '😂', // nameToEmoji.joy,
+      rofl: '🤣', // nameToEmoji.rofl,
+      smirk: '😏', //nameToEmoji.smirk,
       icebreakerQrcodeVisible: false,
       icebreakerQrcodeUrl: wechat.myQrcode2,
       // langs: [

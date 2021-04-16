@@ -1,8 +1,14 @@
 <template>
   <header class="site-header flex items-center px-4 text-white">
     <div class="flex items-center mr-4">
-      <router-link class="flex-shrink-0" to="/">
-        <img class="rounded-full h-8 w-8" :src="logoUri" />
+      <router-link
+        class="flex-shrink-0"
+        to="/"
+      >
+        <img
+          class="rounded-full h-8 w-8"
+          :src="logoUri"
+        />
       </router-link>
     </div>
     <div class="header-middle-area text-left hidden sm:flex flex-grow">
@@ -23,8 +29,7 @@
           :key="inlink.key"
           class="link"
           :to="inlink.to"
-          >{{ inlink.title }}</nuxt-link
-        >
+        >{{ inlink.title }}</nuxt-link>
       </nav>
     </div>
     <client-only>
@@ -41,15 +46,19 @@
                 class="rounded-full h-6 w-6 mr-2"
                 :src="user.realAvatarUrl || defaultAvatar"
               ></el-image>
-              <span v-if="user" class="text-white mr-2">{{
+              <span
+                v-if="user"
+                class="text-white mr-2"
+              >{{
                 user.nickName
               }}</span>
               <i class="dropdown-caret"></i>
             </div>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item style="width: 144px" @click.native="go2Profile"
-                >个人中心</el-dropdown-item
-              >
+              <el-dropdown-item
+                style="width: 144px"
+                @click.native="go2Profile"
+              >个人中心</el-dropdown-item>
               <el-dropdown-item @click.native="logout">退出</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
@@ -64,7 +73,7 @@
           </button>
           <button
             key="registerpopover"
-            class="btn border"
+            class="btn round-border"
             @click="RegisterVisible = !RegisterVisible"
           >
             Sign up
@@ -161,7 +170,8 @@ export default {
   .header-middle-area {
     .nav {
       .link {
-        @apply mr-4 cursor-pointer font-semibold whitespace-no-wrap text-sm;
+        //https://tailwindcss.com/docs/upgrading-to-v2#update-renamed-utility-classes
+        @apply mr-4 cursor-pointer font-semibold  text-sm whitespace-nowrap;
         &:hover,
         &:focus {
           color: hsla(0, 0%, 100%, 0.7);
@@ -192,12 +202,12 @@ export default {
     }
 
     .btn {
-      @apply text-base text-white cursor-pointer leading-6 transition-opacity duration-300 whitespace-no-wrap outline-none px-2 py-1;
+      @apply text-base text-white cursor-pointer leading-6 transition-opacity duration-300 whitespace-nowrap outline-none px-2 py-1;
 
       &:hover {
         @apply opacity-75;
       }
-      &.border {
+      &.round-border {
         @apply border border-solid border-gray-200 rounded-md;
       }
     }
