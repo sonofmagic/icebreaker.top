@@ -1,6 +1,6 @@
 <template>
   <ClientOnly>
-    <div class="border border-gray-300 rounded">
+    <div class="border border-gray-300 rounded overflow-auto">
       <div class="toolbar bg-gray-100 h-12 pl-2 flex items-end">
         <button
           v-for="tab in tabList"

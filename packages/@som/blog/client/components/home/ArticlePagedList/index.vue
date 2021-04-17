@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="border border-gray-300 rounded-md">
+    <div class="border border-gray-300 overflow-auto rounded-md">
       <TableHeader :total="total" />
       <BodySkeleton v-show="listLoading" />
       <TableBody v-show="!listLoading" :articles="articles" />

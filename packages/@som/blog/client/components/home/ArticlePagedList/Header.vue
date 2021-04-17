@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-blue-100 flex justify-between px-4 py-3 text-sm">
+  <div class="bg-blue-50 flex justify-between px-4 py-3 text-sm">
     <div class="flex text-gray-900 items-center">icebreaker的随笔</div>
     <div class="flex text-gray-900 items-baseline">
       <div class="text-xs mr-2"></div>

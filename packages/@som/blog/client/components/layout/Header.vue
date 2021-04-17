@@ -208,7 +208,7 @@ export default {
         @apply opacity-75;
       }
       &.round-border {
-        @apply border border-solid border-gray-200 rounded-md;
+        @apply border border-solid border-gray-200 rounded-md overflow-auto;
       }
     }
   }

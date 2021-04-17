@@ -4,7 +4,7 @@
       <div
         v-for="comment in comments"
         :key="comment.ts"
-        class="border border-gray-300 rounded mb-4"
+        class="border border-gray-300 rounded mb-4 overflow-auto"
       >
         <div
           class="flex items-center justify-between toolbar bg-gray-100 h-8 px-4 text-sm"

@@ -3,7 +3,7 @@
     <div
       v-for="article in articles"
       :key="article.path"
-      class="flex text-sm px-4 py-2 border-t border-solid border-gray-300 hover:bg-gray-100"
+      class="flex text-sm px-4 py-2 border-t border-solid border-gray-300 hover:bg-gray-50"
     >
       <div class="w-1/6 flex-auto flex items-center">
         <div class="mr-3">
