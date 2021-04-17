@@ -2,16 +2,12 @@
 // import theme from '@nuxt/content-theme-docs'
 
 import fs from 'fs'
-// import dayjs from 'dayjs'
 import dotenv from 'dotenv'
-// import MonacoWebpackPlugin from 'monaco-editor-webpack-plugin'
 import { nanoid } from 'nanoid'
 import hooks from './nuxt.config/hooks.js'
 import sitemap from './nuxt.config/sitemap.js'
 import { isProd, isRelease } from './constants.js'
-// const isDev = process.env.NODE_ENV === 'development'
 
-// import serverMiddleware from './serverMiddleware/index.js'
 dotenv.config()
 const slsEnv = process.env.SLS_ENV
 const cdnSite = 'https://cdn.icebreaker.top/'
@@ -25,17 +21,6 @@ if (process.env.SLS_ENTRY_FILE !== 'sls.js') {
   publicPathsuffix = require('./publicPath.js').default
 }
 const prodPublicPath = `${cdnSite}${publicPathsuffix}`
-// const isPublicPathExist = fs.existsSync('./publicPath.js')
-
-// const publicPathFilePath = './publicPath.tmp'
-// if (fs.existsSync(publicPathFilePath)) {
-//   prodPublicPath = `${cdnSite}${fs.readFileSync(publicPathFilePath, {
-//     encoding: 'utf-8',
-//   })}`
-// }
-
-// const isLoadMonaco = false
-// console.log(process.env)
 
 const script =
   isProd && isRelease
@@ -175,12 +160,12 @@ const config = {
     //'@nuxtjs/apollo',
     // '@nuxtjs/svg-sprite',
     '@nuxtjs/sitemap',
-    '@nuxtjs/sentry',
+    //'@nuxtjs/sentry',
   ],
-  sentry: {
-    dsn: process.env.SENTRY_NUXT_DSN, // Enter your project's DSN here
-    config: {}, // Additional config
-  },
+  // sentry: {
+  //   dsn: process.env.SENTRY_NUXT_DSN, // Enter your project's DSN here
+  //   config: {}, // Additional config
+  // },
   // monaco: {},
   sitemap,
   content: {

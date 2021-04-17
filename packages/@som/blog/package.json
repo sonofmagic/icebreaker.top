@@ -42,7 +42,6 @@
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "@fortawesome/vue-fontawesome": "^2.0.2",
     "@nuxt/content": "^1.14.0",
-    "@nuxtjs/sentry": "^5.0.2",
     "@nuxtjs/sitemap": "^2.4.0",
     "@nuxtjs/tailwindcss": "^4.0.3",
     "@tailwindcss/typography": "^0.4.0",
