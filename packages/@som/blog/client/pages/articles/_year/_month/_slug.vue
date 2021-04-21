@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto">
+  <div class="container mx-auto" style="max-width:1280px">
     <div class="py-6 flex flex-col lg:flex-row">
       <div
         ref="leftMenu"
