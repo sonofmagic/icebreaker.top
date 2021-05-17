@@ -6,3 +6,4 @@ content
 .vscode
 *.tmp
 publicPath.js
+docs

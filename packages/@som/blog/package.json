@@ -25,6 +25,7 @@
     "deploy:layer": "node ./scripts/deployLayer.js",
     "deploy:cdn": "cross-env SLS_ENV=release node ./scripts/cdn.js",
     "deploy:static": "cross-env SLS_ENV=release node ./scripts/cloudbase.js",
+    "deploy:ssg": "npm run gen && npm run build:sls && npm run generate && components deploy",
     "check:upgrade": "yarn upgradeInteractive --latest",
     "sls:info": "components info"
   },

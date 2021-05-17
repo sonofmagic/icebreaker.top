@@ -265,7 +265,7 @@ const config = {
     dir: 'docs',
     exclude: [/^\/gql/],
   },
-  target: process.env.target || 'server',
+  target: process.env.target || 'static',
   globalName: 'icebreaker',
   hooks,
   srcDir: 'client/',
