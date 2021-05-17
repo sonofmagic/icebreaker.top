@@ -1,5 +1,8 @@
 <template>
-  <el-popover placement="right" trigger="hover" @show="loadInfo">
+  <el-popover
+    placement="right"
+    trigger="hover"
+  >
     <template v-if="isRealLogined">
       <div v-loading="loading">
         <div class="flex items-center space-x-2 mb-2">
@@ -30,10 +33,8 @@
               :icon="['fas', 'map-marker-alt']"
             />
           </span>
-          <span
-            >{{ userInfo.country }}{{ userInfo.province
-            }}{{ userInfo.city }}</span
-          >
+          <span>{{ userInfo.country }}{{ userInfo.province
+            }}{{ userInfo.city }}</span>
         </div>
         <div class="mb-2">
           <span class="inline-block w-4">
@@ -103,8 +104,8 @@ export default {
         if (this.isRealLogined) {
           const uid = this.value
           this.loading = true
-          const userInfo = await this.$store.dispatch('cache/user/getInfo', uid)
-          this.userInfo = userInfo
+          // const userInfo = await this.$store.dispatch('cache/user/getInfo', uid)
+          // this.userInfo = userInfo
         }
       } catch (err) {
         console.debug(err)
