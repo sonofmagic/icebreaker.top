@@ -48,12 +48,12 @@
           </div>
         </div>
         <!-- 不让爬虫爬了，降低风险 -->
-        <ClientOnly>
-          <nuxt-content
-            class="antialiased prose prose-sm sm:prose"
-            :document="article"
-          />
-        </ClientOnly>
+        <!-- <ClientOnly> -->
+        <nuxt-content
+          class="antialiased prose prose-sm sm:prose"
+          :document="article"
+        />
+        <!-- </ClientOnly> -->
         <!-- END -->
       </div>
       <div class="flex-grow bg-white shadow p-4">

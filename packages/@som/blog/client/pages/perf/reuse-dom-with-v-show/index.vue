@@ -1,5 +1,5 @@
 <template>
-  <PerfRouteWrap category="functional" />
+  <PerfRouteWrap category="reuse-dom-with-v-show" />
 </template>
 
 <script>
@@ -13,5 +13,3 @@ export default {
   },
 }
 </script>
-
-<style></style>
