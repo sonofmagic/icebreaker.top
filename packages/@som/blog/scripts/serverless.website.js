@@ -49,7 +49,10 @@ const config = {
     // }
     hosts: ['icebreaker.top', 'www.icebreaker.top'].reduce((acc, cur) => {
       acc.push({
+        host: cur,
         async: true,
+        onlyRefresh: true,
+        autoRefresh: true,
         refreshCdn: {
           urls: ['http://', 'https://'].reduce((p, c) => {
             p.push(c + cur)
