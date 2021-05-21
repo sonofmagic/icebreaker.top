@@ -3,25 +3,25 @@
 
 import fs from 'fs'
 import dotenv from 'dotenv'
-import { nanoid } from 'nanoid'
 import hooks from './nuxt.config/hooks.js'
 import sitemap from './nuxt.config/sitemap.js'
 import { isProd, isRelease } from './constants.js'
 
 dotenv.config()
-const slsEnv = process.env.SLS_ENV
-const cdnSite = 'https://cdn.icebreaker.top/'
+// const slsEnv = process.env.SLS_ENV
+// const cdnSite = 'https://cdn.icebreaker.top/'
+// console.log('process.static', process.static)
+// let publicPathsuffix = `www/${slsEnv}/${nanoid(10)}`
+// // 平时打包生成publicPath.js
+// if (process.env.SLS_ENTRY_FILE !== 'sls.js') {
+//   fs.writeFileSync('./publicPath.js', `module.exports = '${publicPathsuffix}'`)
+// } else {
+//   // 线上运行时，上传publicPath.js
+//   publicPathsuffix = require('./publicPath.js').default
+// }
+// const prodPublicPath = `${cdnSite}${publicPathsuffix}`
 
-let publicPathsuffix = `www/${slsEnv}/${nanoid(10)}`
-// 平时打包生成publicPath.js
-if (process.env.SLS_ENTRY_FILE !== 'sls.js') {
-  fs.writeFileSync('./publicPath.js', `module.exports = '${publicPathsuffix}'`)
-} else {
-  // 线上运行时，上传publicPath.js
-  publicPathsuffix = require('./publicPath.js').default
-}
-const prodPublicPath = `${cdnSite}${publicPathsuffix}`
-
+// console.log('isProd && isRelease', isProd && isRelease)
 const script =
   isProd && isRelease
     ? [
@@ -71,8 +71,9 @@ const config = {
       {
         rel: 'icon',
         type: 'image/x-icon',
-        href: `${isRelease ? cdnSite + 'www/release' : ''}/favicon.ico`,
+        href: `/favicon.ico`,
       },
+      // ${isRelease ? cdnSite + 'www/release' : ''}
     ],
     script,
     __dangerouslyDisableSanitizersByTagID: {
@@ -157,10 +158,10 @@ const config = {
     // ...require('../serverMiddleware'),
     '../loadServerMiddleware',
     '@nuxt/content',
-    //'@nuxtjs/apollo',
+    // '@nuxtjs/apollo',
     // '@nuxtjs/svg-sprite',
     '@nuxtjs/sitemap',
-    //'@nuxtjs/sentry',
+    // '@nuxtjs/sentry',
   ],
   // sentry: {
   //   dsn: process.env.SENTRY_NUXT_DSN, // Enter your project's DSN here
@@ -189,7 +190,7 @@ const config = {
   build: {
     publicPath:
       isRelease && isProd
-        ? prodPublicPath
+        ? '/_ice/' /// prodPublicPath
         : //  isPublicPathExist
           //   ? require('./publicPath.js').default
           //   : prodPublicPath
@@ -263,7 +264,7 @@ const config = {
   },
   generate: {
     dir: 'docs',
-    exclude: [/^\/gql/],
+    exclude: [/^\/gql/, /^\/perf/],
   },
   target: process.env.target || 'static',
   globalName: 'icebreaker',

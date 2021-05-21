@@ -9,7 +9,7 @@
     "dev:sls": "components dev",
     "sync": "node ./scripts/syncArticles.js",
     "analyze": "cross-env SLS_ENV=release nuxt build --analyze",
-    "generate": "cross-env target=static nuxt generate",
+    "generate": "cross-env SLS_ENV=release NODE_ENV=production nuxt generate",
     "lint:js": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "lint:style": "stylelint **/*.{vue,css} --ignore-path .gitignore",
     "lint": "yarn lint:js && yarn lint:style",
@@ -25,7 +25,7 @@
     "deploy:layer": "node ./scripts/deployLayer.js",
     "deploy:cdn": "cross-env SLS_ENV=release node ./scripts/cdn.js",
     "deploy:static": "cross-env SLS_ENV=release node ./scripts/cloudbase.js",
-    "deploy:ssg": "npm run gen && npm run build:sls && npm run generate && components deploy",
+    "deploy:ssg": "npm run gen && npm run generate && components deploy",
     "check:upgrade": "yarn upgradeInteractive --latest",
     "sls:info": "components info"
   },

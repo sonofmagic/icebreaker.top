@@ -1,7 +1,14 @@
 <template>
   <section class="container mx-auto py-2">
     <div
-      class="flex flex-col sm:flex-row justify-between items-center px-4 text-gray-600 text-xs"
+      class="
+        flex flex-col
+        sm:flex-row
+        justify-between
+        items-center
+        px-4
+        text-gray-600 text-xs
+      "
     >
       <div>
         <span class="mr-4">© {{ fullYear }} icebreaker</span>
@@ -9,6 +16,7 @@
           >苏ICP备19002675号-2</a
         >
       </div>
+      <div>version:{{ version }}</div>
       <div>
         <OutSideLink
           class="text-base hover:text-gray-700 mr-5"
@@ -31,10 +39,12 @@
 </template>
 
 <script>
+import { version } from '~~/package.json'
 export default {
   name: 'AppFooter',
   data: () => ({
     fullYear: new Date().getFullYear(),
+    version,
   }),
 }
 </script>
