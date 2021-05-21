@@ -47,18 +47,18 @@ const config = {
     //   }
     //   cdnResult.push(result)
     // }
-    hosts: [
-      {
-        host: 'icebreaker.top',
+    hosts: ['icebreaker.top', 'www.icebreaker.top'].reduce((acc, cur) => {
+      acc.push({
         async: true,
-        autoRefresh: true,
-      },
-      {
-        host: 'www.icebreaker.top',
-        async: true,
-        autoRefresh: true,
-      },
-    ],
+        refreshCdn: {
+          urls: ['http://', 'https://'].reduce((p, c) => {
+            p.push(c + cur)
+            return p
+          }, []),
+        },
+      })
+      return acc
+    }, []),
   },
 }
 
