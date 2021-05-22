@@ -22,6 +22,24 @@ dotenv.config()
 // const prodPublicPath = `${cdnSite}${publicPathsuffix}`
 
 // console.log('isProd && isRelease', isProd && isRelease)
+
+const {
+  TENCENT_CLOUDBASE_ENVID,
+  SLS_ENV,
+  BASE_URL = '/',
+  // API_GW_APIAPPKEY,
+  // API_GW_APIAPPSECRET,
+} = process.env
+
+const env = {
+  TENCENT_CLOUDBASE_ENVID,
+  SLS_ENV,
+  BASE_URL,
+  // API_GW_APIAPPKEY,
+  // API_GW_APIAPPSECRET,
+  // SENTRY_VUE_DSN: process.env.SENTRY_VUE_DSN,
+}
+
 const script =
   isProd && isRelease
     ? [
@@ -265,14 +283,10 @@ const config = {
       ],
     },
   },
-  env: {
-    TENCENT_CLOUDBASE_ENVID: process.env.TENCENT_CLOUDBASE_ENVID,
-    SLS_ENV: process.env.SLS_ENV,
-    // SENTRY_VUE_DSN: process.env.SENTRY_VUE_DSN,
-  },
+  env,
   generate: {
     dir: 'docs',
-    exclude: [/^\/gql/, /^\/perf/],
+    exclude: [/^\/gql/, /^\/perf/, /^\/test/],
   },
   target: process.env.target || 'static',
   globalName: 'icebreaker',

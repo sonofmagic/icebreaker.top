@@ -1,5 +1,5 @@
 // https://github.com/serverless-components/tencent-scf/blob/master/docs/configure.md
-const { API_GW_SECRETNAME, API_GW_SECRETIDS } = process.env
+
 module.exports = {
   name: 'icebreaker-backend',
   app: 'restful-api',

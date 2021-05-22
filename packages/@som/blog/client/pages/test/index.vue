@@ -3,13 +3,15 @@
     <div
       ref="editor"
       style="width: 800px; height: 600px; border: 1px solid #ccc"
-    ></div>
+    >
+      {{ user }}
+    </div>
   </section>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-
+// import { authTest } from '@/api/test'
 /**
  * @type {import('monaco-editor')}
  */
@@ -28,6 +30,7 @@ export default {
   },
 
   mounted() {
+    // authTest()
     // this.editor = monaco.editor.create(this.$refs.editor, {
     //   value: '',
     //   language: 'json',
