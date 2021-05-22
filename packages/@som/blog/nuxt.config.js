@@ -153,6 +153,13 @@ const config = {
     exposeConfig: false,
     // config: {},
   },
+  pwa: {
+    manifest: {
+      name: 'icebreaker.top',
+      short_name: 'icebreaker',
+      description: 'icebreaker分享技术的博客站',
+    },
+  },
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
     // '../loadServerMiddleware/dist',
