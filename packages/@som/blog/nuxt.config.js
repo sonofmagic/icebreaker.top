@@ -66,7 +66,7 @@ const config = {
   modern: isProd,
   telemetry: false,
   head: {
-    title: 'icebreaker_某某前端工程师',
+    title: 'icebreaker_某某打字员_擅长批量生产邮件_文档和代码',
     meta: [
       {
         charset: 'utf-8',
