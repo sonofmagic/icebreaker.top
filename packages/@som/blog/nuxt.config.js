@@ -63,6 +63,7 @@ const script =
  */
 const config = {
   // Global page headers (https://go.nuxtjs.dev/config-head)
+
   modern: isProd,
   telemetry: false,
   head: {
@@ -221,12 +222,16 @@ const config = {
           //   ? require('./publicPath.js').default
           //   : prodPublicPath
           '/_nuxt/',
-    quiet: false,
+    quiet: true,
     extractCSS: isProd,
     optimizeCSS: isProd,
     transpile: [/^element-ui/, /vant.*?less/],
     loaders: {
       scss: {
+        // https://github.com/sass/dart-sass/issues/1319
+        // 1.32.12 不会出现 DEPRECATION WARNING
+        // https://github.com/sass/dart-sass/issues/1324
+        // --quiet
         additionalData: '@import "@/uni.scss";',
       },
       less: {
