@@ -14,9 +14,9 @@
         <!-- <OutSideLink href="https://www.shareplus.cn/"></OutSideLink> -->
         <div>对Vue/Nuxt,小程序,nodejs等有较深入的理解</div>
         <div>擅长扯淡,吹牛,撕x</div>
-        <div>
+        <!-- <div>
           <OutSideLink href="https://www.shareplus.cn/">Shareplus</OutSideLink>
-        </div>
+        </div> -->
       </div>
     </div>
     <div class="space-y-4">

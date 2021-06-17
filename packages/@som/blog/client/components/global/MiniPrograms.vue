@@ -12,7 +12,7 @@
       </div>
     </div>
 
-    <hr />
+    <!-- <hr />
     <div>
       <div class="text-sm">给公司写的(一部分)：</div>
       <div
@@ -23,7 +23,7 @@
         <img class="w-40" :src="item.src" :alt="item.alt" />
         <div class="mt-2">{{ item.alt }}</div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 

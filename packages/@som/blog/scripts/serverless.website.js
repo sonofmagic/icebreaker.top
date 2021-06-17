@@ -11,7 +11,7 @@ const config = {
     },
     region: 'ap-shanghai',
     bucket: 'icebreaker-top-ssg-bucket',
-    replace: true,
+    replace: false,
     // https://github.com/serverless-tencent/tencent-component-toolkit/blob/master/src/modules/cos/index.ts
     // const envPath = inputs.code?.envPath || inputs.code?.root;
     // if (inputs.env && Object.keys(inputs.env).length && envPath) {

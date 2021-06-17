@@ -1,14 +1,8 @@
 <template>
   <header class="site-header flex items-center px-4 text-white">
     <div class="flex items-center mr-4">
-      <router-link
-        class="flex-shrink-0"
-        to="/"
-      >
-        <img
-          class="rounded-full h-8 w-8"
-          :src="logoUri"
-        />
+      <router-link class="flex-shrink-0" to="/">
+        <img class="rounded-full h-8 w-8" :src="logoUri" />
       </router-link>
     </div>
     <div class="header-middle-area text-left hidden sm:flex flex-grow">
@@ -29,7 +23,8 @@
           :key="inlink.key"
           class="link"
           :to="inlink.to"
-        >{{ inlink.title }}</nuxt-link>
+          >{{ inlink.title }}</nuxt-link
+        >
       </nav>
     </div>
     <client-only>
@@ -46,19 +41,15 @@
                 class="rounded-full h-6 w-6 mr-2"
                 :src="user.realAvatarUrl || defaultAvatar"
               ></el-image>
-              <span
-                v-if="user"
-                class="text-white mr-2"
-              >{{
+              <span v-if="user" class="text-white mr-2">{{
                 user.nickName
               }}</span>
               <i class="dropdown-caret"></i>
             </div>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item
-                style="width: 144px"
-                @click.native="go2Profile"
-              >个人中心</el-dropdown-item>
+              <el-dropdown-item style="width: 144px" @click.native="go2Profile"
+                >个人中心</el-dropdown-item
+              >
               <el-dropdown-item @click.native="logout">退出</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
@@ -122,10 +113,10 @@ export default {
           href: 'https://shahu-1257725330.file.myqcloud.com',
           title: 'Shahu',
         },
-        {
-          href: 'https://www.shareplus.cn/',
-          title: 'Shareplus',
-        },
+        // {
+        //   href: 'https://www.shareplus.cn/',
+        //   title: 'Shareplus',
+        // },
         // {
         //   href: 'https://github.com/marketplace',
         //   title: 'Marketplace',
