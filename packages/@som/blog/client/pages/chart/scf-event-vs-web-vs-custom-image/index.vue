@@ -32,7 +32,7 @@ import copyTextMixin from '@/mixins/copyTextMixin'
 
 import VChart, { THEME_KEY } from 'vue-echarts'
 
-import { legendData } from './dataSource'
+// import { legendData } from '@/dataSource/chart/scf-event-vs-web-vs-custom-image'
 
 export default {
   components: {

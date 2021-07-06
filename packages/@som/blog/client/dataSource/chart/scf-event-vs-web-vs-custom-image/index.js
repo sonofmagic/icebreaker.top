@@ -8,4 +8,3 @@ export const legendData = [
   'web-custom-image-node14',
   'web-custom-image-node16',
 ]
-
