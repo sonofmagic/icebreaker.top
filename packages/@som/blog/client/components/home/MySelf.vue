@@ -104,15 +104,11 @@
 // import { nameToEmoji } from 'gemoji'
 // import SomPlayer from '../global/SomPlayer.vue'
 import { wechat } from '@/assets/img/cloud'
-// import copy from 'copy-text-to-clipboard'
-import { Toast } from 'vant'
-let copy
-if (process.browser) {
-  copy = require('copy-text-to-clipboard').default
-}
+import copyTextMixin from '@/mixins/copyTextMixin'
 export default {
   name: 'MySelf',
   components: {},
+  mixins: [copyTextMixin],
   data() {
     return {
       joy: '😂', // nameToEmoji.joy,
@@ -133,13 +129,6 @@ export default {
       //   ['fab', 'git-square'],
       // ],
     }
-  },
-  methods: {
-    copyText(text) {
-      copy(text)
-      Toast.success('复制成功!')
-    },
-    // openVideo() {},
   },
 }
 </script>

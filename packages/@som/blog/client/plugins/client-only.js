@@ -2,15 +2,18 @@ import Vue from 'vue'
 
 import svg4everybody from 'svg4everybody'
 import mobile from 'is-mobile'
+import './echarts'
 // import * as Sentry from '@sentry/vue'
 // import { Integrations } from '@sentry/tracing'
 import BaiduMap from 'vue-baidu-map'
 svg4everybody()
+
 Vue.use(BaiduMap, {
   /* Visit http://lbsyun.baidu.com/apiconsole/key for details about app key. */
   /* 有 refer 限制，可以自行注册 */
   ak: 'sqI1kLIdG3RYscExAHvGP8LXTPW43vRI',
 })
+
 // if (process.env.SENTRY_VUE_DSN) {
 //   Sentry.init({
 //     Vue,

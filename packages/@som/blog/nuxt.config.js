@@ -225,7 +225,7 @@ const config = {
     quiet: true,
     extractCSS: isProd,
     optimizeCSS: isProd,
-    transpile: [/^element-ui/, /vant.*?less/],
+    transpile: [/^element-ui/, /vant.*?less/, /echarts/, /zrender/],
     loaders: {
       scss: {
         // https://github.com/sass/dart-sass/issues/1319

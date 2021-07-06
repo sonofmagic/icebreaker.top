@@ -132,6 +132,11 @@ export default {
           to: '/utils',
           title: 'Utils',
         },
+        {
+          key: 200,
+          to: '/chart',
+          title: 'Charts',
+        },
       ],
       defaultAvatar,
     }

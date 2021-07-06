@@ -1,4 +1,20 @@
 import Vue from 'vue'
-import { Popup, Dialog, Toast } from 'vant'
+import {
+  Popup,
+  Dialog,
+  Toast,
+  Cell,
+  CellGroup,
+  Tag,
+  NoticeBar,
+  Icon,
+} from 'vant'
 
-Vue.use(Popup).use(Dialog).use(Toast)
+Vue.use(Popup)
+  .use(Dialog)
+  .use(Toast)
+  .use(Cell)
+  .use(CellGroup)
+  .use(Tag)
+  .use(NoticeBar)
+  .use(Icon)

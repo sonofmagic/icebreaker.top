@@ -1,6 +1,6 @@
 {
   "name": "@som/blog",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "license": "MIT",
   "scripts": {
     "dev": "npm run rollup:listener && npm run start:listener",
@@ -60,6 +60,7 @@
     "dompurify": "^2.2.9",
     "dotenv": "^10.0.0",
     "dplayer": "^1.26.0",
+    "echarts": "^5.1.2",
     "element-ui": "^2.15.3",
     "etag": "^1.8.1",
     "express": "^4.17.1",
@@ -81,7 +82,8 @@
     "uuid": "^8.3.2",
     "vant": "^2.12.22",
     "vue-aplayer": "^1.6.1",
-    "vue-baidu-map": "^0.21.22"
+    "vue-baidu-map": "^0.21.22",
+    "vue-echarts": "^6.0.0-rc.6"
   },
   "devDependencies": {
     "@apimediaru/postcss-px-to-viewport": "^1.2.4",
@@ -98,6 +100,8 @@
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^13.0.0",
     "@rollup/plugin-replace": "^2.4.2",
+    "@serverless/components": "^3.13.2",
+    "@vue/composition-api": "^1.0.0-rc.13",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.2",
     "babel-plugin-component": "^1.1.1",
