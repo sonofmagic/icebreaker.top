@@ -48,6 +48,9 @@ const defaultsOption = {
     top: 20,
     left: 20,
   },
+  legend: {
+    type: 'scroll',
+  },
   tooltip: {
     trigger: 'item',
   },
@@ -341,6 +344,17 @@ export default {
 
 <style lang="scss" scoped>
 .chart {
-  height: 600px;
+  // height: 100vw;
+
+  // // width: 100vh;
+  // transform: rotate(90deg);
+  @screen sm {
+    height: 600px;
+    width: auto;
+    transform: none;
+  }
 }
+// .chart {
+//   height: 600px;
+// }
 </style>
