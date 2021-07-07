@@ -5,8 +5,8 @@ const CdnClient = tencentcloud.cdn.v20180606.Client
 
 const clientConfig = {
   credential: {
-    secretId: TENCENT_SECRET_KEY,
-    secretKey: TENCENT_SECRET_ID,
+    secretId: TENCENT_SECRET_ID,
+    secretKey: TENCENT_SECRET_KEY,
   },
   // region: '',
   profile: {

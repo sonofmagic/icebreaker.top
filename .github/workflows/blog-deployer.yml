@@ -1,0 +1,34 @@
+name: tencent-deploy-yarn-with-cache
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Set Beijing Timezone
+        uses: szenius/set-timezone@v1.0
+        with:
+          timezoneLinux: Asia/Shanghai
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+          cache: 'yarn'
+
+      - name: Install Dependencies
+        run: yarn install:blog
+
+      - name: Deploy Blog Site
+        shell: bash
+        env:
+          TENCENT_SECRET_ID: ${{ secrets.TENCENT_SECRET_ID }}
+          TENCENT_SECRET_KEY: ${{ secrets.TENCENT_SECRET_KEY }}
+          SERVERLESS_PLATFORM_VENDOR: tencent
+        run: yarn deploy:blog
+
