@@ -1,3 +1,5 @@
+import summary from './summary.json'
+
 export const legendData = [
   'event-node10',
   'event-node12',
@@ -8,3 +10,5 @@ export const legendData = [
   'web-custom-image-node14',
   'web-custom-image-node16',
 ]
+
+export const chartDataMap = summary

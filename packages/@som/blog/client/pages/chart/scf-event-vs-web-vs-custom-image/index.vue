@@ -23,7 +23,12 @@
       </div>
     </div>
 
-    <v-chart class="chart" :option="option" autoresize />
+    <v-chart class="chart" :option="ReqPerSecLineOption" autoresize />
+    <v-chart class="chart" :option="ReqPerSecBarOption" autoresize />
+
+    <v-chart class="chart" :option="BytesPerSecLineOption" autoresize />
+    <v-chart class="chart" :option="BytesPerSecBarOption" autoresize />
+    <v-chart class="chart" :option="LatencyLineOption" autoresize />
   </div>
 </template>
 
@@ -31,8 +36,38 @@
 import copyTextMixin from '@/mixins/copyTextMixin'
 
 import VChart, { THEME_KEY } from 'vue-echarts'
+import merge from 'lodash/merge'
+import {
+  chartDataMap,
+  legendData,
+} from '@/dataSource/chart/scf-event-vs-web-vs-custom-image'
+const connectionArray = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
 
-// import { legendData } from '@/dataSource/chart/scf-event-vs-web-vs-custom-image'
+const defaultsOption = {
+  title: {
+    top: 20,
+    left: 20,
+  },
+  tooltip: {
+    trigger: 'item',
+  },
+  grid: {
+    top: 120,
+  },
+  toolbox: {
+    top: 20,
+    right: 20,
+    feature: {
+      dataZoom: {},
+      restore: {},
+      saveAsImage: {},
+    },
+  },
+}
+
+function mergeBaseOption(option) {
+  return merge({}, defaultsOption, option)
+}
 
 export default {
   components: {
@@ -44,43 +79,260 @@ export default {
   },
   data() {
     return {
-      option: {
+      ReqPerSecLineOption: mergeBaseOption({
         title: {
           text: 'Req/Sec 平均折线图',
-          left: 'center',
+          // left: 'center',
         },
-        // tooltip: {
-        //   trigger: 'item',
-        //   formatter: '{a} <br/>{b} : {c} ({d}%)',
-        // },
-        // legend: {
-        //   orient: 'vertical',
-        //   left: 'left',
-        //   data: legendData,
-        // },
-        series: [
+        dataZoom: [
           {
-            // name: 'Traffic Sources',
-            // type: 'pie',
-            // radius: '55%',
-            // center: ['50%', '60%'],
-            // data: [
-            //   { value: 335, name: 'Direct' },
-            //   { value: 310, name: 'Email' },
-            //   { value: 234, name: 'Ad Networks' },
-            //   { value: 135, name: 'Video Ads' },
-            //   { value: 1548, name: 'Search Engines' },
-            // ],
-            // emphasis: {
-            //   itemStyle: {
-            //     shadowBlur: 10,
-            //     shadowOffsetX: 0,
-            //     shadowColor: 'rgba(0, 0, 0, 0.5)',
-            //   },
-            // },
+            show: true,
+            type: 'slider',
+            realtime: true,
+            start: 0,
+            end: 100,
+          },
+          {
+            show: true,
+            type: 'inside',
+            realtime: true,
+            start: 0,
+            end: 100,
           },
         ],
-      },
+        legend: {
+          orient: 'horizontal',
+          top: 60,
+          // left: 'left',
+          data: legendData,
+        },
+        xAxis: {
+          type: 'category',
+          boundaryGap: false,
+          data: connectionArray,
+        },
+        yAxis: {
+          type: 'value',
+        },
+        series: legendData.map((x) => {
+          // console.log(chartDataMap[x])
+          return {
+            name: x,
+            type: 'line',
+            emphasis: {
+              focus: 'series',
+              label: {
+                show: true,
+                position: 'top',
+              },
+            },
+            smooth: true,
+            data: chartDataMap[x].ReqPerSec.data,
+          }
+        }),
+      }),
+      ReqPerSecBarOption: mergeBaseOption({
+        title: {
+          text: 'Req/Sec 平均累加柱状图',
+        },
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+            // Use axis to trigger tooltip
+            type: 'shadow', // 'shadow' as default; can also be 'line' or 'shadow'
+          },
+        },
+        legend: {
+          orient: 'horizontal',
+          top: 60,
+          // left: 'left',
+          data: connectionArray.map((x) => {
+            return x.toString()
+          }),
+        },
+        xAxis: {
+          type: 'value',
+        },
+        yAxis: {
+          type: 'category',
+          data: legendData,
+        },
+        grid: {
+          top: 120,
+          left: 200,
+        },
+        series: connectionArray.map((x, idx) => {
+          return {
+            name: x.toString(),
+            type: 'bar',
+            stack: 'total',
+            label: {
+              show: true,
+            },
+            emphasis: {
+              focus: 'series',
+            },
+            data: legendData.reduce((acc, cur) => {
+              acc.push(chartDataMap[cur].ReqPerSec.data[idx])
+
+              return acc
+            }, []),
+          }
+        }),
+      }),
+      BytesPerSecLineOption: mergeBaseOption({
+        title: {
+          text: 'Bytes/Sec 吞吐量(KB)平均折线图',
+          // left: 'center',
+        },
+        dataZoom: [
+          {
+            show: true,
+            type: 'slider',
+            realtime: true,
+            start: 0,
+            end: 100,
+          },
+          {
+            show: true,
+            type: 'inside',
+            realtime: true,
+            start: 0,
+            end: 100,
+          },
+        ],
+        legend: {
+          orient: 'horizontal',
+          top: 60,
+          // left: 'left',
+          data: legendData,
+        },
+        xAxis: {
+          type: 'category',
+          boundaryGap: false,
+          data: connectionArray,
+        },
+        yAxis: {
+          type: 'value',
+        },
+        series: legendData.map((x) => {
+          // console.log(chartDataMap[x])
+          return {
+            name: x,
+            type: 'line',
+            emphasis: {
+              focus: 'series',
+              label: {
+                show: true,
+                position: 'top',
+              },
+            },
+            smooth: true,
+            data: chartDataMap[x].BytesPerSec.data,
+          }
+        }),
+      }),
+      BytesPerSecBarOption: mergeBaseOption({
+        title: {
+          text: 'Bytes/Sec 吞吐量(KB)平均累加柱状图',
+        },
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+            // Use axis to trigger tooltip
+            type: 'shadow', // 'shadow' as default; can also be 'line' or 'shadow'
+          },
+        },
+        legend: {
+          orient: 'horizontal',
+          top: 60,
+          // left: 'left',
+          data: connectionArray.map((x) => {
+            return x.toString()
+          }),
+        },
+        xAxis: {
+          type: 'value',
+        },
+        yAxis: {
+          type: 'category',
+          data: legendData,
+        },
+        grid: {
+          top: 120,
+          left: 200,
+        },
+        series: connectionArray.map((x, idx) => {
+          return {
+            name: x.toString(),
+            type: 'bar',
+            stack: 'total',
+            label: {
+              show: true,
+            },
+            emphasis: {
+              focus: 'series',
+            },
+            data: legendData.reduce((acc, cur) => {
+              acc.push(chartDataMap[cur].BytesPerSec.data[idx])
+
+              return acc
+            }, []),
+          }
+        }),
+      }),
+      LatencyLineOption: mergeBaseOption({
+        title: {
+          text: 'Latency 延迟平均折线图',
+          // left: 'center',
+        },
+        dataZoom: [
+          {
+            show: true,
+            type: 'slider',
+            realtime: true,
+            start: 0,
+            end: 100,
+          },
+          {
+            show: true,
+            type: 'inside',
+            realtime: true,
+            start: 0,
+            end: 100,
+          },
+        ],
+        legend: {
+          orient: 'horizontal',
+          top: 60,
+          // left: 'left',
+          data: legendData,
+        },
+        xAxis: {
+          type: 'category',
+          boundaryGap: false,
+          data: connectionArray,
+        },
+        yAxis: {
+          type: 'value',
+        },
+        series: legendData.map((x) => {
+          // console.log(chartDataMap[x])
+          return {
+            name: x,
+            type: 'line',
+            emphasis: {
+              focus: 'series',
+              label: {
+                show: true,
+                position: 'top',
+              },
+            },
+            smooth: true,
+            data: chartDataMap[x].Latency.data,
+          }
+        }),
+      }),
     }
   },
   methods: {},
@@ -89,6 +341,6 @@ export default {
 
 <style lang="scss" scoped>
 .chart {
-  height: 400px;
+  height: 600px;
 }
 </style>
