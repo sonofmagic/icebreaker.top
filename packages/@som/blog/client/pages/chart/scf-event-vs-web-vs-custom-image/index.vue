@@ -1,34 +1,36 @@
 <template>
-  <div class="container mx-auto">
-    <div class="space-y-2 mb-6">
-      <van-notice-bar
-        left-icon="volume-o"
-        text="本压测用例，基于express返回最简单的请求，编写而成"
-      />
-      <div>
-        <div class="flex items-center">
-          <FontAwesomeIcon class="mr-2" :icon="['fab', 'github']" />
-          <span class="text-xl">Github地址:</span>
-        </div>
-        <div
-          class="text-xs underline cursor-pointer"
-          @click.stop="
-            copyText(
-              'https://github.com/sonofmagic/tencent-web-function-benchmark'
-            )
-          "
-        >
-          https://github.com/sonofmagic/tencent-web-function-benchmark(点击复制)
+  <div class="charts-full pb-12" style="background-color: #100c2a">
+    <div class="container mx-auto">
+      <div class="space-y-2 mb-6">
+        <van-notice-bar
+          left-icon="volume-o"
+          text="本压测用例，基于express返回最简单的请求，编写而成"
+        />
+        <div class="text-white">
+          <div class="flex items-center">
+            <FontAwesomeIcon class="mr-2" :icon="['fab', 'github']" />
+            <span class="text-xl">Github地址:</span>
+          </div>
+          <div
+            class="text-xs underline cursor-pointer"
+            @click.stop="
+              copyText(
+                'https://github.com/sonofmagic/tencent-web-function-benchmark'
+              )
+            "
+          >
+            sonofmagic/tencent-web-function-benchmark(点我复制)
+          </div>
         </div>
       </div>
+
+      <v-chart class="chart" :option="ReqPerSecLineOption" autoresize />
+      <v-chart class="chart" :option="ReqPerSecBarOption" autoresize />
+
+      <v-chart class="chart" :option="BytesPerSecLineOption" autoresize />
+      <v-chart class="chart" :option="BytesPerSecBarOption" autoresize />
+      <v-chart class="chart" :option="LatencyLineOption" autoresize />
     </div>
-
-    <v-chart class="chart" :option="ReqPerSecLineOption" autoresize />
-    <v-chart class="chart" :option="ReqPerSecBarOption" autoresize />
-
-    <v-chart class="chart" :option="BytesPerSecLineOption" autoresize />
-    <v-chart class="chart" :option="BytesPerSecBarOption" autoresize />
-    <v-chart class="chart" :option="LatencyLineOption" autoresize />
   </div>
 </template>
 
@@ -110,12 +112,14 @@ export default {
           data: legendData,
         },
         xAxis: {
+          name: '并发数',
           type: 'category',
           boundaryGap: false,
           data: connectionArray,
         },
         yAxis: {
           type: 'value',
+          name: '平均每秒请求',
         },
         series: legendData.map((x) => {
           // console.log(chartDataMap[x])
@@ -155,14 +159,17 @@ export default {
         },
         xAxis: {
           type: 'value',
+          name: '累加平均每秒请求',
         },
         yAxis: {
           type: 'category',
           data: legendData,
+          name: '部署运行时',
         },
         grid: {
           top: 120,
-          left: 200,
+          left: '15%',
+          // left: 200,
         },
         series: connectionArray.map((x, idx) => {
           return {
@@ -214,9 +221,11 @@ export default {
           type: 'category',
           boundaryGap: false,
           data: connectionArray,
+          name: '并发数',
         },
         yAxis: {
           type: 'value',
+          name: '平均吞吐量KB/s',
         },
         series: legendData.map((x) => {
           // console.log(chartDataMap[x])
@@ -256,14 +265,16 @@ export default {
         },
         xAxis: {
           type: 'value',
+          name: '累加平均吞吐量KB/s',
         },
         yAxis: {
           type: 'category',
           data: legendData,
+          name: '部署运行时',
         },
         grid: {
           top: 120,
-          left: 200,
+          left: '15%',
         },
         series: connectionArray.map((x, idx) => {
           return {
@@ -312,11 +323,13 @@ export default {
           data: legendData,
         },
         xAxis: {
+          name: '并发数',
           type: 'category',
           boundaryGap: false,
           data: connectionArray,
         },
         yAxis: {
+          name: 'ms',
           type: 'value',
         },
         series: legendData.map((x) => {
@@ -344,17 +357,33 @@ export default {
 
 <style lang="scss" scoped>
 .chart {
+  height: 400px;
+  @screen sm {
+    height: 600px;
+  }
   // height: 100vw;
 
   // // width: 100vh;
   // transform: rotate(90deg);
-  @screen sm {
-    height: 600px;
-    width: auto;
-    transform: none;
-  }
+  // @screen sm {
+  //   height: 600px;
+  //   width: auto;
+  //   transform: none;
+  // }
 }
 // .chart {
 //   height: 600px;
+// }
+</style>
+<style lang="scss">
+// body {
+//   width: 100vh;
+//   transform: rotate(90deg);
+//   //overflow-y: hidden;
+//   overflow-y: hidden;
+
+//   @screen sm {
+//     transform: rotate(0deg);
+//   }
 // }
 </style>
