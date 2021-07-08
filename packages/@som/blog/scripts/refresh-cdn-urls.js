@@ -1,3 +1,4 @@
+const { wait } = require('./utils')
 require('dotenv').config()
 const { TENCENT_SECRET_KEY, TENCENT_SECRET_ID } = process.env
 const tencentcloud = require('tencentcloud-sdk-nodejs')
@@ -24,6 +25,8 @@ const params = {
 
 ;(async () => {
   try {
+    // 等待戈多
+    await wait(5000)
     const data = await client.PurgeUrlsCache(params)
     console.log(data)
   } catch (err) {

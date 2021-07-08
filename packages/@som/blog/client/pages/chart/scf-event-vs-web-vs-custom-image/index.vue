@@ -65,7 +65,9 @@ const defaultsOption = {
     feature: {
       dataZoom: {},
       restore: {},
-      saveAsImage: {},
+      saveAsImage: {
+        pixelRatio: 3,
+      },
     },
   },
 }
