@@ -158,7 +158,7 @@ const config = {
     // https://tailwindcss.nuxtjs.org/setup/
     '@nuxtjs/tailwindcss',
     '@nuxtjs/google-analytics',
-    '@nuxtjs/pwa',
+    // '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt-community/color-mode-module
     // '@nuxtjs/color-mode',
     // '@nuxtjs/svg',
@@ -172,13 +172,13 @@ const config = {
     exposeConfig: false,
     // config: {},
   },
-  pwa: {
-    manifest: {
-      name: 'icebreaker.top',
-      short_name: 'icebreaker',
-      description: 'icebreaker分享技术的博客站',
-    },
-  },
+  // pwa: {
+  //   manifest: {
+  //     name: 'icebreaker.top',
+  //     short_name: 'icebreaker',
+  //     description: 'icebreaker分享技术的博客站',
+  //   },
+  // },
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
     // '../loadServerMiddleware/dist',
