@@ -42,6 +42,7 @@ import {
   TabPane,
   Upload,
   Tooltip,
+  Progress,
 } from 'element-ui'
 import CollapseTransition from 'element-ui/lib/transitions/collapse-transition'
 import '@/assets/scss/element-ui.scss'
@@ -87,6 +88,7 @@ export default () => {
     .use(TabPane)
     .use(Upload)
     .use(Tooltip)
+    .use(Progress)
   Vue.component(CollapseTransition.name, CollapseTransition)
   Vue.use(Loading.directive)
 
