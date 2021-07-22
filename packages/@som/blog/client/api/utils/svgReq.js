@@ -44,5 +44,5 @@ export function createAxiosInstance(baseURL) {
 }
 
 export default createAxiosInstance(
-  isProd ? 'https://svg.icebreaker.top/' : 'http://localhost:9000/'
+  isProd ? 'https://svg.icebreaker.top' : 'http://localhost:9000'
 )

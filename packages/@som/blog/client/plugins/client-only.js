@@ -6,6 +6,15 @@ import './echarts'
 // import * as Sentry from '@sentry/vue'
 // import { Integrations } from '@sentry/tracing'
 import BaiduMap from 'vue-baidu-map'
+
+if (
+  /eruda=true/.test(window.location) ||
+  localStorage.getItem('active-eruda') === 'true'
+) {
+  const eruda = require('eruda')
+  eruda.init()
+}
+
 svg4everybody()
 
 Vue.use(BaiduMap, {

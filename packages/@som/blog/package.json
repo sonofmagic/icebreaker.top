@@ -62,6 +62,7 @@
     "dplayer": "^1.26.0",
     "echarts": "^5.1.2",
     "element-ui": "^2.15.3",
+    "eruda": "^2.4.1",
     "etag": "^1.8.1",
     "express": "^4.17.1",
     "fs-extra": "^10.0.0",
