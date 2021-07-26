@@ -38,6 +38,11 @@ export default {
           //   text: '压力测试',
           // },
         },
+        {
+          title: 'serverless ascii',
+          label: 'serverless-canvas(2)',
+          href: 'ascii',
+        },
       ],
     }
   },

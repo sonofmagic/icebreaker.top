@@ -8,7 +8,7 @@ import {
   Tag,
   NoticeBar,
   Icon,
-  // Uploader,
+  Uploader,
 } from 'vant'
 
 Vue.use(Popup)
@@ -19,4 +19,4 @@ Vue.use(Popup)
   .use(Tag)
   .use(NoticeBar)
   .use(Icon)
-// .use(Uploader)
+  .use(Uploader)

@@ -16,3 +16,9 @@ export function upload2Gray(file, option) {
   }
   return svgReq.post('/api/v1/img/gray', data, config)
 }
+
+export function upload2Ascii(file, option) {
+  const data = new FormData()
+  data.append('file', file)
+  return svgReq.post('/api/v1/img/ascii', data)
+}

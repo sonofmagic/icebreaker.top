@@ -3,8 +3,10 @@
 
 import fs from 'fs'
 import dotenv from 'dotenv'
-import hooks from './nuxt.config/hooks.js'
-import sitemap from './nuxt.config/sitemap.js'
+import { hooks, sitemap } from './nuxt.config/index'
+// import hooks from './nuxt.config/hooks.js'
+// import sitemap from './nuxt.config/sitemap.js'
+// import feed from './nuxt.config/feed'
 import { isProd, isRelease } from './constants.js'
 
 dotenv.config()
@@ -188,6 +190,7 @@ const config = {
     // '@nuxtjs/apollo',
     // '@nuxtjs/svg-sprite',
     '@nuxtjs/sitemap',
+    // '@nuxtjs/feed',
     // '@nuxtjs/sentry',
   ],
   // sentry: {
@@ -196,6 +199,7 @@ const config = {
   // },
   // monaco: {},
   sitemap,
+  // feed,
   content: {
     dir: '../content',
     markdown: {
