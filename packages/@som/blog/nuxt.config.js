@@ -263,6 +263,10 @@ const config = {
       config.externals = {
         'hls.js': 'hls.js',
       }
+      // Can't resolve 'fs'  in graceful-fs'
+      config.node = {
+        fs: 'empty',
+      }
       // if (isClient && isLoadMonaco) {
       //   config.plugins.push(new MonacoWebpackPlugin())
       // }

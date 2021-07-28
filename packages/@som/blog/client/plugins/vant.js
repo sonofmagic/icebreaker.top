@@ -9,6 +9,7 @@ import {
   NoticeBar,
   Icon,
   Uploader,
+  Button,
 } from 'vant'
 
 Vue.use(Popup)
@@ -20,3 +21,4 @@ Vue.use(Popup)
   .use(NoticeBar)
   .use(Icon)
   .use(Uploader)
+  .use(Button)

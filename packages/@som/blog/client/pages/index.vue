@@ -9,6 +9,7 @@
         <MySelf />
       </div>
     </div>
+    <!-- <SitemapIndex :items="hrefs"></SitemapIndex> -->
   </div>
 </template>
 
@@ -17,72 +18,27 @@
 import ArticlePagedList from '@/components/home/ArticlePagedList'
 import Comments from '@/components/common/Comments'
 import MySelf from '@/components/home/MySelf'
+// import SitemapIndex from '@/components/sitemap/index.vue'
+
 export default {
   name: 'Index',
   components: {
     ArticlePagedList,
     MySelf,
     Comments,
+    // SitemapIndex,
   },
-  // mounted() {
-  //   new Promise((resolve, reject) => {
-  //     resolve('icebreaker')
-
-  //     console.log('after icebreaker')
-  //   }).then((res) => {
-  //     console.log('hi i am ' + res)
-  //   })
-  // },
-  // in case of memory leak
-  // async asyncData({ $content, error }) {
-  //   try {
-  //     if (process.client) {
-  //       const query = {
-  //         page: 1,
-  //         perPage: 10,
-  //       }
-  //       const [total, articles] = await getPageList($content, query)
-
-  //       return {
-  //         query,
-  //         articles,
-  //         // recent,
-  //         total,
-  //       }
+  // async asyncData() {
+  //   // console.log(process.client, process.server, process.static)
+  //   if (process.server) {
+  //     return {
+  //       hrefs: await require('@/utils/getArticle')(),
   //     }
-  //   } catch (err) {
-  //     console.error(err)
-  //     error({ statusCode: 404, message: err.message })
   //   }
-  // },
-  // data() {
   //   return {
-  //     query: {
-  //       page: 1,
-  //       perPage: 10,
-  //     },
-  //     articles: [],
-  //     total: 0,
+  //     hrefs: [],
   //   }
   // },
-  // async mounted() {
-  //   const [total, articles] = await getPageList(this.$content, this.query)
-  //   this.total = total
-  //   this.articles = articles
-  // },
-  methods: {
-    // async getList() {
-    //   try {
-    //     this.listLoading = true
-    //     const [total, articles] = await getPageList(this.$content, this.query)
-    //     this.total = total
-    //     this.articles = articles
-    //   } catch (error) {
-    //     console.debug(error)
-    //   } finally {
-    //     this.listLoading = false
-    //   }
-    // },
-  },
+  methods: {},
 }
 </script>

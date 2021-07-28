@@ -118,6 +118,7 @@
     "eslint-plugin-prettier": "^3.4.0",
     "fibers": "^5.0.0",
     "glob": "^7.1.7",
+    "graceful-fs": "^4.2.6",
     "gray-matter": "^4.0.3",
     "jsonfile": "^6.1.0",
     "klaw": "^3.0.0",

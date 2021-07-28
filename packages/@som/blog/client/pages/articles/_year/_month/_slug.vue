@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="container mx-auto"
-    style="max-width:1280px"
-  >
+  <div class="container mx-auto" style="max-width: 1280px">
     <div class="py-6 flex flex-col lg:flex-row">
       <div
         ref="leftMenu"
@@ -10,13 +7,20 @@
         class="hidden sm:inline-block sm:mb-4 lg:mr-4"
       >
         <!-- <Sticky :offset-top="20" :container="leftMenu"> -->
-        <div
-          class="flex sm:block sticky"
-          style="top: 1rem"
-        >
+        <div class="flex sm:block sticky" style="top: 1rem">
           <div class="mb-4">
             <nuxt-link
-              class="inline-block no-underline text-xl bg-green-500 text-white rounded p-2 shadow hover:shadow-md"
+              class="
+                inline-block
+                no-underline
+                text-xl
+                bg-green-500
+                text-white
+                rounded
+                p-2
+                shadow
+                hover:shadow-md
+              "
               to="/"
             >
               <i class="el-icon-back"></i>
@@ -30,16 +34,25 @@
             class="py-2 truncate w-32"
           >
             <a
-              class="cursor-pointer transition-colors duration-200 hover:text-green-500 hover:underline"
+              class="
+                cursor-pointer
+                transition-colors
+                duration-200
+                hover:text-green-500 hover:underline
+              "
+              :href="`#${t.id}-f`"
               @click.stop="scrollTo(t.id)"
-            >{{ t.text }}</a>
+              >{{ t.text }}</a
+            >
           </div>
         </div>
 
         <!-- </Sticky> -->
       </div>
       <!-- lg: -->
-      <div class="mb-4 lg:mb-0 mr-4 bg-white p-8 shadow w-full content-max-width">
+      <div
+        class="mb-4 lg:mb-0 mr-4 bg-white p-8 shadow w-full content-max-width"
+      >
         <div class="pb-4 mb-4">
           <h1 class="text-3xl mb-2">{{ article.title }}</h1>
           <div class="flex justify-between items-center">

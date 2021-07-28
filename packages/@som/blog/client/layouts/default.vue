@@ -3,15 +3,19 @@
     <div>
       <Nuxt />
     </div>
+
+    <Sitemap />
   </CommonSlot>
 </template>
 <script>
 import CommonSlot from '@/components/layout/CommonSlot'
 import { Dialog } from 'vant'
+import Sitemap from '@/components/sitemap'
 export default {
   name: 'PublicLayout',
   components: {
     CommonSlot,
+    Sitemap,
   },
   // async mounted() {
   //   // this.showUpgradeDialog()
