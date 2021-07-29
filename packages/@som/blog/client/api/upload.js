@@ -23,6 +23,15 @@ export function upload2Ascii(file, option) {
   return svgReq.post('/api/v1/img/ascii', data)
 }
 
+export function upload2Ascii2(file, option = {}) {
+  const data = new FormData()
+  data.append('file', file)
+  Object.entries(option).forEach(([k, v]) => {
+    data.append(k, v)
+  })
+  return svgReq.post('/api/v1/img/ascii2', data)
+}
+
 export function upload2Bit(file) {
   const data = new FormData()
   data.append('file', file)
