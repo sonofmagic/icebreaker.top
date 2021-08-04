@@ -78,7 +78,7 @@
 </template>
 
 <script>
-import Logo from '@/assets/img/icon.png'
+import Logo from '@/assets/img/avatar.jpg'
 import defaultAvatar from '@/assets/img/default-avatar.png'
 import HeaderSearchBar from '@/components/article/HeaderSearchBar'
 import { mapGetters } from 'vuex'

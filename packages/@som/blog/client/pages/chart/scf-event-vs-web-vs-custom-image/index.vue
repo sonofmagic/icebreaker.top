@@ -23,13 +23,14 @@
           </div>
         </div>
       </div>
+      <client-only>
+        <v-chart class="chart" :option="ReqPerSecLineOption" autoresize />
+        <v-chart class="chart" :option="ReqPerSecBarOption" autoresize />
 
-      <v-chart class="chart" :option="ReqPerSecLineOption" autoresize />
-      <v-chart class="chart" :option="ReqPerSecBarOption" autoresize />
-
-      <v-chart class="chart" :option="BytesPerSecLineOption" autoresize />
-      <v-chart class="chart" :option="BytesPerSecBarOption" autoresize />
-      <v-chart class="chart" :option="LatencyLineOption" autoresize />
+        <v-chart class="chart" :option="BytesPerSecLineOption" autoresize />
+        <v-chart class="chart" :option="BytesPerSecBarOption" autoresize />
+        <v-chart class="chart" :option="LatencyLineOption" autoresize />
+      </client-only>
     </div>
   </div>
 </template>

@@ -7,9 +7,11 @@
 // const plugin = require('tailwindcss/plugin')
 // const defaultTheme = require('tailwindcss/defaultTheme')
 module.exports = {
+  mode: 'jit',
   theme: {
     extend: {
       colors: {
+        // neutral: 'rgb(241,248,255)',
         primary: {
           100: '#E6FAF2',
           200: '#BFF3E0',

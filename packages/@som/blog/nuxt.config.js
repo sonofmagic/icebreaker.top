@@ -160,6 +160,7 @@ const config = {
     // https://tailwindcss.nuxtjs.org/setup/
     '@nuxtjs/tailwindcss',
     '@nuxtjs/google-analytics',
+    '@nuxt/postcss8',
     // '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt-community/color-mode-module
     // '@nuxtjs/color-mode',

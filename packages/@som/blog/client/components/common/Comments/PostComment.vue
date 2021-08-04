@@ -1,7 +1,7 @@
 <template>
   <ClientOnly>
     <div class="border border-gray-300 rounded overflow-auto">
-      <div class="toolbar bg-gray-100 h-12 pl-2 flex items-end">
+      <div class="toolbar bg-[rgb(246,248,250)] h-12 pl-2 flex items-end">
         <button
           v-for="tab in tabList"
           :key="tab"
@@ -35,7 +35,16 @@
           </div>
           <div
             v-if="!isRealLogined"
-            class="absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center"
+            class="
+              absolute
+              top-0
+              left-0
+              right-0
+              bottom-0
+              flex
+              items-center
+              justify-center
+            "
           >
             <div
               class="text-lg text-blue-500 cursor-pointer hover:underline"
