@@ -1,5 +1,5 @@
 // import ClientOnly from '@/storePlugins/client-only'
-import getArticle from '@/utils/getArticle'
+// import getArticle from '@/utils/getArticle'
 export const state = () => ({
   // counter: 0,
   hrefs: [],
@@ -14,8 +14,12 @@ export const mutations = {
 }
 
 export const actions = {
-  async nuxtServerInit({ commit }) {
-    const hrefs = await getArticle()
+  async nuxtServerInit({ commit }, { $content }) {
+    const hrefs = await $content('/', {
+      deep: true,
+    })
+      .only(['id', 'title', 'description', 'tags', 'path'])
+      .fetch()
     // console.log(hrefs)
     commit('set_hrefs', { items: hrefs })
   },

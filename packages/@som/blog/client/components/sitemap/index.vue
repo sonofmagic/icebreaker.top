@@ -1,8 +1,12 @@
 <template>
   <div :class="hidden ? 'hidden' : ''">
-    <nuxt-link v-for="item in hrefs" :key="item" :to="item">{{
-      item
-    }}</nuxt-link>
+    <slot :data="hrefs">
+      <div class="flex flex-col">
+        <nuxt-link v-for="item in hrefs" :key="item.id" :to="item.path">{{
+          item.title
+        }}</nuxt-link>
+      </div>
+    </slot>
   </div>
 </template>
 
