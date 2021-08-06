@@ -8,6 +8,13 @@
     <div class="header-middle-area text-left hidden sm:flex flex-grow">
       <HeaderSearchBar />
       <nav class="nav ml-4 hidden lg:block">
+        <nuxt-link
+          v-for="inlink in inSideLinks"
+          :key="inlink.key"
+          class="link"
+          :to="inlink.to"
+          >{{ inlink.title }}</nuxt-link
+        >
         <a
           v-for="item in outSideLinks"
           :key="item.title"
@@ -18,13 +25,6 @@
         >
           <span>{{ item.title }}</span>
         </a>
-        <nuxt-link
-          v-for="inlink in inSideLinks"
-          :key="inlink.key"
-          class="link"
-          :to="inlink.to"
-          >{{ inlink.title }}</nuxt-link
-        >
       </nav>
     </div>
     <client-only>
