@@ -97,22 +97,22 @@ export default {
       RegisterVisible: false,
       SignInVisible: false,
       outSideLinks: [
-        {
-          href: 'https://github.com/sonofmagic/icebreaker.top/pulls',
-          title: 'Pull requests',
-        },
-        {
-          href: 'https://github.com/sonofmagic/icebreaker.top/issues',
-          title: 'Issues',
-        },
+        // {
+        //   href: 'https://github.com/sonofmagic/icebreaker.top/pulls',
+        //   title: 'Pull requests',
+        // },
+        // {
+        //   href: 'https://github.com/sonofmagic/icebreaker.top/issues',
+        //   title: 'Issues',
+        // },
         {
           href: 'https://www.npmjs.com/~icebreaker',
           title: 'Packages',
         },
-        {
-          href: 'https://shahu-1257725330.file.myqcloud.com',
-          title: 'Shahu',
-        },
+        // {
+        //   href: 'https://shahu-1257725330.file.myqcloud.com',
+        //   title: 'Shahu',
+        // },
         // {
         //   href: 'https://www.shareplus.cn/',
         //   title: 'Shareplus',
