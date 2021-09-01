@@ -5,8 +5,13 @@
       <BodySkeleton v-show="listLoading" />
       <TableBody v-show="!listLoading" :articles="articles" />
     </div>
-    <PaginationSkeleton v-show="paginationSkeletonVisible" />
-    <div v-show="!paginationSkeletonVisible" class="flex justify-center">
+    <PaginationSkeleton
+      :class="paginationSkeletonVisible ? 'block' : 'hidden'"
+    />
+    <div
+      :class="paginationSkeletonVisible ? 'hidden' : 'flex'"
+      class="justify-center"
+    >
       <el-pagination
         hide-on-single-page
         layout="prev, pager, next"
