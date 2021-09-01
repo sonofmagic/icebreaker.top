@@ -14,6 +14,33 @@
         <!-- <OutSideLink href="https://www.shareplus.cn/"></OutSideLink> -->
         <div>对Vue/Nuxt,小程序,nodejs等有较深入的理解</div>
         <div>擅长扯淡,吹牛,撕x</div>
+
+        <div class="flex mt-2">
+          <div
+            class="
+              flex
+              items-center
+              rounded-md
+              py-2
+              pl-3
+              pr-5
+              border border-solid border-[#cccccc]
+              cursor-pointer
+              hover:bg-[rgb(219,255,219)] hover:border-[#00C642]
+              npx-command
+            "
+            @click="copyText('npx yangqiming')"
+          >
+            <span>
+              <FontAwesomeIcon :icon="['fas', 'chevron-right']" />
+            </span>
+
+            <pre class="ml-2">npx yangqiming</pre>
+            <span class="copy-icon">
+              <FontAwesomeIcon :icon="['far', 'copy']" />
+            </span>
+          </div>
+        </div>
         <!-- <div>
           <OutSideLink href="https://www.shareplus.cn/">Shareplus</OutSideLink>
         </div> -->
@@ -132,3 +159,17 @@ export default {
   },
 }
 </script>
+<style lang="scss" scoped>
+.npx-command {
+  @apply relative;
+  .copy-icon {
+    @apply absolute right-1 opacity-0 transition-opacity;
+    //
+  }
+  &:hover {
+    .copy-icon {
+      @apply opacity-100;
+    }
+  }
+}
+</style>

@@ -6,8 +6,10 @@
  */
 // const plugin = require('tailwindcss/plugin')
 // const defaultTheme = require('tailwindcss/defaultTheme')
+/** @type {import('@types/tailwindcss/tailwind-config').TailwindConfig} */
 module.exports = {
   mode: 'jit',
+  important: true,
   theme: {
     extend: {
       colors: {
