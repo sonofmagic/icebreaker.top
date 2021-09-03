@@ -2,6 +2,10 @@ name: tencent-deploy-yarn-with-cache
 
 on:
   workflow_dispatch:
+  # add webhook
+  repository_dispatch:
+    types:
+      - webhook
 
 jobs:
   build:
