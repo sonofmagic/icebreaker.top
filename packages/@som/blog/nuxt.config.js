@@ -186,7 +186,7 @@ const config = {
   modules: [
     // '../loadServerMiddleware/dist',
     // ...require('../serverMiddleware'),
-    '../loadServerMiddleware',
+    // '../loadServerMiddleware',
     '@nuxt/content',
     // '@nuxtjs/apollo',
     // '@nuxtjs/svg-sprite',

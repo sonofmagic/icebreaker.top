@@ -37,7 +37,7 @@
 
 <script>
 import copyTextMixin from '@/mixins/copyTextMixin'
-
+import '@/plugins/echarts'
 import VChart, { THEME_KEY } from 'vue-echarts'
 import merge from 'lodash/merge'
 import {

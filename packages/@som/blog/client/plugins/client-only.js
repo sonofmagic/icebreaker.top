@@ -2,26 +2,29 @@ import Vue from 'vue'
 
 import svg4everybody from 'svg4everybody'
 import mobile from 'is-mobile'
-import './echarts'
+// import './echarts'
 // import * as Sentry from '@sentry/vue'
 // import { Integrations } from '@sentry/tracing'
-import BaiduMap from 'vue-baidu-map'
+// import BaiduMap from 'vue-baidu-map'
 
-if (
-  /eruda=true/.test(window.location) ||
-  localStorage.getItem('active-eruda') === 'true'
-) {
-  const eruda = require('eruda')
-  eruda.init()
+import { isRelease } from '@@/constants'
+if (!isRelease) {
+  if (
+    /eruda=true/.test(window.location) ||
+    localStorage.getItem('active-eruda') === 'true'
+  ) {
+    const eruda = require('eruda')
+    eruda.init()
+  }
 }
 
 svg4everybody()
 
-Vue.use(BaiduMap, {
-  /* Visit http://lbsyun.baidu.com/apiconsole/key for details about app key. */
-  /* 有 refer 限制，可以自行注册 */
-  ak: 'sqI1kLIdG3RYscExAHvGP8LXTPW43vRI',
-})
+// Vue.use(BaiduMap, {
+//   /* Visit http://lbsyun.baidu.com/apiconsole/key for details about app key. */
+//   /* 有 refer 限制，可以自行注册 */
+//   ak: 'sqI1kLIdG3RYscExAHvGP8LXTPW43vRI',
+// })
 
 // if (process.env.SENTRY_VUE_DSN) {
 //   Sentry.init({

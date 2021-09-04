@@ -21,7 +21,7 @@
 <script>
 import { upload2Ascii, upload2Bit, upload2Ascii2 } from '@/api/upload'
 import { Toast } from 'vant'
-import parser from 'ansi-style-parser'
+// import parser from 'ansi-style-parser'
 import { parse } from 'ansicolor'
 // const { parse } = require ('ansicolor')
 // import Convert from 'ansi-to-html'
