@@ -22,6 +22,7 @@
                 hover:shadow-md
               "
               to="/"
+              replace
             >
               <i class="el-icon-back"></i>
               回到上一级
