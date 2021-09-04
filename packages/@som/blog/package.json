@@ -2,8 +2,9 @@
   "name": "@som/blog",
   "version": "1.1.4",
   "license": "MIT",
+  "description": "DEBUG=nuxt:* nuxt dev 会打开 tailwindcss debug 模式，大量的 Source path 和JIT TOTAL,简直了",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development SLS_ENV=dev DEBUG=nuxt:* nuxt --trace-warnings dev",
+    "dev": "cross-env NODE_ENV=development SLS_ENV=dev nuxt dev",
     "sync": "node scripts/syncArticles.js",
     "analyze": "cross-env SLS_ENV=release nuxt build --analyze",
     "generate": "cross-env SLS_ENV=release NODE_ENV=production nuxt generate",
@@ -11,10 +12,7 @@
     "lint:style": "stylelint **/*.{vue,css} --ignore-path .gitignore",
     "lint": "yarn lint:js && yarn lint:style",
     "gen": "cross-env SLS_ENV=release NODE_ENV=production node ./scripts/genCfg.js",
-    "build:sls": "cross-env SLS_ENV=release nuxt build",
-    "start:sls": "cross-env SLS_ENV=release nuxt start",
-    "start": "cross-env SLS_ENV=release NODE_ENV=production node --inspect=9229 dist/listener.js",
-    "deploy:ssg": "npm run gen && npm run generate && components deploy && node ./scripts/refresh-cdn-urls.js",
+    "deploy": "npm run gen && npm run generate && components deploy && node ./scripts/refresh-cdn-urls.js",
     "check:upgrade": "yarn upgradeInteractive --latest",
     "sls:info": "components info"
   },

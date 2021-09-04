@@ -3,7 +3,7 @@
 
 import fs from 'fs'
 import dotenv from 'dotenv'
-import { hooks, sitemap } from './nuxt.config/index'
+import { sitemap } from './nuxt.config/index'
 // import hooks from './nuxt.config/hooks.js'
 // import sitemap from './nuxt.config/sitemap.js'
 // import feed from './nuxt.config/feed'
@@ -227,7 +227,7 @@ const config = {
           //   ? require('./publicPath.js').default
           //   : prodPublicPath
           '/_nuxt/',
-    quiet: true,
+    // quiet: true,
     extractCSS: isProd,
     optimizeCSS: isProd,
     transpile: [/^element-ui/, /vant.*?less/, /echarts/, /zrender/],
@@ -304,7 +304,7 @@ const config = {
   },
   target: process.env.target || 'static',
   globalName: 'icebreaker',
-  hooks,
+  // hooks,
   srcDir: 'client/',
 }
 

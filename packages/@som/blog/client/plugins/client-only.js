@@ -1,4 +1,4 @@
-import Vue from 'vue'
+// import Vue from 'vue'
 
 import svg4everybody from 'svg4everybody'
 import mobile from 'is-mobile'
@@ -7,16 +7,17 @@ import mobile from 'is-mobile'
 // import { Integrations } from '@sentry/tracing'
 // import BaiduMap from 'vue-baidu-map'
 
-import { isRelease } from '@@/constants'
-if (!isRelease) {
-  if (
-    /eruda=true/.test(window.location) ||
-    localStorage.getItem('active-eruda') === 'true'
-  ) {
-    const eruda = require('eruda')
-    eruda.init()
-  }
-}
+// import { isRelease } from '@@/constants'
+
+// if (!isRelease) {
+//   if (
+//     /eruda=true/.test(window.location) ||
+//     localStorage.getItem('active-eruda') === 'true'
+//   ) {
+//     const eruda = require('eruda')
+//     eruda.init()
+//   }
+// }
 
 svg4everybody()
 
