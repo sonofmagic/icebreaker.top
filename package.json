@@ -25,6 +25,7 @@
     "deploy": "lerna run deploy",
     "install:blog": "cd packages/@som/blog && yarn",
     "deploy:blog":"cd packages/@som/blog && npm run deploy:ssg",
+    "sync:article":"cd packages/@som/blog && npm run sync",
     "genChangelog": "node scripts/genChangelog.js"
   },
   "devDependencies": {

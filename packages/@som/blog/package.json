@@ -7,7 +7,7 @@
     "dev:raw": "cross-env DEBUG=nuxt:* nuxt dev",
     "dev:brk": "cross-env NODE_ENV=development SLS_ENV=dev DEBUG=nuxt:* node --inspect-brk=9229 server/listener.js",
     "dev:sls": "components dev",
-    "sync": "node ./scripts/syncArticles.js",
+    "sync": "node scripts/syncArticles.js",
     "analyze": "cross-env SLS_ENV=release nuxt build --analyze",
     "generate": "cross-env SLS_ENV=release NODE_ENV=production nuxt generate",
     "lint:js": "eslint --ext .js,.vue --ignore-path .gitignore .",
