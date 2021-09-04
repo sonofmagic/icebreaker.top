@@ -1,7 +1,7 @@
 .nuxt
 dist
 yarn-error.log
-yarn.lock
+
 content
 .vscode
 *.tmp
