@@ -28,7 +28,8 @@ jobs:
 
       - name: Install Dependencies
         run: yarn install:blog
-
+      - name: Sync Articles
+        run: yarn sync:article
       - name: Deploy Blog Site
         shell: bash
         env:
