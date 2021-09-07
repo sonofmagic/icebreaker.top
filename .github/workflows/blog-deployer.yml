@@ -28,7 +28,7 @@ jobs:
         with:
           node-version: 14.x
           cache: yarn
-          cache-dependency-path: packages/@som/blog/yarn.lock
+          # cache-dependency-path: packages/@som/blog/yarn.lock
 
       - name: Install Dependencies
         run: yarn install:blog
