@@ -23,7 +23,7 @@ jobs:
       #     ref: main
       #     token: ${{ secrets.PERSONAL_TOKEN }}
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - name: checkout self repo # with cd command
+      - name: Checkout Self Repo # with cd command
         uses: actions/checkout@v2
         with:
           submodules: 'true'
@@ -44,6 +44,7 @@ jobs:
         env:
           TENCENT_SECRET_ID: ${{ secrets.TENCENT_SECRET_ID }}
           TENCENT_SECRET_KEY: ${{ secrets.TENCENT_SECRET_KEY }}
+          TENCENT_CLOUDBASE_ENVID: ${{ secrets.TENCENT_CLOUDBASE_ENVID }}
           SERVERLESS_PLATFORM_VENDOR: tencent
         run: yarn deploy:blog
 
