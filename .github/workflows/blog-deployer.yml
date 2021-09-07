@@ -18,7 +18,11 @@ jobs:
           timezoneLinux: Asia/Shanghai
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-
+      - uses: actions/checkout@v2
+        with:
+          repository: sonofmagic/icebreaker-articles
+          ref: main
+          token: ${{ secrets.PERSONAL_TOKEN }}
       - name: Setup Node.js environment
         uses: actions/setup-node@v2
         with:
