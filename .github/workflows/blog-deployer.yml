@@ -16,19 +16,20 @@ jobs:
         uses: szenius/set-timezone@v1.0
         with:
           timezoneLinux: Asia/Shanghai
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
       - uses: actions/checkout@v2
         with:
           repository: sonofmagic/icebreaker-articles
           ref: main
           token: ${{ secrets.PERSONAL_TOKEN }}
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      
       - name: Setup Node.js environment
         uses: actions/setup-node@v2
         with:
           node-version: 14.x
           cache: yarn
-          # cache-dependency-path: packages/@som/blog/yarn.lock
+          cache-dependency-path: packages/@som/blog/yarn.lock
 
       - name: Install Dependencies
         run: yarn install:blog
