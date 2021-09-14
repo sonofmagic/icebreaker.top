@@ -34,7 +34,8 @@
 // import 股权健康体检 from '@/assets/img/mini/股权健康体检.jpg'
 // import 股权激励设计助手 from '@/assets/img/mini/股权激励设计助手.jpg'
 // import 股加融资计算器 from '@/assets/img/mini/股加融资计算器.jpg'
-import 程序员名片 from '@/assets/img/mini/程序员名片.jpg'
+import ProgramerCard from '@/assets/img/mini/programer-card.jpg'
+import Icebreaker from '@/assets/img/mini/icebreaker.jpg'
 export default {
   name: 'MiniProgramsBar',
   data() {
@@ -65,7 +66,12 @@ export default {
         {
           desc: '一个用于程序员自我展示和相互交流的小程序',
           alt: '程序员名片',
-          src: 程序员名片,
+          src: ProgramerCard,
+        },
+        {
+          desc: '本博客站的小程序版本',
+          alt: '破冰客',
+          src: Icebreaker,
         },
       ],
     }

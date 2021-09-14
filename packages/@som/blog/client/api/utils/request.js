@@ -5,7 +5,7 @@
 // 不然会出现 esm 里混杂 cjs 的丑陋写法
 // 例如下面的response 400
 import axios from 'axios'
-
+import { isProd } from '@/utils/env'
 export function createAxiosInstance(baseURL) {
   const request = axios.create({
     baseURL,
@@ -49,4 +49,5 @@ export function createAxiosInstance(baseURL) {
   return request
 }
 
-export default createAxiosInstance(process.env.BASE_URL)
+const url = process.env.BASE_URL // isProd ? process.env.BASE_URL : ''
+export default createAxiosInstance(url)

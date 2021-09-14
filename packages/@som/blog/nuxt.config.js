@@ -191,9 +191,20 @@ const config = {
     // '@nuxtjs/apollo',
     // '@nuxtjs/svg-sprite',
     '@nuxtjs/sitemap',
+    // '@nuxtjs/proxy',
     // '@nuxtjs/feed',
     // '@nuxtjs/sentry',
   ],
+  // proxy: {
+  //   '/api': {
+  //     target: BASE_URL,
+  //     ws: false,
+  //     changeOrigin: true,
+  //     headers: {
+  //       host: 'www.icebreaker.top',
+  //     },
+  //   },
+  // },
   // sentry: {
   //   dsn: process.env.SENTRY_NUXT_DSN, // Enter your project's DSN here
   //   config: {}, // Additional config
@@ -268,6 +279,7 @@ const config = {
       config.node = {
         fs: 'empty',
       }
+
       // if (isClient && isLoadMonaco) {
       //   config.plugins.push(new MonacoWebpackPlugin())
       // }

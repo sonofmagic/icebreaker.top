@@ -58,7 +58,7 @@
           <h1 class="text-3xl mb-2">{{ article.title }}</h1>
           <div class="flex justify-between items-center">
             <tags :tags="tags"></tags>
-            <!-- <ReadCount :ref-id="article.id"></ReadCount> -->
+            <ReadCount :ref-id="article.id"></ReadCount>
           </div>
         </div>
         <!-- 不让爬虫爬了，降低风险 -->
@@ -79,6 +79,7 @@
 
 <script>
 // import { Sticky, Sidebar, SidebarItem } from 'vant'
+import { gsap } from 'gsap'
 import Comments from '@/components/common/Comments'
 // import ScrollMagic from 'scrollmagic'
 // /**
@@ -99,7 +100,6 @@ import Comments from '@/components/common/Comments'
 //   ScrollMagic = require('scrollmagic')
 //   console.log(new ScrollMagic.Controller())
 // }
-import { gsap } from 'gsap'
 export default {
   name: 'ArticlesYearMonthSlug',
   components: {
