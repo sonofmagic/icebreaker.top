@@ -1,6 +1,33 @@
 <template>
   <div class="px-4 space-y-3">
-    <div class="space-y-4">
+    <div class="space-y-1">
+      <div class="font-semibold">About icebreaker.top</div>
+      <div class="text-xs text-gray-800">
+        <div>
+          Hosted on
+          <OutSideLink href="https://cloud.tencent.com/product/cdn"
+            >Tencent Cloud CDN</OutSideLink
+          >
+        </div>
+        <div>
+          Deployed by
+          <OutSideLink href="https://docs.github.com/en/actions"
+            >GitHub Actions</OutSideLink
+          >
+        </div>
+        <div>
+          Powered by
+          <OutSideLink href="https://docs.cloudbase.net/">
+            CloudBase
+          </OutSideLink>
+          <span class="mx-0.5">&</span>
+          <OutSideLink href="https://www.serverless.com/">
+            Serverless
+          </OutSideLink>
+        </div>
+      </div>
+    </div>
+    <div class="space-y-2">
       <div class="font-semibold">
         About
         <span
@@ -46,7 +73,7 @@
         </div> -->
       </div>
     </div>
-    <div class="space-y-4">
+    <div class="space-y-2">
       <div class="font-semibold">Languages</div>
       <div class="text-sm">
         <ul class="list-inside list-decimal">
@@ -63,7 +90,7 @@
         /> -->
       </div>
     </div>
-    <div class="space-y-4">
+    <div class="space-y-2">
       <div class="font-semibold">Skills</div>
       <div class="text-sm">
         <ul class="list-inside list-decimal">
@@ -82,7 +109,7 @@
         /> -->
       </div>
     </div>
-    <div class="space-y-4">
+    <div class="space-y-2">
       <div class="font-semibold">Mini Programs</div>
       <div>
         <MiniPrograms></MiniPrograms>
