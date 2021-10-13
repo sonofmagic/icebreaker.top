@@ -92,6 +92,11 @@ export default {
       this.clearValidate('signin')
     },
     open() {
+      // this.$store.dispatch('cache/setWsTempData', {
+      //   user: 'dsd',
+      // })
+      // this.$router.push('/ws-login-success')
+      // return
       const socket = (this.socket = io('http://127.0.0.1:9000'))
 
       // debugger
@@ -101,8 +106,10 @@ export default {
         this.socketId = socket.id
         this.getQrcode(this.socketId)
       })
-      socket.on('success', (...args) => {
-        console.log(args)
+      socket.on('success', (userinfo, ...args) => {
+        console.log(userinfo, ...args)
+        this.$store.dispatch('setWsTempData', userinfo)
+        this.$router.push('/ws-login-success')
       })
       socket.on('disconnect', () => {
         this.socketId = socket.id // undefined
