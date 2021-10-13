@@ -11,7 +11,7 @@
     "
   >
     <div class="font-semibold mb-5">您的微信登录信息</div>
-    <div>{{ wsTempData }}</div>
+    <div class="w-[750px] break-words">{{ wsTempData }}</div>
   </div>
 </template>
 

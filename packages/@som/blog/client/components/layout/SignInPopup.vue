@@ -28,7 +28,7 @@
 
       <SignIn v-show="toggle" ref="signin" @success="visible = false"></SignIn>
       <div class="mt-6 underline" @click="toggleLoginType">
-        切换{{ toggle ? '账号密码' : '小程序码' }}登录
+        切换{{ toggle ? '小程序码' : '账号密码' }}登录
       </div>
     </div>
   </SomPopup>
