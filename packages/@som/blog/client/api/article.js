@@ -39,3 +39,9 @@ export function incReadCountById(id) {
     },
   })
 }
+
+export function getBlogLoginQrcode(scene = '') {
+  return request.post('/api/v1/qrcode/blog-mp', {
+    scene,
+  })
+}

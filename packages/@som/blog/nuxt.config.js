@@ -7,8 +7,8 @@ import { sitemap } from './nuxt.config/index'
 // import hooks from './nuxt.config/hooks.js'
 // import sitemap from './nuxt.config/sitemap.js'
 // import feed from './nuxt.config/feed'
-import { isProd, isRelease } from './constants.js'
-
+import { isProd, isRelease, isDev } from './constants.js'
+console.log('[NODE_ENV]:', process.env.NODE_ENV)
 dotenv.config()
 // const slsEnv = process.env.SLS_ENV
 // const cdnSite = 'https://cdn.icebreaker.top/'
@@ -194,11 +194,15 @@ const config = {
     // '@nuxtjs/proxy',
     // '@nuxtjs/feed',
     // '@nuxtjs/sentry',
+    // [
+    //   '@nuxtjs/proxy',
+    //   { pathRewrite: { '^/api': { target: 'http://127.0.0.1:9000/api' } } },
+    // ],
   ],
   // proxy: {
   //   '/api': {
-  //     target: BASE_URL,
-  //     ws: false,
+  //     target: 'http://127.0.0.1:9000', // BASE_URL,
+  //     ws: true,
   //     changeOrigin: true,
   //     headers: {
   //       host: 'www.icebreaker.top',
@@ -335,5 +339,11 @@ if (isProd) {
     },
   }
 }
+// if (isDev) {
+//   config.modules.push([
+//     '@nuxtjs/proxy',
+//     { pathRewrite: { '^/api': { target: 'http://127.0.0.1:9000/api' } } },
+//   ])
+// }
 
 export default config // theme(config)

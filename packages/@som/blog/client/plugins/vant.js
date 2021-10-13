@@ -12,6 +12,8 @@ import {
   Button,
   Grid,
   GridItem,
+  Image,
+  Loading,
 } from 'vant'
 
 const coms = [
@@ -27,6 +29,8 @@ const coms = [
   Button,
   Grid,
   GridItem,
+  Image,
+  Loading,
 ]
 
 coms.forEach((com) => {
