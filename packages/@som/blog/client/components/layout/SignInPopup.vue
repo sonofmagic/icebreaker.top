@@ -108,8 +108,10 @@ export default {
       })
       socket.on('success', (userinfo, ...args) => {
         console.log(userinfo, ...args)
-        this.$store.dispatch('setWsTempData', userinfo)
+        this.$store.dispatch('cache/setWsTempData', userinfo)
         this.$router.push('/ws-login-success')
+        this.$message.success('微信登录成功!')
+        this.visible = false
       })
       socket.on('disconnect', () => {
         this.socketId = socket.id // undefined
