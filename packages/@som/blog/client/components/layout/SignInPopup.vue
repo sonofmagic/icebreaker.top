@@ -7,7 +7,7 @@
     @close="close"
   >
     <div class="w-[350px] flex flex-col items-center">
-      <div v-show="!toggle">
+      <!-- <div v-show="!toggle">
         <div class="flex justify-between mb-4 text-sm">
           请使用微信扫一扫登录
           <span class="hover:underline hover:text-primary-400" @click="refresh"
@@ -24,12 +24,12 @@
             <van-loading type="spinner" size="20" />
           </template>
         </van-image>
-      </div>
+      </div> -->
 
       <SignIn v-show="toggle" ref="signin" @success="visible = false"></SignIn>
-      <div class="mt-6 underline" @click="toggleLoginType">
+      <!-- <div class="mt-6 underline" @click="toggleLoginType">
         切换{{ toggle ? '小程序码' : '账号密码' }}登录
-      </div>
+      </div> -->
     </div>
   </SomPopup>
 </template>
@@ -53,7 +53,7 @@ export default {
     return {
       qrcodeUrl: '',
       qrcodeLoading: false,
-      toggle: false,
+      toggle: true,
     }
   },
   computed: {
