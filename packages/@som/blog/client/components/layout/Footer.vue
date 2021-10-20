@@ -8,6 +8,7 @@
         items-center
         px-4
         text-gray-600 text-xs
+        dark:text-accents-600
       "
     >
       <div>

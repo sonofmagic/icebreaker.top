@@ -3,6 +3,7 @@
 export const state = () => ({
   // counter: 0,
   hrefs: [],
+  theme: 'light',
 })
 
 export const plugins = [] // [ClientOnly]
@@ -10,6 +11,9 @@ export const plugins = [] // [ClientOnly]
 export const mutations = {
   set_hrefs(state, { items }) {
     state.hrefs = items
+  },
+  set_theme(state, theme) {
+    state.theme = theme
   },
 }
 

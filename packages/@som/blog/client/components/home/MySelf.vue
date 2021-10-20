@@ -1,5 +1,9 @@
 <template>
   <div class="px-4 space-y-3">
+    <div class="flex items-center">
+      <span class="text-sm mr-4">Dark Mode</span>
+      <el-switch v-model="theme"> </el-switch>
+    </div>
     <div class="space-y-1">
       <div class="font-semibold">About icebreaker.top</div>
       <div class="text-xs text-gray-800">
@@ -164,12 +168,20 @@ export default {
   components: {},
   mixins: [copyTextMixin],
   data() {
-    return {
+    // let ls
+    // if (process.client) {
+    //   ls = new Proxy(window.localStorage, (t, arg, nt) => {
+    //     console.log(t, arg, nt)
+    //   })
+    // }
+    const refs = {
       joy: '😂', // nameToEmoji.joy,
       rofl: '🤣', // nameToEmoji.rofl,
       smirk: '😏', // nameToEmoji.smirk,
       icebreakerQrcodeVisible: false,
       icebreakerQrcodeUrl: wechat.myQrcode2,
+      darkMode: false,
+      // ls,
       // langs: [
       //   ['fab', 'html5'],
       //   ['fab', 'css3-alt'],
@@ -183,6 +195,49 @@ export default {
       //   ['fab', 'git-square'],
       // ],
     }
+    if (process.client) {
+      refs.darkMode = localStorage.getItem('theme') === 'dark'
+    }
+    return refs
+  },
+  computed: {
+    theme: {
+      get() {
+        // if (process.client) {
+        //   return this.darkMode // localStorage.getItem('theme')
+        // }
+
+        return this.darkMode
+      },
+      set(nv) {
+        if (process.client) {
+          localStorage.setItem('theme', nv ? 'dark' : 'light')
+        }
+        this.darkMode = nv
+      },
+    },
+  },
+  watch: {
+    // very lazy
+    darkMode() {
+      this.checkMode()
+    },
+  },
+  mounted() {
+    this.checkMode()
+  },
+  methods: {
+    checkMode() {
+      if (
+        localStorage.theme === 'dark' ||
+        (!('theme' in localStorage) &&
+          window.matchMedia('(prefers-color-scheme: dark)').matches)
+      ) {
+        document.documentElement.classList.add('dark')
+      } else {
+        document.documentElement.classList.remove('dark')
+      }
+    },
   },
 }
 </script>

@@ -27,6 +27,7 @@
         </a>
       </nav>
     </div>
+
     <client-only>
       <div class="tail flex justify-end flex-grow sm:flex-grow-0">
         <template v-if="isRealLogined">
@@ -78,13 +79,13 @@
 </template>
 
 <script>
-import Logo from '@/assets/img/avatar.jpg'
-import defaultAvatar from '@/assets/img/default-avatar.png'
-import HeaderSearchBar from '@/components/article/HeaderSearchBar'
 import { mapGetters } from 'vuex'
 import { Dialog } from 'vant'
 import SignInPopup from './SignInPopup'
 import RegisterPopup from './RegisterPopup'
+import HeaderSearchBar from '@/components/article/HeaderSearchBar'
+import defaultAvatar from '@/assets/img/default-avatar.png'
+import Logo from '@/assets/img/avatar.jpg'
 export default {
   components: {
     HeaderSearchBar,
@@ -96,6 +97,7 @@ export default {
       logoUri: Logo,
       RegisterVisible: false,
       SignInVisible: false,
+
       outSideLinks: [
         // {
         //   href: 'https://github.com/sonofmagic/icebreaker.top/pulls',
@@ -137,11 +139,11 @@ export default {
           to: '/chart',
           title: 'Charts',
         },
-        {
-          key: 300,
-          to: '/demos',
-          title: 'Demos',
-        },
+        // {
+        //   key: 300,
+        //   to: '/demos',
+        //   title: 'Demos',
+        // },
       ],
       defaultAvatar,
     }
@@ -166,8 +168,8 @@ export default {
 
 <style lang="scss" scoped>
 .site-header {
-  background-color: #24292e;
   height: 54px;
+  @apply bg-[#24292e] dark:bg-black dark:border-b dark:border-accents-200 dark:border-solid;
   .header-middle-area {
     .nav {
       .link {

@@ -170,7 +170,7 @@ const config = {
     id: 'G-9LFZ3ZM31C',
   },
   tailwindcss: {
-    cssPath: '~/assets/css/tailwind.css',
+    cssPath: '~/assets/css/tailwind.scss',
     configPath: '../tailwind.config.js',
     exposeConfig: false,
     // config: {},
