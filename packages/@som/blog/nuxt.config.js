@@ -57,12 +57,6 @@ const script =
             encoding: 'utf-8',
           }),
         },
-        {
-          hid: 'oribi',
-          innerHTML: fs.readFileSync('./statistics/oribi.js', {
-            encoding: 'utf-8',
-          }),
-        },
       ]
     : []
 
