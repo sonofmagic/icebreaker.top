@@ -65,7 +65,7 @@ const script =
  */
 const config = {
   // Global page headers (https://go.nuxtjs.dev/config-head)
-
+  ssr: false,
   modern: isProd,
   telemetry: false,
   head: {
@@ -107,6 +107,9 @@ const config = {
       },
     ],
   },
+  // router: {
+  //   middleware: ['theme'],
+  // },
   loading: {
     color: 'rgb(121, 184, 255)',
   },
@@ -140,6 +143,7 @@ const config = {
       src: '@/plugins/gsap.js',
       mode: 'client',
     },
+    // { src: '@/plugins/persistedState.js' },
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -224,6 +228,7 @@ const config = {
       },
     },
   },
+  // middleware: ['theme'],
   // apollo: {
   //   clientConfigs: {
   //     default: {
@@ -313,6 +318,7 @@ const config = {
       ],
     },
   },
+
   env,
   generate: {
     dir: 'docs',

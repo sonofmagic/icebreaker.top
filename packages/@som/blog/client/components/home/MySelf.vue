@@ -1,9 +1,9 @@
 <template>
   <div class="px-4 space-y-3">
-    <div class="flex items-center">
+    <!-- <div class="flex items-center">
       <span class="text-sm mr-4">Dark Mode</span>
       <el-switch v-model="theme"> </el-switch>
-    </div>
+    </div> -->
     <div class="space-y-1">
       <div class="font-semibold">About icebreaker.top</div>
       <div class="text-xs text-gray-800">
@@ -180,7 +180,7 @@ export default {
       smirk: '😏', // nameToEmoji.smirk,
       icebreakerQrcodeVisible: false,
       icebreakerQrcodeUrl: wechat.myQrcode2,
-      darkMode: false,
+      // darkMode: false,
       // ls,
       // langs: [
       //   ['fab', 'html5'],
@@ -195,50 +195,54 @@ export default {
       //   ['fab', 'git-square'],
       // ],
     }
-    if (process.client) {
-      refs.darkMode = localStorage.getItem('theme') === 'dark'
-    }
+    // if (process.client) {
+    //   if (!localStorage.theme && !localStorage.seted_theme) {
+    //     localStorage.theme = 'dark'
+    //     localStorage.seted_theme = 1
+    //   }
+    //   refs.darkMode = localStorage.getItem('theme') === 'dark'
+    // }
     return refs
   },
-  computed: {
-    theme: {
-      get() {
-        // if (process.client) {
-        //   return this.darkMode // localStorage.getItem('theme')
-        // }
+  // computed: {
+  //   theme: {
+  //     get() {
+  //       // if (process.client) {
+  //       //   return this.darkMode // localStorage.getItem('theme')
+  //       // }
 
-        return this.darkMode
-      },
-      set(nv) {
-        if (process.client) {
-          localStorage.setItem('theme', nv ? 'dark' : 'light')
-        }
-        this.darkMode = nv
-      },
-    },
-  },
-  watch: {
-    // very lazy
-    darkMode() {
-      this.checkMode()
-    },
-  },
-  mounted() {
-    this.checkMode()
-  },
-  methods: {
-    checkMode() {
-      if (
-        localStorage.theme === 'dark' ||
-        (!('theme' in localStorage) &&
-          window.matchMedia('(prefers-color-scheme: dark)').matches)
-      ) {
-        document.documentElement.classList.add('dark')
-      } else {
-        document.documentElement.classList.remove('dark')
-      }
-    },
-  },
+  //       return this.darkMode
+  //     },
+  //     set(nv) {
+  //       if (process.client) {
+  //         localStorage.setItem('theme', nv ? 'dark' : 'light')
+  //       }
+  //       this.darkMode = nv
+  //     },
+  //   },
+  // },
+  // watch: {
+  //   // very lazy
+  //   darkMode() {
+  //     this.checkMode()
+  //   },
+  // },
+  // mounted() {
+  //   this.checkMode()
+  // },
+  // methods: {
+  //   checkMode() {
+  //     if (
+  //       localStorage.theme === 'dark' ||
+  //       (!('theme' in localStorage) &&
+  //         window.matchMedia('(prefers-color-scheme: dark)').matches)
+  //     ) {
+  //       document.documentElement.classList.add('dark')
+  //     } else {
+  //       document.documentElement.classList.remove('dark')
+  //     }
+  //   },
+  // },
 }
 </script>
 <style lang="scss" scoped>

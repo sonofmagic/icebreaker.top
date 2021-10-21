@@ -7,7 +7,7 @@
     </div>
     <div class="header-middle-area text-left hidden sm:flex flex-grow">
       <HeaderSearchBar />
-      <nav class="nav ml-4 hidden lg:block">
+      <nav class="nav ml-4 hidden lg:flex lg:items-center">
         <nuxt-link
           v-for="inlink in inSideLinks"
           :key="inlink.key"
@@ -25,6 +25,9 @@
         >
           <span>{{ item.title }}</span>
         </a>
+        <span>
+          <ThemeSwitch></ThemeSwitch>
+        </span>
       </nav>
     </div>
 
@@ -86,11 +89,13 @@ import RegisterPopup from './RegisterPopup'
 import HeaderSearchBar from '@/components/article/HeaderSearchBar'
 import defaultAvatar from '@/assets/img/default-avatar.png'
 import Logo from '@/assets/img/avatar.jpg'
+import ThemeSwitch from '@/components/theme/ThemeSwitch.vue'
 export default {
   components: {
     HeaderSearchBar,
     SignInPopup,
     RegisterPopup,
+    ThemeSwitch,
   },
   data() {
     return {

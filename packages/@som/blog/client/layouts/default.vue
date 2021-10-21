@@ -8,8 +8,8 @@
   </CommonSlot>
 </template>
 <script>
-import CommonSlot from '@/components/layout/CommonSlot'
 import { Dialog } from 'vant'
+import CommonSlot from '@/components/layout/CommonSlot'
 import Sitemap from '@/components/sitemap'
 export default {
   name: 'PublicLayout',
@@ -17,6 +17,7 @@ export default {
     CommonSlot,
     Sitemap,
   },
+  middleware: ['theme'],
   // async mounted() {
   //   // this.showUpgradeDialog()
   //   const workbox = await window.$workbox

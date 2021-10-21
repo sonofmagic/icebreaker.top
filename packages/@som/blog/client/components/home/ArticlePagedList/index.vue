@@ -26,11 +26,11 @@
 
 <script>
 // #f6f8fa
-import { getPageList } from '@/api/article'
 import PaginationSkeleton from './PaginationSkeleton'
 import TableHeader from './Header'
 import BodySkeleton from './BodySkeleton'
 import TableBody from './Body'
+import { getPageList } from '@/api/article'
 export default {
   name: 'ArticlePagedList',
   components: {

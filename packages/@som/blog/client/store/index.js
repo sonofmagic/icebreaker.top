@@ -1,10 +1,22 @@
 // import ClientOnly from '@/storePlugins/client-only'
 // import getArticle from '@/utils/getArticle'
-export const state = () => ({
-  // counter: 0,
-  hrefs: [],
-  theme: 'light',
-})
+// import createPersistedState from 'vuex-persistedstate'
+export const state = () => {
+  // let theme = 'light'
+  // if (process.client) {
+  //   if (!localStorage.theme && !localStorage.seted_theme) {
+  //     localStorage.theme = 'dark'
+  //     localStorage.seted_theme = 1
+  //   }
+
+  //   theme = localStorage.getItem('theme')
+  // }
+  return {
+    // counter: 0,
+    hrefs: [],
+    // theme,
+  }
+}
 
 export const plugins = [] // [ClientOnly]
 
@@ -26,5 +38,11 @@ export const actions = {
       .fetch()
     // console.log(hrefs)
     commit('set_hrefs', { items: hrefs })
+  },
+}
+
+export const getters = {
+  theme(state) {
+    return state.theme
   },
 }

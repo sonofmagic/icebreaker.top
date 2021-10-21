@@ -5100,6 +5100,13 @@ dom-serializer@^1.0.1:
     domhandler "^4.2.0"
     entities "^2.0.0"
 
+dom7@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.nlark.com/dom7/download/dom7-3.0.0.tgz#b861ce5d67a6becd7aaa3ad02942ff14b1240331"
+  integrity sha1-uGHOXWemvs16qjrQKUL/FLEkAzE=
+  dependencies:
+    ssr-window "^3.0.0-alpha.1"
+
 domain-browser@^1.1.1:
   version "1.2.0"
   resolved "https://registry.nlark.com/domain-browser/download/domain-browser-1.2.0.tgz#3d31f50191a6749dd1375a7f522e823d42e54eda"
@@ -5831,6 +5838,11 @@ etag@^1.8.1, etag@~1.8.1:
   resolved "https://registry.nlark.com/etag/download/etag-1.8.1.tgz#41ae2eeb65efa62268aebfea83ac7d79299b0887"
   integrity sha1-Qa4u62XvpiJorr/qg6x9eSmbCIc=
 
+ev-emitter@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.nlark.com/ev-emitter/download/ev-emitter-2.1.0.tgz#0feaf873003db49c92ceb7d448111a952fb25ce2"
+  integrity sha1-D+r4cwA9tJySzrfUSBEalS+yXOI=
+
 event-emitter@^0.3.5, event-emitter@~0.3.5:
   version "0.3.5"
   resolved "https://registry.nlark.com/event-emitter/download/event-emitter-0.3.5.tgz#df8c69eef1647923c7157b9ce83840610b02cc39"
@@ -6163,6 +6175,11 @@ find-up@^4.0.0, find-up@^4.1.0:
   dependencies:
     locate-path "^5.0.0"
     path-exists "^4.0.0"
+
+fizzy-ui-utils@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.npm.taobao.org/fizzy-ui-utils/download/fizzy-ui-utils-3.0.0.tgz#cc5e876eea263d3d92828a3144745dbd7b972fc8"
+  integrity sha1-zF6HbuomPT2SgooxRHRdvXuXL8g=
 
 flat-cache@^3.0.4:
   version "3.0.4"
@@ -7220,6 +7237,14 @@ infer-owner@^1.0.3, infer-owner@^1.0.4:
   version "1.0.4"
   resolved "https://registry.nlark.com/infer-owner/download/infer-owner-1.0.4.tgz#c4cefcaa8e51051c2a40ba2ce8a3d27295af9467"
   integrity sha1-xM78qo5RBRwqQLos6KPScpWvlGc=
+
+infinite-scroll@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.nlark.com/infinite-scroll/download/infinite-scroll-4.0.1.tgz#093dafe2d86bf4cd27da3b920a46f898f22c939f"
+  integrity sha1-CT2v4thr9M0n2juSCkb4mPIsk58=
+  dependencies:
+    ev-emitter "^2.1.0"
+    fizzy-ui-utils "^3.0.0"
 
 inflight@^1.0.4:
   version "1.0.6"
@@ -11865,6 +11890,11 @@ shell-quote@^1.6.1:
   resolved "https://registry.nlark.com/shell-quote/download/shell-quote-1.7.2.tgz#67a7d02c76c9da24f99d20808fcaded0e0e04be2"
   integrity sha1-Z6fQLHbJ2iT5nSCAj8re0ODgS+I=
 
+shvl@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.npm.taobao.org/shvl/download/shvl-2.0.3.tgz?cache=0&sync_timestamp=1618213559489&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fshvl%2Fdownload%2Fshvl-2.0.3.tgz#eb4bd37644f5684bba1fc52c3010c96fb5e6afd1"
+  integrity sha1-60vTdkT1aEu6H8UsMBDJb7Xmr9E=
+
 side-channel@^1.0.4:
   version "1.0.4"
   resolved "https://registry.nlark.com/side-channel/download/side-channel-1.0.4.tgz#efce5c8fdc104ee751b25c58d4290011fa5ea2cf"
@@ -12205,6 +12235,11 @@ sshpk@^1.7.0:
     jsbn "~0.1.0"
     safer-buffer "^2.0.2"
     tweetnacl "~0.14.0"
+
+ssr-window@^3.0.0, ssr-window@^3.0.0-alpha.1:
+  version "3.0.0"
+  resolved "https://registry.nlark.com/ssr-window/download/ssr-window-3.0.0.tgz#fd5b82801638943e0cc704c4691801435af7ac37"
+  integrity sha1-/VuCgBY4lD4MxwTEaRgBQ1r3rDc=
 
 ssri@^6.0.1:
   version "6.0.2"
@@ -12623,6 +12658,14 @@ svgo@^1.0.0:
     stable "^0.1.8"
     unquote "~1.1.1"
     util.promisify "~1.0.0"
+
+swiper@6.8.4:
+  version "6.8.4"
+  resolved "https://registry.npmmirror.com/swiper/download/swiper-6.8.4.tgz#938fed4144f4d7952fbf9c44e5832d133a4de794"
+  integrity sha1-k4/tQUT015Uvv5xE5YMtEzpN55Q=
+  dependencies:
+    dom7 "^3.0.0"
+    ssr-window "^3.0.0"
 
 table@^6.0.9, table@^6.6.0:
   version "6.7.1"
@@ -13610,6 +13653,14 @@ vue@^2.6.12:
   version "2.6.14"
   resolved "https://registry.nlark.com/vue/download/vue-2.6.14.tgz?cache=0&sync_timestamp=1630608718004&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fvue%2Fdownload%2Fvue-2.6.14.tgz#e51aa5250250d569a3fbad3a8a5a687d6036e235"
   integrity sha1-5RqlJQJQ1Wmj+606ilpofWA24jU=
+
+vuex-persistedstate@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.nlark.com/vuex-persistedstate/download/vuex-persistedstate-4.1.0.tgz?cache=0&sync_timestamp=1632227055549&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fvuex-persistedstate%2Fdownload%2Fvuex-persistedstate-4.1.0.tgz#127165f85f5b4534fb3170a5d3a8be9811bd2a53"
+  integrity sha1-EnFl+F9bRTT7MXCl06i+mBG9KlM=
+  dependencies:
+    deepmerge "^4.2.2"
+    shvl "^2.0.3"
 
 vuex@^3.6.2:
   version "3.6.2"
