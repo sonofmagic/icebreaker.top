@@ -65,7 +65,7 @@ const script =
  */
 const config = {
   // Global page headers (https://go.nuxtjs.dev/config-head)
-  ssr: false,
+  // ssr: false,
   modern: isProd,
   telemetry: false,
   head: {
