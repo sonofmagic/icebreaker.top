@@ -104,6 +104,10 @@ export default {
       SignInVisible: false,
 
       outSideLinks: [
+        {
+          href: 'https://cloudbase.icebreaker.top',
+          title: 'SimpleCloudbase',
+        },
         // {
         //   href: 'https://github.com/sonofmagic/icebreaker.top/pulls',
         //   title: 'Pull requests',
