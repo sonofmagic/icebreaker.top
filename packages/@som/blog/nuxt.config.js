@@ -45,19 +45,19 @@ const env = {
 const script =
   isProd && isRelease
     ? [
-        {
-          hid: 'hm',
-          innerHTML: fs.readFileSync('./statistics/baidu.js', {
-            encoding: 'utf-8',
-          }),
-        },
-        {
-          hid: 'bp',
-          innerHTML: fs.readFileSync('./statistics/baidu-auto-push.js', {
-            encoding: 'utf-8',
-          }),
-        },
-      ]
+      {
+        hid: 'hm',
+        innerHTML: fs.readFileSync('./statistics/baidu.js', {
+          encoding: 'utf-8',
+        }),
+      },
+      {
+        hid: 'bp',
+        innerHTML: fs.readFileSync('./statistics/baidu-auto-push.js', {
+          encoding: 'utf-8',
+        }),
+      },
+    ]
     : []
 
 /**
@@ -244,9 +244,9 @@ const config = {
       isRelease && isProd
         ? '/_ice/' /// prodPublicPath
         : //  isPublicPathExist
-          //   ? require('./publicPath.js').default
-          //   : prodPublicPath
-          '/_nuxt/',
+        //   ? require('./publicPath.js').default
+        //   : prodPublicPath
+        '/_nuxt/',
     // quiet: true,
     extractCSS: isProd,
     optimizeCSS: isProd,
