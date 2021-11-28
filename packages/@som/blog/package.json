@@ -48,7 +48,7 @@
     "js-base64": "^3.7.2",
     "js-cookie": "^3.0.1",
     "lodash": "^4.17.21",
-    "marked": "^4.0.4",
+    "marked": "^4.0.5",
     "nuxt": "^2.15.8",
     "qrcode.vue": "^1.7.0",
     "sitemap": "^7.0.0",
@@ -56,7 +56,7 @@
     "svg4everybody": "^2.1.9",
     "swiper": "6.8.4",
     "uuid": "^8.3.2",
-    "vant": "^2.12.34",
+    "vant": "^2.12.35",
     "vue-aplayer": "^1.6.1",
     "vue-echarts": "6.0.0",
     "vuex-persistedstate": "^4.1.0"
@@ -77,7 +77,7 @@
     "babel-plugin-component": "^1.1.1",
     "babel-plugin-import": "^1.13.3",
     "cli-progress": "^3.9.1",
-    "cos-nodejs-sdk-v5": "^2.11.2",
+    "cos-nodejs-sdk-v5": "^2.11.3",
     "cross-env": "^7.0.3",
     "dotenv": "^10.0.0",
     "eslint": "^8.3.0",
@@ -90,8 +90,8 @@
     "klaw": "^4.0.1",
     "less": "^4.1.2",
     "less-loader": "^7.0.0",
-    "postcss": "^8.4.1",
-    "prettier": "^2.4.1",
+    "postcss": "^8.4.4",
+    "prettier": "^2.5.0",
     "sass": "1.32.12",
     "sass-loader": "^10.0.0",
     "serverless-config-generator": "^1.0.4",
@@ -103,6 +103,6 @@
     "stylelint-scss": "^4.0.0",
     "tailwind-config-viewer": "^1.6.2",
     "tailwindcss": "^2.2.19",
-    "tencentcloud-sdk-nodejs": "^4.0.244"
+    "tencentcloud-sdk-nodejs": "^4.0.245"
   }
 }
