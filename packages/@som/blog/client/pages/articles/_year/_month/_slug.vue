@@ -1,5 +1,8 @@
 <template>
-  <div class="container mx-auto" style="max-width: 1280px">
+  <div
+    class="container mx-auto"
+    style="max-width: 1280px"
+  >
     <div class="py-6 flex flex-col lg:flex-row">
       <div
         ref="leftMenu"
@@ -7,7 +10,10 @@
         class="hidden sm:inline-block sm:mb-4 lg:mr-4"
       >
         <!-- <Sticky :offset-top="20" :container="leftMenu"> -->
-        <div class="flex sm:block sticky" style="top: 1rem">
+        <div
+          class="flex sm:block sticky"
+          style="top: 1rem"
+        >
           <div class="mb-4">
             <nuxt-link
               class="
@@ -43,22 +49,23 @@
               "
               :href="`#${t.id}-f`"
               @click.stop="scrollTo(t.id)"
-              >{{ t.text }}</a
-            >
+            >{{ t.text }}</a>
           </div>
         </div>
 
         <!-- </Sticky> -->
       </div>
       <!-- lg: -->
-      <div
-        class="mb-4 lg:mb-0 mr-4 bg-white p-8 shadow w-full content-max-width"
-      >
+      <div class="mb-4 lg:mb-0 mr-4 bg-white p-8 shadow w-full content-max-width">
         <div class="pb-4 mb-4">
           <h1 class="text-3xl mb-2">{{ article.title }}</h1>
           <div class="flex justify-between items-center">
             <tags :tags="tags"></tags>
-            <ReadCount :ref-id="article.id"></ReadCount>
+            <div class="flex space-x-4" style="min-width:240px">
+              <div class="text-xs text-gray-900 whitespace-no-wrap">共{{article.readingWords}}个字，阅读时间 {{article.readingMinutes}} 分钟</div>
+              <ReadCount :ref-id="article.id"></ReadCount>
+            </div>
+
           </div>
         </div>
         <!-- 不让爬虫爬了，降低风险 -->

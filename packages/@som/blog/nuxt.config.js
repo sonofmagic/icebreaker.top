@@ -4,6 +4,7 @@
 import fs from 'fs'
 import dotenv from 'dotenv'
 import { sitemap } from './nuxt.config/index'
+// import { toHtml } from 'hast-util-to-html'
 // import dayjs from 'dayjs'
 // import hooks from './nuxt.config/hooks.js'
 // import sitemap from './nuxt.config/sitemap.js'
@@ -46,19 +47,19 @@ const env = {
 const script =
   isProd && isRelease
     ? [
-        {
-          hid: 'hm',
-          innerHTML: fs.readFileSync('./statistics/baidu.js', {
-            encoding: 'utf-8',
-          }),
-        },
-        {
-          hid: 'bp',
-          innerHTML: fs.readFileSync('./statistics/baidu-auto-push.js', {
-            encoding: 'utf-8',
-          }),
-        },
-      ]
+      {
+        hid: 'hm',
+        innerHTML: fs.readFileSync('./statistics/baidu.js', {
+          encoding: 'utf-8',
+        }),
+      },
+      {
+        hid: 'bp',
+        innerHTML: fs.readFileSync('./statistics/baidu-auto-push.js', {
+          encoding: 'utf-8',
+        }),
+      },
+    ]
     : []
 
 /**
@@ -205,27 +206,36 @@ const config = {
     // ],
   ],
   feed() {
-    const baseUrlArticles = 'https://icebreaker.top/'
+    const websiteUrl = 'https://icebreaker.top'
+    // const baseUrlArticles = 'https://icebreaker.top/'
     //const baseLinkFeedArticles = '/feed/articles'
     const feedFormats = {
       rss: { type: 'rss2', file: 'rss.xml' },
       json: { type: 'json1', file: 'feed.json' },
     }
     const { $content } = require('@nuxt/content')
-
+    // https://validator.w3.org/feed/docs/rss2.html
     const createFeedArticles = async function (feed) {
       feed.options = {
         title: 'icebreaker',
         description: '一位打字员',
-        link: baseUrlArticles,
+        link: websiteUrl + '/',
+        language: 'zh-cn',
+        copyright: `Copyright ${(new Date()).getFullYear()} icebreaker.The contents of this feed are available for non-commercial use only.`,
+        generator: 'icebreaker.top',
+        author: {
+          name: "icebreaker",
+          email: "1324318532@qq.com",
+        }
+        // image:''
       }
       const articles = await $content('articles', {
         deep: true,
-      }).fetch()
+      }).sortBy('date', 'desc').fetch()
 
       articles.forEach((article) => {
-        const url = `${baseUrlArticles}/${article.path}`
-        // console.log(article)
+        const url = `${websiteUrl}${article.path}`
+        // console.log(article.body.children)
         feed.addItem({
           title: article.title,
           id: article.id,
@@ -233,8 +243,14 @@ const config = {
           //date: article.published,
           date: new Date(article.date), //  new Date(article.date),
           description: article.description,
-          content: article.summary,
+          content: article.summary,// toHtml(article.body),// article.summary,
           author: article.authors,
+          // const { name, domain } = category;
+          category: Array.isArray(article.tags) ? article.tags.map(x => {
+            return {
+              name: x
+            }
+          }) : []
         })
       })
     }
@@ -286,9 +302,9 @@ const config = {
       isRelease && isProd
         ? '/_ice/' /// prodPublicPath
         : //  isPublicPathExist
-          //   ? require('./publicPath.js').default
-          //   : prodPublicPath
-          '/_nuxt/',
+        //   ? require('./publicPath.js').default
+        //   : prodPublicPath
+        '/_nuxt/',
     // quiet: true,
     extractCSS: isProd,
     optimizeCSS: isProd,
@@ -369,6 +385,16 @@ const config = {
   target: process.env.target || 'static',
   globalName: 'icebreaker',
   // hooks,
+  hooks: {
+    'content:file:beforeInsert': (document) => {
+      if (document.extension === '.md') {
+        const { minutes, words } = require('reading-time')(document.text)
+        // time,
+        document.readingMinutes = Math.round(minutes)
+        document.readingWords = words
+      }
+    }
+  },
   srcDir: 'client/',
 }
 
