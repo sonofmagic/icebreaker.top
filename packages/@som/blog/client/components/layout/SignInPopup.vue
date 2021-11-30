@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { io } from 'socket.io-client'
+// import { io } from 'socket.io-client'
 import SignIn from '@/components/public/SignIn/index'
 import { getBlogLoginQrcode } from '@/api/article'
 export default {
@@ -97,26 +97,25 @@ export default {
       // })
       // this.$router.push('/ws-login-success')
       // return
-      const socket = (this.socket = io('http://127.0.0.1:9000'))
-
-      // debugger
-      socket.on('connect', () => {
-        console.log(socket.id) // x8WIv7-mJelg7on_ALbx
-        console.log(socket)
-        this.socketId = socket.id
-        this.getQrcode(this.socketId)
-      })
-      socket.on('success', (userinfo, ...args) => {
-        console.log(userinfo, ...args)
-        this.$store.dispatch('cache/setWsTempData', userinfo)
-        this.$router.push('/ws-login-success')
-        this.$message.success('微信登录成功!')
-        this.visible = false
-      })
-      socket.on('disconnect', () => {
-        this.socketId = socket.id // undefined
-        console.log(socket.id, socket.connected)
-      })
+      // const socket = (this.socket = io('http://127.0.0.1:9000'))
+      // // debugger
+      // socket.on('connect', () => {
+      //   console.log(socket.id) // x8WIv7-mJelg7on_ALbx
+      //   console.log(socket)
+      //   this.socketId = socket.id
+      //   this.getQrcode(this.socketId)
+      // })
+      // socket.on('success', (userinfo, ...args) => {
+      //   console.log(userinfo, ...args)
+      //   this.$store.dispatch('cache/setWsTempData', userinfo)
+      //   this.$router.push('/ws-login-success')
+      //   this.$message.success('微信登录成功!')
+      //   this.visible = false
+      // })
+      // socket.on('disconnect', () => {
+      //   this.socketId = socket.id // undefined
+      //   console.log(socket.id, socket.connected)
+      // })
     },
     clearValidate(refName) {
       if (this.$refs[refName]) {
