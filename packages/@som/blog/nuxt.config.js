@@ -1,9 +1,10 @@
 // 直接搭blog可以使用 link https://content.nuxtjs.org/themes/docs
 // import theme from '@nuxt/content-theme-docs'
-
+// fibers
 import fs from 'fs'
 import dotenv from 'dotenv'
 import { sitemap } from './nuxt.config/index'
+// import dayjs from 'dayjs'
 // import hooks from './nuxt.config/hooks.js'
 // import sitemap from './nuxt.config/sitemap.js'
 // import feed from './nuxt.config/feed'
@@ -45,19 +46,19 @@ const env = {
 const script =
   isProd && isRelease
     ? [
-      {
-        hid: 'hm',
-        innerHTML: fs.readFileSync('./statistics/baidu.js', {
-          encoding: 'utf-8',
-        }),
-      },
-      {
-        hid: 'bp',
-        innerHTML: fs.readFileSync('./statistics/baidu-auto-push.js', {
-          encoding: 'utf-8',
-        }),
-      },
-    ]
+        {
+          hid: 'hm',
+          innerHTML: fs.readFileSync('./statistics/baidu.js', {
+            encoding: 'utf-8',
+          }),
+        },
+        {
+          hid: 'bp',
+          innerHTML: fs.readFileSync('./statistics/baidu-auto-push.js', {
+            encoding: 'utf-8',
+          }),
+        },
+      ]
     : []
 
 /**
@@ -196,13 +197,54 @@ const config = {
     // '@nuxtjs/svg-sprite',
     '@nuxtjs/sitemap',
     // '@nuxtjs/proxy',
-    // '@nuxtjs/feed',
+    '@nuxtjs/feed',
     // '@nuxtjs/sentry',
     // [
     //   '@nuxtjs/proxy',
     //   { pathRewrite: { '^/api': { target: 'http://127.0.0.1:9000/api' } } },
     // ],
   ],
+  feed() {
+    const baseUrlArticles = 'https://icebreaker.top/'
+    //const baseLinkFeedArticles = '/feed/articles'
+    const feedFormats = {
+      rss: { type: 'rss2', file: 'rss.xml' },
+      json: { type: 'json1', file: 'feed.json' },
+    }
+    const { $content } = require('@nuxt/content')
+
+    const createFeedArticles = async function (feed) {
+      feed.options = {
+        title: 'icebreaker',
+        description: '一位打字员',
+        link: baseUrlArticles,
+      }
+      const articles = await $content('articles', {
+        deep: true,
+      }).fetch()
+
+      articles.forEach((article) => {
+        const url = `${baseUrlArticles}/${article.path}`
+        // console.log(article)
+        feed.addItem({
+          title: article.title,
+          id: article.id,
+          link: url,
+          //date: article.published,
+          date: new Date(article.date), //  new Date(article.date),
+          description: article.description,
+          content: article.summary,
+          author: article.authors,
+        })
+      })
+    }
+
+    return Object.values(feedFormats).map(({ file, type }) => ({
+      path: `/${file}`,
+      type: type,
+      create: createFeedArticles,
+    }))
+  },
   // proxy: {
   //   '/api': {
   //     target: 'http://127.0.0.1:9000', // BASE_URL,
@@ -244,9 +286,9 @@ const config = {
       isRelease && isProd
         ? '/_ice/' /// prodPublicPath
         : //  isPublicPathExist
-        //   ? require('./publicPath.js').default
-        //   : prodPublicPath
-        '/_nuxt/',
+          //   ? require('./publicPath.js').default
+          //   : prodPublicPath
+          '/_nuxt/',
     // quiet: true,
     extractCSS: isProd,
     optimizeCSS: isProd,
