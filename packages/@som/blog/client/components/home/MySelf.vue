@@ -1,6 +1,37 @@
 <template>
   <div class="px-4 space-y-3">
-    <div class="space-y-4">
+    <!-- <div class="flex items-center">
+      <span class="text-sm mr-4">Dark Mode</span>
+      <el-switch v-model="theme"> </el-switch>
+    </div> -->
+    <div class="space-y-1">
+      <div class="font-semibold">About icebreaker.top</div>
+      <div class="text-xs text-gray-800">
+        <div>
+          Hosted on
+          <OutSideLink href="https://cloud.tencent.com/product/cdn"
+            >Tencent Cloud CDN</OutSideLink
+          >
+        </div>
+        <div>
+          Deployed by
+          <OutSideLink href="https://docs.github.com/en/actions"
+            >GitHub Actions</OutSideLink
+          >
+        </div>
+        <div>
+          Powered by
+          <OutSideLink href="https://docs.cloudbase.net/">
+            CloudBase
+          </OutSideLink>
+          <span class="mx-0.5">&</span>
+          <OutSideLink href="https://www.serverless.com/">
+            Serverless
+          </OutSideLink>
+        </div>
+      </div>
+    </div>
+    <div class="space-y-2">
       <div class="font-semibold">
         About
         <span
@@ -14,12 +45,39 @@
         <!-- <OutSideLink href="https://www.shareplus.cn/"></OutSideLink> -->
         <div>对Vue/Nuxt,小程序,nodejs等有较深入的理解</div>
         <div>擅长扯淡,吹牛,撕x</div>
-        <div>
-          <OutSideLink href="https://www.shareplus.cn/">Shareplus</OutSideLink>
+
+        <div class="flex mt-2">
+          <div
+            class="
+              flex
+              items-center
+              rounded-md
+              py-2
+              pl-3
+              pr-5
+              border border-solid border-[#cccccc]
+              cursor-pointer
+              hover:bg-[rgb(219,255,219)] hover:border-[#00C642]
+              npx-command
+            "
+            @click="copyText('npx yangqiming')"
+          >
+            <span>
+              <FontAwesomeIcon :icon="['fas', 'chevron-right']" />
+            </span>
+
+            <pre class="ml-2">npx yangqiming</pre>
+            <span class="copy-icon">
+              <FontAwesomeIcon :icon="['far', 'copy']" />
+            </span>
+          </div>
         </div>
+        <!-- <div>
+          <OutSideLink href="https://www.shareplus.cn/">Shareplus</OutSideLink>
+        </div> -->
       </div>
     </div>
-    <div class="space-y-4">
+    <div class="space-y-2">
       <div class="font-semibold">Languages</div>
       <div class="text-sm">
         <ul class="list-inside list-decimal">
@@ -36,7 +94,7 @@
         /> -->
       </div>
     </div>
-    <div class="space-y-4">
+    <div class="space-y-2">
       <div class="font-semibold">Skills</div>
       <div class="text-sm">
         <ul class="list-inside list-decimal">
@@ -55,7 +113,7 @@
         /> -->
       </div>
     </div>
-    <div class="space-y-4">
+    <div class="space-y-2">
       <div class="font-semibold">Mini Programs</div>
       <div>
         <MiniPrograms></MiniPrograms>
@@ -104,22 +162,26 @@
 // import { nameToEmoji } from 'gemoji'
 // import SomPlayer from '../global/SomPlayer.vue'
 import { wechat } from '@/assets/img/cloud'
-// import copy from 'copy-text-to-clipboard'
-import { Toast } from 'vant'
-let copy
-if (process.browser) {
-  copy = require('copy-text-to-clipboard').default
-}
+import copyTextMixin from '@/mixins/copyTextMixin'
 export default {
   name: 'MySelf',
   components: {},
+  mixins: [copyTextMixin],
   data() {
-    return {
+    // let ls
+    // if (process.client) {
+    //   ls = new Proxy(window.localStorage, (t, arg, nt) => {
+    //     console.log(t, arg, nt)
+    //   })
+    // }
+    const refs = {
       joy: '😂', // nameToEmoji.joy,
       rofl: '🤣', // nameToEmoji.rofl,
       smirk: '😏', // nameToEmoji.smirk,
       icebreakerQrcodeVisible: false,
       icebreakerQrcodeUrl: wechat.myQrcode2,
+      // darkMode: false,
+      // ls,
       // langs: [
       //   ['fab', 'html5'],
       //   ['fab', 'css3-alt'],
@@ -133,13 +195,67 @@ export default {
       //   ['fab', 'git-square'],
       // ],
     }
+    // if (process.client) {
+    //   if (!localStorage.theme && !localStorage.seted_theme) {
+    //     localStorage.theme = 'dark'
+    //     localStorage.seted_theme = 1
+    //   }
+    //   refs.darkMode = localStorage.getItem('theme') === 'dark'
+    // }
+    return refs
   },
-  methods: {
-    copyText(text) {
-      copy(text)
-      Toast.success('复制成功!')
-    },
-    // openVideo() {},
-  },
+  // computed: {
+  //   theme: {
+  //     get() {
+  //       // if (process.client) {
+  //       //   return this.darkMode // localStorage.getItem('theme')
+  //       // }
+
+  //       return this.darkMode
+  //     },
+  //     set(nv) {
+  //       if (process.client) {
+  //         localStorage.setItem('theme', nv ? 'dark' : 'light')
+  //       }
+  //       this.darkMode = nv
+  //     },
+  //   },
+  // },
+  // watch: {
+  //   // very lazy
+  //   darkMode() {
+  //     this.checkMode()
+  //   },
+  // },
+  // mounted() {
+  //   this.checkMode()
+  // },
+  // methods: {
+  //   checkMode() {
+  //     if (
+  //       localStorage.theme === 'dark' ||
+  //       (!('theme' in localStorage) &&
+  //         window.matchMedia('(prefers-color-scheme: dark)').matches)
+  //     ) {
+  //       document.documentElement.classList.add('dark')
+  //     } else {
+  //       document.documentElement.classList.remove('dark')
+  //     }
+  //   },
+  // },
 }
 </script>
+<style lang="scss" scoped>
+.npx-command {
+  @apply relative;
+  .copy-icon {
+    @apply absolute right-1 opacity-0 transition-opacity;
+    //
+  }
+  &:hover {
+    .copy-icon {
+      @apply opacity-100;
+    }
+  }
+}
+</style>

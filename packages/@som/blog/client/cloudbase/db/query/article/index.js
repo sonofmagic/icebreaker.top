@@ -2,7 +2,8 @@ import { article, comment, command as _ } from '../..'
 import { incReadCount } from '../../mutation/article'
 export async function getArticleReadCount(id) {
   const { data } = await incReadCount(id)
-  return data.readCount
+
+  return data.readcount
   // const { data } = await article
   //   .where({ id: _.eq(id) })
   //   .limit(1)

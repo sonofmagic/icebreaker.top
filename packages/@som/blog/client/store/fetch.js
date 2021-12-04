@@ -20,7 +20,7 @@ export const actions = {
   ) {
     return await query.getCommentPagedListByArticleId(id, opt)
   },
-  async getArticleReadCount(ctx, { id }) {
-    return await query.getArticleReadCount(id)
+  getArticleReadCount(ctx, { id }) {
+    return query.getArticleReadCount(id)
   },
 }

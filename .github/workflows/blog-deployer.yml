@@ -1,0 +1,51 @@
+name: tencent-deploy-yarn-with-cache
+
+on:
+  workflow_dispatch:
+  # add webhook
+  repository_dispatch:
+    types:
+      - webhook
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Set Beijing Timezone
+        uses: szenius/set-timezone@v1.0
+        with:
+          timezoneLinux: Asia/Shanghai
+      # - name: Get submoudle private repo
+      #   uses: actions/checkout@v2
+      #   with:
+      #     repository: sonofmagic/icebreaker-articles
+      #     ref: main
+      #     token: ${{ secrets.PERSONAL_TOKEN }}
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout Self Repo # with cd command
+        uses: actions/checkout@v2
+        with:
+          submodules: 'true'
+          token: ${{ secrets.PERSONAL_TOKEN }}
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+          cache: yarn
+          cache-dependency-path: packages/@som/blog/yarn.lock
+
+      - name: Install Dependencies
+        run: yarn install:blog
+      - name: Sync Articles
+        run: yarn sync:article
+      - name: Deploy Blog Site
+        shell: bash
+        env:
+          TENCENT_SECRET_ID: ${{ secrets.TENCENT_SECRET_ID }}
+          TENCENT_SECRET_KEY: ${{ secrets.TENCENT_SECRET_KEY }}
+          TENCENT_CLOUDBASE_ENVID: ${{ secrets.TENCENT_CLOUDBASE_ENVID }}
+          BASE_URL: ${{ secrets.BASE_URL }}
+          SERVERLESS_PLATFORM_VENDOR: tencent
+        run: yarn deploy:blog
+

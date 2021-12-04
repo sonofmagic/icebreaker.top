@@ -33,7 +33,15 @@ export async function getPageList(content, query) {
  * @param {String} id
  */
 export function incReadCountById(id) {
-  return request.put('/api/v1/article/readcount/inc', {
-    id,
+  return request.get('/api/v1/article/readcount/inc', {
+    params: {
+      id,
+    },
+  })
+}
+
+export function getBlogLoginQrcode(scene = '') {
+  return request.post('/api/v1/qrcode/blog-mp', {
+    scene,
   })
 }

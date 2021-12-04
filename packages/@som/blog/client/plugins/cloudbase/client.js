@@ -1,5 +1,6 @@
 import cloudbase, { auth, db } from '@/cloudbase/index.js'
-export default async (ctx, inject) => {
+
+export default (ctx, inject) => {
   console.log(ctx)
   inject('cloudbase', cloudbase)
   inject('auth', auth)
@@ -34,10 +35,16 @@ export default async (ctx, inject) => {
   const flag = Boolean(loginState)
   if (flag) {
     console.log('已登录')
-    await ctx.store.dispatch('user/refresh')
+    ctx.store.dispatch('user/refresh').then(() => {
+      ctx.store.dispatch('user/setIsLogined', flag)
+    })
   } else {
-    await auth.anonymousAuthProvider().signIn()
     console.log('未登录')
+    auth
+      .anonymousAuthProvider()
+      .signIn()
+      .then(() => {
+        ctx.store.dispatch('user/setIsLogined', flag)
+      })
   }
-  ctx.store.dispatch('user/setIsLogined', flag)
 }

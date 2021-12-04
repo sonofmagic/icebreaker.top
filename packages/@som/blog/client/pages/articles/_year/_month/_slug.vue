@@ -1,7 +1,7 @@
 <template>
   <div
     class="container mx-auto"
-    style="max-width:1280px"
+    style="max-width: 1280px"
   >
     <div class="py-6 flex flex-col lg:flex-row">
       <div
@@ -16,8 +16,19 @@
         >
           <div class="mb-4">
             <nuxt-link
-              class="inline-block no-underline text-xl bg-green-500 text-white rounded p-2 shadow hover:shadow-md"
+              class="
+                inline-block
+                no-underline
+                text-xl
+                bg-green-500
+                text-white
+                rounded
+                p-2
+                shadow
+                hover:shadow-md
+              "
               to="/"
+              replace
             >
               <i class="el-icon-back"></i>
               回到上一级
@@ -30,7 +41,13 @@
             class="py-2 truncate w-32"
           >
             <a
-              class="cursor-pointer transition-colors duration-200 hover:text-green-500 hover:underline"
+              class="
+                cursor-pointer
+                transition-colors
+                duration-200
+                hover:text-green-500 hover:underline
+              "
+              :href="`#${t.id}-f`"
               @click.stop="scrollTo(t.id)"
             >{{ t.text }}</a>
           </div>
@@ -44,7 +61,11 @@
           <h1 class="text-3xl mb-2">{{ article.title }}</h1>
           <div class="flex justify-between items-center">
             <tags :tags="tags"></tags>
-            <!-- <ReadCount :ref-id="article.id"></ReadCount> -->
+            <div class="flex space-x-4" style="min-width:240px">
+              <div class="text-xs text-gray-900 whitespace-no-wrap">共{{article.readingWords}}个字，阅读时间 {{article.readingMinutes}} 分钟</div>
+              <ReadCount :ref-id="article.id"></ReadCount>
+            </div>
+
           </div>
         </div>
         <!-- 不让爬虫爬了，降低风险 -->
@@ -65,6 +86,7 @@
 
 <script>
 // import { Sticky, Sidebar, SidebarItem } from 'vant'
+import { gsap } from 'gsap'
 import Comments from '@/components/common/Comments'
 // import ScrollMagic from 'scrollmagic'
 // /**
@@ -85,7 +107,6 @@ import Comments from '@/components/common/Comments'
 //   ScrollMagic = require('scrollmagic')
 //   console.log(new ScrollMagic.Controller())
 // }
-import { gsap } from 'gsap'
 export default {
   name: 'ArticlesYearMonthSlug',
   components: {

@@ -12,7 +12,6 @@
 
 **packages**里面是所有的包
 
-- `packages/@nuxtjs` : 写着玩的 just for fun
 - `packages/@som` : 项目
   - `blog` : website `icebreaker.top` source code
     - `.env` : 运行时环境变量,内容可参考同目录下 `.env.example`
@@ -22,11 +21,6 @@
     - `server` : esm sls require entry
     - `dist` : `server` rollup 打包后的 cjs包,用于 sls.js require 和 debug
     - `content`: 用于显示的文章, 建议放入Github私有仓库，建立软连接运行，小心爬虫，隔墙有耳！
-
-  - 其他 分割原项目依赖
-- `packages/history-version`
-  - `wwwroot` : spa项目 `build` 打入 `webapi`
-  - `webapi` : use `history-api-fallback` **host** `wwwroot/dist/index.html` 其他上 **cdn**
 
 ## 怎么跑
 
@@ -63,7 +57,7 @@ yarn global add serverless
 
 部署注册个腾讯云账号，加加配置进来当环境变量就行
 
-由于本人是薅羊毛大师，整套站一个月成本在x分钱左右
+整套站一个月成本很低
 
 **Cloudbase** 免费额度
 

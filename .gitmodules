@@ -1,0 +1,3 @@
+[submodule "article"]
+	path = article
+	url = git@github.com:sonofmagic/icebreaker-articles.git

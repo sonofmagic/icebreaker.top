@@ -1,19 +1,20 @@
 <template>
   <header class="site-header flex items-center px-4 text-white">
     <div class="flex items-center mr-4">
-      <router-link
-        class="flex-shrink-0"
-        to="/"
-      >
-        <img
-          class="rounded-full h-8 w-8"
-          :src="logoUri"
-        />
+      <router-link class="flex-shrink-0" to="/">
+        <img class="rounded-full h-8 w-8" :src="logoUri" />
       </router-link>
     </div>
     <div class="header-middle-area text-left hidden sm:flex flex-grow">
       <HeaderSearchBar />
-      <nav class="nav ml-4 hidden lg:block">
+      <nav class="nav ml-4 hidden lg:flex lg:items-center">
+        <nuxt-link
+          v-for="inlink in inSideLinks"
+          :key="inlink.key"
+          class="link"
+          :to="inlink.to"
+          >{{ inlink.title }}</nuxt-link
+        >
         <a
           v-for="item in outSideLinks"
           :key="item.title"
@@ -24,14 +25,12 @@
         >
           <span>{{ item.title }}</span>
         </a>
-        <nuxt-link
-          v-for="inlink in inSideLinks"
-          :key="inlink.key"
-          class="link"
-          :to="inlink.to"
-        >{{ inlink.title }}</nuxt-link>
+        <span>
+          <ThemeSwitch></ThemeSwitch>
+        </span>
       </nav>
     </div>
+
     <client-only>
       <div class="tail flex justify-end flex-grow sm:flex-grow-0">
         <template v-if="isRealLogined">
@@ -46,19 +45,15 @@
                 class="rounded-full h-6 w-6 mr-2"
                 :src="user.realAvatarUrl || defaultAvatar"
               ></el-image>
-              <span
-                v-if="user"
-                class="text-white mr-2"
-              >{{
+              <span v-if="user" class="text-white mr-2">{{
                 user.nickName
               }}</span>
               <i class="dropdown-caret"></i>
             </div>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item
-                style="width: 144px"
-                @click.native="go2Profile"
-              >个人中心</el-dropdown-item>
+              <el-dropdown-item style="width: 144px" @click.native="go2Profile"
+                >个人中心</el-dropdown-item
+              >
               <el-dropdown-item @click.native="logout">退出</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
@@ -87,45 +82,52 @@
 </template>
 
 <script>
-import Logo from '@/assets/img/icon.png'
-import defaultAvatar from '@/assets/img/default-avatar.png'
-import HeaderSearchBar from '@/components/article/HeaderSearchBar'
 import { mapGetters } from 'vuex'
 import { Dialog } from 'vant'
 import SignInPopup from './SignInPopup'
 import RegisterPopup from './RegisterPopup'
+import HeaderSearchBar from '@/components/article/HeaderSearchBar'
+import defaultAvatar from '@/assets/img/default-avatar.png'
+import Logo from '@/assets/img/avatar.jpg'
+import ThemeSwitch from '@/components/theme/ThemeSwitch.vue'
 export default {
   components: {
     HeaderSearchBar,
     SignInPopup,
     RegisterPopup,
+    ThemeSwitch,
   },
   data() {
     return {
       logoUri: Logo,
       RegisterVisible: false,
       SignInVisible: false,
+
       outSideLinks: [
         {
-          href: 'https://github.com/sonofmagic/icebreaker.top/pulls',
-          title: 'Pull requests',
+          href: 'https://cloudbase.icebreaker.top',
+          title: 'SimpleCloudbase',
         },
-        {
-          href: 'https://github.com/sonofmagic/icebreaker.top/issues',
-          title: 'Issues',
-        },
+        // {
+        //   href: 'https://github.com/sonofmagic/icebreaker.top/pulls',
+        //   title: 'Pull requests',
+        // },
+        // {
+        //   href: 'https://github.com/sonofmagic/icebreaker.top/issues',
+        //   title: 'Issues',
+        // },
         {
           href: 'https://www.npmjs.com/~icebreaker',
           title: 'Packages',
         },
-        {
-          href: 'https://shahu-1257725330.file.myqcloud.com',
-          title: 'Shahu',
-        },
-        {
-          href: 'https://www.shareplus.cn/',
-          title: 'Shareplus',
-        },
+        // {
+        //   href: 'https://shahu-1257725330.file.myqcloud.com',
+        //   title: 'Shahu',
+        // },
+        // {
+        //   href: 'https://www.shareplus.cn/',
+        //   title: 'Shareplus',
+        // },
         // {
         //   href: 'https://github.com/marketplace',
         //   title: 'Marketplace',
@@ -141,6 +143,16 @@ export default {
           to: '/utils',
           title: 'Utils',
         },
+        {
+          key: 200,
+          to: '/chart',
+          title: 'Charts',
+        },
+        // {
+        //   key: 300,
+        //   to: '/demos',
+        //   title: 'Demos',
+        // },
       ],
       defaultAvatar,
     }
@@ -165,8 +177,8 @@ export default {
 
 <style lang="scss" scoped>
 .site-header {
-  background-color: #24292e;
   height: 54px;
+  @apply bg-[#24292e] dark:bg-black dark:border-b dark:border-accents-200 dark:border-solid;
   .header-middle-area {
     .nav {
       .link {

@@ -1,12 +1,16 @@
 // 直接搭blog可以使用 link https://content.nuxtjs.org/themes/docs
 // import theme from '@nuxt/content-theme-docs'
-
+// fibers
 import fs from 'fs'
 import dotenv from 'dotenv'
-import hooks from './nuxt.config/hooks.js'
-import sitemap from './nuxt.config/sitemap.js'
-import { isProd, isRelease } from './constants.js'
-
+import { sitemap } from './nuxt.config/index'
+// import { toHtml } from 'hast-util-to-html'
+// import dayjs from 'dayjs'
+// import hooks from './nuxt.config/hooks.js'
+// import sitemap from './nuxt.config/sitemap.js'
+// import feed from './nuxt.config/feed'
+import { isProd, isRelease, isDev } from './constants.js'
+console.log('[NODE_ENV]:', process.env.NODE_ENV)
 dotenv.config()
 // const slsEnv = process.env.SLS_ENV
 // const cdnSite = 'https://cdn.icebreaker.top/'
@@ -43,19 +47,19 @@ const env = {
 const script =
   isProd && isRelease
     ? [
-        {
-          hid: 'hm',
-          innerHTML: fs.readFileSync('./statistics/baidu.js', {
-            encoding: 'utf-8',
-          }),
-        },
-        {
-          hid: 'bp',
-          innerHTML: fs.readFileSync('./statistics/baidu-auto-push.js', {
-            encoding: 'utf-8',
-          }),
-        },
-      ]
+      {
+        hid: 'hm',
+        innerHTML: fs.readFileSync('./statistics/baidu.js', {
+          encoding: 'utf-8',
+        }),
+      },
+      {
+        hid: 'bp',
+        innerHTML: fs.readFileSync('./statistics/baidu-auto-push.js', {
+          encoding: 'utf-8',
+        }),
+      },
+    ]
     : []
 
 /**
@@ -63,7 +67,7 @@ const script =
  */
 const config = {
   // Global page headers (https://go.nuxtjs.dev/config-head)
-
+  // ssr: false,
   modern: isProd,
   telemetry: false,
   head: {
@@ -105,6 +109,9 @@ const config = {
       },
     ],
   },
+  // router: {
+  //   middleware: ['theme'],
+  // },
   loading: {
     color: 'rgb(121, 184, 255)',
   },
@@ -138,6 +145,7 @@ const config = {
       src: '@/plugins/gsap.js',
       mode: 'client',
     },
+    // { src: '@/plugins/persistedState.js' },
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -158,7 +166,8 @@ const config = {
     // https://tailwindcss.nuxtjs.org/setup/
     '@nuxtjs/tailwindcss',
     '@nuxtjs/google-analytics',
-    '@nuxtjs/pwa',
+    '@nuxt/postcss8',
+    // '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt-community/color-mode-module
     // '@nuxtjs/color-mode',
     // '@nuxtjs/svg',
@@ -167,35 +176,108 @@ const config = {
     id: 'G-9LFZ3ZM31C',
   },
   tailwindcss: {
-    cssPath: '~/assets/css/tailwind.css',
+    cssPath: '~/assets/css/tailwind.scss',
     configPath: '../tailwind.config.js',
     exposeConfig: false,
     // config: {},
   },
-  pwa: {
-    manifest: {
-      name: 'icebreaker.top',
-      short_name: 'icebreaker',
-      description: 'icebreaker分享技术的博客站',
-    },
-  },
+  // pwa: {
+  //   manifest: {
+  //     name: 'icebreaker.top',
+  //     short_name: 'icebreaker',
+  //     description: 'icebreaker分享技术的博客站',
+  //   },
+  // },
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
     // '../loadServerMiddleware/dist',
     // ...require('../serverMiddleware'),
-    '../loadServerMiddleware',
+    // '../loadServerMiddleware',
     '@nuxt/content',
     // '@nuxtjs/apollo',
     // '@nuxtjs/svg-sprite',
     '@nuxtjs/sitemap',
+    // '@nuxtjs/proxy',
+    '@nuxtjs/feed',
     // '@nuxtjs/sentry',
+    // [
+    //   '@nuxtjs/proxy',
+    //   { pathRewrite: { '^/api': { target: 'http://127.0.0.1:9000/api' } } },
+    // ],
   ],
+  feed() {
+    const websiteUrl = 'https://icebreaker.top'
+    // const baseUrlArticles = 'https://icebreaker.top/'
+    //const baseLinkFeedArticles = '/feed/articles'
+    const feedFormats = {
+      rss: { type: 'rss2', file: 'rss.xml' },
+      json: { type: 'json1', file: 'feed.json' },
+    }
+    const { $content } = require('@nuxt/content')
+    // https://validator.w3.org/feed/docs/rss2.html
+    const createFeedArticles = async function (feed) {
+      feed.options = {
+        title: 'icebreaker',
+        description: '一位打字员',
+        link: websiteUrl + '/',
+        language: 'zh-cn',
+        copyright: `Copyright ${(new Date()).getFullYear()} icebreaker.The contents of this feed are available for non-commercial use only.`,
+        generator: 'icebreaker.top',
+        author: {
+          name: "icebreaker",
+          email: "1324318532@qq.com",
+        }
+        // image:''
+      }
+      const articles = await $content('articles', {
+        deep: true,
+      }).sortBy('date', 'desc').fetch()
+
+      articles.forEach((article) => {
+        const url = `${websiteUrl}${article.path}`
+        // console.log(article.body.children)
+        feed.addItem({
+          title: article.title,
+          id: article.id,
+          link: url,
+          //date: article.published,
+          date: new Date(article.date), //  new Date(article.date),
+          description: article.description,
+          content: article.summary,// toHtml(article.body),// article.summary,
+          author: article.authors,
+          // const { name, domain } = category;
+          category: Array.isArray(article.tags) ? article.tags.map(x => {
+            return {
+              name: x
+            }
+          }) : []
+        })
+      })
+    }
+
+    return Object.values(feedFormats).map(({ file, type }) => ({
+      path: `/${file}`,
+      type: type,
+      create: createFeedArticles,
+    }))
+  },
+  // proxy: {
+  //   '/api': {
+  //     target: 'http://127.0.0.1:9000', // BASE_URL,
+  //     ws: true,
+  //     changeOrigin: true,
+  //     headers: {
+  //       host: 'www.icebreaker.top',
+  //     },
+  //   },
+  // },
   // sentry: {
   //   dsn: process.env.SENTRY_NUXT_DSN, // Enter your project's DSN here
   //   config: {}, // Additional config
   // },
   // monaco: {},
   sitemap,
+  // feed,
   content: {
     dir: '../content',
     markdown: {
@@ -204,6 +286,7 @@ const config = {
       },
     },
   },
+  // middleware: ['theme'],
   // apollo: {
   //   clientConfigs: {
   //     default: {
@@ -219,13 +302,13 @@ const config = {
       isRelease && isProd
         ? '/_ice/' /// prodPublicPath
         : //  isPublicPathExist
-          //   ? require('./publicPath.js').default
-          //   : prodPublicPath
-          '/_nuxt/',
-    quiet: true,
+        //   ? require('./publicPath.js').default
+        //   : prodPublicPath
+        '/_nuxt/',
+    // quiet: true,
     extractCSS: isProd,
     optimizeCSS: isProd,
-    transpile: [/^element-ui/, /vant.*?less/],
+    transpile: [/^element-ui/, /vant.*?less/, /echarts/, /zrender/],
     loaders: {
       scss: {
         // https://github.com/sass/dart-sass/issues/1319
@@ -259,6 +342,11 @@ const config = {
       config.externals = {
         'hls.js': 'hls.js',
       }
+      // Can't resolve 'fs'  in graceful-fs'
+      config.node = {
+        fs: 'empty',
+      }
+
       // if (isClient && isLoadMonaco) {
       //   config.plugins.push(new MonacoWebpackPlugin())
       // }
@@ -288,6 +376,7 @@ const config = {
       ],
     },
   },
+
   env,
   generate: {
     dir: 'docs',
@@ -295,7 +384,17 @@ const config = {
   },
   target: process.env.target || 'static',
   globalName: 'icebreaker',
-  hooks,
+  // hooks,
+  hooks: {
+    'content:file:beforeInsert': (document) => {
+      if (document.extension === '.md') {
+        const { minutes, words } = require('reading-time')(document.text)
+        // time,
+        document.readingMinutes = Math.round(minutes)
+        document.readingWords = words
+      }
+    }
+  },
   srcDir: 'client/',
 }
 
@@ -314,5 +413,11 @@ if (isProd) {
     },
   }
 }
+// if (isDev) {
+//   config.modules.push([
+//     '@nuxtjs/proxy',
+//     { pathRewrite: { '^/api': { target: 'http://127.0.0.1:9000/api' } } },
+//   ])
+// }
 
 export default config // theme(config)

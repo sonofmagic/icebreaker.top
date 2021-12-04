@@ -1,4 +1,38 @@
 import Vue from 'vue'
-import { Popup, Dialog, Toast } from 'vant'
+import {
+  Popup,
+  Dialog,
+  Toast,
+  Cell,
+  CellGroup,
+  Tag,
+  NoticeBar,
+  Icon,
+  Uploader,
+  Button,
+  Grid,
+  GridItem,
+  Image,
+  Loading,
+} from 'vant'
 
-Vue.use(Popup).use(Dialog).use(Toast)
+const coms = [
+  Popup,
+  Dialog,
+  Toast,
+  Cell,
+  CellGroup,
+  Tag,
+  NoticeBar,
+  Icon,
+  Uploader,
+  Button,
+  Grid,
+  GridItem,
+  Image,
+  Loading,
+]
+
+coms.forEach((com) => {
+  Vue.use(com)
+})

@@ -82,11 +82,10 @@ export default {
         {
           url: 'https://www.typescriptlang.org/play',
           title: 'Ts交互环境',
-          desc: '我最喜欢的C#之父的又一力作',
+          desc: 'C#之父的又一力作',
         },
         {
-          url:
-            'https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions',
+          url: 'https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions',
           title: 'Github workflow配置参考',
           desc: 'Github CI',
         },

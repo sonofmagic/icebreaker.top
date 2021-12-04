@@ -8,6 +8,7 @@
         items-center
         px-4
         text-gray-600 text-xs
+        dark:text-accents-600
       "
     >
       <div>
@@ -18,6 +19,7 @@
       </div>
       <div>version:{{ version }}</div>
       <div>
+        <nuxt-link class="mr-5" to="/sitemap">站点地图</nuxt-link>
         <OutSideLink
           class="text-base hover:text-gray-700 mr-5"
           raw
