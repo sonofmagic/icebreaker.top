@@ -148,11 +148,11 @@ export default {
           to: '/chart',
           title: 'Charts',
         },
-        // {
-        //   key: 300,
-        //   to: '/demos',
-        //   title: 'Demos',
-        // },
+        {
+          key: 300,
+          to: '/demos',
+          title: 'Demos',
+        },
       ],
       defaultAvatar,
     }

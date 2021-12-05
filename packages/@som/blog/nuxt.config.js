@@ -167,6 +167,7 @@ const config = {
     '@nuxtjs/tailwindcss',
     '@nuxtjs/google-analytics',
     '@nuxt/postcss8',
+    '@nuxtjs/composition-api/module'
     // '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt-community/color-mode-module
     // '@nuxtjs/color-mode',
@@ -346,6 +347,24 @@ const config = {
       config.node = {
         fs: 'empty',
       }
+
+      if (isClient) {
+        config.module.rules.push({
+          test: /\.worker\.(c|m)?js$/i,
+          use: [
+            {
+              loader: "worker-loader",
+            },
+            {
+              loader: "babel-loader",
+              options: {
+                presets: ["@babel/preset-env"],
+              },
+            }
+          ]
+        })
+      }
+
 
       // if (isClient && isLoadMonaco) {
       //   config.plugins.push(new MonacoWebpackPlugin())
