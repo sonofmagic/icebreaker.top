@@ -4,62 +4,34 @@
 import fs from 'fs'
 import dotenv from 'dotenv'
 import { sitemap } from './nuxt.config/index'
-// import { toHtml } from 'hast-util-to-html'
-// import dayjs from 'dayjs'
-// import hooks from './nuxt.config/hooks.js'
-// import sitemap from './nuxt.config/sitemap.js'
-// import feed from './nuxt.config/feed'
-import { isProd, isRelease, isDev } from './constants.js'
+import { isProd, isRelease } from './constants.js'
 console.log('[NODE_ENV]:', process.env.NODE_ENV)
 dotenv.config()
-// const slsEnv = process.env.SLS_ENV
-// const cdnSite = 'https://cdn.icebreaker.top/'
-// console.log('process.static', process.static)
-// let publicPathsuffix = `www/${slsEnv}/${nanoid(10)}`
-// // 平时打包生成publicPath.js
-// if (process.env.SLS_ENTRY_FILE !== 'sls.js') {
-//   fs.writeFileSync('./publicPath.js', `module.exports = '${publicPathsuffix}'`)
-// } else {
-//   // 线上运行时，上传publicPath.js
-//   publicPathsuffix = require('./publicPath.js').default
-// }
-// const prodPublicPath = `${cdnSite}${publicPathsuffix}`
 
-// console.log('isProd && isRelease', isProd && isRelease)
-
-const {
-  TENCENT_CLOUDBASE_ENVID,
-  SLS_ENV,
-  BASE_URL = '/',
-  // API_GW_APIAPPKEY,
-  // API_GW_APIAPPSECRET,
-} = process.env
+const { TENCENT_CLOUDBASE_ENVID, SLS_ENV, BASE_URL = '/' } = process.env
 
 const env = {
   TENCENT_CLOUDBASE_ENVID,
   SLS_ENV,
   BASE_URL,
-  // API_GW_APIAPPKEY,
-  // API_GW_APIAPPSECRET,
-  // SENTRY_VUE_DSN: process.env.SENTRY_VUE_DSN,
 }
 
 const script =
   isProd && isRelease
     ? [
-      {
-        hid: 'hm',
-        innerHTML: fs.readFileSync('./statistics/baidu.js', {
-          encoding: 'utf-8',
-        }),
-      },
-      {
-        hid: 'bp',
-        innerHTML: fs.readFileSync('./statistics/baidu-auto-push.js', {
-          encoding: 'utf-8',
-        }),
-      },
-    ]
+        {
+          hid: 'hm',
+          innerHTML: fs.readFileSync('./statistics/baidu.js', {
+            encoding: 'utf-8',
+          }),
+        },
+        {
+          hid: 'bp',
+          innerHTML: fs.readFileSync('./statistics/baidu-auto-push.js', {
+            encoding: 'utf-8',
+          }),
+        },
+      ]
     : []
 
 /**
@@ -167,7 +139,7 @@ const config = {
     '@nuxtjs/tailwindcss',
     '@nuxtjs/google-analytics',
     '@nuxt/postcss8',
-    '@nuxtjs/composition-api/module'
+    '@nuxtjs/composition-api/module',
     // '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt-community/color-mode-module
     // '@nuxtjs/color-mode',
@@ -209,7 +181,7 @@ const config = {
   feed() {
     const websiteUrl = 'https://icebreaker.top'
     // const baseUrlArticles = 'https://icebreaker.top/'
-    //const baseLinkFeedArticles = '/feed/articles'
+    // const baseLinkFeedArticles = '/feed/articles'
     const feedFormats = {
       rss: { type: 'rss2', file: 'rss.xml' },
       json: { type: 'json1', file: 'feed.json' },
@@ -222,17 +194,19 @@ const config = {
         description: '一位打字员',
         link: websiteUrl + '/',
         language: 'zh-cn',
-        copyright: `Copyright ${(new Date()).getFullYear()} icebreaker.The contents of this feed are available for non-commercial use only.`,
+        copyright: `Copyright ${new Date().getFullYear()} icebreaker.The contents of this feed are available for non-commercial use only.`,
         generator: 'icebreaker.top',
         author: {
-          name: "icebreaker",
-          email: "1324318532@qq.com",
-        }
+          name: 'icebreaker',
+          email: '1324318532@qq.com',
+        },
         // image:''
       }
       const articles = await $content('articles', {
         deep: true,
-      }).sortBy('date', 'desc').fetch()
+      })
+        .sortBy('date', 'desc')
+        .fetch()
 
       articles.forEach((article) => {
         const url = `${websiteUrl}${article.path}`
@@ -241,24 +215,26 @@ const config = {
           title: article.title,
           id: article.id,
           link: url,
-          //date: article.published,
+          // date: article.published,
           date: new Date(article.date), //  new Date(article.date),
           description: article.description,
-          content: article.summary,// toHtml(article.body),// article.summary,
+          content: article.summary, // toHtml(article.body),// article.summary,
           author: article.authors,
           // const { name, domain } = category;
-          category: Array.isArray(article.tags) ? article.tags.map(x => {
-            return {
-              name: x
-            }
-          }) : []
+          category: Array.isArray(article.tags)
+            ? article.tags.map((x) => {
+                return {
+                  name: x,
+                }
+              })
+            : [],
         })
       })
     }
 
     return Object.values(feedFormats).map(({ file, type }) => ({
       path: `/${file}`,
-      type: type,
+      type,
       create: createFeedArticles,
     }))
   },
@@ -303,9 +279,9 @@ const config = {
       isRelease && isProd
         ? '/_ice/' /// prodPublicPath
         : //  isPublicPathExist
-        //   ? require('./publicPath.js').default
-        //   : prodPublicPath
-        '/_nuxt/',
+          //   ? require('./publicPath.js').default
+          //   : prodPublicPath
+          '/_nuxt/',
     // quiet: true,
     extractCSS: isProd,
     optimizeCSS: isProd,
@@ -353,18 +329,17 @@ const config = {
           test: /\.worker\.(c|m)?js$/i,
           use: [
             {
-              loader: "worker-loader",
+              loader: 'worker-loader',
             },
             {
-              loader: "babel-loader",
+              loader: 'babel-loader',
               options: {
-                presets: ["@babel/preset-env"],
+                presets: ['@babel/preset-env'],
               },
-            }
-          ]
+            },
+          ],
         })
       }
-
 
       // if (isClient && isLoadMonaco) {
       //   config.plugins.push(new MonacoWebpackPlugin())
@@ -412,7 +387,7 @@ const config = {
         document.readingMinutes = Math.round(minutes)
         document.readingWords = words
       }
-    }
+    },
   },
   srcDir: 'client/',
 }

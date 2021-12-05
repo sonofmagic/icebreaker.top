@@ -1,12 +1,9 @@
 <template>
   <div class="container mx-auto space-y-2">
-    <div>route:{{$route.query.v}}</div>
-    <canvas
-      v-show="false"
-      ref="canvasEl"
-    ></canvas>
+    <div>route:{{ $route.query.v }}</div>
+    <canvas v-show="false" ref="canvasEl"></canvas>
 
-    <div>宏任务:{{num}}</div>
+    <div>宏任务:{{ num }}</div>
 
     <div class="space-y-4">
       <div class="border border-solid border-primary-600 p-2 rounded">
@@ -14,10 +11,7 @@
         <div>
           <label>设置个数:</label>
           <span class="border border-primary-600 border-solid py-1">
-            <input
-              :disabled="buttonDisabled"
-              v-model.number="count"
-            />个
+            <input v-model.number="count" :disabled="buttonDisabled" />个
           </span>
         </div>
 
@@ -26,22 +20,20 @@
             class="rounded bg-primary-600 text-white px-2 py-1 disabled:cursor-not-allowed disabled:opacity-75"
             :disabled="buttonDisabled"
             @click="download"
-          >点击此处下载</button>
+          >
+            点击此处下载
+          </button>
           <!-- <button @click="postMsg">Worker test</button> -->
           <span>处理进度:</span>
-          <progress
-            max="100"
-            :value="percent"
-          > {{percent}}% </progress>
+          <progress max="100" :value="percent">{{ percent }}%</progress>
 
-          {{status}}
-
+          {{ status }}
         </div>
         <div class="flex space-x-2">
-          <div>生成个数:{{count}}</div>
-          <div>总耗时(ms):{{costMs}}</div>
+          <div>生成个数:{{ count }}</div>
+          <div>总耗时(ms):{{ costMs }}</div>
         </div>
-        <table class="border-collapse ">
+        <table class="border-collapse">
           <thead>
             <tr>
               <th>参考个数</th>
@@ -69,12 +61,10 @@
               <td class="primary-td">1210.90</td>
               <td class="primary-td">18307.90</td>
             </tr>
-
           </tbody>
         </table>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -95,11 +85,25 @@ export default {
     return {
       count: 1000,
       costMs: 0,
-      percent: 0, //50 添加 50 压缩
-      status: '', //压缩中
+      percent: 0, // 50 添加 50 压缩
+      status: '', // 压缩中
       num: 0,
       buttonDisabled: false,
     }
+  },
+  mounted() {
+    this.timer = setInterval(() => {
+      this.num += 1
+    }, 1000)
+    const worker = (this.worker = new Worker())
+
+    worker.onmessage = (event) => {
+      console.log(event)
+    }
+  },
+  beforeDestroy() {
+    clearInterval(this.timer)
+    this.num = 0
   },
   methods: {
     reset() {
@@ -137,7 +141,7 @@ export default {
         const content = await zip.generateAsync(
           { type: 'blob' },
           (metadata) => {
-            //console.log('progression: ' + metadata.percent.toFixed(2) + ' %')
+            // console.log('progression: ' + metadata.percent.toFixed(2) + ' %')
             this.percent = 50 + metadata.percent / 2
             if (metadata.currentFile) {
               this.status = `压缩${metadata.currentFile}中`
@@ -158,20 +162,6 @@ export default {
     postMsg() {
       this.worker.postMessage({ postMessage: true })
     },
-  },
-  mounted() {
-    this.timer = setInterval(() => {
-      this.num += 1
-    }, 1000)
-    const worker = (this.worker = new Worker())
-
-    worker.onmessage = (event) => {
-      console.log(event)
-    }
-  },
-  beforeDestroy() {
-    clearInterval(this.timer)
-    this.num = 0
   },
 }
 </script>
