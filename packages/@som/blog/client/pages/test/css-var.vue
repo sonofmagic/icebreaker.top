@@ -10,11 +10,15 @@
 </template>
 
 <script>
+import { ThemeVariablesManager } from '@/theme/index'
 export default {
   data() {
     return {
       count: 0,
     }
+  },
+  mounted() {
+    this.themeManager = new ThemeVariablesManager()
   },
   methods: {
     toggle() {
@@ -23,14 +27,15 @@ export default {
       // console.log(primaryColor)
       this.count++
       if (this.count % 2) {
-        document.documentElement.style.setProperty('--primary-color', 'green')
+        this.themeManager.setRootSingleVariable('--primary-color', 'green')
+        // document.documentElement.style.setProperty('--primary-color', 'green')
       } else {
-        document.documentElement.style.setProperty('--primary-color', 'red')
+        this.themeManager.setRootSingleVariable('--primary-color', 'red')
+        // document.documentElement.style.setProperty('--primary-color', 'red')
       }
     },
   },
 }
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>
