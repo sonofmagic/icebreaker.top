@@ -34,7 +34,7 @@
           <span>处理进度:</span>
           <progress max="100" :value="percent">{{ percent }}%</progress>
 
-          {{ status }}
+          {{ statusText }}
         </div>
         <div class="flex space-x-2">
           <div>生成个数:{{ count }}</div>
@@ -159,7 +159,7 @@ export default {
       count: 1000,
       costMs: 0,
       percent: 0, // 50 添加 50 压缩
-      status: '', // 压缩中
+      statusText: '', // 压缩中
       num: 0,
       buttonDisabled: false,
       offscreen: true,
@@ -170,12 +170,20 @@ export default {
       this.num += 1
     }, 1000)
     if (window.Worker) {
-      const Worker = require('@/workers/zip.worker.js').default
-      const worker = (this.worker = new Worker())
-
+      const ZipWorker = require('@/workers/zip.worker.js').default
+      this.worker = new ZipWorker()
+      /**
+       * @type {Worker} worker
+       */
+      const worker = this.worker
+      // worker.postMessage({})
       worker.onmessage = (event) => {
         console.log(event)
       }
+
+      //       const offscreen = document.querySelector('canvas').transferControlToOffscreen();
+      // const worker = new Worker('myworkerurl.js');
+      // worker.postMessage({ canvas: offscreen }, [offscreen]);
     }
   },
   beforeDestroy() {
@@ -185,13 +193,13 @@ export default {
   methods: {
     reset() {
       this.percent = 0
-      this.status = ''
+      this.statusText = ''
     },
     async download() {
       this.buttonDisabled = true
       try {
         this.reset()
-        this.status = '生成中'
+        this.statusText = '生成中'
         const t0 = performance.now()
         const zip = new JSZip()
         const eachP = 50 / this.count
@@ -206,7 +214,7 @@ export default {
             }
           )
           const filename = `qrcode${i}.png`
-          this.status = `生成${filename}中`
+          this.statusText = `生成${filename}中`
           await new Promise((resolve) => {
             canvas.toBlob((blob) => {
               zip.file(filename, blob)
@@ -215,7 +223,7 @@ export default {
           })
           this.percent += eachP
         }
-        this.status = '压缩中'
+        this.statusText = '压缩中'
         const t1 = performance.now()
         const content = await zip.generateAsync(
           {
@@ -229,12 +237,12 @@ export default {
             // console.log('progression: ' + metadata.percent.toFixed(2) + ' %')
             this.percent = 50 + metadata.percent / 2
             if (metadata.currentFile) {
-              this.status = `压缩${metadata.currentFile}中`
+              this.statusText = `压缩${metadata.currentFile}中`
             }
           }
         )
         saveAs(content, 'qrcodes.zip')
-        this.status = '生成成功!'
+        this.statusText = '生成成功!'
         const t2 = performance.now()
         const totalCostTime = (t2 - t0).toFixed(2)
         console.log(
