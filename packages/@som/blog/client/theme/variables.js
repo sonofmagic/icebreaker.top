@@ -10,17 +10,22 @@ export class ThemeVariablesManager {
 
   setRootVariables(param) {
     if (typeof param === 'object') {
-      Object.entries(param).reduce((acc, [key, value]) => {
-        if (typeof value === 'string') {
-          this.setRootSingleVariable(key, value)
-        } else if (typeof value === 'object') {
-          this.setRootSingleVariable(key, value.value, value.priority)
+      return Object.entries(param).reduce((acc, [k, v]) => {
+        if (typeof v === 'string') {
+          this.setRootSingleVariable(k, v)
+        } else if (typeof v === 'object') {
+          this.setRootSingleVariable(k, v.value, v.priority)
+        } else if (typeof v === 'function') {
+          const value2 = this.getPropertyValue(k)
+          const priority2 = this.getPropertyPriority(k)
+          const { value, priority } = v({ value: value2, priority: priority2 })
+          this.setRootSingleVariable(k, value, priority)
         }
-        acc[key] = value
+        acc[k] = v
         return acc
       }, {})
     }
-    this.style.setProperty()
+    throw new TypeError('param must be an object')
   }
 
   /**
@@ -64,6 +69,18 @@ export class ThemeVariablesManager {
   getPropertyPriority(property) {
     return this.style.getPropertyPriority(property)
   }
+}
+
+export const createGlobalThemeManager = () => {
+  return new ThemeVariablesManager()
+}
+
+/**
+ *
+ * @param {HTMLElement} dom
+ */
+export const createDomThemeManager = (dom) => {
+  return new ThemeVariablesManager(dom)
 }
 
 export const globalThemeVariablesManager = process.client
