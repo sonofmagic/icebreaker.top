@@ -2161,6 +2161,11 @@
   resolved "https://registry.npmmirror.com/@types/normalize-package-data/download/@types/normalize-package-data-2.4.1.tgz#d3357479a0fdfdd5907fe67e17e0a85c906e1301"
   integrity sha1-0zV0eaD9/dWQf+Z+F+CoXJBuEwE=
 
+"@types/offscreencanvas@^2019.6.4":
+  version "2019.6.4"
+  resolved "https://registry.npmmirror.com/@types/offscreencanvas/download/@types/offscreencanvas-2019.6.4.tgz#64f6d120b53925028299c744fcdd32d2cd525963"
+  integrity sha1-ZPbRILU5JQKCmcdE/N0y0s1SWWM=
+
 "@types/optimize-css-assets-webpack-plugin@5.0.3":
   version "5.0.3"
   resolved "https://registry.npmmirror.com/@types/optimize-css-assets-webpack-plugin/download/@types/optimize-css-assets-webpack-plugin-5.0.3.tgz?cache=0&sync_timestamp=1637271669945&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2F%40types%2Foptimize-css-assets-webpack-plugin%2Fdownload%2F%40types%2Foptimize-css-assets-webpack-plugin-5.0.3.tgz#9bf5bdbb57b379f59a37a6775336f42cd6701852"

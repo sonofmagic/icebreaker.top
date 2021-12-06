@@ -17,14 +17,7 @@
 
         <div>
           <button
-            class="
-              rounded
-              bg-primary-600
-              text-white
-              px-2
-              py-1
-              disabled:cursor-not-allowed disabled:opacity-75
-            "
+            class="rounded bg-primary-600 text-white px-2 py-1 disabled:cursor-not-allowed disabled:opacity-75"
             :disabled="buttonDisabled"
             @click="download"
           >

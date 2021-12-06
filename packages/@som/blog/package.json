@@ -74,6 +74,7 @@
     "@nuxtjs/google-analytics": "^2.4.0",
     "@serverless/components": "^3.18.1",
     "@types/file-saver": "^2.0.4",
+    "@types/offscreencanvas": "^2019.6.4",
     "@types/tailwindcss": "^2.2.4",
     "@vue/composition-api": "^1.4.0",
     "babel-loader": "^8.2.3",
