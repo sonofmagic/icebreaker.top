@@ -12,3 +12,12 @@ button {
 }
 @import './prose.scss';
 
+:root {
+  --primary-color: red;
+}
+
+$test-primary-color: #{var(--primary-color)};
+
+.test-button {
+  background-color: $test-primary-color;
+}
