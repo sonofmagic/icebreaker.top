@@ -162,22 +162,22 @@ export default {
     this.timer = setInterval(() => {
       this.num += 1
     }, 1000)
-    if (window.Worker) {
-      const ZipWorker = require('@/workers/zip.worker.js').default
-      this.worker = new ZipWorker()
-      /**
-       * @type {Worker} worker
-       */
-      const worker = this.worker
-      // worker.postMessage({})
-      worker.onmessage = (event) => {
-        console.log(event)
-      }
+    // if (window.Worker) {
+    //   const ZipWorker = require('@/workers/zip.worker.js').default
+    //   this.worker = new ZipWorker()
+    //   /**
+    //    * @type {Worker} worker
+    //    */
+    //   const worker = this.worker
+    //   // worker.postMessage({})
+    //   worker.onmessage = (event) => {
+    //     console.log(event)
+    //   }
 
-      //       const offscreen = document.querySelector('canvas').transferControlToOffscreen();
-      // const worker = new Worker('myworkerurl.js');
-      // worker.postMessage({ canvas: offscreen }, [offscreen]);
-    }
+    //   //       const offscreen = document.querySelector('canvas').transferControlToOffscreen();
+    //   // const worker = new Worker('myworkerurl.js');
+    //   // worker.postMessage({ canvas: offscreen }, [offscreen]);
+    // }
   },
   beforeDestroy() {
     clearInterval(this.timer)
@@ -202,7 +202,7 @@ export default {
             'https://www.icebreaker.top/batch/qrcode?v=' + i,
             {
               margin: 0,
-              errorCorrectionLevel: 'H',
+              // errorCorrectionLevel: 'H',
               // version:
             }
           )
@@ -221,10 +221,10 @@ export default {
         const content = await zip.generateAsync(
           {
             type: 'blob',
-            compression: 'DEFLATE',
-            compressionOptions: {
-              level: 9,
-            },
+            // compression: 'DEFLATE',
+            // compressionOptions: {
+            //   level: 9,
+            // },
           },
           (metadata) => {
             // console.log('progression: ' + metadata.percent.toFixed(2) + ' %')
