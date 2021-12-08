@@ -25,6 +25,7 @@ module.exports = {
           700: '#007B4D',
           800: '#005C3A',
           900: '#003E27',
+          var: 'var(--primary-color)',
         },
         accents: {
           100: '#111',

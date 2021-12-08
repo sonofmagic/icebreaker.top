@@ -21,6 +21,7 @@
       class="bg-white w-32 h-32 rounded-full flex items-center justify-center"
     >
       <div class="text-center">
+        <div class="text-primary-var">Primary</div>
         <div
           class="text-sm mb-2"
           :style="{
