@@ -49,6 +49,11 @@ export default {
           label: '批量生成并压缩二维码',
           href: '/batch/qrcode',
         },
+        {
+          title: 'ColorPicker 主题色自定义',
+          label: 'ColorPicker 主题色自定义',
+          href: '/test/css-var',
+        },
       ],
     }
   },
