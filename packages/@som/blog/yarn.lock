@@ -2780,6 +2780,13 @@ adm-zip@^0.5.1, adm-zip@^0.5.4, adm-zip@^0.5.5:
   resolved "https://registry.npmmirror.com/adm-zip/download/adm-zip-0.5.9.tgz?cache=0&sync_timestamp=1633600889366&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fadm-zip%2Fdownload%2Fadm-zip-0.5.9.tgz#b33691028333821c0cf95c31374c5462f2905a83"
   integrity sha1-szaRAoMzghwM+VwxN0xUYvKQWoM=
 
+aegis-web-sdk@^1.24.46:
+  version "1.24.46"
+  resolved "https://registry.npmmirror.com/aegis-web-sdk/download/aegis-web-sdk-1.24.46.tgz#44197cb7f9b5db9f3f38a381546b211e72a45ea2"
+  integrity sha512-VJHpC6P3va5ndGG3a/YxTCnFyYELWBmZICXfG5sXDA4Oh0deU2M9/l5IQN12raJtH9m2oy4je47eT7Fm1XYCfw==
+  dependencies:
+    web-vitals "^1.1.2"
+
 after@0.8.2:
   version "0.8.2"
   resolved "https://registry.npm.taobao.org/after/download/after-0.8.2.tgz#fedb394f9f0e02aa9768e702bda23b505fae7e1f"
@@ -13632,6 +13639,11 @@ web-namespaces@^1.0.0:
   version "1.1.4"
   resolved "https://registry.npmmirror.com/web-namespaces/download/web-namespaces-1.1.4.tgz#bc98a3de60dadd7faefc403d1076d529f5e030ec"
   integrity sha1-vJij3mDa3X+u/EA9EHbVKfXgMOw=
+
+web-vitals@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.npmmirror.com/web-vitals/download/web-vitals-1.1.2.tgz#06535308168986096239aa84716e68b4c6ae6d1c"
+  integrity sha1-BlNTCBaJhgliOaqEcW5otMaubRw=
 
 webidl-conversions@^3.0.0:
   version "3.0.1"
