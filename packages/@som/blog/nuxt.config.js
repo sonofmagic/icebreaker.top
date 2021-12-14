@@ -293,6 +293,9 @@ const config = {
         // https://github.com/sass/dart-sass/issues/1324
         // --quiet
         additionalData: '@import "@/uni.scss";',
+        sassOptions: {
+          quietDeps: true,
+        },
       },
       less: {
         lessOptions: {
