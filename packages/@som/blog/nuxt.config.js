@@ -149,7 +149,7 @@ const config = {
     id: 'G-9LFZ3ZM31C',
   },
   tailwindcss: {
-    cssPath: '~/assets/css/tailwind.scss',
+    cssPath: '~/assets/scss/tailwind.scss',
     configPath: '../tailwind.config.js',
     exposeConfig: false,
     // config: {},
@@ -292,7 +292,7 @@ const config = {
         // 1.32.12 不会出现 DEPRECATION WARNING
         // https://github.com/sass/dart-sass/issues/1324
         // --quiet
-        additionalData: '@import "@/uni.scss";',
+        additionalData: '@use "@/uni.scss" as *;',
         sassOptions: {
           quietDeps: true,
         },

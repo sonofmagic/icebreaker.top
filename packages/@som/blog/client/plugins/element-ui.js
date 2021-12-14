@@ -47,8 +47,9 @@ import {
   ColorPicker,
 } from 'element-ui'
 import CollapseTransition from 'element-ui/lib/transitions/collapse-transition'
-import '@/assets/scss/element-ui.scss'
 import '@/assets/scss/element-variables.scss'
+import '@/assets/scss/element-ui.scss'
+
 export default () => {
   // Vue.use(Element, { locale })
 

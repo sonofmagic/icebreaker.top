@@ -1,5 +1,5 @@
 <template>
-  <header class="site-header flex items-center px-4 text-white">
+  <header class="site-header flex items-center px-4">
     <div class="flex items-center mr-4">
       <router-link class="flex-shrink-0" to="/">
         <img class="rounded-full h-8 w-8" :src="logoUri" />
@@ -25,9 +25,9 @@
         >
           <span>{{ item.title }}</span>
         </a>
-        <span>
+        <!-- <span>
           <ThemeSwitch></ThemeSwitch>
-        </span>
+        </span> -->
       </nav>
     </div>
 
@@ -178,7 +178,7 @@ export default {
 <style lang="scss" scoped>
 .site-header {
   height: 54px;
-  @apply bg-[#24292e] dark:bg-black dark:border-b dark:border-accents-200 dark:border-solid;
+  @apply bg-header-bg text-header-text/70 dark:bg-black dark:border-b dark:border-accents-200 dark:border-solid;
   .header-middle-area {
     .nav {
       .link {

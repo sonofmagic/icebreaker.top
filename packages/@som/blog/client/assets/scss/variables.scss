@@ -1,12 +1,5 @@
-// $primary-bg-color: #fafafa;
-$sideBarWidth: 210px;
-
-// https://www.bluematador.com/blog/how-to-share-variables-between-js-and-sass
-// 使用 -- 前缀的命名是无法转义的
-:export {
-  --primary-bg-color: $primary-bg-color;
-  sideBarWidth: $sideBarWidth;
-  primaryBgColor: $primary-bg-color;
-  primary-bg-color: $primary-bg-color;
-  primary-color: $primary-color;
-}
+$header-text: rgb(var(--color-header-text));
+$header-bg: rgb(var(--color-header-bg));
+$canvas-default: rgb(var(--color-canvas-default));
+$canvas-inset: rgb(var(--color-canvas-inset));
+$fg-default: rgb(var(--color-fg-default));
