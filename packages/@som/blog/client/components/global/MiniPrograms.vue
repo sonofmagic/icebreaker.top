@@ -7,7 +7,7 @@
         :key="item.alt"
         class="text-center w-40 text-sm my-2"
       >
-        <img class="w-40" :src="item.src" :alt="item.alt" />
+        <img class="w-40 rounded-md" :src="item.src" :alt="item.alt" />
         <div class="mt-2 mb-1">{{ item.alt }}</div>
         <div class="text-xs text-gray-400">{{ item.desc }}</div>
       </div>
@@ -64,17 +64,54 @@ export default {
       // ],
       selfQrcode: [
         {
-          desc: '一个用于程序员自我展示和相互交流的小程序',
-          alt: '程序员名片',
-          src: ProgramerCard,
-        },
-        {
           desc: '本博客站的小程序版本',
           alt: '破冰客',
           src: Icebreaker,
+        },
+        {
+          desc: '一个用于程序员自我展示和相互交流的小程序',
+          alt: '程序员名片',
+          src: ProgramerCard,
         },
       ],
     }
   },
 }
 </script>
+<style lang="scss" scoped>
+.clip-miniprogram-qrcode {
+  clip-path: ellipse(80px 80px at center);
+}
+
+@keyframes SidebarCreate_rainbowSlide {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.border-image {
+  @apply relative;
+  &:hover,
+  &:focus {
+    &::before {
+      animation: SidebarCreate_rainbowSlide 0.75s linear infinite;
+    }
+  }
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(
+      115deg,
+      #4fcf70,
+      #fad648,
+      #a767e5,
+      #12bcfe,
+      #44ce7b
+    );
+    background-size: 50% 100%;
+  }
+}
+</style>

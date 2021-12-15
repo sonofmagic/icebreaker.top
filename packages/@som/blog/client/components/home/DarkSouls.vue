@@ -1,6 +1,6 @@
 <template>
   <div class="a-dark-soul space-y-3">
-    <div class="space-y-1">
+    <div class="space-y-2">
       <div class="font-semibold">About icebreaker.top</div>
       <div class="text-xs">
         <div>

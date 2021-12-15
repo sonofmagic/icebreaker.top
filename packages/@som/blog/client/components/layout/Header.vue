@@ -89,13 +89,13 @@ import RegisterPopup from './RegisterPopup'
 import HeaderSearchBar from '@/components/article/HeaderSearchBar'
 import defaultAvatar from '@/assets/img/default-avatar.png'
 import Logo from '@/assets/img/avatar.jpg'
-import ThemeSwitch from '@/components/theme/ThemeSwitch.vue'
+// import ThemeSwitch from '@/components/theme/ThemeSwitch.vue'
 export default {
   components: {
     HeaderSearchBar,
     SignInPopup,
     RegisterPopup,
-    ThemeSwitch,
+    // ThemeSwitch,
   },
   data() {
     return {

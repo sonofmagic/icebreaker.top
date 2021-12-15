@@ -1,9 +1,9 @@
 <template>
-  <div class="application-main flex min-h-screen">
-    <aside class="team-left-column w-4/12 px-4 md:px-6 lg:px-8 py-4">
+  <div class="application-main flex flex-col md:flex-row min-h-screen">
+    <aside class="team-left-column md:w-4/12 px-4 md:px-6 lg:px-8 py-4">
       <DarkSouls></DarkSouls>
     </aside>
-    <div class="w-8/12"></div>
+    <div class="md:w-8/12"></div>
   </div>
 </template>
 
