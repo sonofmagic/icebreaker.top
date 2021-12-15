@@ -31,7 +31,7 @@ export default {
       )
       this.readCount = readCount
     } catch (err) {
-      console.debug(err)
+      console.error(err)
     } finally {
       this.loading = false
     }

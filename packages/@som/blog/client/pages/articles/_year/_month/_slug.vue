@@ -46,7 +46,7 @@
                 共{{ article.readingWords }}个字，阅读时间
                 {{ article.readingMinutes }} 分钟
               </div>
-              <ReadCount :ref-id="article.id"></ReadCount>
+              <ReadCount v-if="isProd" :ref-id="article.id"></ReadCount>
             </div>
           </div>
         </div>
@@ -67,6 +67,7 @@
 // import { Sticky, Sidebar, SidebarItem } from 'vant'
 import { gsap } from 'gsap'
 import Comments from '@/components/common/Comments'
+import { isProd } from '@/utils/env'
 // import ScrollMagic from 'scrollmagic'
 // /**
 //  * 居然没有官方的@type文件
@@ -113,6 +114,7 @@ export default {
   data() {
     return {
       leftMenu: null,
+      isProd,
       // isSupported,
     }
   },
@@ -174,7 +176,9 @@ export default {
     max-width: 44.5rem;
   }
 }
+</style>
+<style lang="scss">
 .compose-nuxt-content {
-  @apply antialiased prose prose-sm prose-invert;
+  @apply prose prose-invert prose-sm antialiased; // prose-sm antialiased
 }
 </style>
