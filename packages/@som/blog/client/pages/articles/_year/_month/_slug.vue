@@ -61,7 +61,7 @@
         <!-- </ClientOnly> -->
         <!-- END -->
       </div>
-      <div class="flex-grow bg-white shadow p-4">
+      <div class="flex-grow bg-white shadow p-4 self-start">
         <Comments />
       </div>
     </div>
