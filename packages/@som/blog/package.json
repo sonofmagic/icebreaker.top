@@ -5,6 +5,7 @@
   "description": "DEBUG=nuxt:* nuxt dev 会打开 tailwindcss debug 模式，大量的 Source path 和JIT TOTAL,简直了",
   "scripts": {
     "dev": "cross-env NODE_ENV=development SLS_ENV=dev nuxt dev",
+    "serve": "npm run dev",
     "sync": "node scripts/syncArticles.js",
     "analyze": "cross-env SLS_ENV=release nuxt build --analyze",
     "generate": "cross-env SLS_ENV=release NODE_ENV=production nuxt generate",

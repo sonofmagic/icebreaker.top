@@ -44,7 +44,7 @@
 <script>
 import throttle from 'lodash/throttle'
 import { ThemeVariablesManager } from '@/theme/index'
-import variables from '@/assets/scss/variables.scss'
+import variables from '@/assets/scss/export.scss'
 // import variables from '@/uni.scss'
 const bgVarKey = '--primary-bg-color'
 const llBgVarKey = 'theme' + bgVarKey
@@ -84,7 +84,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.custom-bg {
-  background-color: $primary-bg-color;
-}
+// .custom-bg {
+//   background-color: $primary-bg-color;
+// }
 </style>

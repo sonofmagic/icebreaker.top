@@ -288,11 +288,9 @@ const config = {
     transpile: [/^element-ui/, /vant.*?less/, /echarts/, /zrender/],
     loaders: {
       scss: {
-        // https://github.com/sass/dart-sass/issues/1319
-        // 1.32.12 不会出现 DEPRECATION WARNING
         // https://github.com/sass/dart-sass/issues/1324
         // --quiet
-        additionalData: '@use "@/uni.scss" as *;',
+        additionalData: '@use "@/assets/scss/variables.scss" as *;',
         sassOptions: {
           quietDeps: true,
         },

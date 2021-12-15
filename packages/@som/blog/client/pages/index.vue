@@ -1,5 +1,12 @@
 <template>
-  <div></div>
+  <div class="qwe"></div>
 </template>
 
-<script></script>
+<script>
+</script>
+
+<style lang="scss" scoped>
+.qwe {
+  color: $header-text;
+}
+</style>
