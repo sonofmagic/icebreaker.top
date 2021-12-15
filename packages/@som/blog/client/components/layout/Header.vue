@@ -1,5 +1,5 @@
 <template>
-  <header class="site-header flex items-center px-4">
+  <header class="site-header">
     <div class="flex items-center mr-4">
       <router-link class="flex-shrink-0" to="/">
         <img class="rounded-full h-8 w-8" :src="logoUri" />
@@ -177,16 +177,16 @@ export default {
 
 <style lang="scss" scoped>
 .site-header {
-  height: 54px;
-  @apply bg-header-bg text-header-text/70 dark:bg-black dark:border-b dark:border-accents-200 dark:border-solid;
+  height: 62px;
+  @apply px-4 md:px-6 lg:px-8 py-4 flex items-center text-sm bg-header-bg text-header-text/70 dark:bg-black dark:border-b dark:border-accents-200 dark:border-solid;
   .header-middle-area {
     .nav {
       .link {
         //https://tailwindcss.com/docs/upgrading-to-v2#update-renamed-utility-classes
-        @apply mr-4 cursor-pointer font-semibold  text-sm whitespace-nowrap;
+        @apply mr-4 cursor-pointer font-semibold  whitespace-nowrap text-header-logo;
         &:hover,
         &:focus {
-          color: hsla(0, 0%, 100%, 0.7);
+          @apply text-header-text/70;
         }
       }
     }
