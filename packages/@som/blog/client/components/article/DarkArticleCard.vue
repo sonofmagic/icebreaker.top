@@ -48,11 +48,14 @@
           <div class="mt-1 break-all text-fg-muted mb-2.5">
             {{ item.description }}
           </div>
-          <div class="text-xs text-fg-muted space-x-4">
-            <span class="inline-block"
-              >阅读时间 {{ item.readingMinutes }} 分钟</span
-            >
-            <span class="inline-block">共{{ item.readingWords }}个字</span>
+          <div class="flex justify-between items-baseline">
+            <tags :tags="item.tags"></tags>
+            <div class="text-xs text-fg-muted space-x-4">
+              <span class="inline-block"
+                >阅读时间 {{ item.readingMinutes }} 分钟</span
+              >
+              <span class="inline-block">共{{ item.readingWords }}个字</span>
+            </div>
           </div>
         </div>
         <!-- <div class="p-4 border-t border-solid border-border-default"></div> -->

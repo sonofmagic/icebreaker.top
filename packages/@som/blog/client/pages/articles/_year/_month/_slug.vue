@@ -36,15 +36,13 @@
         <!-- </Sticky> -->
       </div>
       <!-- lg: -->
-      <div
-        class="mb-4 lg:mb-0 mr-4 bg-white p-8 shadow w-full content-max-width"
-      >
+      <div class="mb-4 lg:mb-0 mr-4 p-8 shadow w-full content-max-width">
         <div class="pb-4 mb-4">
           <h1 class="text-3xl mb-2">{{ article.title }}</h1>
           <div class="flex justify-between items-center">
             <tags :tags="tags"></tags>
             <div class="flex space-x-4" style="min-width: 240px">
-              <div class="text-xs text-gray-900 whitespace-no-wrap">
+              <div class="text-xs whitespace-no-wrap">
                 共{{ article.readingWords }}个字，阅读时间
                 {{ article.readingMinutes }} 分钟
               </div>
@@ -54,10 +52,7 @@
         </div>
         <!-- 不让爬虫爬了，降低风险 -->
         <!-- <ClientOnly> -->
-        <nuxt-content
-          class="antialiased prose prose-sm sm:prose prose-dark"
-          :document="article"
-        />
+        <nuxt-content class="compose-nuxt-content" :document="article" />
         <!-- </ClientOnly> -->
         <!-- END -->
       </div>
@@ -178,5 +173,8 @@ export default {
   .content-max-width {
     max-width: 44.5rem;
   }
+}
+.compose-nuxt-content {
+  @apply antialiased prose prose-sm prose-invert;
 }
 </style>
