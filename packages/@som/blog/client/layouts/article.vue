@@ -1,6 +1,6 @@
 <template>
   <CommonSlot>
-    <div style="background-color: #f4f5f5">
+    <div>
       <div class="container mx-auto">
         <Nuxt />
       </div>
