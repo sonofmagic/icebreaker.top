@@ -258,6 +258,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .primary-td {
-  @apply border border-primary-500 px-4 py-2 text-primary-600 font-medium;
+  @apply border border-border-default px-4 py-2 text-fg-default font-medium;
 }
 </style>

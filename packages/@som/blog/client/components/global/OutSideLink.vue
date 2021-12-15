@@ -1,7 +1,7 @@
 <template>
   <a
     :target="target"
-    :class="raw ? '' : 'hover:underline text-blue-600'"
+    :class="raw ? '' : 'hover:underline hover:text-accent-fg'"
     :rel="rel"
     :href="href"
   >

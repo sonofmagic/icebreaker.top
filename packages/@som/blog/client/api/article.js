@@ -7,7 +7,16 @@ export async function contentSearch(content, query) {
     .skip((query.page - 1) * query.perPage)
     .limit(query.perPage)
     .sortBy('date', 'desc')
-    .only(['path', 'title', 'description', 'date'])
+    .only([
+      'path',
+      'title',
+      'description',
+      'date',
+      'tags',
+      'readingMinutes',
+      'readingWords',
+      'id',
+    ])
     .fetch()
 }
 

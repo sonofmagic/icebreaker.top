@@ -178,7 +178,7 @@ export default {
 <style lang="scss" scoped>
 .site-header {
   height: 62px;
-  @apply px-4 md:px-6 lg:px-8 py-4 flex items-center text-sm bg-header-bg text-header-text/70 dark:bg-black dark:border-b dark:border-accents-200 dark:border-solid;
+  @apply px-4 md:px-6 lg:px-8 py-4 flex items-center text-sm bg-header-bg text-header-text/70;
   .header-middle-area {
     .nav {
       .link {
