@@ -56,7 +56,7 @@
         <!-- </ClientOnly> -->
         <!-- END -->
       </div>
-      <div class="flex-grow bg-white shadow p-4 self-start">
+      <div class="flex-grow shadow p-4 self-start w-full sm:w-auto">
         <Comments />
       </div>
     </div>
@@ -66,7 +66,7 @@
 <script>
 // import { Sticky, Sidebar, SidebarItem } from 'vant'
 import { gsap } from 'gsap'
-import Comments from '@/components/common/Comments'
+import Comments from '@/components/common/Comments/dark/DarkParadise.vue'
 import { isProd } from '@/utils/env'
 // import ScrollMagic from 'scrollmagic'
 // /**

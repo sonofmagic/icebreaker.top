@@ -1,6 +1,6 @@
 <template>
   <div class="flex py-4 border-b border-solid border-border-muted">
-    <span class="mr-2">
+    <span class="mr-2 flex-shrink-0">
       <OutSideLink
         class="inline-block"
         href="https://github.com/sonofmagic"
@@ -39,7 +39,7 @@
       >
         <div class="p-4">
           <nuxt-link
-            class="truncate font-semibold text-base text-fg-default hover:underline hover:text-accent-fg"
+            class="truncate block font-semibold text-base text-fg-default hover:underline hover:text-accent-fg"
             :to="item.path"
           >
             {{ item.title }}

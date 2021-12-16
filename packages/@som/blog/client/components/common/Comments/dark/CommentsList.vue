@@ -1,0 +1,133 @@
+<template>
+  <div>
+    <div>
+      <div
+        v-for="comment in comments"
+        :key="comment.ts"
+        class="py-2 my-2 border-b border-solid border-border-muted"
+      >
+        <div
+          class="flex justify-between items-baseline text-fg-default font-semibold text-sm mb-1"
+        >
+          <template v-if="comment.nickName && comment.uid">
+            <UserPopover v-model="comment.uid">
+              <template #reference>
+                <div
+                  :class="
+                    comment.nickName
+                      ? ['cursor-pointer', 'hover:underline']
+                      : []
+                  "
+                >
+                  {{ comment.nickName || '*匿名者*' }}
+                </div>
+              </template>
+            </UserPopover>
+          </template>
+          <template v-else>
+            <div
+              :class="
+                comment.nickName ? ['cursor-pointer', 'hover:underline'] : []
+              "
+            >
+              {{ comment.nickName || '*匿名者*' }}
+            </div>
+          </template>
+
+          <el-tooltip placement="right" :content="comment.ts | dayFilter">
+            <div class="cursor-pointer text-fg-muted text-xs font-normal">
+              {{ comment.ts | timespanFilter }}
+            </div>
+          </el-tooltip>
+        </div>
+        <div class="text-xs mb-2 text-fg-muted">
+          {{ comment.content }}
+        </div>
+      </div>
+    </div>
+
+    <div class="flex justify-center">
+      <el-pagination
+        class="dark"
+        hide-on-single-page
+        layout="prev, pager, next"
+        :total="total"
+        :page-size.sync="query.perPage"
+        :current-page.sync="query.page"
+        :disabled="listLoading"
+      ></el-pagination>
+    </div>
+  </div>
+</template>
+
+<script>
+import UserPopover from './UserPopover'
+export default {
+  name: 'CommentsList',
+  components: {
+    UserPopover,
+  },
+  data() {
+    return {
+      query: {
+        page: 1,
+        perPage: 10,
+      },
+      total: 0,
+      comments: [],
+      listLoading: false,
+    }
+  },
+  watch: {
+    'query.page'() {
+      this.refresh()
+    },
+  },
+  async created() {
+    if (process.client) {
+      await this.refresh()
+    }
+  },
+  methods: {
+    async refresh() {
+      try {
+        this.listLoading = true
+        const [{ data }, { total }] = await this.$store.dispatch(
+          'fetch/getComments',
+          {
+            id: this.$route.path,
+            opt: this.query,
+          }
+        )
+        this.comments = data
+        this.total = total
+      } catch (error) {
+        console.debug(error)
+      } finally {
+        this.listLoading = false
+      }
+    },
+  },
+}
+</script>
+<style lang="scss" scoped>
+::v-deep .dark.el-pagination {
+  .btn-prev,
+  .btn-next {
+    @apply bg-canvas-inset text-[#C0C4CC];
+    // #C0C4CC
+    &[disabled='disabled'] {
+      @apply text-[#C0C4CC]/50;
+    }
+  }
+
+  .el-pager {
+    > li.number {
+      @apply bg-canvas-inset text-fg-muted;
+      &.active {
+        @apply text-fg-default;
+      }
+    }
+  }
+}
+</style>

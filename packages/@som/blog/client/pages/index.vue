@@ -30,7 +30,9 @@
             <SidebarFooter></SidebarFooter>
           </div>
         </div>
-        <div class="mt-8 team-right-column md:w-3/12 lg:w-4/12"></div>
+        <div class="mt-8 team-right-column md:w-3/12 lg:w-4/12 md:px-6">
+          <DarkParadise />
+        </div>
       </div>
     </div>
   </div>
@@ -41,11 +43,14 @@ import DarkSouls from '@/components/home/DarkSouls.vue'
 import { getPageList } from '@/api/article'
 import DarkArticleCard from '@/components/article/DarkArticleCard.vue'
 import SidebarFooter from '@/components/layout/SidebarFooter'
+import DarkParadise from '@/components/common/Comments/dark/DarkParadise.vue'
+
 export default {
   components: {
     DarkSouls,
     DarkArticleCard,
     SidebarFooter,
+    DarkParadise,
   },
   layout: 'noFooter',
   async asyncData({ $content }) {
