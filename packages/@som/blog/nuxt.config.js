@@ -40,7 +40,7 @@ const script =
 const config = {
   // Global page headers (https://go.nuxtjs.dev/config-head)
   // ssr: false,
-  modern: isProd,
+  // modern: isProd,
   telemetry: false,
   head: {
     title: 'icebreaker_某某打字员_擅长批量生产邮件_文档和代码',
@@ -284,7 +284,7 @@ const config = {
           '/_nuxt/',
     // quiet: true,
     extractCSS: isProd,
-    optimizeCSS: isProd,
+    // optimizeCSS: isProd,
     transpile: [/^element-ui/, /vant.*?less/, /echarts/, /zrender/],
     loaders: {
       scss: {
@@ -299,6 +299,18 @@ const config = {
         lessOptions: {
           modifyVars: {
             hack: `true; @import "@/uni.less";`,
+          },
+        },
+      },
+    },
+    optimization: {
+      splitChunks: {
+        cacheGroups: {
+          styles: {
+            name: 'styles',
+            test: /\.(css|vue)$/,
+            chunks: 'all',
+            enforce: true,
           },
         },
       },

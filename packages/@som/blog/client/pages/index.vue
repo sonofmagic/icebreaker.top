@@ -1,6 +1,6 @@
 <template>
   <div class="application-main flex flex-col md:flex-row min-h-screen">
-    <aside class="team-left-column">
+    <aside class="team-left-column flex-shrink-0">
       <div class="md:sticky md:top-[62px]">
         <div
           class="better-scroll-bar h-[calc(100vh-62px)] overflow-y-auto px-4 md:px-6 lg:px-8"
