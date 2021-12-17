@@ -1,5 +1,9 @@
 <template>
   <div>
+    <h2 class="font-semibold text-sm mb-1">
+      Explore comments
+      <template v-if="listLoading">{{ loadingString }}</template>
+    </h2>
     <div>
       <div
         v-for="comment in comments"
@@ -76,12 +80,28 @@ export default {
       total: 0,
       comments: [],
       listLoading: false,
+      loadingString: '',
     }
   },
   watch: {
     'query.page'() {
       this.refresh()
     },
+    // listLoading(nv) {
+    //   let timer
+    //   if (nv) {
+    //     const setLoadingString = () => {
+    //       if (this.loadingString.length > 5) {
+    //         this.loadingString = ''
+    //       }
+    //       this.loadingString += '.'
+    //       timer = setTimeout(setLoadingString, 200)
+    //     }
+    //     timer = setTimeout(setLoadingString, 200)
+    //   } else {
+    //     clearTimeout(timer)
+    //   }
+    // },
   },
   async created() {
     if (process.client) {
@@ -89,9 +109,21 @@ export default {
     }
   },
   methods: {
+    setLoadingString() {
+      if (this.loadingString.length > 5) {
+        this.loadingString = ''
+      }
+      this.loadingString += '.'
+      this.timer = setTimeout(this.setLoadingString, 200)
+    },
+    clearLoadingString() {
+      clearTimeout(this.timer)
+    },
     async refresh() {
       try {
         this.listLoading = true
+        this.setLoadingString()
+        await this.$nextTick()
         const [{ data }, { total }] = await this.$store.dispatch(
           'fetch/getComments',
           {
@@ -105,6 +137,7 @@ export default {
         console.debug(error)
       } finally {
         this.listLoading = false
+        this.clearLoadingString()
       }
     },
   },

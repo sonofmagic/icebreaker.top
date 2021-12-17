@@ -179,6 +179,6 @@ export default {
 </style>
 <style lang="scss">
 .compose-nuxt-content {
-  @apply prose prose-invert prose-sm antialiased; // prose-sm antialiased
+  @apply prose prose-invert prose-sm sm:prose-base   antialiased; // prose-sm antialiased
 }
 </style>

@@ -1,12 +1,7 @@
 <template>
   <div>
-    <h2 class="font-semibold text-sm mb-1">Explore comments</h2>
-    <div>
-      <CommentsList ref="commentsList" />
-    </div>
-    <div>
-      <PostComment @success="refreshCommentsList" />
-    </div>
+    <CommentsList ref="commentsList" />
+    <PostComment @success="refreshCommentsList" />
   </div>
 </template>
 

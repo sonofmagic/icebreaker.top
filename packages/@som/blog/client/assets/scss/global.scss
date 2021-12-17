@@ -12,7 +12,7 @@
 @mixin better-scrollbar {
   // 滚动条高宽及背景
   &::-webkit-scrollbar {
-    width: 4px;
+    width: 12px;
   }
   // 滚动条上的滚动滑块
   &::-webkit-scrollbar-thumb {
