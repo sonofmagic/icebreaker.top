@@ -1,28 +1,28 @@
 <template>
-  <div class="a-dark-soul space-y-3">
+  <div class="a-dark-soul space-y-3 py-4">
     <div class="space-y-2">
       <div class="font-semibold">About icebreaker.top</div>
       <div class="text-xs">
         <div>
           Hosted on
           <OutSideLink href="https://cloud.tencent.com/product/cdn"
-            >[Tencent Cloud CDN]</OutSideLink
+            >Tencent Cloud CDN</OutSideLink
           >
         </div>
         <div>
           Deployed by
           <OutSideLink href="https://docs.github.com/en/actions"
-            >[GitHub Actions]</OutSideLink
+            >GitHub Actions</OutSideLink
           >
         </div>
         <div>
           Powered by
           <OutSideLink href="https://docs.cloudbase.net/">
-            [CloudBase]
+            CloudBase
           </OutSideLink>
           <span class="mx-0.5">&</span>
           <OutSideLink href="https://www.serverless.com/">
-            [Serverless]
+            Serverless
           </OutSideLink>
         </div>
         <div>
@@ -34,7 +34,7 @@
             <FontAwesomeIcon :icon="['fab', 'github']" />
           </OutSideLink>
           <OutSideLink href="https://github.com/sonofmagic/icebreaker.top">
-            [Source Code]
+            Source Code
           </OutSideLink>
         </div>
       </div>
@@ -49,13 +49,14 @@
         >
       </div>
       <div>
-        <div>某热爱技术的打字员一枚</div>
-        <!-- <OutSideLink href="https://www.shareplus.cn/"></OutSideLink> -->
+        <!-- 执行下方命令就知道了 -->
+        <!-- <div>某热爱技术的打字员一枚</div>
+
         <div>
           对Vue/Nuxt,React,uni-app,小程序,nodejs,serverless等有较深入的理解
         </div>
-        <div>擅长扯淡,吹牛,撕x</div>
-
+        <div>擅长扯淡,吹牛,撕x</div> -->
+        <!-- <OutSideLink href="https://www.shareplus.cn/"></OutSideLink> -->
         <div class="flex mt-2">
           <div class="npx-command" @click="copyText('npx yangqiming')">
             <span>
@@ -70,7 +71,7 @@
         </div>
       </div>
     </div>
-    <div class="space-y-2">
+    <!-- <div class="space-y-2">
       <div class="font-semibold">Languages</div>
       <div>
         <ul class="list-inside list-decimal">
@@ -78,7 +79,7 @@
           <li>中文/English</li>
         </ul>
       </div>
-    </div>
+    </div> -->
     <div class="space-y-2">
       <div class="font-semibold">Skills</div>
       <div>
@@ -114,17 +115,7 @@
           或者手动添加微信号：
         </div>
         <div
-          class="
-            flex
-            justify-center
-            items-center
-            rounded
-            border border-solid border-gray-400
-            py-2
-            truncate
-            cursor-pointer
-            hover:bg-green-100
-          "
+          class="flex justify-center items-center rounded border border-solid border-gray-400 py-2 truncate cursor-pointer hover:bg-green-100"
           @click="copyText('icebreaker1995')"
         >
           <span class="text-gray-900"

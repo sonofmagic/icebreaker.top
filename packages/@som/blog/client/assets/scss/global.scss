@@ -1,5 +1,5 @@
-@use "./constants.scss" as C;
-@use "./util.scss" as Util;
+@use './constants.scss' as C;
+@use './util.scss' as Util;
 
 @import './prose.scss';
 
@@ -7,4 +7,28 @@
   @each $var, $color in C.$root-vars {
     #{$var}: Util.getRgbaString($color);
   }
+}
+
+@mixin better-scrollbar {
+  // 滚动条高宽及背景
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  // 滚动条上的滚动滑块
+  &::-webkit-scrollbar-thumb {
+    @apply bg-header-bg;
+
+  }
+  //  滚动条轨道
+  // &::-webkit-scrollbar-track {
+  //   // background: linear-gradient(90deg, #434343, #434343 1 px, #111 0, #111);
+  // }
+}
+
+.better-scroll-bar {
+  @include better-scrollbar;
+}
+
+html {
+  @include better-scrollbar;
 }

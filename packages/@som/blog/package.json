@@ -18,7 +18,7 @@
     "sls:info": "components info"
   },
   "dependencies": {
-    "@babel/runtime": "^7.16.3",
+    "@babel/runtime": "^7.16.5",
     "@cloudbase/js-sdk": "^1.7.1",
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-brands-svg-icons": "^5.15.4",
@@ -31,12 +31,12 @@
     "@nuxtjs/sitemap": "^2.4.0",
     "@nuxtjs/tailwindcss": "^4.2.1",
     "@tailwindcss/typography": "^0.5.0",
-    "@types/qrcode": "^1.4.1",
-    "aegis-web-sdk": "^1.24.46",
+    "@types/qrcode": "^1.4.2",
+    "aegis-web-sdk": "^1.24.48",
     "ansicolor": "^1.1.95",
     "axios": "^0.24.0",
     "copy-text-to-clipboard": "^3.0.1",
-    "core-js": "^3.19.3",
+    "core-js": "^3.20.0",
     "dayjs": "^1.10.7",
     "dompurify": "^2.3.4",
     "dplayer": "^1.26.0",
@@ -46,7 +46,7 @@
     "file-saver": "^2.0.5",
     "gemoji": "^7.1.0",
     "github-markdown-css": "^5.1.0",
-    "gsap": "^3.8.0",
+    "gsap": "^3.9.0",
     "is-mobile": "^3.0.0",
     "js-base64": "^3.7.2",
     "js-cookie": "^3.0.1",
@@ -59,7 +59,7 @@
     "svg4everybody": "^2.1.9",
     "swiper": "6.8.4",
     "uuid": "^8.3.2",
-    "vant": "^2.12.36",
+    "vant": "^2.12.37",
     "vue-aplayer": "^1.6.1",
     "vue-echarts": "6.0.0",
     "vuex-persistedstate": "^4.1.0"
@@ -107,8 +107,8 @@
     "stylelint-config-standard": "^24.0.0",
     "stylelint-scss": "^4.0.1",
     "tailwind-config-viewer": "^1.6.2",
-    "tailwindcss": "^3.0.2",
-    "tencentcloud-sdk-nodejs": "^4.0.253",
+    "tailwindcss": "^3.0.6",
+    "tencentcloud-sdk-nodejs": "^4.0.259",
     "worker-loader": "^3.0.8"
   }
 }

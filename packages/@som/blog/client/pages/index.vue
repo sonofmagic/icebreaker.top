@@ -1,12 +1,16 @@
 <template>
   <div class="application-main flex flex-col md:flex-row min-h-screen">
-    <aside
-      class="team-left-column md:w-4/12 px-4 md:px-6 lg:px-8 py-4 border-r border-b border-border-muted border-solid"
-    >
-      <DarkSouls></DarkSouls>
+    <aside class="team-left-column">
+      <div class="md:sticky md:top-[62px]">
+        <div
+          class="better-scroll-bar h-[calc(100vh-62px)] overflow-y-auto px-4 md:px-6 lg:px-8"
+        >
+          <DarkSouls></DarkSouls>
+        </div>
+      </div>
     </aside>
-    <div class="flex-auto md:w-8/12 px-4 lg:px-8">
-      <div class="md:flex">
+    <div class="flex-auto md:w-8/12 px-4 lg:px-8 order-1 md:order-2">
+      <div class="flex flex-col md:flex-row">
         <div class="md:w-full lg:w-8/12 mt-4">
           <h2 class="text-base md:pt-4">All activity</h2>
           <template v-for="(arr, idx) in articlesArray">
@@ -30,7 +34,7 @@
             <SidebarFooter></SidebarFooter>
           </div>
         </div>
-        <div class="mt-8 team-right-column md:w-3/12 lg:w-4/12 md:px-6">
+        <div class="mt-8 team-right-column md:w-4/12 md:px-6">
           <DarkParadise />
         </div>
       </div>
@@ -118,7 +122,7 @@ export default {
 .application-main {
   @apply bg-canvas-inset;
   .team-left-column {
-    @apply bg-canvas-default max-w-full;
+    @apply bg-canvas-default max-w-full md:w-4/12  border-r border-b border-border-muted border-solid order-2 md:order-1;
   }
   @screen md {
     .team-left-column {

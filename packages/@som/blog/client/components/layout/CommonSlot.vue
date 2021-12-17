@@ -1,12 +1,10 @@
 <template>
   <section>
-    <div v-if="!noHeader">
-      <AppHeader />
-    </div>
+    <AppHeader v-if="!noHeader" />
+
     <slot></slot>
-    <div v-if="!noFooter">
-      <AppFooter />
-    </div>
+
+    <AppFooter v-if="!noFooter" />
   </section>
 </template>
 <script>

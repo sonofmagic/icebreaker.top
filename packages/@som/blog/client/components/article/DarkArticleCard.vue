@@ -37,9 +37,9 @@
       <div
         class="mt-2 bg-canvas-default rounded-md border border-solid border-border-default"
       >
-        <div class="p-4">
+        <div class="p-4 flex flex-col">
           <nuxt-link
-            class="truncate block font-semibold text-base text-fg-default hover:underline hover:text-accent-fg"
+            class="block font-semibold text-base text-fg-default hover:underline hover:text-accent-fg"
             :to="item.path"
           >
             {{ item.title }}
@@ -50,7 +50,9 @@
           </div>
           <div class="flex justify-between items-baseline">
             <tags :tags="item.tags"></tags>
-            <div class="text-xs text-fg-muted space-x-4">
+            <div
+              class="text-xs text-fg-muted space-x-4 space-y-1 flex flex-col items-end sm:flex-row sm:items-baseline min-w-[90px]"
+            >
               <span class="inline-block"
                 >阅读时间 {{ item.readingMinutes }} 分钟</span
               >
