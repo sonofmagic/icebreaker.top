@@ -132,11 +132,14 @@
 </template>
 
 <script>
+import MiniPrograms from './MiniPrograms'
 import { wechat } from '@/assets/img/cloud'
 import copyTextMixin from '@/mixins/copyTextMixin'
 export default {
   name: 'MySelf',
-  components: {},
+  components: {
+    MiniPrograms,
+  },
   mixins: [copyTextMixin],
   data() {
     const refs = {

@@ -221,6 +221,8 @@ module.exports = {
               h1: {
                 color: fontDefaultColor,
                 borderBottom: headerBottonBorder,
+                'font-size': '2em',
+                'padding-bottom': '0.3em',
               },
               h2: {
                 color: fontDefaultColor,

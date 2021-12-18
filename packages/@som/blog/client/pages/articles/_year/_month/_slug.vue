@@ -68,6 +68,7 @@
 import { gsap } from 'gsap'
 import Comments from '@/components/common/Comments/dark/DarkParadise.vue'
 import { isProd } from '@/utils/env'
+import ReadCount from '@/components/common/ReadCount.vue'
 // import ScrollMagic from 'scrollmagic'
 // /**
 //  * 居然没有官方的@type文件
@@ -91,6 +92,7 @@ export default {
   name: 'ArticlesYearMonthSlug',
   components: {
     Comments,
+    ReadCount,
     // Sticky,
     // Sidebar,
     // SidebarItem,
