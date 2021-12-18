@@ -39,9 +39,14 @@
       <div class="mb-4 lg:mb-0 mr-4 p-8 shadow w-full content-max-width">
         <div class="pb-4 mb-4">
           <h1 class="text-3xl mb-2">{{ article.title }}</h1>
-          <div class="flex justify-between items-center">
-            <tags :tags="tags"></tags>
-            <div class="flex space-x-4" style="min-width: 240px">
+          <div
+            class="flex flex-col space-y-1 md:flex-row md:justify-between md:items-center"
+          >
+            <div>
+              <tags :tags="tags"></tags>
+            </div>
+
+            <div class="flex space-x-4 self-end md:min-w-[240px]">
               <div class="text-xs whitespace-no-wrap">
                 共{{ article.readingWords }}个字，阅读时间
                 {{ article.readingMinutes }} 分钟
