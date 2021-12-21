@@ -1,10 +1,8 @@
 <template>
   <div class="application-main flex flex-col md:flex-row min-h-screen">
     <aside class="team-left-column flex-shrink-0">
-      <div class="md:sticky md:top-[62px]">
-        <div
-          class="hover-scroll-bar h-[calc(100vh-62px)] overflow-y-auto px-4 md:px-6 lg:px-8"
-        >
+      <div class="sticky-column">
+        <div class="hover-scroll-bar sticky-column-inner">
           <DarkSouls></DarkSouls>
         </div>
       </div>
@@ -24,7 +22,7 @@
           </template>
           <button
             v-if="hasMore"
-            class="text-accent-fg bg-canvas-default border-border-default rounded-md p-1.5 w-full font-semibold mt-5 border border-solid hover:bg-canvas-subtle"
+            class="load-more-btn"
             :disabled="btnLoading"
             @click="next"
           >
@@ -123,6 +121,13 @@ export default {
   @apply bg-canvas-inset;
   .team-left-column {
     @apply bg-canvas-default max-w-full md:w-4/12  border-r border-b border-border-muted border-solid order-2 md:order-1;
+    .sticky-column {
+      $navbar-height: 62px;
+      @apply md:sticky md:top-[#{$navbar-height}];
+      .sticky-column-inner {
+        @apply h-[calc(100vh-#{$navbar-height})] overflow-y-auto px-4 md:px-6 lg:px-8;
+      }
+    }
   }
   @screen md {
     .team-left-column {
@@ -132,5 +137,9 @@ export default {
       @apply max-w-[350px];
     }
   }
+}
+
+.load-more-btn {
+  @apply text-accent-fg bg-canvas-default border-border-default rounded-md p-1.5 w-full font-semibold mt-5 border border-solid hover:bg-canvas-subtle;
 }
 </style>

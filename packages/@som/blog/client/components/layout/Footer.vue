@@ -1,15 +1,7 @@
 <template>
   <section class="container mx-auto py-2">
     <div
-      class="
-        flex flex-col
-        sm:flex-row
-        justify-between
-        items-center
-        px-4
-        text-gray-600 text-xs
-        dark:text-accents-600
-      "
+      class="flex flex-col sm:flex-row justify-between items-center px-4 text-gray-600 text-xs dark:text-accents-600"
     >
       <div>
         <span class="mr-4">© {{ fullYear }} icebreaker</span>

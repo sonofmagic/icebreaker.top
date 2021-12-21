@@ -1,10 +1,5 @@
 <template>
-  <a
-    :target="target"
-    :class="raw ? '' : 'hover:underline hover:text-accent-fg'"
-    :rel="rel"
-    :href="href"
-  >
+  <a :target="target" :class="raw ? '' : 'link'" :rel="rel" :href="href">
     <slot></slot>
   </a>
 </template>

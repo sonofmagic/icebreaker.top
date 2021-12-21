@@ -1,5 +1,5 @@
 <template>
-  <div class="flex py-4 border-b border-solid border-border-muted">
+  <div class="ice-card">
     <span class="mr-2 flex-shrink-0">
       <OutSideLink
         class="inline-block"
@@ -34,25 +34,18 @@
           </span>
         </div>
       </div>
-      <div
-        class="mt-2 bg-canvas-default rounded-md border border-solid border-border-default"
-      >
+      <div class="card-body">
         <div class="p-4 flex flex-col">
-          <nuxt-link
-            class="block font-semibold text-base text-fg-default hover:underline hover:text-accent-fg"
-            :to="item.path"
-          >
+          <nuxt-link class="card-main-title link" :to="item.path">
             {{ item.title }}
           </nuxt-link>
 
           <div class="mt-1 break-all text-fg-muted mb-2.5">
             {{ item.description }}
           </div>
-          <div class="flex justify-between items-baseline">
+          <div class="bottom-row">
             <tags :tags="item.tags"></tags>
-            <div
-              class="text-xs text-fg-muted space-x-4 space-y-1 flex flex-col items-end sm:flex-row sm:items-baseline min-w-[90px]"
-            >
+            <div class="right-part">
               <span class="inline-block"
                 >阅读时间 {{ item.readingMinutes }} 分钟</span
               >
@@ -78,4 +71,21 @@ export default {
 }
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.ice-card {
+  @apply flex py-4 border-b border-solid border-border-muted;
+  .card-body {
+    @apply mt-2 bg-canvas-default rounded-md border border-solid border-border-default;
+    .card-main-title {
+      // link
+      @apply block font-semibold text-base text-fg-default;
+    }
+    .bottom-row {
+      @apply flex justify-between items-baseline;
+      .right-part {
+        @apply text-xs text-fg-muted space-x-4 space-y-1 flex flex-col items-end sm:flex-row sm:items-baseline min-w-[90px];
+      }
+    }
+  }
+}
+</style>

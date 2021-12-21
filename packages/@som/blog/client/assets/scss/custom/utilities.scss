@@ -1,0 +1,5 @@
+@layer utilities {
+  .link {
+    @apply hover:underline hover:text-accent-fg;
+  }
+}
