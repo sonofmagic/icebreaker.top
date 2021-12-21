@@ -122,10 +122,10 @@ export default {
   .team-left-column {
     @apply bg-canvas-default max-w-full md:w-4/12  border-r border-b border-border-muted border-solid order-2 md:order-1;
     .sticky-column {
-      $navbar-height: 62px;
-      @apply md:sticky md:top-[#{$navbar-height}];
+      // $navbar-height: 62px;
+      @apply md:sticky md:top-[62px];
       .sticky-column-inner {
-        @apply h-[calc(100vh-#{$navbar-height})] overflow-y-auto px-4 md:px-6 lg:px-8;
+        @apply h-[calc(100vh-62px)] overflow-y-auto px-4 md:px-6 lg:px-8;
       }
     }
   }
