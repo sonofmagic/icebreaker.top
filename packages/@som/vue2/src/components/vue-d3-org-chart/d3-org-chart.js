@@ -4,6 +4,9 @@ import { tree, stratify } from 'd3-hierarchy'
 import { zoom, zoomIdentity } from 'd3-zoom'
 import { flextree } from 'd3-flextree'
 import { linkHorizontal } from 'd3-shape'
+import Vue from 'vue'
+
+import TestVue from './Test.vue'
 
 const d3 = {
   selection,
@@ -1082,7 +1085,22 @@ export class OrgChart {
       .selectAll('.node-foreign-object-div')
       .style('width', ({ width }) => `${width}px`)
       .style('height', ({ height }) => `${height}px`)
-      .html(function (d, i, arr) { return attrs.nodeContent.bind(this)(d, i, arr, attrs) })
+      .append(function (d, i, arr) {
+        const dom = document.createElement('div')
+        const app = new Vue({
+          render (h) {
+            return h(TestVue)
+          },
+          created () {
+            console.log('created')
+          }
+        })
+        dom.addEventListener('click', function (e) {
+          app.$mount(dom)
+        })
+
+        return dom
+      })
   }
 
   // Toggle children on click.
