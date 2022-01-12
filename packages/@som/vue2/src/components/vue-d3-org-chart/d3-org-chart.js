@@ -5,7 +5,6 @@ import { zoom, zoomIdentity } from 'd3-zoom'
 import { flextree } from 'd3-flextree'
 import { linkHorizontal } from 'd3-shape'
 import Vue from 'vue'
-
 import TestVue from './Test.vue'
 
 const d3 = {
@@ -1090,12 +1089,29 @@ export class OrgChart {
         const app = new Vue({
           render (h) {
             return h(TestVue)
-          },
-          created () {
-            console.log('created')
           }
         })
-        dom.addEventListener('click', function (e) {
+        const observer = new MutationObserver((mutationsList, observer) => {
+          console.log(mutationsList)
+          for (let i = 0; i < mutationsList.length; i++) {
+            const mutation = mutationsList[i]
+            if (mutation.type === 'childList') {
+              console.log('A child node has been added or removed.')
+            } else if (mutation.type === 'attributes') {
+              console.log('The ' + mutation.attributeName + ' attribute was modified.')
+            }
+          }
+        })
+        observer.observe(dom, {
+          attributes: true,
+          subtree: true,
+          attributeOldValue: true,
+          // attributeFilter: true,
+          characterData: true,
+          characterDataOldValue: true,
+          childList: true
+        })
+        dom.addEventListener('abort', function (e) {
           app.$mount(dom)
         })
 
