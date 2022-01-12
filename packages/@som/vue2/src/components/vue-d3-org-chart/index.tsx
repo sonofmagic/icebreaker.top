@@ -1,4 +1,5 @@
-import { OrgChart } from "d3-org-chart";
+import { OrgChart } from "./d3-org-chart";
+import type {OrgChart as IOrgChart} from 'd3-org-chart'
 import './index.scss'
 interface IDataType {}
 
@@ -8,7 +9,7 @@ export default Vue.extend({
   name: "Chart",
   props: ["data"],
   data(): {
-    chartReference?: OrgChart<IDataType>;
+    chartReference?: IOrgChart<IDataType>;
   } {
     return {
       chartReference: undefined,
@@ -34,7 +35,7 @@ export default Vue.extend({
       if (!this.chartReference) {
         this.chartReference = new OrgChart();
       }
-      this.chartReference
+      this.chartReference!
         .container(this.$refs.svgElementContainer as unknown as string) // node or css selector
         .data(data)
         .nodeHeight((d) => 120)

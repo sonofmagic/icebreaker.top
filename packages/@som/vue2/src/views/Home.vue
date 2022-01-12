@@ -1,6 +1,11 @@
 <template>
   <div class="home">
-    <Chart :data="data"></Chart>
+    <Chart :data="dataSource">
+      <template v-slot="{ node, data }">
+        <div>{{ data.id }}</div>
+        <div>{{ node.level }}</div>
+      </template>
+    </Chart>
   </div>
 </template>
 
@@ -15,16 +20,16 @@ export default Vue.extend({
     Chart
   },
   data (): {
-    data?: DSVRowArray<string>
+    dataSource?: DSVRowArray<string>
     } {
     return {
-      data: undefined
+      dataSource: undefined
     }
   },
   created () {
     d3.csv('org.csv').then((d) => {
       // console.log(d)
-      this.data = d
+      this.dataSource = d
     })
   }
 })
