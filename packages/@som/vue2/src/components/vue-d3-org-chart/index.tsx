@@ -1,7 +1,7 @@
 import { OrgChart } from "./d3-org-chart";
-import type {OrgChart as IOrgChart} from 'd3-org-chart'
+import type { OrgChart as IOrgChart } from 'd3-org-chart'
 import './index.scss'
-interface IDataType {}
+interface IDataType { }
 
 // import type {  } from 'd3-org-chart'
 import Vue from "vue";
@@ -24,15 +24,16 @@ export default Vue.extend({
       this.renderChart(value);
     },
   },
-  created() {},
+  created() { },
   methods: {
-    tokenDetail(e:PointerEvent){
+    tokenDetail(e: PointerEvent) {
       // console.log(e.target,this)
       // @ts-ignore
       console.log(e.target?.getAttribute('data-func-key'))
     },
     renderChart(data: IDataType[] | null) {
       if (!this.chartReference) {
+        // @ts-ignore
         this.chartReference = new OrgChart();
       }
       this.chartReference!
@@ -40,10 +41,10 @@ export default Vue.extend({
         .data(data)
         .nodeHeight((d) => 120)
         .onNodeClick((d) => console.log(d + " node clicked"))
-        .nodeContent((d,i,arr,state)=>{
-          console.log(d,i)
+        .nodeContent((d, i, arr, state) => {
+          console.log(d, i)
           const vueInstance = JSON.stringify(d.data)
-          const script =`` // <script>${'console.log(this)'}</script>
+          const script = `` // <script>${'console.log(this)'}</script>
           return `<div class="org-chart-wrapper" data-func-key="100" onclick="console.log(this)">${vueInstance}</div>${script}`
         })
         .render();

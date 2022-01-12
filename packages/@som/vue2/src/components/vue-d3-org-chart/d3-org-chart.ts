@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { selection, select } from 'd3-selection'
 import { max, min, sum, cumsum } from 'd3-array'
 import { tree, stratify } from 'd3-hierarchy'
@@ -6,7 +8,8 @@ import { flextree } from 'd3-flextree'
 import { linkHorizontal } from 'd3-shape'
 import Vue from 'vue'
 import TestVue from './Test.vue'
-
+import type { OrgChart as IOrgChart } from 'd3-org-chart'
+import type { Selection } from 'd3'
 const d3 = {
   selection,
   select,
@@ -20,7 +23,7 @@ const d3 = {
   zoomIdentity,
   linkHorizontal
 }
-export class OrgChart {
+export class OrgChart<T> implements IOrgChart<T> {
   constructor () {
     // Exposed variables
     const attrs = {
@@ -294,13 +297,13 @@ export class OrgChart {
 
   initializeEnterExitUpdatePattern () {
     d3.selection.prototype.patternify = function (params) {
-      var container = this
-      var selector = params.selector
-      var elementTag = params.tag
-      var data = params.data || [selector]
+      const container = this
+      const selector = params.selector
+      const elementTag = params.tag
+      const data = params.data || [selector]
 
       // Pattern in action
-      var selection = container.selectAll('.' + selector).data(data, (d, i) => {
+      let selection = container.selectAll('.' + selector).data(data, (d, i) => {
         if (typeof d === 'object') {
           if (d.id) { return d.id }
         }
@@ -403,7 +406,7 @@ export class OrgChart {
 
     // *************************  DRAWING **************************
     // Add svg
-    const svg = container
+    const svg :Selection = container
       .patternify({
         tag: 'svg',
         selector: 'svg-chart-container'
@@ -707,23 +710,25 @@ export class OrgChart {
       .attr('d', (d) => {
         const n = attrs.compact && d.flexCompactDim
           ? {
-            x: attrs.layoutBindings[attrs.layout].compactLinkMidX(d, attrs),
-            y: attrs.layoutBindings[attrs.layout].compactLinkMidY(d, attrs)
-          }
+              x: attrs.layoutBindings[attrs.layout].compactLinkMidX(d, attrs),
+              y: attrs.layoutBindings[attrs.layout].compactLinkMidY(d, attrs)
+            }
           : {
-            x: attrs.layoutBindings[attrs.layout].linkX(d),
-            y: attrs.layoutBindings[attrs.layout].linkY(d)
-          }
+              x: attrs.layoutBindings[attrs.layout].linkX(d),
+              y: attrs.layoutBindings[attrs.layout].linkY(d)
+            }
 
         const p = {
           x: attrs.layoutBindings[attrs.layout].linkParentX(d),
           y: attrs.layoutBindings[attrs.layout].linkParentY(d)
         }
 
-        const m = attrs.compact && d.flexCompactDim ? {
-          x: attrs.layoutBindings[attrs.layout].linkCompactXStart(d),
-          y: attrs.layoutBindings[attrs.layout].linkCompactYStart(d)
-        } : n
+        const m = attrs.compact && d.flexCompactDim
+          ? {
+              x: attrs.layoutBindings[attrs.layout].linkCompactXStart(d),
+              y: attrs.layoutBindings[attrs.layout].linkCompactYStart(d)
+            }
+          : n
         return attrs.layoutBindings[attrs.layout].diagonal(n, p, m)
       })
 
@@ -1427,9 +1432,9 @@ export class OrgChart {
   }
 
   toDataURL (url, callback) {
-    var xhr = new XMLHttpRequest()
+    const xhr = new XMLHttpRequest()
     xhr.onload = function () {
-      var reader = new FileReader()
+      const reader = new FileReader()
       reader.onloadend = function () {
         callback(reader.result)
       }
@@ -1555,7 +1560,7 @@ export class OrgChart {
     // This function invokes save window
     function saveAs (uri, filename) {
       // create link
-      var link = document.createElement('a')
+      const link = document.createElement('a')
       if (typeof link.download === 'string') {
         document.body.appendChild(link) // Firefox requires the link to be in the body
         link.download = filename
