@@ -1100,6 +1100,7 @@ export class OrgChart<T> implements IOrgChart<T> {
                   data: d,
                   index: i
                 }
+
               })
             }
           })

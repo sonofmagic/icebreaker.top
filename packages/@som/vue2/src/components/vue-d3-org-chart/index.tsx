@@ -26,7 +26,7 @@ export default Vue.extend({
   },
   created() { },
   mounted() {
-
+    console.log(this.$scopedSlots)
   },
   methods: {
     tokenDetail(e: PointerEvent) {
@@ -46,7 +46,7 @@ export default Vue.extend({
         .nodeWidth(d => 240)
         .onNodeClick((d) => console.log(d + " node clicked"))
         .nodeContent((d, i, arr, state) => {
-          return '12'
+          return this.$scopedSlots
           // console.log(d, i)
           // const vueInstance = JSON.stringify(d.data)
           // const script = `` // <script>${'console.log(this)'}</script>
