@@ -1,10 +1,10 @@
 <template>
   <div class="home">
-    <Chart :data="dataSource">
-      <template v-slot="{ node, data }">
+    <Chart :dataSource="dataSource">
+      <!-- <template v-slot="{ node, data }">
         <div>{{ data.id }}</div>
         <div>{{ node.level }}</div>
-      </template>
+      </template> -->
     </Chart>
   </div>
 </template>

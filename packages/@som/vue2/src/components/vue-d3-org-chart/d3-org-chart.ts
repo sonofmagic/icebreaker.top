@@ -1090,37 +1090,22 @@ export class OrgChart<T> implements IOrgChart<T> {
       .style('width', ({ width }) => `${width}px`)
       .style('height', ({ height }) => `${height}px`)
       .append(function (d, i, arr) {
-        const dom = document.createElement('div')
-        const app = new Vue({
-          render (h) {
-            return h(TestVue)
-          }
-        })
-        const observer = new MutationObserver((mutationsList, observer) => {
-          console.log(mutationsList)
-          for (let i = 0; i < mutationsList.length; i++) {
-            const mutation = mutationsList[i]
-            if (mutation.type === 'childList') {
-              console.log('A child node has been added or removed.')
-            } else if (mutation.type === 'attributes') {
-              console.log('The ' + mutation.attributeName + ' attribute was modified.')
+        return document.createElement('div')
+      }).each(function (d, i, g) {
+        if (!d.hasMounted) {
+          const app = new Vue({
+            render (h) {
+              return h(TestVue, {
+                props: {
+                  data: d,
+                  index: i
+                }
+              })
             }
-          }
-        })
-        observer.observe(dom, {
-          attributes: true,
-          subtree: true,
-          attributeOldValue: true,
-          // attributeFilter: true,
-          characterData: true,
-          characterDataOldValue: true,
-          childList: true
-        })
-        dom.addEventListener('abort', function (e) {
-          app.$mount(dom)
-        })
-
-        return dom
+          })
+          app.$mount(this)
+          d.hasMounted = true
+        }
       })
   }
 

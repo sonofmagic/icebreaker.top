@@ -7,7 +7,7 @@ interface IDataType { }
 import Vue from "vue";
 export default Vue.extend({
   name: "Chart",
-  props: ["data"],
+  props: ["dataSource"],
   data(): {
     chartReference?: IOrgChart<IDataType>;
   } {
@@ -20,11 +20,14 @@ export default Vue.extend({
   },
 
   watch: {
-    data(value) {
+    dataSource(value) {
       this.renderChart(value);
     },
   },
   created() { },
+  mounted() {
+
+  },
   methods: {
     tokenDetail(e: PointerEvent) {
       // console.log(e.target,this)
@@ -40,12 +43,14 @@ export default Vue.extend({
         .container(this.$refs.svgElementContainer as unknown as string) // node or css selector
         .data(data)
         .nodeHeight((d) => 120)
+        .nodeWidth(d => 240)
         .onNodeClick((d) => console.log(d + " node clicked"))
         .nodeContent((d, i, arr, state) => {
-          console.log(d, i)
-          const vueInstance = JSON.stringify(d.data)
-          const script = `` // <script>${'console.log(this)'}</script>
-          return `<div class="org-chart-wrapper" data-func-key="100" onclick="console.log(this)">${vueInstance}</div>${script}`
+          return '12'
+          // console.log(d, i)
+          // const vueInstance = JSON.stringify(d.data)
+          // const script = `` // <script>${'console.log(this)'}</script>
+          // return `<div class="org-chart-wrapper" data-func-key="100" onclick="console.log(this)">${vueInstance}</div>${script}`
         })
         .render();
     },
