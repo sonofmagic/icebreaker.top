@@ -1,4 +1,4 @@
-import { OrgChart } from './d3-org-chart'
+import { OrgChart } from 'vue-d3-org-chart'
 import type { OrgChart as IOrgChart } from 'd3-org-chart'
 import './index.scss'
 import NodeVue from './Node.vue'
