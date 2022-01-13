@@ -2,7 +2,7 @@
 
 import { selection, select } from 'd3-selection'
 import { max, min, sum, cumsum } from 'd3-array'
-import { tree, stratify } from 'd3-hierarchy'
+import { stratify } from 'd3-hierarchy'
 import { zoom, zoomIdentity } from 'd3-zoom'
 import { flextree } from 'd3-flextree'
 import { linkHorizontal } from 'd3-shape'
@@ -17,7 +17,7 @@ const d3 = {
   min,
   sum,
   cumsum,
-  tree,
+  // tree,
   stratify,
   zoom,
   zoomIdentity,
@@ -45,41 +45,65 @@ export class OrgChart<T> implements IOrgChart<T> {
       nodeDefaultBackground: 'none',
       connections: [],
       lastTransform: { x: 0, y: 0, k: 1 },
-      nodeId: d => d.nodeId || d.id,
-      parentNodeId: d => d.parentNodeId || d.parentId,
+      nodeId: (d) => d.nodeId || d.id,
+      parentNodeId: (d) => d.parentNodeId || d.parentId,
       backgroundColor: 'none',
       zoomBehavior: null,
       defs: function (state, visibleConnections) {
         return `<defs>
-                    ${visibleConnections.map(conn => {
-                    const labelWidth = this.getTextWidth(conn.label, { ctx: state.ctx, fontSize: 2, defaultFont: state.defaultFont })
-                    return `
-                       <marker id="${conn.from + '_' + conn.to}" refX="${conn._source.x < conn._target.x ? -7 : 7}" refY="5" markerWidth="500"  markerHeight="500"  orient="${conn._source.x < conn._target.x ? 'auto' : 'auto-start-reverse'}" >
-                       <rect rx=0.5 width=${conn.label ? labelWidth + 3 : 0} height=3 y=1  fill="#152785"></rect>
-                       <text font-size="2px" x=1 fill="white" y=3>${conn.label || ''}</text>
+                    ${visibleConnections
+                      .map((conn) => {
+                        const labelWidth = this.getTextWidth(conn.label, {
+                          ctx: state.ctx,
+                          fontSize: 2,
+                          defaultFont: state.defaultFont
+                        })
+                        return `
+                       <marker id="${conn.from + '_' + conn.to}" refX="${
+                          conn._source.x < conn._target.x ? -7 : 7
+                        }" refY="5" markerWidth="500"  markerHeight="500"  orient="${
+                          conn._source.x < conn._target.x
+                            ? 'auto'
+                            : 'auto-start-reverse'
+                        }" >
+                       <rect rx=0.5 width=${
+                         conn.label ? labelWidth + 3 : 0
+                       } height=3 y=1  fill="#152785"></rect>
+                       <text font-size="2px" x=1 fill="white" y=3>${
+                         conn.label || ''
+                       }</text>
                        </marker>
 
-                       <marker id="arrow-${conn.from + '_' + conn.to}"  markerWidth="500"  markerHeight="500"  refY="2"  refX="1" orient="${conn._source.x < conn._target.x ? 'auto' : 'auto-start-reverse'}" >
+                       <marker id="arrow-${
+                         conn.from + '_' + conn.to
+                       }"  markerWidth="500"  markerHeight="500"  refY="2"  refX="1" orient="${
+                          conn._source.x < conn._target.x
+                            ? 'auto'
+                            : 'auto-start-reverse'
+                        }" >
                        <path transform="translate(0)" d='M0,0 V4 L2,2 Z' fill='#152785' />
                        </marker>
                     `
-}).join('')}
+                      })
+                      .join('')}
                     </defs>
                     `
       },
       connectionsUpdate: function (d, i, arr) {
         d3.select(this)
-          .attr('stroke', d => '#152785')
+          .attr('stroke', (d) => '#152785')
           .attr('stroke-linecap', 'round')
-          .attr('stroke-width', d => '5')
+          .attr('stroke-width', (d) => '5')
           .attr('pointer-events', 'none')
-          .attr('marker-start', d => `url(#${d.from + '_' + d.to})`)
-          .attr('marker-end', d => `url(#arrow-${d.from + '_' + d.to})`)
+          .attr('marker-start', (d) => `url(#${d.from + '_' + d.to})`)
+          .attr('marker-end', (d) => `url(#arrow-${d.from + '_' + d.to})`)
       },
       linkUpdate: function (d, i, arr) {
         d3.select(this)
-          .attr('stroke', d => d.data._upToTheRootHighlighted ? '#152785' : 'lightgray')
-          .attr('stroke-width', d => d.data._upToTheRootHighlighted ? 5 : 2)
+          .attr('stroke', (d) =>
+            d.data._upToTheRootHighlighted ? '#152785' : 'lightgray'
+          )
+          .attr('stroke-width', (d) => (d.data._upToTheRootHighlighted ? 5 : 2))
 
         if (d.data._upToTheRootHighlighted) {
           d3.select(this).raise()
@@ -88,24 +112,36 @@ export class OrgChart<T> implements IOrgChart<T> {
       nodeUpdate: function (d, i, arr) {
         d3.select(this)
           .select('.node-rect')
-          .attr('stroke', d => d.data._highlighted || d.data._upToTheRootHighlighted ? '#152785' : 'none')
-          .attr('stroke-width', d.data._highlighted || d.data._upToTheRootHighlighted ? 10 : 1)
+          .attr('stroke', (d) =>
+            d.data._highlighted || d.data._upToTheRootHighlighted
+              ? '#152785'
+              : 'none'
+          )
+          .attr(
+            'stroke-width',
+            d.data._highlighted || d.data._upToTheRootHighlighted ? 10 : 1
+          )
       },
 
-      nodeWidth: d3Node => 250,
-      nodeHeight: d => 150,
-      siblingsMargin: d3Node => 20,
-      childrenMargin: d => 60,
+      nodeWidth: (d3Node) => 250,
+      nodeHeight: (d) => 150,
+      siblingsMargin: (d3Node) => 20,
+      childrenMargin: (d) => 60,
       neightbourMargin: (n1, n2) => 80,
-      compactMarginPair: d => 100,
-      compactMarginBetween: d3Node => 20,
+      compactMarginPair: (d) => 100,
+      compactMarginBetween: (d3Node) => 20,
       onNodeClick: (d) => d,
-      linkGroupArc: d3.linkHorizontal().x(d => d.x).y(d => d.y),
+      linkGroupArc: d3
+        .linkHorizontal()
+        .x((d) => d.x)
+        .y((d) => d.y),
       // ({ source, target }) => {
       //     return
       //     return `M ${source.x} , ${source.y} Q ${(source.x + target.x) / 2 + 100},${source.y-100}  ${target.x}, ${target.y}`;
       // },
-      nodeContent: d => `<div style="padding:5px;font-size:10px;">Sample Node(id=${d.id}), override using <br/> <br/>
+      nodeContent: (
+        d
+      ) => `<div style="padding:5px;font-size:10px;">Sample Node(id=${d.id}), override using <br/> <br/>
             <code>chart<br/>
             &nbsp;.nodeContent({data}=>{ <br/>
              &nbsp;&nbsp;&nbsp;&nbsp;return '' // Custom HTML <br/>
@@ -117,147 +153,235 @@ export class OrgChart<T> implements IOrgChart<T> {
       layout: 'top', // top, left,right, bottom
       buttonContent: ({ node, state }) => {
         const icons = {
-          left: d => d ? '<div style="margin-top:-10px;line-height:1.2;font-size:25px;height:22px">‹</div>' : '<div style="margin-top:-10px;font-size:25px;height:23px">›</div>',
-          bottom: d => d ? '<div style="margin-top:-20px;font-size:25px">ˬ</div>' : '<div style="margin-top:0px;line-height:1.2;height:11px;font-size:25px">ˆ</div>',
-          right: d => d ? '<div style="margin-top:-10px;font-size:25px;height:23px">›</div>' : '<div style="margin-top:-10px;line-height:1.2;font-size:25px;height:22px">‹</div>',
-          top: d => d ? '<div style="margin-top:0px;line-height:1.2;height:11px;font-size:25px">ˆ</div>' : '<div style="margin-top:-20px;font-size:25px">ˬ</div>'
+          left: (d) =>
+            d
+              ? '<div style="margin-top:-10px;line-height:1.2;font-size:25px;height:22px">‹</div>'
+              : '<div style="margin-top:-10px;font-size:25px;height:23px">›</div>',
+          bottom: (d) =>
+            d
+              ? '<div style="margin-top:-20px;font-size:25px">ˬ</div>'
+              : '<div style="margin-top:0px;line-height:1.2;height:11px;font-size:25px">ˆ</div>',
+          right: (d) =>
+            d
+              ? '<div style="margin-top:-10px;font-size:25px;height:23px">›</div>'
+              : '<div style="margin-top:-10px;line-height:1.2;font-size:25px;height:22px">‹</div>',
+          top: (d) =>
+            d
+              ? '<div style="margin-top:0px;line-height:1.2;height:11px;font-size:25px">ˆ</div>'
+              : '<div style="margin-top:-20px;font-size:25px">ˬ</div>'
         }
-        return `<div style="border-radius:3px;padding:3px;font-size:10px;margin:auto auto;background-color:lightgray"> ${icons[state.layout](node.children)}  </div>`
+        return `<div style="border-radius:3px;padding:3px;font-size:10px;margin:auto auto;background-color:lightgray"> ${icons[
+          state.layout
+        ](node.children)}  </div>`
       },
       layoutBindings: {
         left: {
-          nodeLeftX: node => 0,
-          nodeRightX: node => node.width,
-          nodeTopY: node => -node.height / 2,
-          nodeBottomY: node => node.height / 2,
-          nodeJoinX: node => node.x + node.width,
-          nodeJoinY: node => node.y - node.height / 2,
-          linkJoinX: node => node.x + node.width,
-          linkJoinY: node => node.y,
-          linkX: node => node.x,
-          linkY: node => node.y,
-          linkCompactXStart: node => node.x + node.width / 2, // node.x + (node.compactEven ? node.width / 2 : -node.width / 2),
-          linkCompactYStart: node => node.y + (node.compactEven ? node.height / 2 : -node.height / 2),
+          nodeLeftX: (node) => 0,
+          nodeRightX: (node) => node.width,
+          nodeTopY: (node) => -node.height / 2,
+          nodeBottomY: (node) => node.height / 2,
+          nodeJoinX: (node) => node.x + node.width,
+          nodeJoinY: (node) => node.y - node.height / 2,
+          linkJoinX: (node) => node.x + node.width,
+          linkJoinY: (node) => node.y,
+          linkX: (node) => node.x,
+          linkY: (node) => node.y,
+          linkCompactXStart: (node) => node.x + node.width / 2, // node.x + (node.compactEven ? node.width / 2 : -node.width / 2),
+          linkCompactYStart: (node) =>
+            node.y + (node.compactEven ? node.height / 2 : -node.height / 2),
           compactLinkMidX: (node, state) => node.firstCompactNode.x, // node.firstCompactNode.x + node.firstCompactNode.flexCompactDim[0] / 4 + state.compactMarginPair(node) / 4,
-          compactLinkMidY: (node, state) => node.firstCompactNode.y + node.firstCompactNode.flexCompactDim[0] / 4 + state.compactMarginPair(node) / 4,
-          linkParentX: node => node.parent.x + node.parent.width,
-          linkParentY: node => node.parent.y,
-          buttonX: node => node.width,
-          buttonY: node => node.height / 2,
-          centerTransform: ({ root, rootMargin, centerY, scale, centerX }) => `translate(${rootMargin},${centerY}) scale(${scale})`,
+          compactLinkMidY: (node, state) =>
+            node.firstCompactNode.y +
+            node.firstCompactNode.flexCompactDim[0] / 4 +
+            state.compactMarginPair(node) / 4,
+          linkParentX: (node) => node.parent.x + node.parent.width,
+          linkParentY: (node) => node.parent.y,
+          buttonX: (node) => node.width,
+          buttonY: (node) => node.height / 2,
+          centerTransform: ({ root, rootMargin, centerY, scale, centerX }) =>
+            `translate(${rootMargin},${centerY}) scale(${scale})`,
           compactDimension: {
-            sizeColumn: node => node.height,
-            sizeRow: node => node.width,
-            reverse: arr => arr.slice().reverse()
+            sizeColumn: (node) => node.height,
+            sizeRow: (node) => node.width,
+            reverse: (arr) => arr.slice().reverse()
           },
-          nodeFlexSize: ({ height, width, siblingsMargin, childrenMargin, state, node }) => {
+          nodeFlexSize: ({
+            height,
+            width,
+            siblingsMargin,
+            childrenMargin,
+            state,
+            node
+          }) => {
             if (state.compact && node.flexCompactDim) {
               const result = [node.flexCompactDim[0], node.flexCompactDim[1]]
               return result
             }
             return [height + siblingsMargin, width + childrenMargin]
           },
-          zoomTransform: ({ centerY, scale }) => `translate(${0},${centerY}) scale(${scale})`,
+          zoomTransform: ({ centerY, scale }) =>
+            `translate(${0},${centerY}) scale(${scale})`,
           diagonal: this.hdiagonal.bind(this),
-          swap: d => { const x = d.x; d.x = d.y; d.y = x },
-          nodeUpdateTransform: ({ x, y, width, height }) => `translate(${x},${y - height / 2})`
+          swap: (d) => {
+            const x = d.x
+            d.x = d.y
+            d.y = x
+          },
+          nodeUpdateTransform: ({ x, y, width, height }) =>
+            `translate(${x},${y - height / 2})`
         },
         top: {
-          nodeLeftX: node => -node.width / 2,
-          nodeRightX: node => node.width / 2,
-          nodeTopY: node => 0,
-          nodeBottomY: node => node.height,
-          nodeJoinX: node => node.x - node.width / 2,
-          nodeJoinY: node => node.y + node.height,
-          linkJoinX: node => node.x,
-          linkJoinY: node => node.y + node.height,
-          linkCompactXStart: node => node.x + (node.compactEven ? node.width / 2 : -node.width / 2),
-          linkCompactYStart: node => node.y + node.height / 2,
-          compactLinkMidX: (node, state) => node.firstCompactNode.x + node.firstCompactNode.flexCompactDim[0] / 4 + state.compactMarginPair(node) / 4,
-          compactLinkMidY: node => node.firstCompactNode.y,
+          nodeLeftX: (node) => -node.width / 2,
+          nodeRightX: (node) => node.width / 2,
+          nodeTopY: (node) => 0,
+          nodeBottomY: (node) => node.height,
+          nodeJoinX: (node) => node.x - node.width / 2,
+          nodeJoinY: (node) => node.y + node.height,
+          linkJoinX: (node) => node.x,
+          linkJoinY: (node) => node.y + node.height,
+          linkCompactXStart: (node) =>
+            node.x + (node.compactEven ? node.width / 2 : -node.width / 2),
+          linkCompactYStart: (node) => node.y + node.height / 2,
+          compactLinkMidX: (node, state) =>
+            node.firstCompactNode.x +
+            node.firstCompactNode.flexCompactDim[0] / 4 +
+            state.compactMarginPair(node) / 4,
+          compactLinkMidY: (node) => node.firstCompactNode.y,
           compactDimension: {
-            sizeColumn: node => node.width,
-            sizeRow: node => node.height,
-            reverse: arr => arr
+            sizeColumn: (node) => node.width,
+            sizeRow: (node) => node.height,
+            reverse: (arr) => arr
           },
-          linkX: node => node.x,
-          linkY: node => node.y,
-          linkParentX: node => node.parent.x,
-          linkParentY: node => node.parent.y + node.parent.height,
-          buttonX: node => node.width / 2,
-          buttonY: node => node.height,
-          centerTransform: ({ root, rootMargin, centerY, scale, centerX }) => `translate(${centerX},${rootMargin}) scale(${scale})`,
-          nodeFlexSize: ({ height, width, siblingsMargin, childrenMargin, state, node, compactViewIndex }) => {
+          linkX: (node) => node.x,
+          linkY: (node) => node.y,
+          linkParentX: (node) => node.parent.x,
+          linkParentY: (node) => node.parent.y + node.parent.height,
+          buttonX: (node) => node.width / 2,
+          buttonY: (node) => node.height,
+          centerTransform: ({ root, rootMargin, centerY, scale, centerX }) =>
+            `translate(${centerX},${rootMargin}) scale(${scale})`,
+          nodeFlexSize: ({
+            height,
+            width,
+            siblingsMargin,
+            childrenMargin,
+            state,
+            node,
+            compactViewIndex
+          }) => {
             if (state.compact && node.flexCompactDim) {
               const result = [node.flexCompactDim[0], node.flexCompactDim[1]]
               return result
             }
             return [width + siblingsMargin, height + childrenMargin]
           },
-          zoomTransform: ({ centerX, scale }) => `translate(${centerX},0}) scale(${scale})`,
+          zoomTransform: ({ centerX, scale }) =>
+            `translate(${centerX},0}) scale(${scale})`,
           diagonal: this.diagonal.bind(this),
-          swap: d => { },
-          nodeUpdateTransform: ({ x, y, width, height }) => `translate(${x - width / 2},${y})`
-
+          swap: (d) => {},
+          nodeUpdateTransform: ({ x, y, width, height }) =>
+            `translate(${x - width / 2},${y})`
         },
         bottom: {
-          nodeLeftX: node => -node.width / 2,
-          nodeRightX: node => node.width / 2,
-          nodeTopY: node => -node.height,
-          nodeBottomY: node => 0,
-          nodeJoinX: node => node.x - node.width / 2,
-          nodeJoinY: node => node.y - node.height - node.height,
-          linkJoinX: node => node.x,
-          linkJoinY: node => node.y - node.height,
-          linkCompactXStart: node => node.x + (node.compactEven ? node.width / 2 : -node.width / 2),
-          linkCompactYStart: node => node.y - node.height / 2,
-          compactLinkMidX: (node, state) => node.firstCompactNode.x + node.firstCompactNode.flexCompactDim[0] / 4 + state.compactMarginPair(node) / 4,
-          compactLinkMidY: node => node.firstCompactNode.y,
-          linkX: node => node.x,
-          linkY: node => node.y,
+          nodeLeftX: (node) => -node.width / 2,
+          nodeRightX: (node) => node.width / 2,
+          nodeTopY: (node) => -node.height,
+          nodeBottomY: (node) => 0,
+          nodeJoinX: (node) => node.x - node.width / 2,
+          nodeJoinY: (node) => node.y - node.height - node.height,
+          linkJoinX: (node) => node.x,
+          linkJoinY: (node) => node.y - node.height,
+          linkCompactXStart: (node) =>
+            node.x + (node.compactEven ? node.width / 2 : -node.width / 2),
+          linkCompactYStart: (node) => node.y - node.height / 2,
+          compactLinkMidX: (node, state) =>
+            node.firstCompactNode.x +
+            node.firstCompactNode.flexCompactDim[0] / 4 +
+            state.compactMarginPair(node) / 4,
+          compactLinkMidY: (node) => node.firstCompactNode.y,
+          linkX: (node) => node.x,
+          linkY: (node) => node.y,
           compactDimension: {
-            sizeColumn: node => node.width,
-            sizeRow: node => node.height,
-            reverse: arr => arr
+            sizeColumn: (node) => node.width,
+            sizeRow: (node) => node.height,
+            reverse: (arr) => arr
           },
-          linkParentX: node => node.parent.x,
-          linkParentY: node => node.parent.y - node.parent.height,
-          buttonX: node => node.width / 2,
-          buttonY: node => 0,
-          centerTransform: ({ root, rootMargin, centerY, scale, centerX, chartHeight }) => `translate(${centerX},${chartHeight - rootMargin}) scale(${scale})`,
-          nodeFlexSize: ({ height, width, siblingsMargin, childrenMargin, state, node }) => {
+          linkParentX: (node) => node.parent.x,
+          linkParentY: (node) => node.parent.y - node.parent.height,
+          buttonX: (node) => node.width / 2,
+          buttonY: (node) => 0,
+          centerTransform: ({
+            root,
+            rootMargin,
+            centerY,
+            scale,
+            centerX,
+            chartHeight
+          }) =>
+            `translate(${centerX},${chartHeight - rootMargin}) scale(${scale})`,
+          nodeFlexSize: ({
+            height,
+            width,
+            siblingsMargin,
+            childrenMargin,
+            state,
+            node
+          }) => {
             if (state.compact && node.flexCompactDim) {
               const result = [node.flexCompactDim[0], node.flexCompactDim[1]]
               return result
             }
             return [width + siblingsMargin, height + childrenMargin]
           },
-          zoomTransform: ({ centerX, scale }) => `translate(${centerX},0}) scale(${scale})`,
+          zoomTransform: ({ centerX, scale }) =>
+            `translate(${centerX},0}) scale(${scale})`,
           diagonal: this.diagonal.bind(this),
-          swap: d => { d.y = -d.y },
-          nodeUpdateTransform: ({ x, y, width, height }) => `translate(${x - width / 2},${y - height})`
+          swap: (d) => {
+            d.y = -d.y
+          },
+          nodeUpdateTransform: ({ x, y, width, height }) =>
+            `translate(${x - width / 2},${y - height})`
         },
         right: {
-          nodeLeftX: node => -node.width,
-          nodeRightX: node => 0,
-          nodeTopY: node => -node.height / 2,
-          nodeBottomY: node => node.height / 2,
-          nodeJoinX: node => node.x - node.width - node.width,
-          nodeJoinY: node => node.y - node.height / 2,
-          linkJoinX: node => node.x - node.width,
-          linkJoinY: node => node.y,
-          linkX: node => node.x,
-          linkY: node => node.y,
-          linkParentX: node => node.parent.x - node.parent.width,
-          linkParentY: node => node.parent.y,
-          buttonX: node => 0,
-          buttonY: node => node.height / 2,
-          linkCompactXStart: node => node.x - node.width / 2, // node.x + (node.compactEven ? node.width / 2 : -node.width / 2),
-          linkCompactYStart: node => node.y + (node.compactEven ? node.height / 2 : -node.height / 2),
+          nodeLeftX: (node) => -node.width,
+          nodeRightX: (node) => 0,
+          nodeTopY: (node) => -node.height / 2,
+          nodeBottomY: (node) => node.height / 2,
+          nodeJoinX: (node) => node.x - node.width - node.width,
+          nodeJoinY: (node) => node.y - node.height / 2,
+          linkJoinX: (node) => node.x - node.width,
+          linkJoinY: (node) => node.y,
+          linkX: (node) => node.x,
+          linkY: (node) => node.y,
+          linkParentX: (node) => node.parent.x - node.parent.width,
+          linkParentY: (node) => node.parent.y,
+          buttonX: (node) => 0,
+          buttonY: (node) => node.height / 2,
+          linkCompactXStart: (node) => node.x - node.width / 2, // node.x + (node.compactEven ? node.width / 2 : -node.width / 2),
+          linkCompactYStart: (node) =>
+            node.y + (node.compactEven ? node.height / 2 : -node.height / 2),
           compactLinkMidX: (node, state) => node.firstCompactNode.x, // node.firstCompactNode.x + node.firstCompactNode.flexCompactDim[0] / 4 + state.compactMarginPair(node) / 4,
-          compactLinkMidY: (node, state) => node.firstCompactNode.y + node.firstCompactNode.flexCompactDim[0] / 4 + state.compactMarginPair(node) / 4,
-          centerTransform: ({ root, rootMargin, centerY, scale, centerX, chartWidth }) => `translate(${chartWidth - rootMargin},${centerY}) scale(${scale})`,
-          nodeFlexSize: ({ height, width, siblingsMargin, childrenMargin, state, node }) => {
+          compactLinkMidY: (node, state) =>
+            node.firstCompactNode.y +
+            node.firstCompactNode.flexCompactDim[0] / 4 +
+            state.compactMarginPair(node) / 4,
+          centerTransform: ({
+            root,
+            rootMargin,
+            centerY,
+            scale,
+            centerX,
+            chartWidth
+          }) =>
+            `translate(${chartWidth - rootMargin},${centerY}) scale(${scale})`,
+          nodeFlexSize: ({
+            height,
+            width,
+            siblingsMargin,
+            childrenMargin,
+            state,
+            node
+          }) => {
             if (state.compact && node.flexCompactDim) {
               const result = [node.flexCompactDim[0], node.flexCompactDim[1]]
               return result
@@ -265,14 +389,20 @@ export class OrgChart<T> implements IOrgChart<T> {
             return [height + siblingsMargin, width + childrenMargin]
           },
           compactDimension: {
-            sizeColumn: node => node.height,
-            sizeRow: node => node.width,
-            reverse: arr => arr.slice().reverse()
+            sizeColumn: (node) => node.height,
+            sizeRow: (node) => node.width,
+            reverse: (arr) => arr.slice().reverse()
           },
-          zoomTransform: ({ centerY, scale }) => `translate(${0},${centerY}) scale(${scale})`,
+          zoomTransform: ({ centerY, scale }) =>
+            `translate(${0},${centerY}) scale(${scale})`,
           diagonal: this.hdiagonal.bind(this),
-          swap: d => { const x = d.x; d.x = -d.y; d.y = x },
-          nodeUpdateTransform: ({ x, y, width, height }) => `translate(${x - width},${y - height / 2})`
+          swap: (d) => {
+            const x = d.x
+            d.x = -d.y
+            d.y = x
+          },
+          nodeUpdateTransform: ({ x, y, width, height }) =>
+            `translate(${x - width},${y - height / 2})`
         }
       }
     }
@@ -305,7 +435,9 @@ export class OrgChart<T> implements IOrgChart<T> {
       // Pattern in action
       let selection = container.selectAll('.' + selector).data(data, (d, i) => {
         if (typeof d === 'object') {
-          if (d.id) { return d.id }
+          if (d.id) {
+            return d.id
+          }
         }
         return i
       })
@@ -378,14 +510,17 @@ export class OrgChart<T> implements IOrgChart<T> {
       }
 
       // Get zooming function
-      behaviors.zoom = d3.zoom().on('zoom', (event, d) => this.zoomed(event, d)).scaleExtent(attrs.scaleExtent)
+      behaviors.zoom = d3
+        .zoom()
+        .on('zoom', (event, d) => this.zoomed(event, d))
+        .scaleExtent(attrs.scaleExtent)
       attrs.zoomBehavior = behaviors.zoom
     }
 
     //* ***************** ROOT node work ************************
 
     attrs.flexTreeLayout = flextree({
-      nodeSize: node => {
+      nodeSize: (node) => {
         const width = attrs.nodeWidth(node)
         const height = attrs.nodeHeight(node)
         const siblingsMargin = attrs.siblingsMargin(node)
@@ -399,14 +534,15 @@ export class OrgChart<T> implements IOrgChart<T> {
           childrenMargin
         })
       }
-    })
-      .spacing((nodeA, nodeB) => nodeA.parent == nodeB.parent ? 0 : attrs.neightbourMargin(nodeA, nodeB))
+    }).spacing((nodeA, nodeB) =>
+      nodeA.parent == nodeB.parent ? 0 : attrs.neightbourMargin(nodeA, nodeB)
+    )
 
     this.setLayouts({ expandNodesFirst: false })
 
     // *************************  DRAWING **************************
     // Add svg
-    const svg :Selection = container
+    const svg: Selection = container
       .patternify({
         tag: 'svg',
         selector: 'svg-chart-container'
@@ -417,7 +553,8 @@ export class OrgChart<T> implements IOrgChart<T> {
       .attr('font-family', attrs.defaultFont)
 
     if (attrs.firstDraw) {
-      svg.call(attrs.zoomBehavior)
+      svg
+        .call(attrs.zoomBehavior)
         .on('dblclick.zoom', null)
         .attr('cursor', 'move')
     }
@@ -425,18 +562,16 @@ export class OrgChart<T> implements IOrgChart<T> {
     attrs.svg = svg
 
     // Add container g element
-    const chart = svg
-      .patternify({
-        tag: 'g',
-        selector: 'chart'
-      })
+    const chart = svg.patternify({
+      tag: 'g',
+      selector: 'chart'
+    })
 
     // Add one more container g element, for better positioning controls
-    attrs.centerG = chart
-      .patternify({
-        tag: 'g',
-        selector: 'center-group'
-      })
+    attrs.centerG = chart.patternify({
+      tag: 'g',
+      selector: 'center-group'
+    })
 
     attrs.linksWrapper = attrs.centerG.patternify({
       tag: 'g',
@@ -481,7 +616,10 @@ export class OrgChart<T> implements IOrgChart<T> {
     // This function restyles foreign object elements ()
 
     d3.select(window).on(`resize.${attrs.id}`, () => {
-      const containerRect = d3.select(attrs.container).node().getBoundingClientRect()
+      const containerRect = d3
+        .select(attrs.container)
+        .node()
+        .getBoundingClientRect()
       attrs.svg.attr('width', containerRect.width)
     })
 
@@ -495,14 +633,26 @@ export class OrgChart<T> implements IOrgChart<T> {
   // This function can be invoked via chart.addNode API, and it adds node in tree at runtime
   addNode (obj) {
     const attrs = this.getChartState()
-    const nodeFound = attrs.allNodes.filter(({ data }) => attrs.nodeId(data) === attrs.nodeId(obj))[0]
-    const parentFound = attrs.allNodes.filter(({ data }) => attrs.nodeId(data) === attrs.parentNodeId(obj))[0]
+    const nodeFound = attrs.allNodes.filter(
+      ({ data }) => attrs.nodeId(data) === attrs.nodeId(obj)
+    )[0]
+    const parentFound = attrs.allNodes.filter(
+      ({ data }) => attrs.nodeId(data) === attrs.parentNodeId(obj)
+    )[0]
     if (nodeFound) {
-      console.log(`ORG CHART - ADD - Node with id "${attrs.nodeId(obj)}" already exists in tree`)
+      console.log(
+        `ORG CHART - ADD - Node with id "${attrs.nodeId(
+          obj
+        )}" already exists in tree`
+      )
       return this
     }
     if (!parentFound) {
-      console.log(`ORG CHART - ADD - Parent node with id "${attrs.parentNodeId(obj)}" not found in the tree`)
+      console.log(
+        `ORG CHART - ADD - Parent node with id "${attrs.parentNodeId(
+          obj
+        )}" not found in the tree`
+      )
       return this
     }
     if (obj._centered && !obj._expanded) obj._expanded = true
@@ -517,22 +667,25 @@ export class OrgChart<T> implements IOrgChart<T> {
   // This function can be invoked via chart.removeNode API, and it removes node from tree at runtime
   removeNode (nodeId) {
     const attrs = this.getChartState()
-    const node = attrs.allNodes.filter(({ data }) => attrs.nodeId(data) == nodeId)[0]
+    const node = attrs.allNodes.filter(
+      ({ data }) => attrs.nodeId(data) == nodeId
+    )[0]
     if (!node) {
-      console.log(`ORG CHART - REMOVE - Node with id "${nodeId}" not found in the tree`)
+      console.log(
+        `ORG CHART - REMOVE - Node with id "${nodeId}" not found in the tree`
+      )
       return this
     }
 
     // Remove all node childs
     // Retrieve all children nodes ids (including current node itself)
-    node.descendants()
-      .forEach(d => d.data._filteredOut = true)
+    node.descendants().forEach((d) => (d.data._filteredOut = true))
 
     const descendants = this.getNodeChildren(node, [], attrs.nodeId)
-    descendants.forEach(d => d._filtered = true)
+    descendants.forEach((d) => (d._filtered = true))
 
     // Filter out retrieved nodes and reassign data
-    attrs.data = attrs.data.filter(d => !d._filtered)
+    attrs.data = attrs.data.filter((d) => !d._filtered)
 
     const updateNodesState = this.updateNodesState.bind(this)
     // Update state of nodes and redraw graph
@@ -543,7 +696,7 @@ export class OrgChart<T> implements IOrgChart<T> {
 
   groupBy (array, accessor, aggegator) {
     const grouped = {}
-    array.forEach(item => {
+    array.forEach((item) => {
       const key = accessor(item)
       if (!grouped[key]) {
         grouped[key] = []
@@ -551,7 +704,7 @@ export class OrgChart<T> implements IOrgChart<T> {
       grouped[key].push(item)
     })
 
-    Object.keys(grouped).forEach(key => {
+    Object.keys(grouped).forEach((key) => {
       grouped[key] = aggegator(grouped[key])
     })
     return Object.entries(grouped)
@@ -559,15 +712,15 @@ export class OrgChart<T> implements IOrgChart<T> {
 
   calculateCompactFlexDimensions (root) {
     const attrs = this.getChartState()
-    root.eachBefore(node => {
+    root.eachBefore((node) => {
       node.firstCompact = null
       node.compactEven = null
       node.flexCompactDim = null
       node.firstCompactNode = null
     })
-    root.eachBefore(node => {
+    root.eachBefore((node) => {
       if (node.children && node.children.length > 1) {
-        const compactChildren = node.children.filter(d => !d.children)
+        const compactChildren = node.children.filter((d) => !d.children)
         if (compactChildren.length < 2) return
         compactChildren.forEach((child, i) => {
           if (!i) child.firstCompact = true
@@ -575,12 +728,29 @@ export class OrgChart<T> implements IOrgChart<T> {
           else child.compactEven = true
           child.row = Math.floor(i / 2)
         })
-        const evenMaxColumnDimension = d3.max(compactChildren.filter(d => d.compactEven), attrs.layoutBindings[attrs.layout].compactDimension.sizeColumn)
-        const oddMaxColumnDimension = d3.max(compactChildren.filter(d => !d.compactEven), attrs.layoutBindings[attrs.layout].compactDimension.sizeColumn)
-        const columnSize = Math.max(evenMaxColumnDimension, oddMaxColumnDimension) * 2
-        const rowsMapNew = this.groupBy(compactChildren, d => d.row, reducedGroup => d3.max(reducedGroup, d => attrs.layoutBindings[attrs.layout].compactDimension.sizeRow(d) + attrs.compactMarginBetween(d)))
-        const rowSize = d3.sum(rowsMapNew.map(v => v[1]))
-        compactChildren.forEach(node => {
+        const evenMaxColumnDimension = d3.max(
+          compactChildren.filter((d) => d.compactEven),
+          attrs.layoutBindings[attrs.layout].compactDimension.sizeColumn
+        )
+        const oddMaxColumnDimension = d3.max(
+          compactChildren.filter((d) => !d.compactEven),
+          attrs.layoutBindings[attrs.layout].compactDimension.sizeColumn
+        )
+        const columnSize =
+          Math.max(evenMaxColumnDimension, oddMaxColumnDimension) * 2
+        const rowsMapNew = this.groupBy(
+          compactChildren,
+          (d) => d.row,
+          (reducedGroup) =>
+            d3.max(
+              reducedGroup,
+              (d) =>
+                attrs.layoutBindings[attrs.layout].compactDimension.sizeRow(d) +
+                attrs.compactMarginBetween(d)
+            )
+        )
+        const rowSize = d3.sum(rowsMapNew.map((v) => v[1]))
+        compactChildren.forEach((node) => {
           node.firstCompactNode = compactChildren[0]
           if (node.firstCompact) {
             node.flexCompactDim = [
@@ -598,33 +768,53 @@ export class OrgChart<T> implements IOrgChart<T> {
 
   calculateCompactFlexPositions (root) {
     const attrs = this.getChartState()
-    root.eachBefore(node => {
+    root.eachBefore((node) => {
       if (node.children) {
-        const compactChildren = node.children.filter(d => d.flexCompactDim)
+        const compactChildren = node.children.filter((d) => d.flexCompactDim)
         const fch = compactChildren[0]
         if (!fch) return
         compactChildren.forEach((child, i, arr) => {
           if (i == 0) fch.x -= fch.flexCompactDim[0] / 2
-          if (i & i % 2 - 1) child.x = fch.x + fch.flexCompactDim[0] * 0.25 - attrs.compactMarginPair(child) / 4
-          else if (i) child.x = fch.x + fch.flexCompactDim[0] * 0.75 + attrs.compactMarginPair(child) / 4
+          if (i & ((i % 2) - 1)) {
+            child.x =
+              fch.x +
+              fch.flexCompactDim[0] * 0.25 -
+              attrs.compactMarginPair(child) / 4
+          } else if (i) {
+            child.x =
+              fch.x +
+              fch.flexCompactDim[0] * 0.75 +
+              attrs.compactMarginPair(child) / 4
+          }
         })
         const centerX = fch.x + fch.flexCompactDim[0] * 0.5
-        fch.x = fch.x + fch.flexCompactDim[0] * 0.25 - attrs.compactMarginPair(fch) / 4
+        fch.x =
+          fch.x +
+          fch.flexCompactDim[0] * 0.25 -
+          attrs.compactMarginPair(fch) / 4
         const offsetX = node.x - centerX
         if (Math.abs(offsetX) < 10) {
-          compactChildren.forEach(d => d.x += offsetX)
+          compactChildren.forEach((d) => (d.x += offsetX))
         }
 
-        const rowsMapNew = this.groupBy(compactChildren, d => d.row, reducedGroup => d3.max(reducedGroup, d => attrs.layoutBindings[attrs.layout].compactDimension.sizeRow(d)))
-        const cumSum = d3.cumsum(rowsMapNew.map(d => d[1] + attrs.compactMarginBetween(d)))
-        compactChildren
-          .forEach((node, i) => {
-            if (node.row) {
-              node.y = fch.y + cumSum[node.row - 1]
-            } else {
-              node.y = fch.y
-            }
-          })
+        const rowsMapNew = this.groupBy(
+          compactChildren,
+          (d) => d.row,
+          (reducedGroup) =>
+            d3.max(reducedGroup, (d) =>
+              attrs.layoutBindings[attrs.layout].compactDimension.sizeRow(d)
+            )
+        )
+        const cumSum = d3.cumsum(
+          rowsMapNew.map((d) => d[1] + attrs.compactMarginBetween(d))
+        )
+        compactChildren.forEach((node, i) => {
+          if (node.row) {
+            node.y = fch.y + cumSum[node.row - 1]
+          } else {
+            node.y = fch.y
+          }
+        })
       }
     })
   }
@@ -657,18 +847,20 @@ export class OrgChart<T> implements IOrgChart<T> {
     // Connections
     const connections = attrs.connections
     const allNodesMap = {}
-    attrs.allNodes.forEach(d => allNodesMap[attrs.nodeId(d.data)] = d)
+    attrs.allNodes.forEach((d) => (allNodesMap[attrs.nodeId(d.data)] = d))
 
     const visibleNodesMap = {}
-    nodes.forEach(d => visibleNodesMap[attrs.nodeId(d.data)] = d)
+    nodes.forEach((d) => (visibleNodesMap[attrs.nodeId(d.data)] = d))
 
-    connections.forEach(connection => {
+    connections.forEach((connection) => {
       const source = allNodesMap[connection.from]
       const target = allNodesMap[connection.to]
       connection._source = source
       connection._target = target
     })
-    const visibleConnections = connections.filter(d => visibleNodesMap[d.from] && visibleNodesMap[d.to])
+    const visibleConnections = connections.filter(
+      (d) => visibleNodesMap[d.from] && visibleNodesMap[d.to]
+    )
     const defsString = attrs.defs.bind(this)(attrs, visibleConnections)
     const existingString = attrs.defsWrapper.html()
     if (defsString !== existingString) {
@@ -687,8 +879,18 @@ export class OrgChart<T> implements IOrgChart<T> {
       .insert('path', 'g')
       .attr('class', 'link')
       .attr('d', (d) => {
-        const xo = attrs.layoutBindings[attrs.layout].linkJoinX({ x: x0, y: y0, width, height })
-        const yo = attrs.layoutBindings[attrs.layout].linkJoinY({ x: x0, y: y0, width, height })
+        const xo = attrs.layoutBindings[attrs.layout].linkJoinX({
+          x: x0,
+          y: y0,
+          width,
+          height
+        })
+        const yo = attrs.layoutBindings[attrs.layout].linkJoinY({
+          x: x0,
+          y: y0,
+          width,
+          height
+        })
         const o = { x: xo, y: yo }
         return attrs.layoutBindings[attrs.layout].diagonal(o, o, o)
       })
@@ -697,8 +899,7 @@ export class OrgChart<T> implements IOrgChart<T> {
     const linkUpdate = linkEnter.merge(linkSelection)
 
     // Styling links
-    linkUpdate
-      .attr('fill', 'none')
+    linkUpdate.attr('fill', 'none')
 
     // Allow external modifications
     linkUpdate.each(attrs.linkUpdate)
@@ -708,12 +909,13 @@ export class OrgChart<T> implements IOrgChart<T> {
       .transition()
       .duration(attrs.duration)
       .attr('d', (d) => {
-        const n = attrs.compact && d.flexCompactDim
-          ? {
+        const n =
+          attrs.compact && d.flexCompactDim
+            ? {
               x: attrs.layoutBindings[attrs.layout].compactLinkMidX(d, attrs),
               y: attrs.layoutBindings[attrs.layout].compactLinkMidY(d, attrs)
             }
-          : {
+            : {
               x: attrs.layoutBindings[attrs.layout].linkX(d),
               y: attrs.layoutBindings[attrs.layout].linkY(d)
             }
@@ -723,12 +925,13 @@ export class OrgChart<T> implements IOrgChart<T> {
           y: attrs.layoutBindings[attrs.layout].linkParentY(d)
         }
 
-        const m = attrs.compact && d.flexCompactDim
-          ? {
+        const m =
+          attrs.compact && d.flexCompactDim
+            ? {
               x: attrs.layoutBindings[attrs.layout].linkCompactXStart(d),
               y: attrs.layoutBindings[attrs.layout].linkCompactYStart(d)
             }
-          : n
+            : n
         return attrs.layoutBindings[attrs.layout].diagonal(n, p, m)
       })
 
@@ -738,8 +941,18 @@ export class OrgChart<T> implements IOrgChart<T> {
       .transition()
       .duration(attrs.duration)
       .attr('d', (d) => {
-        const xo = attrs.layoutBindings[attrs.layout].linkJoinX({ x, y, width, height })
-        const yo = attrs.layoutBindings[attrs.layout].linkJoinY({ x, y, width, height })
+        const xo = attrs.layoutBindings[attrs.layout].linkJoinX({
+          x,
+          y,
+          width,
+          height
+        })
+        const yo = attrs.layoutBindings[attrs.layout].linkJoinY({
+          x,
+          y,
+          width,
+          height
+        })
         const o = { x: xo, y: yo }
         return attrs.layoutBindings[attrs.layout].diagonal(o, o)
       })
@@ -757,8 +970,18 @@ export class OrgChart<T> implements IOrgChart<T> {
       .insert('path', 'g')
       .attr('class', 'connection')
       .attr('d', (d) => {
-        const xo = attrs.layoutBindings[attrs.layout].linkJoinX({ x: x0, y: y0, width, height })
-        const yo = attrs.layoutBindings[attrs.layout].linkJoinY({ x: x0, y: y0, width, height })
+        const xo = attrs.layoutBindings[attrs.layout].linkJoinX({
+          x: x0,
+          y: y0,
+          width,
+          height
+        })
+        const yo = attrs.layoutBindings[attrs.layout].linkJoinY({
+          x: x0,
+          y: y0,
+          width,
+          height
+        })
         const o = { x: xo, y: yo }
         return attrs.layoutBindings[attrs.layout].diagonal(o, o)
       })
@@ -774,11 +997,34 @@ export class OrgChart<T> implements IOrgChart<T> {
       .transition()
       .duration(attrs.duration)
       .attr('d', (d) => {
-        const xs = attrs.layoutBindings[attrs.layout].linkX({ x: d._source.x, y: d._source.y, width: d._source.width, height: d._source.height })
-        const ys = attrs.layoutBindings[attrs.layout].linkY({ x: d._source.x, y: d._source.y, width: d._source.width, height: d._source.height })
-        const xt = attrs.layoutBindings[attrs.layout].linkJoinX({ x: d._target.x, y: d._target.y, width: d._target.width, height: d._target.height })
-        const yt = attrs.layoutBindings[attrs.layout].linkJoinY({ x: d._target.x, y: d._target.y, width: d._target.width, height: d._target.height })
-        return attrs.linkGroupArc({ source: { x: xs, y: ys }, target: { x: xt, y: yt } })
+        const xs = attrs.layoutBindings[attrs.layout].linkX({
+          x: d._source.x,
+          y: d._source.y,
+          width: d._source.width,
+          height: d._source.height
+        })
+        const ys = attrs.layoutBindings[attrs.layout].linkY({
+          x: d._source.x,
+          y: d._source.y,
+          width: d._source.width,
+          height: d._source.height
+        })
+        const xt = attrs.layoutBindings[attrs.layout].linkJoinX({
+          x: d._target.x,
+          y: d._target.y,
+          width: d._target.width,
+          height: d._target.height
+        })
+        const yt = attrs.layoutBindings[attrs.layout].linkJoinY({
+          x: d._target.x,
+          y: d._target.y,
+          width: d._target.width,
+          height: d._target.height
+        })
+        return attrs.linkGroupArc({
+          source: { x: xs, y: ys },
+          target: { x: xt, y: yt }
+        })
       })
 
     // Allow external modifications
@@ -805,25 +1051,36 @@ export class OrgChart<T> implements IOrgChart<T> {
       .attr('class', 'node')
       .attr('transform', (d) => {
         if (d == attrs.root) return `translate(${x0},${y0})`
-        const xj = attrs.layoutBindings[attrs.layout].nodeJoinX({ x: x0, y: y0, width, height })
-        const yj = attrs.layoutBindings[attrs.layout].nodeJoinY({ x: x0, y: y0, width, height })
+        const xj = attrs.layoutBindings[attrs.layout].nodeJoinX({
+          x: x0,
+          y: y0,
+          width,
+          height
+        })
+        const yj = attrs.layoutBindings[attrs.layout].nodeJoinY({
+          x: x0,
+          y: y0,
+          width,
+          height
+        })
         return `translate(${xj},${yj})`
       })
       .attr('cursor', 'pointer')
       .on('click', (event, { data }) => {
-        if ([...event.srcElement.classList].includes('node-button-foreign-object')) {
+        if (
+          [...event.srcElement.classList].includes('node-button-foreign-object')
+        ) {
           return
         }
         attrs.onNodeClick(attrs.nodeId(data))
       })
 
     // Add background rectangle for the nodes
-    nodeEnter
-      .patternify({
-        tag: 'rect',
-        selector: 'node-rect',
-        data: (d) => [d]
-      })
+    nodeEnter.patternify({
+      tag: 'rect',
+      selector: 'node-rect',
+      data: (d) => [d]
+    })
 
     // Node update styles
     const nodeUpdate = nodeEnter
@@ -831,11 +1088,12 @@ export class OrgChart<T> implements IOrgChart<T> {
       .style('font', '12px sans-serif')
 
     // Add foreignObject element inside rectangle
-    const fo = nodeUpdate.patternify({
-      tag: 'foreignObject',
-      selector: 'node-foreign-object',
-      data: (d) => [d]
-    })
+    const fo = nodeUpdate
+      .patternify({
+        tag: 'foreignObject',
+        selector: 'node-foreign-object',
+        data: (d) => [d]
+      })
       .style('overflow', 'visible')
 
     // Add foreign object
@@ -856,11 +1114,12 @@ export class OrgChart<T> implements IOrgChart<T> {
       })
       .on('click', (event, d) => this.onButtonClick(event, d))
 
-    nodeButtonGroups.patternify({
-      tag: 'rect',
-      selector: 'node-button-rect',
-      data: (d) => [d]
-    })
+    nodeButtonGroups
+      .patternify({
+        tag: 'rect',
+        selector: 'node-button-rect',
+        data: (d) => [d]
+      })
       .attr('opacity', 0)
       .attr('pointer-events', 'all')
       .attr('width', 40)
@@ -896,7 +1155,12 @@ export class OrgChart<T> implements IOrgChart<T> {
       .attr('opacity', 0)
       .duration(attrs.duration)
       .attr('transform', ({ x, y, width, height }) => {
-        return attrs.layoutBindings[attrs.layout].nodeUpdateTransform({ x, y, width, height })
+        return attrs.layoutBindings[attrs.layout].nodeUpdateTransform({
+          x,
+          y,
+          width,
+          height
+        })
       })
       .attr('opacity', 1)
 
@@ -961,8 +1225,18 @@ export class OrgChart<T> implements IOrgChart<T> {
       .transition()
       .duration(attrs.duration)
       .attr('transform', (d) => {
-        const ex = attrs.layoutBindings[attrs.layout].nodeJoinX({ x, y, width, height })
-        const ey = attrs.layoutBindings[attrs.layout].nodeJoinY({ x, y, width, height })
+        const ex = attrs.layoutBindings[attrs.layout].nodeJoinX({
+          x,
+          y,
+          width,
+          height
+        })
+        const ey = attrs.layoutBindings[attrs.layout].nodeJoinY({
+          x,
+          y,
+          width,
+          height
+        })
         return `translate(${ex},${ey})`
       })
       .on('end', function () {
@@ -977,9 +1251,11 @@ export class OrgChart<T> implements IOrgChart<T> {
     })
 
     // CHECK FOR CENTERING
-    const centeredNode = attrs.allNodes.filter(d => d.data._centered)[0]
+    const centeredNode = attrs.allNodes.filter((d) => d.data._centered)[0]
     if (centeredNode) {
-      const centeredNodes = centeredNode.data._centeredWithDescendants ? centeredNode.descendants().filter((d, i) => i < 7) : [centeredNode]
+      const centeredNodes = centeredNode.data._centeredWithDescendants
+        ? centeredNode.descendants().filter((d, i) => i < 7)
+        : [centeredNode]
       centeredNode.data._centeredWithDescendants = null
       centeredNode.data._centered = null
       this.fit({
@@ -1003,8 +1279,8 @@ export class OrgChart<T> implements IOrgChart<T> {
     const ex = t.x
     const ey = t.y
 
-    const mx = m && m.x || x
-    const my = m && m.y || y
+    const mx = (m && m.x) || x
+    const my = (m && m.y) || y
 
     // Values in case of top reversed and left reversed diagonals
     const xrvs = ex - x < 0 ? -1 : 1
@@ -1047,8 +1323,8 @@ export class OrgChart<T> implements IOrgChart<T> {
     const ex = t.x
     const ey = t.y
 
-    const mx = m && m.x || x
-    const my = m && m.y || y
+    const mx = (m && m.x) || x
+    const my = (m && m.y) || y
 
     const xrvs = ex - x < 0 ? -1 : 1
     const yrvs = ey - y < 0 ? -1 : 1
@@ -1066,11 +1342,13 @@ export class OrgChart<T> implements IOrgChart<T> {
                   L ${x} ${my}
                   L ${x} ${y}
                   L ${x} ${y + h * yrvs}
-                  C  ${x} ${y + h * yrvs + r * yrvs} ${x} ${y + h * yrvs + r * yrvs
-            } ${x + r * xrvs} ${y + h * yrvs + r * yrvs}
+                  C  ${x} ${y + h * yrvs + r * yrvs} ${x} ${
+      y + h * yrvs + r * yrvs
+    } ${x + r * xrvs} ${y + h * yrvs + r * yrvs}
                   L ${x + w * xrvs + r * xrvs} ${y + h * yrvs + r * yrvs}
-                  C  ${ex}  ${y + h * yrvs + r * yrvs} ${ex}  ${y + h * yrvs + r * yrvs
-            } ${ex} ${ey - h * yrvs}
+                  C  ${ex}  ${y + h * yrvs + r * yrvs} ${ex}  ${
+      y + h * yrvs + r * yrvs
+    } ${ex} ${ey - h * yrvs}
                   L ${ex} ${ey}
        `
     return path
@@ -1091,7 +1369,8 @@ export class OrgChart<T> implements IOrgChart<T> {
       .style('height', ({ height }) => `${height}px`)
       .append(function (d, i, arr) {
         return document.createElement('div')
-      }).each(function (d, i, g) {
+      })
+      .each(function (d, i, g) {
         if (!d.hasMounted) {
           const app = new Vue({
             render (h) {
@@ -1100,7 +1379,6 @@ export class OrgChart<T> implements IOrgChart<T> {
                   data: d,
                   index: i
                 }
-
               })
             }
           })
@@ -1207,7 +1485,7 @@ export class OrgChart<T> implements IOrgChart<T> {
     attrs.root = d3
       .stratify()
       .id((d) => attrs.nodeId(d))
-      .parentId(d => attrs.parentNodeId(d))(attrs.data)
+      .parentId((d) => attrs.parentNodeId(d))(attrs.data)
 
     attrs.root.each((node, i, arr) => {
       const width = attrs.nodeWidth(node)
@@ -1286,25 +1564,51 @@ export class OrgChart<T> implements IOrgChart<T> {
   }
 
   zoomTreeBounds ({ x0, x1, y0, y1, params = { animate: true, scale: true } }) {
-    const { centerG, svgWidth: w, svgHeight: h, svg, zoomBehavior, duration, lastTransform } = this.getChartState()
+    const {
+      centerG,
+      svgWidth: w,
+      svgHeight: h,
+      svg,
+      zoomBehavior,
+      duration,
+      lastTransform
+    } = this.getChartState()
     const scaleVal = Math.min(8, 0.9 / Math.max((x1 - x0) / w, (y1 - y0) / h))
     let identity = d3.zoomIdentity.translate(w / 2, h / 2)
     identity = identity.scale(params.scale ? scaleVal : lastTransform.k)
 
     identity = identity.translate(-(x0 + x1) / 2, -(y0 + y1) / 2)
     // Transition zoom wrapper component into specified bounds
-    svg.transition().duration(params.animate ? duration : 0).call(zoomBehavior.transform, identity)
-    centerG.transition().duration(params.animate ? duration : 0).attr('transform', 'translate(0,0)')
+    svg
+      .transition()
+      .duration(params.animate ? duration : 0)
+      .call(zoomBehavior.transform, identity)
+    centerG
+      .transition()
+      .duration(params.animate ? duration : 0)
+      .attr('transform', 'translate(0,0)')
   }
 
   fit ({ animate = true, nodes, scale = true } = {}) {
     const attrs = this.getChartState()
     const { root } = attrs
     const descendants = nodes || root.descendants()
-    const minX = d3.min(descendants, d => d.x + attrs.layoutBindings[attrs.layout].nodeLeftX(d))
-    const maxX = d3.max(descendants, d => d.x + attrs.layoutBindings[attrs.layout].nodeRightX(d))
-    const minY = d3.min(descendants, d => d.y + attrs.layoutBindings[attrs.layout].nodeTopY(d))
-    const maxY = d3.max(descendants, d => d.y + attrs.layoutBindings[attrs.layout].nodeBottomY(d))
+    const minX = d3.min(
+      descendants,
+      (d) => d.x + attrs.layoutBindings[attrs.layout].nodeLeftX(d)
+    )
+    const maxX = d3.max(
+      descendants,
+      (d) => d.x + attrs.layoutBindings[attrs.layout].nodeRightX(d)
+    )
+    const minY = d3.min(
+      descendants,
+      (d) => d.y + attrs.layoutBindings[attrs.layout].nodeTopY(d)
+    )
+    const maxY = d3.max(
+      descendants,
+      (d) => d.y + attrs.layoutBindings[attrs.layout].nodeBottomY(d)
+    )
 
     this.zoomTreeBounds({
       params: { animate: animate, scale },
@@ -1320,10 +1624,16 @@ export class OrgChart<T> implements IOrgChart<T> {
   setExpanded (id, expandedFlag = true) {
     const attrs = this.getChartState()
     // Retrieve node by node Id
-    const node = attrs.allNodes.filter(({ data }) => attrs.nodeId(data) == id)[0]
+    const node = attrs.allNodes.filter(
+      ({ data }) => attrs.nodeId(data) == id
+    )[0]
 
     if (!node) {
-      console.log(`ORG CHART - ${expandedFlag ? 'EXPAND' : 'COLLAPSE'} - Node with id (${id})  not found in the tree`)
+      console.log(
+        `ORG CHART - ${
+          expandedFlag ? 'EXPAND' : 'COLLAPSE'
+        } - Node with id (${id})  not found in the tree`
+      )
       return this
     }
     node.data._expanded = expandedFlag
@@ -1333,9 +1643,13 @@ export class OrgChart<T> implements IOrgChart<T> {
   setCentered (nodeId) {
     const attrs = this.getChartState()
     // this.setExpanded(nodeId)
-    const node = attrs.allNodes.filter(d => attrs.nodeId(d.data) === nodeId)[0]
+    const node = attrs.allNodes.filter(
+      (d) => attrs.nodeId(d.data) === nodeId
+    )[0]
     if (!node) {
-      console.log(`ORG CHART - CENTER - Node with id (${nodeId}) not found in the tree`)
+      console.log(
+        `ORG CHART - CENTER - Node with id (${nodeId}) not found in the tree`
+      )
       return this
     }
     node.data._centered = true
@@ -1345,9 +1659,13 @@ export class OrgChart<T> implements IOrgChart<T> {
 
   setHighlighted (nodeId) {
     const attrs = this.getChartState()
-    const node = attrs.allNodes.filter(d => attrs.nodeId(d.data) === nodeId)[0]
+    const node = attrs.allNodes.filter(
+      (d) => attrs.nodeId(d.data) === nodeId
+    )[0]
     if (!node) {
-      console.log(`ORG CHART - HIGHLIGHT - Node with id (${nodeId})  not found in the tree`)
+      console.log(
+        `ORG CHART - HIGHLIGHT - Node with id (${nodeId})  not found in the tree`
+      )
       return this
     }
     node.data._highlighted = true
@@ -1358,20 +1676,24 @@ export class OrgChart<T> implements IOrgChart<T> {
 
   setUpToTheRootHighlighted (nodeId) {
     const attrs = this.getChartState()
-    const node = attrs.allNodes.filter(d => attrs.nodeId(d.data) === nodeId)[0]
+    const node = attrs.allNodes.filter(
+      (d) => attrs.nodeId(d.data) === nodeId
+    )[0]
     if (!node) {
-      console.log(`ORG CHART - HIGHLIGHTROOT - Node with id (${nodeId}) not found in the tree`)
+      console.log(
+        `ORG CHART - HIGHLIGHTROOT - Node with id (${nodeId}) not found in the tree`
+      )
       return this
     }
     node.data._upToTheRootHighlighted = true
     node.data._expanded = true
-    node.ancestors().forEach(d => d.data._upToTheRootHighlighted = true)
+    node.ancestors().forEach((d) => (d.data._upToTheRootHighlighted = true))
     return this
   }
 
   clearHighlighting () {
     const attrs = this.getChartState()
-    attrs.allNodes.forEach(d => {
+    attrs.allNodes.forEach((d) => {
       d.data._highlighted = false
       d.data._upToTheRootHighlighted = false
     })
@@ -1384,9 +1706,12 @@ export class OrgChart<T> implements IOrgChart<T> {
     const el = d3.select(elem || attrs.container).node()
 
     d3.select(document).on('fullscreenchange.' + attrs.id, function (d) {
-      const fsElement = document.fullscreenElement || document.mozFullscreenElement || document.webkitFullscreenElement
+      const fsElement =
+        document.fullscreenElement ||
+        document.mozFullscreenElement ||
+        document.webkitFullscreenElement
       if (fsElement == el) {
-        setTimeout(d => {
+        setTimeout((d) => {
           attrs.svg.attr('height', window.innerHeight - 40)
         }, 500)
       } else {
@@ -1431,7 +1756,7 @@ export class OrgChart<T> implements IOrgChart<T> {
     xhr.send()
   }
 
-  exportImg ({ full = false, scale = 3, onLoad = d => d, save = true } = {}) {
+  exportImg ({ full = false, scale = 3, onLoad = (d) => d, save = true } = {}) {
     const that = this
     const attrs = this.getChartState()
     const { svg: svgImg, root } = attrs
@@ -1447,30 +1772,32 @@ export class OrgChart<T> implements IOrgChart<T> {
       }
       const { svg } = that.getChartState()
 
-      setTimeout(d => {
-        that.downloadImage({
-          node: svg.node(),
-          scale,
-          isSvg: false,
-          onAlreadySerialized: d => {
-            that.update(root)
-          },
-          onLoad: onLoad,
-          save
-        })
-      }, full ? duration + 10 : 0)
+      setTimeout(
+        (d) => {
+          that.downloadImage({
+            node: svg.node(),
+            scale,
+            isSvg: false,
+            onAlreadySerialized: (d) => {
+              that.update(root)
+            },
+            onLoad: onLoad,
+            save
+          })
+        },
+        full ? duration + 10 : 0
+      )
     }
 
     if (total > 0) {
-      selection
-        .each(function () {
-          that.toDataURL(this.src, (dataUrl) => {
-            this.src = dataUrl
-            if (++count == total) {
-              exportImage()
-            }
-          })
+      selection.each(function () {
+        that.toDataURL(this.src, (dataUrl) => {
+          this.src = dataUrl
+          if (++count == total) {
+            exportImage()
+          }
         })
+      })
     } else {
       exportImage()
     }
@@ -1484,20 +1811,27 @@ export class OrgChart<T> implements IOrgChart<T> {
 
   expandAll () {
     const { allNodes, root } = this.getChartState()
-    allNodes.forEach(d => d.data._expanded = true)
+    allNodes.forEach((d) => (d.data._expanded = true))
     this.render()
     return this
   }
 
   collapseAll () {
     const { allNodes, root } = this.getChartState()
-    allNodes.forEach(d => d.data._expanded = false)
+    allNodes.forEach((d) => (d.data._expanded = false))
     this.expandLevel(0)
     this.render()
     return this
   }
 
-  downloadImage ({ node, scale = 2, isSvg = false, save = true, onAlreadySerialized = d => { }, onLoad = d => { } }) {
+  downloadImage ({
+    node,
+    scale = 2,
+    isSvg = false,
+    save = true,
+    onAlreadySerialized = (d) => {},
+    onLoad = (d) => {}
+  }) {
     // Retrieve svg node
     const svgNode = node
 
@@ -1526,7 +1860,13 @@ export class OrgChart<T> implements IOrgChart<T> {
       const context = canvas.getContext('2d')
       context.fillStyle = '#FAFAFA'
       context.fillRect(0, 0, rect.width * quality, rect.height * quality)
-      context.drawImage(image, 0, 0, rect.width * quality, rect.height * quality)
+      context.drawImage(
+        image,
+        0,
+        0,
+        rect.width * quality,
+        rect.height * quality
+      )
       // Set some image metadata
       const dt = canvas.toDataURL('image/png')
       if (onLoad) {
@@ -1538,11 +1878,13 @@ export class OrgChart<T> implements IOrgChart<T> {
       }
     }
 
-    var url = 'data:image/svg+xml; charset=utf8, ' + encodeURIComponent(serializeString(svgNode))
+    var url =
+      'data:image/svg+xml; charset=utf8, ' +
+      encodeURIComponent(serializeString(svgNode))
 
     onAlreadySerialized()
 
-    image.src = url// URL.createObjectURL(blob);
+    image.src = url // URL.createObjectURL(blob);
     // This function invokes save window
     function saveAs (uri, filename) {
       // create link
@@ -1564,7 +1906,12 @@ export class OrgChart<T> implements IOrgChart<T> {
       const svgns = 'http://www.w3.org/2000/svg'
       svg = svg.cloneNode(true)
       const fragment = window.location.href + '#'
-      const walker = document.createTreeWalker(svg, NodeFilter.SHOW_ELEMENT, null, false)
+      const walker = document.createTreeWalker(
+        svg,
+        NodeFilter.SHOW_ELEMENT,
+        null,
+        false
+      )
       while (walker.nextNode()) {
         for (const attr of walker.currentNode.attributes) {
           if (attr.value.includes(fragment)) {
@@ -1581,12 +1928,10 @@ export class OrgChart<T> implements IOrgChart<T> {
   }
 
   // Calculate what size text will take
-  getTextWidth (text, {
-    fontSize = 14,
-    fontWeight = 400,
-    defaultFont = 'Helvetice',
-    ctx
-  } = {}) {
+  getTextWidth (
+    text,
+    { fontSize = 14, fontWeight = 400, defaultFont = 'Helvetice', ctx } = {}
+  ) {
     ctx.font = `${fontWeight || ''} ${fontSize}px ${defaultFont} `
     const measurement = ctx.measureText(text)
     return measurement.width
