@@ -1055,7 +1055,7 @@ export class OrgChart<T> implements IOrgChart<T> {
         })
         return `translate(${xj},${yj})`
       })
-      .attr('cursor', 'pointer')
+      .attr('cursor', 'auto')
       .on('click', (event, { data }) => {
         if (
           [...event.srcElement.classList].includes('node-button-foreign-object')
@@ -1161,7 +1161,7 @@ export class OrgChart<T> implements IOrgChart<T> {
       .attr('height', ({ height }) => height)
       .attr('x', ({ width }) => 0)
       .attr('y', ({ height }) => 0)
-      .attr('cursor', 'pointer')
+      .attr('cursor', 'auto')
       .attr('rx', 3)
       .attr('fill', attrs.nodeDefaultBackground)
 

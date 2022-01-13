@@ -6,3 +6,5 @@
 添加 _mounted 状态
 
 `onButtonClick` 展开 children 重置  _mounted 为 false，重新挂载 vue 实例
+
+从 cursor: pointer  ->  auto
