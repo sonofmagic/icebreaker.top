@@ -29,7 +29,7 @@ export default Vue.extend({
   },
   created () {
     d3.csv('org.csv').then((d) => {
-      // console.log(d)
+      console.log(d)
       this.dataSource = d
     })
   }

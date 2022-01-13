@@ -25,6 +25,11 @@ export default Vue.extend({
       this.renderChart(value)
     }
   },
+  // computed: {
+  //   tree() {
+  //     return this.chartReference
+  //   }
+  // },
   created() {},
   mounted() {
     console.log(this.$scopedSlots)
@@ -40,6 +45,7 @@ export default Vue.extend({
         // @ts-ignore
         this.chartReference = new OrgChart()
       }
+      // console.log(this.chartReference.getChartState())
       this.chartReference!.container(
         this.$refs.svgElementContainer as unknown as string
       ) // node or css selector

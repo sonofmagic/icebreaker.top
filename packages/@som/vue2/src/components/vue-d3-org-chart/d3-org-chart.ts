@@ -1358,7 +1358,6 @@ export class OrgChart<T> implements IOrgChart<T> {
       .style('width', ({ width }) => `${width}px`)
       .style('height', ({ height }) => `${height}px`)
       .append(function (d, i, arr) {
-        console.log('append', i)
         return document.createElement('div')
       })
       .each(function (d, i, arr) {
