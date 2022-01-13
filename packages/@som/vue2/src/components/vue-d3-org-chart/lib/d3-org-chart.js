@@ -8,8 +8,6 @@ import { flextree } from 'd3-flextree'
 import { linkHorizontal } from 'd3-shape'
 import Vue from 'vue'
 
-import type { OrgChart as IOrgChart } from 'd3-org-chart'
-import type { Selection } from 'd3'
 const d3 = {
   selection,
   select,
@@ -23,7 +21,7 @@ const d3 = {
   zoomIdentity,
   linkHorizontal
 }
-export class OrgChart<T> implements IOrgChart<T> {
+export class OrgChart {
   constructor () {
     // Exposed variables
     const attrs = {
@@ -52,40 +50,34 @@ export class OrgChart<T> implements IOrgChart<T> {
       defs: function (state, visibleConnections) {
         return `<defs>
                     ${visibleConnections
-                      .map((conn) => {
-                        const labelWidth = this.getTextWidth(conn.label, {
-                          ctx: state.ctx,
-                          fontSize: 2,
-                          defaultFont: state.defaultFont
-                        })
-                        return `
-                       <marker id="${conn.from + '_' + conn.to}" refX="${
-                          conn._source.x < conn._target.x ? -7 : 7
-                        }" refY="5" markerWidth="500"  markerHeight="500"  orient="${
-                          conn._source.x < conn._target.x
-                            ? 'auto'
-                            : 'auto-start-reverse'
-                        }" >
-                       <rect rx=0.5 width=${
-                         conn.label ? labelWidth + 3 : 0
-                       } height=3 y=1  fill="#152785"></rect>
-                       <text font-size="2px" x=1 fill="white" y=3>${
-                         conn.label || ''
-                       }</text>
+            .map((conn) => {
+              const labelWidth = this.getTextWidth(conn.label, {
+                ctx: state.ctx,
+                fontSize: 2,
+                defaultFont: state.defaultFont
+              })
+              return `
+                       <marker id="${conn.from + '_' + conn.to}" refX="${conn._source.x < conn._target.x ? -7 : 7
+                }" refY="5" markerWidth="500"  markerHeight="500"  orient="${conn._source.x < conn._target.x
+                  ? 'auto'
+                  : 'auto-start-reverse'
+                }" >
+                       <rect rx=0.5 width=${conn.label ? labelWidth + 3 : 0
+                } height=3 y=1  fill="#152785"></rect>
+                       <text font-size="2px" x=1 fill="white" y=3>${conn.label || ''
+                }</text>
                        </marker>
 
-                       <marker id="arrow-${
-                         conn.from + '_' + conn.to
-                       }"  markerWidth="500"  markerHeight="500"  refY="2"  refX="1" orient="${
-                          conn._source.x < conn._target.x
-                            ? 'auto'
-                            : 'auto-start-reverse'
-                        }" >
+                       <marker id="arrow-${conn.from + '_' + conn.to
+                }"  markerWidth="500"  markerHeight="500"  refY="2"  refX="1" orient="${conn._source.x < conn._target.x
+                  ? 'auto'
+                  : 'auto-start-reverse'
+                }" >
                        <path transform="translate(0)" d='M0,0 V4 L2,2 Z' fill='#152785' />
                        </marker>
                     `
-                      })
-                      .join('')}
+            })
+            .join('')}
                     </defs>
                     `
       },
@@ -268,7 +260,7 @@ export class OrgChart<T> implements IOrgChart<T> {
           zoomTransform: ({ centerX, scale }) =>
             `translate(${centerX},0}) scale(${scale})`,
           diagonal: this.diagonal.bind(this),
-          swap: (d) => {},
+          swap: (d) => { },
           nodeUpdateTransform: ({ x, y, width, height }) =>
             `translate(${x - width / 2},${y})`
         },
@@ -532,7 +524,7 @@ export class OrgChart<T> implements IOrgChart<T> {
 
     // *************************  DRAWING **************************
     // Add svg
-    const svg: Selection = container
+    const svg = container
       .patternify({
         tag: 'svg',
         selector: 'svg-chart-container'
@@ -902,13 +894,13 @@ export class OrgChart<T> implements IOrgChart<T> {
         const n =
           attrs.compact && d.flexCompactDim
             ? {
-              x: attrs.layoutBindings[attrs.layout].compactLinkMidX(d, attrs),
-              y: attrs.layoutBindings[attrs.layout].compactLinkMidY(d, attrs)
-            }
+                x: attrs.layoutBindings[attrs.layout].compactLinkMidX(d, attrs),
+                y: attrs.layoutBindings[attrs.layout].compactLinkMidY(d, attrs)
+              }
             : {
-              x: attrs.layoutBindings[attrs.layout].linkX(d),
-              y: attrs.layoutBindings[attrs.layout].linkY(d)
-            }
+                x: attrs.layoutBindings[attrs.layout].linkX(d),
+                y: attrs.layoutBindings[attrs.layout].linkY(d)
+              }
 
         const p = {
           x: attrs.layoutBindings[attrs.layout].linkParentX(d),
@@ -918,9 +910,9 @@ export class OrgChart<T> implements IOrgChart<T> {
         const m =
           attrs.compact && d.flexCompactDim
             ? {
-              x: attrs.layoutBindings[attrs.layout].linkCompactXStart(d),
-              y: attrs.layoutBindings[attrs.layout].linkCompactYStart(d)
-            }
+                x: attrs.layoutBindings[attrs.layout].linkCompactXStart(d),
+                y: attrs.layoutBindings[attrs.layout].linkCompactYStart(d)
+              }
             : n
         return attrs.layoutBindings[attrs.layout].diagonal(n, p, m)
       })
@@ -1126,8 +1118,10 @@ export class OrgChart<T> implements IOrgChart<T> {
       })
       .attr('width', 40)
       .attr('height', 40)
+
       .attr('x', -20)
       .attr('y', -20)
+      .attr('cursor', 'pointer')
       .style('overflow', 'visible')
       .patternify({
         tag: 'xhtml:div',
@@ -1332,13 +1326,11 @@ export class OrgChart<T> implements IOrgChart<T> {
                   L ${x} ${my}
                   L ${x} ${y}
                   L ${x} ${y + h * yrvs}
-                  C  ${x} ${y + h * yrvs + r * yrvs} ${x} ${
-      y + h * yrvs + r * yrvs
-    } ${x + r * xrvs} ${y + h * yrvs + r * yrvs}
+                  C  ${x} ${y + h * yrvs + r * yrvs} ${x} ${y + h * yrvs + r * yrvs
+      } ${x + r * xrvs} ${y + h * yrvs + r * yrvs}
                   L ${x + w * xrvs + r * xrvs} ${y + h * yrvs + r * yrvs}
-                  C  ${ex}  ${y + h * yrvs + r * yrvs} ${ex}  ${
-      y + h * yrvs + r * yrvs
-    } ${ex} ${ey - h * yrvs}
+                  C  ${ex}  ${y + h * yrvs + r * yrvs} ${ex}  ${y + h * yrvs + r * yrvs
+      } ${ex} ${ey - h * yrvs}
                   L ${ex} ${ey}
        `
     return path
@@ -1623,8 +1615,7 @@ export class OrgChart<T> implements IOrgChart<T> {
 
     if (!node) {
       console.log(
-        `ORG CHART - ${
-          expandedFlag ? 'EXPAND' : 'COLLAPSE'
+        `ORG CHART - ${expandedFlag ? 'EXPAND' : 'COLLAPSE'
         } - Node with id (${id})  not found in the tree`
       )
       return this
@@ -1822,8 +1813,8 @@ export class OrgChart<T> implements IOrgChart<T> {
     scale = 2,
     isSvg = false,
     save = true,
-    onAlreadySerialized = (d) => {},
-    onLoad = (d) => {}
+    onAlreadySerialized = (d) => { },
+    onLoad = (d) => { }
   }) {
     // Retrieve svg node
     const svgNode = node

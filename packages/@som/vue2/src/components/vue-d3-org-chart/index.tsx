@@ -1,8 +1,8 @@
-import { OrgChart } from 'vue-d3-org-chart'
+import { OrgChart } from './lib/d3-org-chart'
 import type { OrgChart as IOrgChart } from 'd3-org-chart'
 import './index.scss'
 import NodeVue from './Node.vue'
-interface IDataType {}
+interface IDataType { }
 
 // import type {  } from 'd3-org-chart'
 import Vue from 'vue'
@@ -30,7 +30,7 @@ export default Vue.extend({
   //     return this.chartReference
   //   }
   // },
-  created() {},
+  created() { },
   mounted() {
     console.log(this.$scopedSlots)
   },
@@ -53,7 +53,8 @@ export default Vue.extend({
         .nodeHeight((d) => 120)
         .nodeWidth((d) => 240)
         .onNodeClick((d) => console.log(d + ' node clicked'))
-        .nodeContent((d, i, arr, state) => {
+        // @ts-ignore
+        .nodeContent(() => {
           return NodeVue // this.$scopedSlots
           // console.log(d, i)
           // const vueInstance = JSON.stringify(d.data)
