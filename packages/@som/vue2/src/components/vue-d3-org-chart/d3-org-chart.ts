@@ -7,7 +7,7 @@ import { zoom, zoomIdentity } from 'd3-zoom'
 import { flextree } from 'd3-flextree'
 import { linkHorizontal } from 'd3-shape'
 import Vue from 'vue'
-import TestVue from './Test.vue'
+
 import type { OrgChart as IOrgChart } from 'd3-org-chart'
 import type { Selection } from 'd3'
 const d3 = {
@@ -139,17 +139,7 @@ export class OrgChart<T> implements IOrgChart<T> {
       //     return
       //     return `M ${source.x} , ${source.y} Q ${(source.x + target.x) / 2 + 100},${source.y-100}  ${target.x}, ${target.y}`;
       // },
-      nodeContent: (
-        d
-      ) => `<div style="padding:5px;font-size:10px;">Sample Node(id=${d.id}), override using <br/> <br/>
-            <code>chart<br/>
-            &nbsp;.nodeContent({data}=>{ <br/>
-             &nbsp;&nbsp;&nbsp;&nbsp;return '' // Custom HTML <br/>
-             &nbsp;})</code>
-             <br/> <br/>
-             Or check different <a href="https://github.com/bumbeishvili/org-chart#jump-to-examples" target="_blank">layout examples</a>
-
-             </div>`,
+      nodeContent: (d) => 'div',
       layout: 'top', // top, left,right, bottom
       buttonContent: ({ node, state }) => {
         const icons = {
@@ -1368,13 +1358,14 @@ export class OrgChart<T> implements IOrgChart<T> {
       .style('width', ({ width }) => `${width}px`)
       .style('height', ({ height }) => `${height}px`)
       .append(function (d, i, arr) {
+        console.log('append', i)
         return document.createElement('div')
       })
-      .each(function (d, i, g) {
-        if (!d.hasMounted) {
+      .each(function (d, i, arr) {
+        if (!d._mounted) {
           const app = new Vue({
             render (h) {
-              return h(TestVue, {
+              return h(attrs.nodeContent.bind(this)(d, i, arr, attrs), {
                 props: {
                   data: d,
                   index: i
@@ -1383,7 +1374,7 @@ export class OrgChart<T> implements IOrgChart<T> {
             }
           })
           app.$mount(this)
-          d.hasMounted = true
+          d._mounted = true
         }
       })
   }
@@ -1411,7 +1402,10 @@ export class OrgChart<T> implements IOrgChart<T> {
 
       // Set each children as expanded
       if (d.children) {
-        d.children.forEach(({ data }) => (data._expanded = true))
+        d.children.forEach((c) => {
+          c.data._expanded = true
+          c._mounted = false
+        })
       }
     }
 

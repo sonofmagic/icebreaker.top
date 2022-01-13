@@ -14,6 +14,7 @@ import Chart from '@/components/vue-d3-org-chart/index'
 import Vue from 'vue'
 import * as d3 from 'd3'
 import type { DSVRowArray } from 'd3'
+
 export default Vue.extend({
   name: 'Home',
   components: {

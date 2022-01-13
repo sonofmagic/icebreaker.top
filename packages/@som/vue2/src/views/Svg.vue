@@ -1,16 +1,14 @@
 <template>
   <div>
     <div>I am a Svg!</div>
-    <div ref="dom">
-
-    </div>
+    <div ref="dom"></div>
   </div>
 </template>
 
 <script >
 import Vue from 'vue'
 import * as d3 from 'd3'
-import TestVue from '@/components/vue-d3-org-chart/Test.vue'
+
 export default Vue.extend({
   mounted () {
     const matrix = [
