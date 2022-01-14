@@ -26,9 +26,6 @@ export default {
 
   methods: {
     removeColorPrefix(str) {
-      // if (str.includes('shadow')) {
-      //   return str
-      // }
       return str.substring(8)
     },
     jsFilterShadow(str) {
