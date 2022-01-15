@@ -23,7 +23,7 @@
 // },
 const defaultTheme = require('tailwindcss/defaultTheme')
 const colors = require('tailwindcss/colors')
-const extendColors = require('./client/theme/extendColors.cjs')
+const extendColors = require('./client/assets/scss/expose/extendColors')
 /** @type {import('@types/tailwindcss/tailwind-config').TailwindConfig} */
 module.exports = {
   // 3 只剩下了 jit
