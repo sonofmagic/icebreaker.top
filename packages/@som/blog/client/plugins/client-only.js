@@ -2,7 +2,8 @@
 
 import svg4everybody from 'svg4everybody'
 import mobile from 'is-mobile'
-
+import Aegis from 'aegis-web-sdk'
+// import { LocalStorageKey } from '@/enum/user'
 // Vue.use(BaiduMap, {
 //   /* Visit http://lbsyun.baidu.com/apiconsole/key for details about app key. */
 //   /* 有 refer 限制，可以自行注册 */
@@ -19,7 +20,8 @@ import mobile from 'is-mobile'
 //   })
 // }
 
-import Aegis from 'aegis-web-sdk'
+// const mode = localStorage.getItem(LocalStorageKey.ThemeMode) || 'dark'
+// document.documentElement.setAttribute(LocalStorageKey.ThemeMode, mode)
 // import './echarts'
 // import * as Sentry from '@sentry/vue'
 // import { Integrations } from '@sentry/tracing'

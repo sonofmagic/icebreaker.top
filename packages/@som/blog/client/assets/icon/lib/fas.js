@@ -21,6 +21,8 @@ import {
   faMapMarkerAlt,
   faTimesCircle,
   faChevronRight,
+  faSun,
+  faMoon,
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -43,6 +45,8 @@ library.add(
   faEnvelope,
   faMapMarkerAlt,
   faTimesCircle,
-  faChevronRight
+  faChevronRight,
+  faSun,
+  faMoon
 )
 export default true

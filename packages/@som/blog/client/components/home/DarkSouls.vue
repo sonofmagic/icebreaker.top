@@ -154,6 +154,15 @@ export default {
   },
 }
 </script>
+<style lang="scss">
+[data-color-mode='light'] {
+  .a-dark-soul {
+    .npx-command {
+      @apply text-black/80 #{!important};
+    }
+  }
+}
+</style>
 <style lang="scss" scoped>
 .a-dark-soul {
   @apply text-fg-default text-sm;

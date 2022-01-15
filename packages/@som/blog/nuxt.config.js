@@ -62,6 +62,10 @@ const config = {
         content: '',
       },
     ],
+    htmlAttrs: {
+      lang: 'zh-CN',
+      // 'data-color-mode': 'dark',
+    },
     link: [
       {
         rel: 'icon',

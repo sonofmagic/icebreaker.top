@@ -1,6 +1,7 @@
 @use './constants.scss' as C;
 @use './util.scss' as Util;
-
+@use './theme/light.scss' as Light;
+// @import './theme.scss';
 @import './prose.scss';
 
 :root {
@@ -9,6 +10,15 @@
   }
 }
 
+[data-color-mode='light'] {
+  @each $var, $color in Light.$light-vars {
+    #{$var}: Util.getRgbaString($color);
+  }
+}
+body,
+html {
+  transition: background-color 0.3s ease;
+}
 @mixin better-scrollbar {
   // 滚动条高宽及背景
   &::-webkit-scrollbar {
@@ -42,6 +52,17 @@
     }
   }
   // 滚动条上的滚动滑块
+}
+
+[data-color-mode='light'] {
+  .hover-scroll-bar {
+    &:hover {
+      &::-webkit-scrollbar-thumb {
+        @apply bg-border-muted;
+      }
+    }
+    // 滚动条上的滚动滑块
+  }
 }
 html {
   @include better-scrollbar;
