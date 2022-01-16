@@ -19,6 +19,11 @@ const routes: Array<RouteConfig> = [
     path: '/svg',
     name: 'Svg',
     component: () => import('@/views/Svg.vue')
+  },
+  {
+    path: '/github',
+    name: 'Github',
+    component: () => import('@/views/Github.vue')
   }
   // {
   //   path: '/about',
