@@ -1,11 +1,21 @@
 <template>
-  <div ref="box"></div>
+  <div>
+    <div
+      ref="box"
+      aria-describedby="tooltip"
+    ></div>
+    <div
+      ref="tooltip"
+      role="tooltip"
+    >I'm a tooltip</div>
+  </div>
+
 </template>
 
 <script lang="ts">
 import * as d3 from 'd3'
 import Vue from 'vue'
-
+import { createPopper } from '@popperjs/core'
 export default Vue.extend({
   mounted () {
     const colItemCount = 7
@@ -51,6 +61,16 @@ export default Vue.extend({
         return i % 4
       })
       .classed('ContributionCalendar-day', true)
+
+    const popperInstance = createPopper(
+      this.$refs.box as HTMLDivElement,
+      this.$refs.tooltip as HTMLDivElement,
+      {
+        placement: 'auto'
+      }
+    )
+    // https://popper.js.org/docs/v2/tutorial/#functionality
+    // const state = await popperInstance.update()
   }
 })
 </script>
