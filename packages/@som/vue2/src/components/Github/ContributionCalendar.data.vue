@@ -1,7 +1,10 @@
 <template>
   <div>
     <div ref="box"></div>
-    <div ref="tooltip" class="svg-tip svg-tip-one-line"></div>
+    <div ref="tooltip" class="svg-tip svg-tip-one-line">
+      <div ref="tooltipContent"></div>
+      <div class="arrow" data-popper-arrow></div>
+    </div>
   </div>
 </template>
 
@@ -14,6 +17,7 @@ export default Vue.extend({
   methods: {
     addPopper (targetEl: SVGRectElement) {
       const tooltip = this.$refs.tooltip as HTMLDivElement
+      const tooltipContent = this.$refs.tooltipContent as HTMLDivElement
       // const targetEl = this.$refs.box as HTMLDivElement
       const popperInstance = createPopper(targetEl, tooltip, {
         placement: 'top'
@@ -23,7 +27,7 @@ export default Vue.extend({
         tooltip.setAttribute('data-visible', '')
         const count = targetEl.getAttribute('data-count')
         const date = targetEl.getAttribute('data-date')
-        tooltip.innerHTML = `<strong>${count} contributions</strong> on ${date}`
+        tooltipContent.innerHTML = `<strong>${count} contributions</strong> on ${date}`
         // We need to tell Popper to update the tooltip position
         // after we show the tooltip, otherwise it will be incorrect
         popperInstance.update()
@@ -151,10 +155,42 @@ export default Vue.extend({
 })
 </script>
 <style lang="scss">
+.svg-tip[data-popper-placement^='top'] > .arrow {
+  bottom: -4px;
+}
+
+.svg-tip[data-popper-placement^='bottom'] > .arrow {
+  top: -4px;
+}
+
+.svg-tip[data-popper-placement^='left'] > .arrow {
+  right: -4px;
+}
+
+.svg-tip[data-popper-placement^='right'] > .arrow {
+  left: -4px;
+}
 .svg-tip {
   display: none;
   &[data-visible] {
     display: block;
+  }
+  .arrow {
+    visibility: hidden;
+
+    &,
+    &::before {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: inherit;
+    }
+
+    &::before {
+      visibility: visible;
+      content: '';
+      transform: rotate(45deg);
+    }
   }
 }
 </style>
