@@ -13,6 +13,7 @@ import * as d3 from 'd3'
 import Vue from 'vue'
 import { createPopper } from '@popperjs/core'
 import dayjs from 'dayjs'
+
 export default Vue.extend({
   methods: {
     addPopper (targetEl: SVGRectElement) {
@@ -52,16 +53,32 @@ export default Vue.extend({
     }
   },
   mounted () {
+    const width = 722
+    const height = 112
+
     const now = dayjs()
     const vm = this
     const colItemCount = 7
-    const wrapper = d3
+
+    const svg = d3
       .select(this.$refs.box as HTMLDivElement)
       .append('svg')
-      .attr('width', 722)
-      .attr('height', 112)
-      .append('g')
-      .attr('transform', 'translate(10, 20)')
+      .attr('width', width)
+      .attr('height', height)
+    const wrapper = svg.append('g').attr('transform', 'translate(10, 20)')
+
+    const zoomHandler = d3
+      .zoom<SVGSVGElement, unknown>()
+      .extent([
+        [0, 0],
+        [width, height]
+      ])
+      .scaleExtent([1, 8])
+      .on('zoom', function (attrs) {
+        console.log(attrs)
+        wrapper.attr('transform', attrs.transform)
+      })
+    svg.call(zoomHandler)
 
     const matrix = []
     let colIndex = -1
