@@ -39,4 +39,19 @@ body {
   font-size: 9px;
   fill: var(--color-fg-default);
 }
+.svg-tip {
+  // position: absolute;
+  z-index: 99999;
+  padding: 8px 16px;
+  font-size: 12px;
+  color: var(--color-fg-on-emphasis);
+  text-align: center;
+  background: var(--color-neutral-emphasis-plus);
+  border-radius: 6px;
+}
+
+.svg-tip-one-line {
+  white-space: nowrap;
+  pointer-events: none;
+}
 </style>

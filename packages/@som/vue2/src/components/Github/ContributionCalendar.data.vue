@@ -1,23 +1,55 @@
 <template>
   <div>
-    <div
-      ref="box"
-      aria-describedby="tooltip"
-    ></div>
-    <div
-      ref="tooltip"
-      role="tooltip"
-    >I'm a tooltip</div>
+    <div ref="box"></div>
+    <div ref="tooltip" class="svg-tip svg-tip-one-line"></div>
   </div>
-
 </template>
 
 <script lang="ts">
 import * as d3 from 'd3'
 import Vue from 'vue'
 import { createPopper } from '@popperjs/core'
+import dayjs from 'dayjs'
 export default Vue.extend({
+  methods: {
+    addPopper (targetEl: SVGRectElement) {
+      const tooltip = this.$refs.tooltip as HTMLDivElement
+      // const targetEl = this.$refs.box as HTMLDivElement
+      const popperInstance = createPopper(targetEl, tooltip, {
+        placement: 'top'
+      })
+
+      function show () {
+        tooltip.setAttribute('data-visible', '')
+        const count = targetEl.getAttribute('data-count')
+        const date = targetEl.getAttribute('data-date')
+        tooltip.innerHTML = `<strong>${count} contributions</strong> on ${date}`
+        // We need to tell Popper to update the tooltip position
+        // after we show the tooltip, otherwise it will be incorrect
+        popperInstance.update()
+      }
+
+      function hide () {
+        tooltip.removeAttribute('data-visible')
+      }
+
+      const showEvents = ['mouseenter', 'focus']
+      const hideEvents = ['mouseleave', 'blur']
+
+      showEvents.forEach((event) => {
+        targetEl.addEventListener(event, show)
+      })
+
+      hideEvents.forEach((event) => {
+        targetEl.addEventListener(event, hide)
+      })
+
+      return popperInstance
+    }
+  },
   mounted () {
+    const now = dayjs()
+    const vm = this
     const colItemCount = 7
     const wrapper = d3
       .select(this.$refs.box as HTMLDivElement)
@@ -60,17 +92,69 @@ export default Vue.extend({
       .attr('data-level', function (d, i) {
         return i % 4
       })
+      .attr('data-count', function (d, i) {
+        return i
+      })
+      .attr('data-date', function (d, i) {
+        return now.add(i, 'd').format('YYYY-MM-DD')
+      })
       .classed('ContributionCalendar-day', true)
+      .each(function (d, i, g) {
+        vm.addPopper(this as SVGRectElement)
+      })
 
-    const popperInstance = createPopper(
-      this.$refs.box as HTMLDivElement,
-      this.$refs.tooltip as HTMLDivElement,
-      {
-        placement: 'auto'
+    function addXAxis () {
+      const xAxis = [
+        'Jan',
+        'Feb',
+        'Mar',
+        'Apr',
+        'May',
+        'Jun',
+        'Jul',
+        'Aug',
+        'Sep',
+        'Oct',
+        'Nov',
+        'Dec'
+      ]
+      for (let i = 0; i < xAxis.length; i++) {
+        const label = xAxis[i]
+        wrapper
+          .append('text')
+          .classed('ContributionCalendar-label', true)
+          .attr('y', -7)
+          .attr('x', (i * 4 + 1) * 14)
+          .text(label)
       }
-    )
+    }
+
+    function addYAxis () {
+      const yAxis = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+      for (let i = 0; i < yAxis.length; i++) {
+        const label = yAxis[i]
+        wrapper
+          .append('text')
+          .classed('ContributionCalendar-label', true)
+          .attr('text-anchor', 'start')
+          .attr('x', '-10')
+          .attr('y', 8 + i * 13)
+          .text(label)
+      }
+    }
+    addXAxis()
+    addYAxis()
+
     // https://popper.js.org/docs/v2/tutorial/#functionality
     // const state = await popperInstance.update()
   }
 })
 </script>
+<style lang="scss">
+.svg-tip {
+  display: none;
+  &[data-visible] {
+    display: block;
+  }
+}
+</style>
