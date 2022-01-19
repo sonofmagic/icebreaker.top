@@ -61,7 +61,9 @@ export default Vue.extend({
           // const script = `` // <script>${'console.log(this)'}</script>
           // return `<div class="org-chart-wrapper" data-func-key="100" onclick="console.log(this)">${vueInstance}</div>${script}`
         })
+        .compact(false)
         .render()
+        .fit()
     }
   }
 })
