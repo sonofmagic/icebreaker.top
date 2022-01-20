@@ -138,7 +138,7 @@ export default defineComponent({
         .selectAll('rect')
         .data((d) => d)
         .join('rect')
-        .text((d) => d.no)
+        // .text((d) => d.no)
         .attr('width', 10)
         .attr('height', 10)
         .attr('x', 0)
