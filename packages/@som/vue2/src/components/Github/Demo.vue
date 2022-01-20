@@ -28,7 +28,7 @@ export default defineComponent({
     const now = dayjs()
     const startOfThisYear = now.startOf('y')
     const endOfThisYear = now.endOf('y')
-    const dayCount = endOfThisYear.diff(startOfThisYear, 'd')
+    const dayCount = endOfThisYear.diff(startOfThisYear, 'd') + 1
 
     const colItemCount = 7
 
@@ -89,7 +89,7 @@ export default defineComponent({
         .append('svg')
         .attr('width', width)
         .attr('height', height)
-      const wrapper = svg.append('g').attr('transform', `translate(${10}, 20)`)
+      const wrapper = svg.append('g').attr('transform', 'translate(10, 20)')
 
       const matrix = []
       let colIndex = -1
@@ -170,8 +170,11 @@ export default defineComponent({
 
       function addYAxis () {
         const yAxis = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+        const day = startOfThisYear.day()
+
         for (let i = 0; i < yAxis.length; i++) {
-          const label = yAxis[i]
+          const idx = (i + day) % yAxis.length
+          const label = yAxis[idx]
           wrapper
             .append('text')
             .classed('ContributionCalendar-label', true)
