@@ -1,8 +1,9 @@
 <template>
   <div>
-    <ContributionCalendarRaw />
+    <Demo></Demo>
+    <!-- <ContributionCalendarRaw />
     <ContributionCalendarData />
-    <D3Join />
+    <D3Join /> -->
   </div>
 </template>
 
@@ -11,11 +12,13 @@ import Vue from 'vue'
 import ContributionCalendarRaw from '@/components/Github/ContributionCalendar.raw.vue'
 import ContributionCalendarData from '@/components/Github/ContributionCalendar.data.vue'
 import D3Join from '@/components/Github/D3Join.vue'
+import Demo from '@/components/Github/Demo.vue'
 export default Vue.extend({
   components: {
-    ContributionCalendarRaw,
-    ContributionCalendarData,
-    D3Join
+    // ContributionCalendarRaw,
+    // ContributionCalendarData,
+    // D3Join,
+    Demo
   }
 })
 </script>
