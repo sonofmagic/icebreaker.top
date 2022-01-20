@@ -18,13 +18,7 @@
 import * as d3 from 'd3'
 import { createPopper } from '@popperjs/core'
 import dayjs from 'dayjs'
-import {
-  defineComponent,
-  onMounted,
-  ref,
-  watch,
-  toRefs
-} from '@vue/composition-api'
+import { defineComponent, onMounted, ref, watch } from '@vue/composition-api'
 
 export default defineComponent({
   name: 'ContributionCalendar',
@@ -156,13 +150,20 @@ export default defineComponent({
           'Nov',
           'Dec'
         ]
-        for (let i = 0; i < xAxis.length; i++) {
-          const label = xAxis[i]
+        for (let idx = 0; idx < xAxis.length; idx++) {
+          const label = xAxis[idx]
           wrapper
             .append('text')
             .classed('ContributionCalendar-label', true)
             .attr('y', -7)
-            .attr('x', (i * 4 + 1) * 14)
+            .attr('x', function (d, i) {
+              const interval = startOfThisYear
+                .add(idx, 'M')
+                .diff(startOfThisYear, 'd')
+
+              const x = Math.floor(interval / 7)
+              return (x + 1) * 14
+            })
             .text(label)
         }
       }
