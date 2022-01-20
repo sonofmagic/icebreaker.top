@@ -1,5 +1,11 @@
 <template>
   <div>
+    <div style="color: white">
+      <button @click="zoomValueProxy--">-</button>
+      {{ zoomValueProxy }}%
+      <button @click="zoomValueProxy++">+</button>
+    </div>
+
     <div ref="boxEl"></div>
     <div ref="tooltipEl" class="svg-tip svg-tip-one-line">
       <div ref="tooltipContentEl"></div>
@@ -12,7 +18,7 @@
 import * as d3 from 'd3'
 import { createPopper } from '@popperjs/core'
 import dayjs from 'dayjs'
-import { defineComponent, onMounted, ref } from '@vue/composition-api'
+import { defineComponent, onMounted, ref, computed } from '@vue/composition-api'
 
 export default defineComponent({
   name: 'ContributionCalendar.data',
@@ -20,6 +26,42 @@ export default defineComponent({
     const boxEl = ref<HTMLDivElement>()
     const tooltipEl = ref<HTMLDivElement>()
     const tooltipContentEl = ref<HTMLDivElement>()
+    let svg: d3.Selection<SVGSVGElement, unknown, null, undefined>
+
+    const width = 722
+    const height = 112
+    const zoomHandler = d3
+      .zoom<SVGSVGElement, unknown>()
+      .extent([
+        [0, 0],
+        [width, height]
+      ])
+      .scaleExtent([0.1, 8])
+    const zoomValue = ref(0)
+    const zoomValueProxy = computed({
+      get: () => zoomValue.value,
+      set: (val) => {
+        console.log(val)
+        if (val > 0) {
+          svg.transition().call(zoomHandler.scaleBy, 1.1)
+        } else if (val < 0) {
+          svg.transition().call(zoomHandler.scaleBy, 0.9)
+        } else {
+          // svg.transition().call(zoomHandler.scaleBy, d3.zoomIdentity.k)
+          svg
+            .transition()
+            // .duration(750)
+            .call(
+              zoomHandler.transform,
+              d3.zoomIdentity,
+              // @ts-ignore
+              d3.zoomTransform(svg.node()).invert([width / 2, height / 2])
+            )
+        }
+
+        zoomValue.value = val
+      }
+    })
     function addPopper (targetEl: SVGRectElement) {
       const tooltip = tooltipEl.value as HTMLDivElement
       const tooltipContent = tooltipContentEl.value as HTMLDivElement
@@ -56,31 +98,20 @@ export default defineComponent({
       return popperInstance
     }
     onMounted(() => {
-      const width = 722
-      const height = 112
-
       const now = dayjs()
       const colItemCount = 7
 
-      const svg = d3
+      svg = d3
         .select(boxEl.value as HTMLDivElement)
         .append('svg')
         .attr('width', width)
         .attr('height', height)
       const wrapper = svg.append('g').attr('transform', 'translate(10, 20)')
 
-      const zoomHandler = d3
-        .zoom<SVGSVGElement, unknown>()
-        .extent([
-          [0, 0],
-          [width, height]
-        ])
-        .scaleExtent([1, 8])
-        .on('zoom', function (attrs) {
-          // console.log(attrs)
-          wrapper.attr('transform', attrs.transform)
-        })
-
+      zoomHandler.on('zoom', function (attrs) {
+        // console.log(attrs)
+        wrapper.attr('transform', attrs.transform)
+      })
       svg.call(zoomHandler).on('wheel.zoom', null)
 
       const matrix = []
@@ -173,7 +204,8 @@ export default defineComponent({
     return {
       boxEl,
       tooltipEl,
-      tooltipContentEl
+      tooltipContentEl,
+      zoomValueProxy
     }
   }
 })
