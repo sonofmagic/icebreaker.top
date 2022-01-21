@@ -1,10 +1,17 @@
 <template>
-  <div>
+  <div style="padding-top: 100px; padding-left: 100px">
+    <button @click="count--">-</button>
+    <button @click="count++">+</button>
+    <button @click="start">start</button>
+    <button @click="stop">stop</button>
+    <ContributionCalendarReactive :count="count"></ContributionCalendarReactive>
     <!-- <ContributionCalendar></ContributionCalendar> -->
     <!-- <ContributionCalendarRaw /> -->
     <!-- <ContributionCalendarData /> -->
     <!-- <D3Join /> -->
-    <ContributionCalendar></ContributionCalendar>
+    <div style="margin-top: 100px">
+      <ContributionCalendar></ContributionCalendar>
+    </div>
   </div>
 </template>
 
@@ -12,15 +19,33 @@
 import Vue from 'vue'
 import ContributionCalendarRaw from '@/components/Github/ContributionCalendar.raw.vue'
 import ContributionCalendarData from '@/components/Github/ContributionCalendar.data.vue'
+import ContributionCalendarReactive from '@/components/Github/ContributionCalendar.reactive.vue'
 import D3Join from '@/components/Github/D3Join.vue'
 import ContributionCalendar from '@/components/Github/ContributionCalendar.vue'
 export default Vue.extend({
+  data () {
+    return {
+      count: 15,
+      timer: -1
+    }
+  },
   components: {
-    D3Join,
+    // D3Join,
+    ContributionCalendarReactive,
     // ContributionCalendarRaw,
     // ContributionCalendarData,
     // D3Join,
     ContributionCalendar
+  },
+  methods: {
+    start () {
+      this.timer = setInterval(() => {
+        this.count++
+      }, 100)
+    },
+    stop () {
+      clearInterval(this.timer)
+    }
   }
 })
 </script>
