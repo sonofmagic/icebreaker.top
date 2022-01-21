@@ -1,5 +1,6 @@
 <template>
   <div>
+    <button @click="getDatum">getDatum</button>
     <div ref="boxEl"></div>
     <div ref="tooltipEl" class="svg-tip svg-tip-one-line">
       <div ref="tooltipContentEl"></div>
@@ -118,6 +119,17 @@ export default defineComponent({
           return (d.level + seed) % 4
         })
     }
+
+    function getDatum () {
+      const y = wrapper.selectAll('g').datum(function (d, i, g) {
+        // console.log(this, d, i)
+        return i
+      }).each((d) => {
+        console.log(d)
+      })
+
+      return y
+    }
     function render (data: MatrixItem[][]) {
       prerender()
 
@@ -214,7 +226,8 @@ export default defineComponent({
     return {
       boxEl,
       tooltipEl,
-      tooltipContentEl
+      tooltipContentEl,
+      getDatum
     }
   }
 })
