@@ -1,33 +1,24 @@
 <template>
   <div>
-    <div
-      style="color:white"
-      ref="box"
-    >
+    <div>
+      <button @click="shift">shift</button>
+      <button @click="push">push</button>
+    </div>
+    <div style="color: white" ref="box">
       <!-- <button></button> -->
     </div>
-    <svg
-      ref="svg"
-      width="1024"
-      height="720"
-    ></svg>
-  </div>
 
+    <svg ref="svg" width="1024" height="720"></svg>
+  </div>
 </template>
 
 <script>
 import * as d3 from 'd3'
+import { v4 } from 'uuid'
 export default {
   data () {
     return {
-      items: [
-        { name: 'Locke', number: 4 },
-        { name: 'Reyes', number: 8 },
-        { name: 'Ford', number: 15 },
-        { name: 'Jarrah', number: 16 },
-        { name: 'Shephard', number: 23 },
-        { name: 'Kwon', number: 42 }
-      ]
+      items: []
     }
   },
   watch: {
@@ -36,6 +27,15 @@ export default {
     }
   },
   methods: {
+    shift () {
+      this.items.shift()
+    },
+    push () {
+      this.items.push({
+        name: v4(),
+        number: this.items.length
+      })
+    },
     render () {
       d3.select(this.$refs.box)
         .selectAll('div')
@@ -45,20 +45,19 @@ export default {
         .join(
           (enter) => {
             // debugger
-            return enter.append('div')
+            return enter.append('div').text((d) => {
+              return d.name
+            })
           },
           (update) => {
             // debugger
-            return update
+            return update.style('color', 'yellow')
           },
           (exit) => {
             // debugger
             return exit.remove()
           }
         )
-        .text((d) => {
-          return d.name + ':' + d.number
-        })
 
       const svg = d3.select(this.$refs.svg)
 

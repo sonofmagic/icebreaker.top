@@ -16,6 +16,7 @@
     "dayjs": "^1.10.7",
     "element-ui": "^2.15.6",
     "simple-lodash-template-loader": "^1.0.5",
+    "uuid": "^8.3.2",
     "vue": "^2.6.11",
     "vue-d3-org-chart": "^0.0.2",
     "vue-router": "^3.2.0",
