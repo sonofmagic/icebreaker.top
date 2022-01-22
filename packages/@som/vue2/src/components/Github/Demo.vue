@@ -8,10 +8,12 @@
     <!-- <ContributionCalendar></ContributionCalendar> -->
     <!-- <ContributionCalendarRaw /> -->
     <!-- <ContributionCalendarData /> -->
-    <!-- <D3Join /> -->
+
     <div style="margin-top: 100px">
       <ContributionCalendar></ContributionCalendar>
     </div>
+
+    <D3Join />
   </div>
 </template>
 
@@ -30,7 +32,7 @@ export default Vue.extend({
     }
   },
   components: {
-    // D3Join,
+    D3Join,
     ContributionCalendarReactive,
     // ContributionCalendarRaw,
     // ContributionCalendarData,

@@ -67,7 +67,7 @@ export default {
         .join(
           (enter) => {
             // debugger
-            return enter.append('circle').attr('fill', 'green')
+            return enter.append('circle').attr('fill', 'green').text(d => d.name)
           },
           (update) => {
             // debugger

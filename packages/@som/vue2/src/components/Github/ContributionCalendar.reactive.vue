@@ -158,7 +158,8 @@ export default defineComponent({
             update.attr('data-level', function (d, i) {
               d.level = (d.level + seed) % 4
               return d.level
-            })
+            }),
+          (exit) => exit.remove()
         )
     }
 
