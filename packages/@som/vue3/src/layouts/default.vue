@@ -1,8 +1,8 @@
 <template>
-  <el-container class="h-screen">
-    <el-aside></el-aside>
-    <div>
-      <el-header></el-header> <el-main><router-view></router-view></el-main>
+  <el-container class="h-screen" direction="vertical">
+    <el-header class=""></el-header>
+    <div class="flex">
+      <el-aside></el-aside> <el-main><router-view></router-view></el-main>
     </div>
   </el-container>
 </template>

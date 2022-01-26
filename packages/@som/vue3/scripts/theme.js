@@ -16,25 +16,19 @@ const path = require('path')
             return `'${str}'`
           }
           return `withOpacityValue('${str}')`
-        },
-        // override default filepath
-        outfile: path.resolve(__dirname, 'extendColors.js')
+        }
       },
-      // variables.scss for global scss variables
       variables: {
         getVarName (str) {
           return str.substring(8)
         }
       },
-      // object | true | undefined -> generate this file
-      // false -> not generate this file
       export: {
         replacement: {
           '{{filepath}}': '../constants.scss',
           '{{variableName}}': '$root-vars'
         }
       },
-      // replacement : Record<string,string>
       root: {
         replacement: {
           '{{filepath}}': '../constants.scss',
