@@ -1,6 +1,6 @@
 <template>
   <el-container class="h-screen" direction="vertical">
-    <el-header class=""></el-header>
+    <el-header height="62px" class="bg-header-bg"></el-header>
     <div class="flex">
       <el-aside></el-aside> <el-main><router-view></router-view></el-main>
     </div>

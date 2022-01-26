@@ -1,6 +1,7 @@
 {
   "name": "vue3",
   "version": "0.0.0",
+  "private":true,
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
@@ -14,6 +15,7 @@
     "vue-echarts": "^6.0.2",
     "vue-router": "4"
   },
+  "license": "MIT",
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.10.1",
     "@typescript-eslint/parser": "^5.10.1",
