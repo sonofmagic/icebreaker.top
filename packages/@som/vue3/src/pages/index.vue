@@ -1,11 +1,22 @@
 <template>
-  <div><v-chart class="chart" :option="option" /></div>
+  <div>
+    <v-chart
+      ref="svgRef"
+      class="chart"
+      :option="option"
+      :init-options="{
+        renderer: 'svg',
+      }"
+    />
+    <v-chart ref="canvasRef" class="chart" :option="option" />
+  </div>
 </template>
 
 <script lang="ts">
 import VChart, { THEME_KEY } from 'vue-echarts'
-import { defineComponent, ref } from 'vue'
-
+import { defineComponent, ref, onMounted } from 'vue'
+import type { EChartsOption } from 'echarts'
+import * as d3 from 'd3'
 export default defineComponent({
   components: {
     VChart
@@ -14,7 +25,10 @@ export default defineComponent({
     [THEME_KEY]: 'dark'
   },
   setup () {
-    const option = ref({
+    // dataZoom
+    const canvasRef = ref()
+    const svgRef = ref()
+    const option = ref<EChartsOption>({
       title: {
         text: 'Traffic Sources',
         left: 'center'
@@ -23,11 +37,11 @@ export default defineComponent({
         trigger: 'item',
         formatter: '{a} <br/>{b} : {c} ({d}%)'
       },
-      legend: {
-        orient: 'vertical',
-        left: 'left',
-        data: ['Direct', 'Email', 'Ad Networks', 'Video Ads', 'Search Engines']
-      },
+      // legend: {
+      //   orient: 'vertical',
+      //   left: 'left',
+      //   data: ['Direct', 'Email', 'Ad Networks', 'Video Ads', 'Search Engines']
+      // },
       series: [
         {
           name: 'Traffic Sources',
@@ -51,14 +65,48 @@ export default defineComponent({
         }
       ]
     })
+    onMounted(() => {
+      const svg = d3.select(svgRef.value.$el).select<Element>('svg')
+      const g = svg.select<Element>('g:nth-child(2)')
 
-    return { option }
+      svg.call(
+        d3
+          .zoom()
+          .scaleExtent([1, 8])
+          .on('zoom', ({ transform }) => {
+            g.attr('transform', transform)
+          })
+      )
+
+      // const canvas = d3
+      //   .select(canvasRef.value.$el)
+      //   .select<Element>('canvas')
+      //   .node() as HTMLCanvasElement
+
+      // const context = canvas.getContext('2d')
+      // function zoomed(transform) {
+      //   context.save()
+      //   context.clearRect(0, 0, canvas.width, canvas.height)
+      //   context.translate(transform.x, transform.y)
+      //   context.scale(transform.k, transform.k)
+      //   context.beginPath()
+      //   for (const [x, y] of data) {
+      //     context.moveTo(x + r, y)
+      //     context.arc(x, y, r, 0, 2 * Math.PI)
+      //   }
+      //   context.fill()
+      //   context.restore()
+      // }
+      // console.log(context)
+    })
+
+    return { option, canvasRef, svgRef }
   }
 })
 </script>
 
 <style scoped>
 .chart {
-  height: 400px;
+  height: 300px;
 }
 </style>
