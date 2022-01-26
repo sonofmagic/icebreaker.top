@@ -1,5 +1,5 @@
 <template>
-  <router-view></router-view>
+  <div class="text-xl">Hello world</div>
 </template>
 
 <script lang="ts">
