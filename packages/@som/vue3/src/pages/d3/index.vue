@@ -1,6 +1,6 @@
 <template>
   <div>
-    Hello world!
+    d3
   </div>
 </template>
 
@@ -15,4 +15,5 @@ export default defineComponent({
 </script>
 
 <style scoped>
+
 </style>
