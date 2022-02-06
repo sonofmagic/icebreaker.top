@@ -28,7 +28,7 @@ const extendColors = require('./client/assets/scss/expose/extendColors')
 module.exports = {
   // 3 只剩下了 jit
   // mode: 'jit',
-  important: true,
+  // important: true,
   darkMode: 'class', // 'media',
   theme: {
     extend: {
@@ -290,12 +290,12 @@ module.exports = {
     },
   },
   // variants: {},
-  future: {
-    removeDeprecatedGapUtilities: true,
-    purgeLayersByDefault: true,
-    defaultLineHeights: true,
-    standardFontWeights: true,
-  },
+  // future: {
+  //   removeDeprecatedGapUtilities: true,
+  //   purgeLayersByDefault: true,
+  //   defaultLineHeights: true,
+  //   standardFontWeights: true,
+  // },
   plugins: [require('@tailwindcss/typography')],
   content: [
     'content/**/*.md',
