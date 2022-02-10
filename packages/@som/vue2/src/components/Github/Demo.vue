@@ -41,6 +41,7 @@ export default Vue.extend({
   },
   methods: {
     start () {
+      // @ts-ignore
       this.timer = setInterval(() => {
         this.count++
       }, 100)
