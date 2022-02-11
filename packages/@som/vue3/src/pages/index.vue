@@ -1,15 +1,20 @@
 <template>
   <div>
-    Hello world!
+    <Test :idx="idx"></Test>
+    <button @click="idx++">+</button>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-
+import { defineComponent, ref } from 'vue'
+import Test from '@/components/Test.vue'
 export default defineComponent({
+  components: { Test },
   setup () {
-    return {}
+    const idx = ref(0)
+    return {
+      idx
+    }
   }
 })
 </script>
