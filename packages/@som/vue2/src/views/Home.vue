@@ -10,6 +10,7 @@
   <!-- <Demo></Demo> -->
   <div>
     <TestInput :options="options"></TestInput>
+    <button @click="options.de++">++</button>
   </div>
 </template>
 
@@ -19,6 +20,17 @@ import Demo from '@/components/Github/Demo.vue'
 import Vue from 'vue'
 // import * as d3 from 'd3'
 // import type { DSVRowArray } from 'd3'
+// const defaultValueFormData = fn(formData)
+
+// formOnChange({path,value}){
+//  const defaultValue =  get(defaultValueFormData,path)
+//  set(formData,path,handleValue(defaultValue,value))
+// }
+
+// reset(){
+//   merge(formData,defaultValueFormData)
+// }
+
 import TestInput from '@/components/Input/index.vue'
 export default Vue.extend({
   components: {

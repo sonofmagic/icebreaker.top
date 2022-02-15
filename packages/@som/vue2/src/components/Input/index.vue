@@ -11,6 +11,13 @@ export default {
       default: () => ({})
     }
   },
+  watch: {
+    options: {
+      handler (nv) {
+        console.log(`[options]:${stringify(nv)}`)
+      }
+    }
+  },
   data () {
     return {
       options2: this.options
