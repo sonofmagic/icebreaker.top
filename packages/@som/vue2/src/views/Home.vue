@@ -7,7 +7,10 @@
       </template>
     </Chart>
   </div> -->
-  <Demo></Demo>
+  <!-- <Demo></Demo> -->
+  <div>
+    <TestInput :options="options"></TestInput>
+  </div>
 </template>
 
 <script lang="ts">
@@ -16,10 +19,19 @@ import Demo from '@/components/Github/Demo.vue'
 import Vue from 'vue'
 // import * as d3 from 'd3'
 // import type { DSVRowArray } from 'd3'
-
+import TestInput from '@/components/Input/index.vue'
 export default Vue.extend({
   components: {
-    Demo
+    Demo,
+    TestInput
+  },
+  data () {
+    return {
+      options: {
+        v: 1,
+        de: 2
+      }
+    }
   }
   // name: 'Home',
   // components: {
