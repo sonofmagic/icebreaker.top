@@ -94,7 +94,8 @@ const config = {
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: [
     // 'element-ui/lib/theme-chalk/index.css',
-
+    // Mark css as having side effects in @fortawesome/fontawesome-svg-core
+    // https://github.com/FortAwesome/Font-Awesome/issues/18729
     '@fortawesome/fontawesome-svg-core/styles.css',
     '@/assets/scss/global.scss',
     'github-markdown-css/github-markdown.css',
