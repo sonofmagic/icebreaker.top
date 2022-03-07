@@ -8,3 +8,4 @@ content
 publicPath.js
 docs
 sw.*
+node_modules
