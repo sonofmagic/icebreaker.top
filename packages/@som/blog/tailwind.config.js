@@ -262,7 +262,7 @@ module.exports = {
                 'background-color': 'rgb(var(--color-neutral-muted) / 0.4)',
                 'border-radius': '6px',
                 padding: '0.2em 0.4em',
-                color: fontDefaultColor,
+                // color: fontDefaultColor,
                 'border-width': '0px',
                 'border-color': 'transparent',
               },
