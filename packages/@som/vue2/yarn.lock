@@ -6354,12 +6354,7 @@ isstream@~0.1.2:
   resolved "https://registry.npm.taobao.org/isstream/download/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
   integrity sha1-R+Y/evVa+m+S4VAOaQ64uFKcCZo=
 
-javascript-stringify@^2.0.1:
-  version "2.1.0"
-  resolved "https://registry.npm.taobao.org/javascript-stringify/download/javascript-stringify-2.1.0.tgz?cache=0&sync_timestamp=1618360134745&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fjavascript-stringify%2Fdownload%2Fjavascript-stringify-2.1.0.tgz#27c76539be14d8bd128219a2d731b09337904e79"
-  integrity sha1-J8dlOb4U2L0Sghmi1zGwkzeQTnk=
-
-javascript-stringify@^2.1.0:
+javascript-stringify@^2.0.1, javascript-stringify@^2.1.0:
   version "2.1.0"
   resolved "https://registry.npmmirror.com/javascript-stringify/-/javascript-stringify-2.1.0.tgz#27c76539be14d8bd128219a2d731b09337904e79"
   integrity sha512-JVAfqNPTvNq3sB/VHQJAFxN/sPgKnsKrCwyRt15zwNCdrMMJDdcEOdubuy+DuJYYdm0ox1J4uzEuYKkN+9yhVg==

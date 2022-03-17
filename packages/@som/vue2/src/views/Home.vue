@@ -9,12 +9,14 @@
   </div> -->
   <!-- <Demo></Demo> -->
   <div>
-    <TestInput :options="options"></TestInput>
-    <button @click="options.de++">++</button>
+    <SelectCheckbox></SelectCheckbox>
+    <!-- <TestInput :options="options"></TestInput>
+    <button @click="options.de++">++</button> -->
   </div>
 </template>
 
 <script lang="ts">
+import SelectCheckbox from '@/components/SelectCheckbox/index.vue'
 import Demo from '@/components/Github/Demo.vue'
 // import Chart from '@/components/vue-d3-org-chart/index'
 import Vue from 'vue'
@@ -34,8 +36,9 @@ import Vue from 'vue'
 import TestInput from '@/components/Input/index.vue'
 export default Vue.extend({
   components: {
-    Demo,
-    TestInput
+    SelectCheckbox
+    // Demo,
+    // TestInput
   },
   data () {
     return {
