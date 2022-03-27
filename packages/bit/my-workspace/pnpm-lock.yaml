@@ -1,6 +1,7 @@
 lockfileVersion: 5.3
 
 specifiers:
+  '@teambit/base-ui.input.button': 1.0.4
   '@teambit/eslint-config-bit-react': ~0.0.367
   '@testing-library/react': 12.0.0
   '@typescript-eslint/eslint-plugin': 4.29.3
@@ -14,6 +15,7 @@ specifiers:
   react-dom: 17.0.2
 
 dependencies:
+  '@teambit/base-ui.input.button': 1.0.4_react-dom@17.0.2+react@17.0.2
   '@teambit/eslint-config-bit-react': registry.npmjs.org/@teambit/eslint-config-bit-react/0.0.367_42c1a70dd5598d21f152f1cd353fd960
   '@testing-library/react': registry.npmjs.org/@testing-library/react/12.0.0_react-dom@17.0.2+react@17.0.2
   '@typescript-eslint/eslint-plugin': registry.npmjs.org/@typescript-eslint/eslint-plugin/4.29.3
@@ -27,6 +29,40 @@ dependencies:
   react-dom: registry.npmjs.org/react-dom/17.0.2_react@17.0.2
 
 packages:
+
+  /@teambit/base-ui.elements.dots-loader/1.0.3_react-dom@17.0.2+react@17.0.2:
+    resolution: {integrity: sha512-9aCF5XVTxfTvkiDW9F4yxB6iWYcxmPStHeFesj0tIkCxFOU9dC88WuvE01x+2jFIPUkGK+mKiuOiyXhstBNvLA==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0
+      react-dom: ^16.8.0 || ^17.0.0
+    dependencies:
+      classnames: 2.3.1
+      core-js: 3.21.1
+      react: registry.npmjs.org/react/17.0.2
+      react-dom: registry.npmjs.org/react-dom/17.0.2_react@17.0.2
+    dev: false
+
+  /@teambit/base-ui.input.button/1.0.4_react-dom@17.0.2+react@17.0.2:
+    resolution: {integrity: sha512-nlCcSHJ+YSjdZuMV7bITIHgdHL1XkCyi1RLAiht5ogg1Bp8x6i4GBgzA5lc8QIo4aIbmcqNvShUmrbG87EIVyA==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0
+      react-dom: ^16.8.0 || ^17.0.0
+    dependencies:
+      '@teambit/base-ui.elements.dots-loader': 1.0.3_react-dom@17.0.2+react@17.0.2
+      classnames: 2.3.1
+      core-js: 3.21.1
+      react: registry.npmjs.org/react/17.0.2
+      react-dom: registry.npmjs.org/react-dom/17.0.2_react@17.0.2
+    dev: false
+
+  /classnames/2.3.1:
+    resolution: {integrity: sha512-OlQdbZ7gLfGarSqxesMesDa5uz7KFbID8Kpq/SxIoNGDqY8lSYs0D+hhtBXhcdB3rcbXArFr7vlHheLk1voeNA==}
+    dev: false
+
+  /core-js/3.21.1:
+    resolution: {integrity: sha512-FRq5b/VMrWlrmCzwRrpDYNxyHP9BcAZC+xHJaqTgIE5091ZV1NTmyh0sGOg5XqpnHvR0svdy0sv1gWA1zmhxig==}
+    requiresBuild: true
+    dev: false
 
   registry.npmjs.org/@babel/code-frame/7.16.7:
     resolution: {integrity: sha512-iAXqUn8IIeBTNd72xsFlgaXHkMBMt6y4HJp1tIaK465CWLT/fG1aqB7ykr95gHHmlBdGbFeWWfyB4NJJ0nmeIg==, registry: https://node.bit.dev/, tarball: https://registry.npmjs.org/@babel/code-frame/-/code-frame-7.16.7.tgz}

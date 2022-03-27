@@ -9,5 +9,17 @@
  */
 
 {
+    "ui/my-welcome": {
+        "scope": "",
+        "version": "",
+        "mainFile": "index.ts",
+        "rootDir": "experience/ui/my-welcome",
+        "config": {
+            "teambit.react/react": {},
+            "teambit.envs/envs": {
+                "env": "teambit.react/react"
+            }
+        }
+    },
     "$schema-version": "14.9.0"
 }
