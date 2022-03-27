@@ -1,11 +1,11 @@
 <template>
   <header class="site-header">
-    <div class="flex items-center mr-4">
+    <div class="mr-4 flex items-center">
       <router-link class="flex-shrink-0" to="/">
-        <img class="rounded-full h-8 w-8" :src="logoUri" />
+        <img class="h-8 w-8 rounded-full" :src="logoUri" />
       </router-link>
     </div>
-    <div class="header-middle-area text-left hidden sm:flex flex-grow">
+    <div class="header-middle-area hidden flex-grow text-left sm:flex">
       <HeaderSearchBar />
       <nav class="nav ml-4 hidden lg:flex lg:items-center">
         <nuxt-link
@@ -32,7 +32,7 @@
     </div>
 
     <client-only>
-      <div class="tail flex justify-end flex-grow sm:flex-grow-0">
+      <div class="tail flex flex-grow justify-end sm:flex-grow-0">
         <DarkModeToggle class="mr-2"></DarkModeToggle>
         <template v-if="isRealLogined">
           <el-dropdown
@@ -41,12 +41,12 @@
             size="small"
             trigger="click"
           >
-            <div class="avatar-wrapper cursor-pointer flex items-center">
+            <div class="avatar-wrapper flex cursor-pointer items-center">
               <el-image
-                class="rounded-full h-6 w-6 mr-2"
+                class="mr-2 h-6 w-6 rounded-full"
                 :src="user.realAvatarUrl || defaultAvatar"
               ></el-image>
-              <span v-if="user" class="text-white mr-2">{{
+              <span v-if="user" class="mr-2 text-white">{{
                 user.nickName
               }}</span>
               <i class="dropdown-caret"></i>
@@ -123,10 +123,10 @@ export default {
           href: 'https://www.npmjs.com/~icebreaker',
           title: 'Packages',
         },
-        // {
-        //   href: 'https://shahu-1257725330.file.myqcloud.com',
-        //   title: 'Shahu',
-        // },
+        {
+          href: 'https://rendertron.icebreaker.top/',
+          title: 'Rendertron',
+        },
         // {
         //   href: 'https://www.shareplus.cn/',
         //   title: 'Shareplus',
@@ -181,12 +181,12 @@ export default {
 <style lang="scss" scoped>
 .site-header {
   height: 62px;
-  @apply px-4 md:px-6 lg:px-8 py-4 flex items-center text-sm bg-header-bg text-header-text/70 sticky top-0 z-50;
+  @apply sticky top-0 z-50 flex items-center bg-header-bg px-4 py-4 text-sm text-header-text/70 md:px-6 lg:px-8;
   .header-middle-area {
     .nav {
       .link {
         //https://tailwindcss.com/docs/upgrading-to-v2#update-renamed-utility-classes
-        @apply mr-4 cursor-pointer font-semibold  whitespace-nowrap text-header-logo;
+        @apply mr-4 cursor-pointer whitespace-nowrap  font-semibold text-header-logo;
         &:hover,
         &:focus {
           @apply text-header-text/70;
@@ -217,13 +217,13 @@ export default {
     }
 
     .btn {
-      @apply text-base text-white cursor-pointer leading-6 transition-opacity duration-300 whitespace-nowrap outline-none px-2 py-1;
+      @apply cursor-pointer whitespace-nowrap px-2 py-1 text-base leading-6 text-white outline-none transition-opacity duration-300;
 
       &:hover {
         @apply opacity-75;
       }
       &.round-border {
-        @apply border border-solid border-gray-200 rounded-md overflow-auto;
+        @apply overflow-auto rounded-md border border-solid border-gray-200;
       }
     }
   }
