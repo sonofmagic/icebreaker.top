@@ -1,19 +1,22 @@
 <template>
-  <section style="background-color: #f2f2f2">
-    <div
-      class="flex justify-center py-1 text-lg"
-      style="background-color: #ddd"
-    >
+  <section>
+    <div class="flex justify-center pt-4 text-lg">
       <h1 class="font-light">帮助开发的小工具们</h1>
     </div>
     <div class="container mx-auto py-4">
       <div class="grid grid-cols-3 gap-4">
-        <OutSideLink v-for="u in utils" :key="u.url" raw :href="u.url">
-          <div class="shadow bg-white px-4 py-4">
-            <div class="text-orange-400 text-2xl font-thin mb-3">
+        <OutSideLink
+          v-for="u in utils"
+          :key="u.url"
+          class="rounded-md border border-border-default"
+          raw
+          :href="u.url"
+        >
+          <div class="px-4 py-4 shadow">
+            <div class="mb-3 text-2xl font-thin text-accent-fg hover:underline">
               {{ u.title }}
             </div>
-            <div class="text-sm">{{ u.desc }}</div>
+            <div class="text-sm text-fg-muted">{{ u.desc }}</div>
           </div>
         </OutSideLink>
       </div>
