@@ -69,38 +69,17 @@
 </template>
 
 <script>
-// import { Sticky, Sidebar, SidebarItem } from 'vant'
 import { gsap } from 'gsap'
+
 import Comments from '@/components/common/Comments/dark/DarkParadise.vue'
 import { isProd } from '@/utils/env'
 import ReadCount from '@/components/common/ReadCount.vue'
-// import ScrollMagic from 'scrollmagic'
-// /**
-//  * 居然没有官方的@type文件
-//  * @type {import('scrollreveal')}
-//  */
-// let ScrollReveal
-// let isSupported
-// if (process.client) {
-//   // https://scrollrevealjs.org/api/defaults.html
-//   // const opt = {}
-//   const m = require('scrollreveal').default
-//   isSupported = m.isSupported()
-//   ScrollReveal = m({ reset: true })
-// }
-// let ScrollMagic
-// if (process.client) {
-//   ScrollMagic = require('scrollmagic')
-//   console.log(new ScrollMagic.Controller())
-// }
+
 export default {
   name: 'ArticlesYearMonthSlug',
   components: {
     Comments,
     ReadCount,
-    // Sticky,
-    // Sidebar,
-    // SidebarItem,
   },
   layout: 'article',
   async asyncData({ $content, params, error }) {
@@ -186,6 +165,10 @@ export default {
 </style>
 <style lang="scss">
 .compose-nuxt-content {
-  @apply prose prose-sm prose-invert antialiased sm:prose-base; // prose-sm antialiased
+  // default dark mode
+  @apply prose prose-sm prose-invert text-fg-default antialiased sm:prose-base; // prose-sm antialiased
+  // &.dark {
+  //   @apply prose prose-sm prose-invert;
+  // }
 }
 </style>

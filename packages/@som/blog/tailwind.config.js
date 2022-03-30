@@ -130,10 +130,6 @@ module.exports = {
           invert: {
             css: {
               color: fontDefaultColor,
-              // color: theme('colors.gray.300'),
-              // '[class~="lead"]': {
-              //   color: theme('colors.gray.300'),
-              // },
               a: {
                 color: 'rgb(var(--color-accent-fg))',
                 'text-decoration': 'none',
@@ -141,21 +137,7 @@ module.exports = {
                   'text-decoration': 'underline',
                 },
               },
-              // strong: {
-              //   color: theme('colors.gray.100'),
-              // },
-              // 'ol > li::before': {
-              //   color: theme('colors.gray.400'),
-              // },
-              // 'ul > li::before': {
-              //   backgroundColor: theme('colors.gray.600'),
-              // },
-              // hr: {
-              //   borderColor: theme('colors.gray.700'),
-              // },
               blockquote: {
-                // color: theme('colors.gray.400'),
-                // borderLeftColor: theme('colors.gray.700'),
                 padding: '0 1em',
                 color: 'rgb(var(--color-fg-muted))',
                 'border-left': '.25em solid rgb(var(--color-border-default))',
@@ -178,14 +160,23 @@ module.exports = {
               h4: {
                 color: fontDefaultColor,
               },
+              strong: {
+                color: fontDefaultColor,
+              },
               // 'figure figcaption': {
               //   color: theme('colors.gray.400'),
               // },
-              // code: {
-              //   color: theme('colors.gray.100'),
-              //   backgroundColor: theme('colors.gray.800'),
-              //   borderWidth: 0,
-              // },
+              code: {
+                color: 'rgb(var(--color-fg-default))',
+                backgroundColor: 'rgb(var(--color-neutral-muted) / 0.2)',
+                borderWidth: 0,
+                padding: '.2em .4em',
+                margin: 0,
+                fontSize: '85%',
+                'border-radius': '6px',
+                'border-width': '0px',
+                'border-color': 'transparent',
+              },
               'a code': {
                 color: 'rgb(var(--color-accent-fg))',
                 'text-decoration': 'none',
@@ -193,25 +184,11 @@ module.exports = {
                   'text-decoration': 'underline',
                 },
               },
-              // thead: {
-              //   color: theme('colors.gray.100'),
-              //   borderBottomColor: theme('colors.gray.600'),
-              // },
-              // 'tbody tr': {
-              //   borderBottomColor: theme('colors.gray.700'),
-              // },
-              code: {
-                'background-color': 'rgb(var(--color-neutral-muted) / 0.4)',
-                'border-radius': '6px',
-                padding: '0.2em 0.4em',
-                // color: fontDefaultColor,
-                'border-width': '0px',
-                'border-color': 'transparent',
-              },
               'pre > code': {
                 'background-color': 'transparent',
                 padding: 0,
                 'border-radius': '0px',
+                color: 'inherit',
               },
             },
           },
