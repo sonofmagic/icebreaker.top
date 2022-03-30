@@ -1,16 +1,16 @@
 <template>
   <div class="container mx-auto" style="max-width: 1280px">
-    <div class="py-6 flex flex-col lg:flex-row">
+    <div class="flex flex-col py-6 lg:flex-row">
       <div
         ref="leftMenu"
         style="min-width: 142px"
-        class="hidden sm:inline-block sm:mb-4 lg:mr-4"
+        class="hidden sm:mb-4 sm:inline-block lg:mr-4"
       >
         <!-- <Sticky :offset-top="20" :container="leftMenu"> -->
-        <div class="flex sm:block sticky" style="top: 1rem">
+        <div class="sticky flex sm:block" style="top: 1rem">
           <div class="mb-4">
             <nuxt-link
-              class="inline-block text-xl text-accent-fg bg-canvas-default border-border-default rounded-md p-1.5 w-full font-semibold border border-solid hover:bg-canvas-subtle"
+              class="inline-block w-full rounded-md border border-solid border-border-default bg-canvas-default p-1.5 text-xl font-semibold text-accent-fg hover:bg-canvas-subtle"
               to="/"
               replace
             >
@@ -22,10 +22,10 @@
             v-for="t in toc"
             :key="t.id"
             :title="t.text"
-            class="py-2 truncate w-32"
+            class="w-32 truncate py-2"
           >
             <a
-              class="cursor-pointer transition-colors duration-200 hover:text-green-500 hover:underline"
+              class="hover:text-green-500 cursor-pointer transition-colors duration-200 hover:underline"
               :href="`#${t.id}-f`"
               @click.stop="scrollTo(t.id)"
               >{{ t.text }}</a
@@ -36,18 +36,18 @@
         <!-- </Sticky> -->
       </div>
       <!-- lg: -->
-      <div class="mb-4 lg:mb-0 mr-4 p-8 shadow w-full content-max-width">
-        <div class="pb-4 mb-4">
-          <h1 class="text-3xl mb-2">{{ article.title }}</h1>
+      <div class="content-max-width mb-4 mr-4 w-full p-8 shadow lg:mb-0">
+        <div class="mb-4 pb-4">
+          <h1 class="mb-2 text-3xl">{{ article.title }}</h1>
           <div
-            class="flex flex-col space-y-1 md:flex-row md:justify-between md:items-center"
+            class="flex flex-col space-y-1 md:flex-row md:items-center md:justify-between"
           >
             <div>
               <tags :tags="tags"></tags>
             </div>
 
             <div class="flex space-x-4 self-end md:min-w-[240px]">
-              <div class="text-xs whitespace-no-wrap">
+              <div class="whitespace-no-wrap text-xs">
                 共{{ article.readingWords }}个字，阅读时间
                 {{ article.readingMinutes }} 分钟
               </div>
@@ -61,7 +61,7 @@
         <!-- </ClientOnly> -->
         <!-- END -->
       </div>
-      <div class="flex-grow shadow p-4 self-start w-full sm:w-auto">
+      <div class="w-full flex-grow self-start p-4 shadow sm:w-auto">
         <Comments />
       </div>
     </div>
@@ -186,6 +186,6 @@ export default {
 </style>
 <style lang="scss">
 .compose-nuxt-content {
-  @apply prose prose-invert prose-sm sm:prose-base   antialiased; // prose-sm antialiased
+  @apply prose prose-sm prose-invert antialiased sm:prose-base; // prose-sm antialiased
 }
 </style>

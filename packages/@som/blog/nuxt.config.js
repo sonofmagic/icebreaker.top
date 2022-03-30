@@ -320,6 +320,11 @@ const config = {
         },
       },
     },
+    postcss: {
+      plugins: {
+        'postcss-custom-properties': false,
+      },
+    },
     // optimization: {
     //   minimize: true,
     //   minimizer: [

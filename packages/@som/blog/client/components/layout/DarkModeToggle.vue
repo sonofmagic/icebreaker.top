@@ -1,5 +1,5 @@
 <template>
-  <div class="text-xl flex items-center text-white">
+  <div class="flex items-center text-xl text-white">
     <font-awesome-icon
       class="cursor-pointer"
       :icon="icon"
@@ -14,7 +14,7 @@ import { LocalStorageKey } from '@/enum/user'
 export default {
   data() {
     return {
-      mode: localStorage.getItem(LocalStorageKey.ThemeMode) || 'dark',
+      // mode: localStorage.getItem(LocalStorageKey.ThemeMode) || 'dark',
     }
   },
   head() {
@@ -27,6 +27,14 @@ export default {
     }
   },
   computed: {
+    mode: {
+      get() {
+        return this.$store.state.theme
+      },
+      set(theme) {
+        this.$store.commit('set_theme', theme)
+      },
+    },
     isDark({ mode }) {
       return mode === 'dark'
     },
@@ -41,7 +49,8 @@ export default {
     setTheme(theme) {
       // document.documentElement.setAttribute(LocalStorageKey.ThemeMode, theme)
       this.mode = theme
-      localStorage.setItem(LocalStorageKey.ThemeMode, theme)
+
+      // localStorage.setItem(LocalStorageKey.ThemeMode, theme)
     },
     toggleTheme() {
       if (this.isDark) {
