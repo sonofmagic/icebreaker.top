@@ -2436,10 +2436,10 @@
   resolved "https://registry.npmmirror.com/@types/source-list-map/-/source-list-map-0.1.2.tgz#0078836063ffaf17412349bba364087e0ac02ec9"
   integrity sha512-K5K+yml8LTo9bWJI/rECfIPrGgxdpeNbj+d53lwN4QjW1MCwlkhUms+gtdzigTeUyBr09+u8BwOIY3MXvHdcsA==
 
-"@types/tailwindcss@^3.0.9":
-  version "3.0.9"
-  resolved "https://registry.npmmirror.com/@types/tailwindcss/-/tailwindcss-3.0.9.tgz#82dffdc096818c1989e1b75da8ea6b4f4cdf9cc4"
-  integrity sha512-uZjNKNjlA6cr6py/GWsDjevJb/Bl0fmaMNUdIpNMW3TJGJzxN9O6uFWx97LiSK7ithWNrrDSytq1FdvHpgSvWg==
+"@types/tailwindcss@^3.0.10":
+  version "3.0.10"
+  resolved "https://registry.npmmirror.com/@types/tailwindcss/-/tailwindcss-3.0.10.tgz#cd54bad9c00b4823e9e33c67af585347f235aa11"
+  integrity sha512-1UnZIHO0NOPyPlPFV0HuMjki2SHkvG9uBA1ZehWj/OQMSROk503nuNyyfmJSIT289yewxTbKoPG+KLxYRvfIIg==
 
 "@types/tapable@^1", "@types/tapable@^1.0.5":
   version "1.0.8"
@@ -5190,10 +5190,10 @@ d3-zoom@3:
     d3-selection "2 - 3"
     d3-transition "2 - 3"
 
-d3@^7.3.0:
-  version "7.3.0"
-  resolved "https://registry.npmmirror.com/d3/-/d3-7.3.0.tgz#f3d5a22c1f658952a6491cf50132f5267ed7a40a"
-  integrity sha512-MDRLJCMK232OJQRqGljQ/gCxtB8k3/sLKFjftMjzPB3nKVUODpdW9Rb3vcq7U8Ka5YKoZkAmp++Ur6I+6iNWIw==
+d3@^7.4.0:
+  version "7.4.0"
+  resolved "https://registry.npmmirror.com/d3/-/d3-7.4.0.tgz#8755620b9a63eca698718f8d0e2eeaa9dc699e35"
+  integrity sha512-/xKyIYpKzd+I2DhiS2ANYJtEfHkE9lHKBFwqsplKsazPcXy2N1KIJSMTJsRk42jHbHCH0KPJGd0RnBt6NBJ1MA==
   dependencies:
     d3-array "3"
     d3-axis "3"
@@ -5744,10 +5744,10 @@ ecc-jsbn@~0.1.1:
     jsbn "~0.1.0"
     safer-buffer "^2.1.0"
 
-echarts@^5.3.0:
-  version "5.3.1"
-  resolved "https://registry.npmmirror.com/echarts/-/echarts-5.3.1.tgz#709e03aaf8c7a4439788272ee5c500cf0dce7e5b"
-  integrity sha512-nWdlbgX3OVY0hpqncSvp0gDt1FRSKWn7lsWEH+PHmfCuvE0QmSw17pczQvm8AvawnLEkmf1Cts7YwQJZNC0AEQ==
+echarts@^5.3.2:
+  version "5.3.2"
+  resolved "https://registry.npmmirror.com/echarts/-/echarts-5.3.2.tgz#0a7b3be8c48a48b2e7cb1b82121df0c208d42d2c"
+  integrity sha512-LWCt7ohOKdJqyiBJ0OGBmE9szLdfA9sGcsMEi+GGoc6+Xo75C+BkcT/6NNGRHAWtnQl2fNow05AQjznpap28TQ==
   dependencies:
     tslib "2.3.0"
     zrender "5.3.1"
@@ -7067,10 +7067,10 @@ gray-matter@^4.0.2:
     section-matter "^1.0.0"
     strip-bom-string "^1.0.0"
 
-gsap@^3.9.1:
-  version "3.9.1"
-  resolved "https://registry.npmmirror.com/gsap/-/gsap-3.9.1.tgz#d4c7443540497afee9ddc0824fd0180224e33360"
-  integrity sha512-JSGVYoC6da4pIjdF/yxFU6Rz8OojOIDkbooveZlfNg0+JIoFoRruyfWAEi6R/gUeNcuOiTqUIb0gi1nCNrHf8w==
+gsap@^3.10.2:
+  version "3.10.2"
+  resolved "https://registry.npmmirror.com/gsap/-/gsap-3.10.2.tgz#a3b0a842c398099fc7a80313bfb42253a3dc2b6b"
+  integrity sha512-exJVOda3O1NpgGjM4dzZONmSODWFP+JF/DwfiBfCPQPr15nm3M0TQczYKLZlMdBNdWxHMvRPKVqc1e1/6YD+zA==
 
 gzip-size@^6.0.0:
   version "6.0.0"
@@ -8337,10 +8337,10 @@ jsprim@^1.2.2:
     json-schema "0.4.0"
     verror "1.10.0"
 
-jszip@^3.7.1:
-  version "3.7.1"
-  resolved "https://registry.npmmirror.com/jszip/-/jszip-3.7.1.tgz#bd63401221c15625a1228c556ca8a68da6fda3d9"
-  integrity sha512-ghL0tz1XG9ZEmRMcEN2vt7xabrDdqHHeykgARpmZ0BiIctWxM47Vt63ZO2dnp4QYt/xJVLLy5Zv1l/xRdh2byg==
+jszip@^3.8.0:
+  version "3.8.0"
+  resolved "https://registry.npmmirror.com/jszip/-/jszip-3.8.0.tgz#a2ac3c33fe96a76489765168213655850254d51b"
+  integrity sha512-cnpQrXvFSLdsR9KR5/x7zdf6c3m8IhZfZzSblFEHSqBaVwD2nvJ4CuCKLyvKvwBgZm08CgfSoiTBQLm5WW9hGw==
   dependencies:
     lie "~3.3.0"
     pako "~1.0.2"
@@ -11198,10 +11198,15 @@ prettier-plugin-tailwindcss@^0.1.8:
   resolved "https://registry.npmmirror.com/prettier-plugin-tailwindcss/-/prettier-plugin-tailwindcss-0.1.8.tgz#ba0f606ed91959ede670303d905b99106e9e6293"
   integrity sha512-hwarSBCswAXa+kqYtaAkFr3Vop9o04WOyZs0qo3NyvW8L7f1rif61wRyq0+ArmVThOuRBcJF5hjGXYk86cwemg==
 
-"prettier@^1.18.2 || ^2.0.0", prettier@^2.5.1:
+"prettier@^1.18.2 || ^2.0.0":
   version "2.5.1"
   resolved "https://registry.npmmirror.com/prettier/-/prettier-2.5.1.tgz#fff75fa9d519c54cf0fce328c1017d94546bc56a"
   integrity sha512-vBZcPRUR5MZJwoyi3ZoyQlc1rXeEck8KgeC9AwwOn+exuxLxq5toTRDTSaVrXHxelDMHy9zlicw8u66yxoSUFg==
+
+prettier@^2.6.1:
+  version "2.6.1"
+  resolved "https://registry.npmmirror.com/prettier/-/prettier-2.6.1.tgz#d472797e0d7461605c1609808e27b80c0f9cfe17"
+  integrity sha512-8UVbTBYGwN37Bs9LERmxCPjdvPxlEowx2urIL6urHzdb3SDq4B/Z6xLFCblrSnE4iKWcS6ziJ3aOYrc1kz/E2A==
 
 pretty-bytes@^5.6.0:
   version "5.6.0"
@@ -12056,7 +12061,16 @@ sass-loader@^10.0.0:
     schema-utils "^3.0.0"
     semver "^7.3.2"
 
-sass@1.49.9, sass@^1.48.0:
+sass@1.49.10:
+  version "1.49.10"
+  resolved "https://registry.npmmirror.com/sass/-/sass-1.49.10.tgz#7b83cee0f03bbba443111b3f94944fde2b0c7a6b"
+  integrity sha512-w37zfWJwKu4I78U4z63u1mmgoncq+v3iOB4yzQMPyAPVHHawaQSnu9C9ysGQnZEhW609jkcLioJcMCqm75JMdg==
+  dependencies:
+    chokidar ">=3.0.0 <4.0.0"
+    immutable "^4.0.0"
+    source-map-js ">=0.6.2 <2.0.0"
+
+sass@^1.48.0:
   version "1.49.9"
   resolved "https://registry.npmmirror.com/sass/-/sass-1.49.9.tgz#b15a189ecb0ca9e24634bae5d1ebc191809712f9"
   integrity sha512-YlYWkkHP9fbwaFRZQRXgDi3mXZShslVmmo+FVK3kHLUELHHEYrCmL1x6IUjC7wLS6VuJSAFXRQS/DxdsC4xL1A==
@@ -13172,10 +13186,10 @@ tencent-serverless-http@^1.3.1:
   dependencies:
     type-is "^1.6.16"
 
-tencentcloud-sdk-nodejs@^4.0.315:
-  version "4.0.315"
-  resolved "https://registry.npmmirror.com/tencentcloud-sdk-nodejs/-/tencentcloud-sdk-nodejs-4.0.315.tgz#6fdb43bbb2a9a63247b8601c9622d69c655f0741"
-  integrity sha512-Xo8qly7Vg6TqSUPeYrgF9F/Fn6I3C8gBkXXjnzpn9EwMEu5IdMMvAqXesT179kQGOcz+w6bia7nvkZOPhWODSg==
+tencentcloud-sdk-nodejs@^4.0.319:
+  version "4.0.319"
+  resolved "https://registry.npmmirror.com/tencentcloud-sdk-nodejs/-/tencentcloud-sdk-nodejs-4.0.319.tgz#45f813bab9d4b1919d22f4934a8dfd2c2b742483"
+  integrity sha512-LcYKPLa685CCEpzfdwsU784NYTUJxOmq+ZEnv10CM+ppIfrxzachwFrzwM6UIDU2ue7swayLNewg86u1+bfBvQ==
   dependencies:
     form-data "^3.0.0"
     get-stream "^6.0.0"
