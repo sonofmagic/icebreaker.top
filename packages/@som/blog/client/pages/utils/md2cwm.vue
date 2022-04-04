@@ -1,10 +1,15 @@
 <template>
   <div class="container mx-auto">
-    <div class="flex items-center justify-between py-4">
+    <div
+      class="flex flex-col items-stretch justify-between space-y-2 py-4 sm:flex-row sm:items-center sm:space-y-0"
+    >
       <div class="flex-1">
         <div class="h-10">把原始markdown文本放这</div>
         <div class="edit-area">
-          <textarea v-model="orgin" class="edit-textarea"></textarea>
+          <textarea
+            v-model="orgin"
+            class="edit-textarea hover-scroll-bar"
+          ></textarea>
         </div>
       </div>
       <div class="mx-2">
@@ -18,7 +23,10 @@
           <button class="btn rounded-md px-2 py-1" @click="onCopy">复制</button>
         </div>
         <div class="edit-area">
-          <textarea v-model="target" class="edit-textarea"></textarea>
+          <textarea
+            v-model="target"
+            class="edit-textarea hover-scroll-bar"
+          ></textarea>
         </div>
       </div>
     </div>
@@ -53,7 +61,7 @@ export default {
 .edit-area {
   @apply h-[calc(100vh-200px)] w-full rounded-md border border-border-default  p-2;
   .edit-textarea {
-    @apply h-full w-full bg-codemirror-bg text-codemirror-text;
+    @apply h-full w-full resize-none bg-codemirror-bg text-codemirror-text;
   }
 }
 </style>

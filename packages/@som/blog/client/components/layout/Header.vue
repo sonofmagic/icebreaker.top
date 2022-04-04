@@ -62,14 +62,14 @@
         <template v-else>
           <button
             key="signinpopover"
-            class="btn mr-2"
+            class="nav-btn mr-2"
             @click="SignInVisible = !SignInVisible"
           >
             Sign in
           </button>
           <button
             key="registerpopover"
-            class="btn round-border"
+            class="nav-btn round-border"
             @click="RegisterVisible = !RegisterVisible"
           >
             Sign up
@@ -216,7 +216,7 @@ export default {
       }
     }
 
-    .btn {
+    .nav-btn {
       @apply cursor-pointer whitespace-nowrap px-2 py-1 text-base leading-6 text-white outline-none transition-opacity duration-300;
 
       &:hover {
