@@ -27,7 +27,7 @@
         </div>
         <div>
           <OutSideLink
-            class="text-base hover:text-gray-400 mr-1"
+            class="mr-1 text-base hover:text-gray-400"
             raw
             href="https://github.com/sonofmagic"
           >
@@ -57,7 +57,7 @@
         </div>
         <div>擅长扯淡,吹牛,撕x</div> -->
         <!-- <OutSideLink href="https://www.shareplus.cn/"></OutSideLink> -->
-        <div class="flex mt-2">
+        <div class="mt-2 flex">
           <div class="npx-command" @click="copyText('npx yangqiming')">
             <span>
               <FontAwesomeIcon :icon="['fas', 'chevron-right']" />
@@ -106,16 +106,16 @@
       </div>
     </div>
     <SomPopup v-model="icebreakerQrcodeVisible">
-      <div class="text-center px-4">
+      <div class="px-4 text-center">
         <div class="text-gray-900 text-opacity-75">
           打开微信扫一扫以下二维码
         </div>
-        <SomImage class="w-64 h-64" :src="icebreakerQrcodeUrl"></SomImage>
+        <SomImage class="h-64 w-64" :src="icebreakerQrcodeUrl"></SomImage>
         <div class="mb-2 text-gray-900 text-opacity-75">
           或者手动添加微信号：
         </div>
         <div
-          class="flex justify-center items-center rounded border border-solid border-gray-400 py-2 truncate cursor-pointer hover:bg-green-100"
+          class="hover:bg-green-100 flex cursor-pointer items-center justify-center truncate rounded border border-solid border-gray-400 py-2"
           @click="copyText('icebreaker1995')"
         >
           <span class="text-gray-900"
@@ -165,17 +165,17 @@ export default {
 </style>
 <style lang="scss" scoped>
 .a-dark-soul {
-  @apply text-fg-default text-sm;
+  @apply text-sm text-fg-default;
   .npx-command {
     @apply relative flex
+              cursor-pointer
               items-center
               rounded-md
-              py-2
-              pl-3
+              border
+              border-solid
+              border-[#cccccc] py-2 pl-3
               pr-5
-              border border-solid border-[#cccccc]
-              cursor-pointer
-              hover:bg-[rgb(219,255,219)] hover:border-[#00C642] hover:text-black/80 text-white/80;
+              text-white/80 hover:border-[#00C642] hover:bg-[rgb(219,255,219)] hover:text-black/80;
     .copy-icon {
       @apply absolute right-1 opacity-0 transition-opacity;
       //

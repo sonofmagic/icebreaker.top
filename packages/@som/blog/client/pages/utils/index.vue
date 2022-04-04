@@ -5,20 +5,19 @@
     </div>
     <div class="container mx-auto py-4">
       <div class="grid grid-cols-3 gap-4">
-        <OutSideLink
+        <LinkCard
           v-for="u in utils"
           :key="u.url"
-          class="rounded-md border border-border-default"
-          raw
-          :href="u.url"
-        >
-          <div class="px-4 py-4 shadow">
-            <div class="mb-3 text-2xl font-thin text-accent-fg hover:underline">
-              {{ u.title }}
-            </div>
-            <div class="text-sm text-fg-muted">{{ u.desc }}</div>
-          </div>
-        </OutSideLink>
+          :to="u.url"
+          out-side
+          :title="u.title"
+          :desc="u.desc"
+        ></LinkCard>
+        <LinkCard
+          to="/utils/md2cwm"
+          title="md2cwm 工具"
+          desc="Markdown 转 Confluence Wiki Markup"
+        ></LinkCard>
       </div>
     </div>
   </section>
@@ -26,8 +25,13 @@
 
 <script>
 // 抄 https://www.tslang.cn/samples/index.html 的风格
+
+import LinkCard from '@/components/utils/LinkCard.vue'
 export default {
   name: 'UtilsIndex',
+  components: {
+    LinkCard,
+  },
   layout: 'noWrapper',
   data() {
     return {
@@ -65,12 +69,12 @@ export default {
         {
           url: 'https://webpack.js.org/configuration/',
           title: 'Webpack option 速查',
-          desc: '不解释',
+          desc: '配置项更改要看',
         },
         {
           url: 'https://nodejs.org/dist/latest-v14.x/docs/api/',
           title: 'Node LTS Api 速查',
-          desc: '太重要了',
+          desc: 'Node Api 参考',
         },
         {
           url: 'http://mongodb.github.io/node-mongodb-native/3.6/api/',
