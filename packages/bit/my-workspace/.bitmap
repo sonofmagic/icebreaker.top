@@ -9,6 +9,30 @@
  */
 
 {
+    "server/hello-world": {
+        "scope": "",
+        "version": "",
+        "mainFile": "index.ts",
+        "rootDir": "experience/server/hello-world",
+        "config": {
+            "teambit.harmony/node": {},
+            "teambit.envs/envs": {
+                "env": "teambit.harmony/node"
+            }
+        }
+    },
+    "ui/heading": {
+        "scope": "",
+        "version": "",
+        "mainFile": "index.ts",
+        "rootDir": "experience/ui/heading",
+        "config": {
+            "teambit.react/react": {},
+            "teambit.envs/envs": {
+                "env": "teambit.react/react"
+            }
+        }
+    },
     "ui/my-welcome": {
         "scope": "",
         "version": "",
