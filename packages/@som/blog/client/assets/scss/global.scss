@@ -1,8 +1,11 @@
 @use './constants.scss' as C;
 @use './util.scss' as Util;
 @use './theme/light.scss' as Light;
+// @use '../font/index.scss' as *;
+@import '../font/index.scss';
 // @import './theme.scss';
 @import './prose.scss';
+
 
 :root {
   @each $var, $color in C.$root-vars {
