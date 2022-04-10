@@ -1,6 +1,6 @@
 // @ts-nocheck
 
-type DOMType = HTMLElement | HTMLDocument | null
+type DOMType = HTMLElement | Document | null
 
 interface CustomRect {
   left: number
@@ -108,6 +108,7 @@ class MouseSelection {
   constructor (domOrConfig?: DOMType | MouseSelectionOptions, config?: MouseSelectionOptions) {
     let dom: DOMType = document
     this.config = config
+
     if (isDOMType(domOrConfig)) {
       dom = domOrConfig
     } else if (domOrConfig) {
