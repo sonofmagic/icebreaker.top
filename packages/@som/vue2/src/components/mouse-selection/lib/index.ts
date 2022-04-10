@@ -40,7 +40,7 @@ type ReadonlyKeys<T> = {
 // 非只读的CSSStyleDeclaration接口
 type NotReadonlyCSSStyleDeclaration = ReadonlyKeys<CSSStyleDeclaration>
 
-type StringTypeNotReadonlyCSSStyleDeclaration = Exclude<NotReadonlyCSSStyleDeclaration, number | (() => any)>
+type StringTypeNotReadonlyCSSStyleDeclaration = Exclude<NotReadonlyCSSStyleDeclaration, number | (() => unknown)>
 
 interface PositionSizeMap {
   left: number
@@ -75,7 +75,7 @@ function scaleRect (rect: CustomRect, scale: number) {
   }
 }
 
-const rectangleElementInlineStyle = 'position: absolute;pointer-events: none;border: 1px solid rgb(45, 140, 240);background: rgba(45, 140, 240, 0.2);'
+const rectangleElementInlineStyle = 'position: absolute;pointer-events: none;border: 1px solid rgb(45, 140, 240);background: rgba(45, 140, 240, 0.2);display:none;'
 
 const getInitCustomRect = () => ({
   left: 0,
@@ -118,6 +118,7 @@ class MouseSelection {
     if (isDocument(this.targetDom)) {
       this.wrapDOM = document.body
     } else {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       this.wrapDOM = this.targetDom!
     }
     this.scale = this.config.scale || 1.0 // 默认无缩放
@@ -138,8 +139,8 @@ class MouseSelection {
     y = y - 2
     const left = Math.max(domRect.left, Math.min(this.startX, x))
     const top = Math.max(domRect.top, Math.min(this.startY, y))
-    const width = Math.max(this.startX, Math.min(x, this.wrapDOM!.scrollWidth + domRect.left - 2)) - left
-    const height = Math.max(this.startY, Math.min(y, this.wrapDOM!.scrollHeight + domRect.top - 2)) - top
+    const width = Math.max(this.startX, Math.min(x, this.wrapDOM?.scrollWidth + domRect.left - 2)) - left
+    const height = Math.max(this.startY, Math.min(y, this.wrapDOM?.scrollHeight + domRect.top - 2)) - top
     return {
       left,
       top,
@@ -212,15 +213,15 @@ class MouseSelection {
    * @returns 矩形框选元素
    */
   private _createRectangleElement (): HTMLElement {
-    let ele = (Array.from(this.wrapDOM!.children) as HTMLElement[]).find((node) => Array.from(node.classList).includes(this.RectangleElementClassName))
+    let ele = (Array.from(this.wrapDOM?.children) as HTMLElement[]).find((node) => Array.from(node.classList).includes(this.RectangleElementClassName))
     if (ele) {
-      this.wrapDOM!.removeChild(ele)
+      this.wrapDOM?.removeChild(ele)
     }
     ele = document.createElement('div') as HTMLElement
     const customClassName = this.config?.className
     ele.className = this.RectangleElementClassName + (customClassName ? ` ${customClassName}` : '')
     ele.style.cssText = rectangleElementInlineStyle + `z-index: ${this.config?.zIndex || 99999999}`
-    this.wrapDOM!.appendChild(ele)
+    this.wrapDOM?.appendChild(ele)
     return ele
   }
 
@@ -239,7 +240,7 @@ class MouseSelection {
    * @param dom 要绑定事件的dom
    */
   private _addMousedownListener (dom: DOMType) {
-    dom!.addEventListener('mousedown', this._selectStart as (event: Event) => void)
+    dom?.addEventListener('mousedown', this._selectStart as (event: Event) => void)
   }
 
   /**
@@ -264,7 +265,7 @@ class MouseSelection {
           right: window.innerWidth,
           bottom: window.innerHeight
         }
-      : dom!.getBoundingClientRect()
+      : dom?.getBoundingClientRect()
     return scaleRect(domRect, 1 / this.scale)
   }
 
@@ -273,6 +274,7 @@ class MouseSelection {
    * @param event 鼠标事件对象
    */
   private _selectStart = (event: MouseEvent) => {
+    // console.log('[_selectStart]:', event)
     const nodeList = document.querySelectorAll(this.config.stopSelector)
     const isStopNode = findNode(event.target as Element, Array.from(nodeList) as DOMType[])
     if (this.config.stopSelector && isStopNode) {
@@ -294,10 +296,11 @@ class MouseSelection {
     // 设置所作用的DOM的定位及尺寸信息
     this.domRect = this._getDOMRect(this.targetDom)
     // 鼠标点下时距离作用DOM的偏移，需要考虑滚动，还需要考虑缩放
-    const x = (event.pageX + this.wrapDOM!.scrollLeft - window.pageXOffset) / this.scale
-    const y = (event.pageY + this.wrapDOM!.scrollTop - window.pageYOffset) / this.scale
+    const x = (event.pageX + this.wrapDOM?.scrollLeft - window.pageXOffset) / this.scale
+    const y = (event.pageY + this.wrapDOM?.scrollTop - window.pageYOffset) / this.scale
     // 显示矩形框选元素
-    this._setRectangleElementStyle('display', 'block')
+    // 有了小幅度的偏移量再显示
+    // this._setRectangleElementStyle('display', 'block')
     // 设置起始点坐标
     this._setStartPosition(x - 2, y - 2)
     // 更新矩形框选元素
@@ -315,14 +318,18 @@ class MouseSelection {
    * @param event 鼠标事件对象
    */
   private _selecting = (event: MouseEvent) => {
+    // console.log('[_selecting]:', event, this.moving)
     if (!this.moving) {
       return
     }
+
     // 鼠标当前距离作用DOM的偏移，需要考虑滚动, 还需要考虑缩放
-    const x = (event.pageX + this.wrapDOM!.scrollLeft - window.pageXOffset) / this.scale
-    const y = (event.pageY + this.wrapDOM!.scrollTop - window.pageYOffset) / this.scale
+    const x = (event.pageX + this.wrapDOM?.scrollLeft - window.pageXOffset) / this.scale
+    const y = (event.pageY + this.wrapDOM?.scrollTop - window.pageYOffset) / this.scale
 
     this.selectionPagePositionRect = this.getSelectionPagePosition(x, y)
+    // 开始拖动再显示
+    this._setRectangleElementStyle('display', 'block')
     const refitedMouseEvent: RefitedMouseEvent = event
     this.selectionDOMPositionRect = this.getSelectionDOMPosition(this.selectionPagePositionRect)
     refitedMouseEvent.selectionDOMRect = JSON.parse(JSON.stringify(this.selectionDOMPositionRect))
@@ -337,6 +344,7 @@ class MouseSelection {
    * @param event 鼠标事件对象
    */
   private _selectEnd = (event: MouseEvent) => {
+    // console.log('[_selectEnd]:', event)
     document.removeEventListener('mousemove', this._selecting)
     document.removeEventListener('mouseup', this._selectEnd)
     this._setRectangleElementStyle('display', 'none')
@@ -351,7 +359,7 @@ class MouseSelection {
    * @param value CSS属性值
    */
   private _setRectangleElementStyle (this: MouseSelection, props: StringTypeNotReadonlyCSSStyleDeclaration, value: string): void {
-    (this.rectangleElement as any).style[props] = value
+    (this.rectangleElement as unknown).style[props] = value
   }
 
   /**
@@ -373,7 +381,7 @@ class MouseSelection {
  * @param object 要判断的值
  * @returns {boolean}
  */
-function isDOM (object: any) {
+function isDOM (object: unknown) {
   if (!object || typeof object !== 'object') {
     return false
   }

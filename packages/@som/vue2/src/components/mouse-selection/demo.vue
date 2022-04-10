@@ -1,11 +1,11 @@
 <template>
   <div>
     <div ref="wrapper" class="wrapper">
-      <div class="inner-box" :class="{ 'selected-box': isInTheBoxList[i - 1] || checkSelected(i - 1), disabled: i === 2 }" v-for="i in 50" :id="`left_inner_box_${i}`" :key="`left_${i}`">{{ '' }}</div>
+      <div ref="boxs" class="inner-box" :class="{ 'selected-box': isInTheBoxList[i - 1] || checkSelected(i - 1) }" v-for="i in 50" :key="i">{{ i }}</div>
     </div>
 
     <div>
-      <span :key="n" v-for="n in selectedSet">{{ n }},</span>
+      <span :key="idx" v-for="(n, idx) in selectedSet">{{ n }},</span>
     </div>
   </div>
 </template>
@@ -24,7 +24,7 @@ export default {
   data (): {
     wrapperMouseSelection: MouseSelection | undefined
     documentSelection: MouseSelection | undefined
-    selectionPageRect: object | undefined
+
     isInTheBoxList: boolean[]
 
     innerBoxRectList: CustomRect[]
@@ -33,7 +33,7 @@ export default {
     let wrapperMouseSelection: MouseSelection | undefined
 
     let documentSelection: MouseSelection | undefined
-    let selectionPageRect: object | undefined
+
     const isInTheBoxList: boolean[] = []
 
     const innerBoxRectList: CustomRect[] = []
@@ -41,7 +41,7 @@ export default {
       wrapperMouseSelection,
 
       documentSelection,
-      selectionPageRect,
+
       isInTheBoxList,
 
       innerBoxRectList,
@@ -60,9 +60,19 @@ export default {
     }
   },
   mounted () {
+    let isClick = false
+
+    const inBoxSync = () => {
+      // @ts-ignore
+      this.isInTheBoxList = this.innerBoxRectList.map((rect) => {
+        // @ts-ignore
+        return this.wrapperMouseSelection.isInTheSelection(rect)
+      })
+    }
     // @ts-ignore
     this.wrapperMouseSelection = new MouseSelection(this.$refs.wrapper, {
       onMousedown: () => {
+        isClick = true
         // @ts-ignore
         this.innerBoxRectList = (Array.from(document.querySelectorAll('.inner-box')) as HTMLElement[]).map((node: HTMLElement) => {
           return {
@@ -74,13 +84,13 @@ export default {
         })
       },
       onMousemove: () => {
-        // @ts-ignore
-        this.isInTheBoxList = this.innerBoxRectList.map((rect) => {
-          // @ts-ignore
-          return this.wrapperMouseSelection.isInTheSelection(rect)
-        })
+        isClick = false
+        inBoxSync()
       },
       onMouseup: () => {
+        if (isClick) {
+          inBoxSync()
+        }
         // @ts-ignore
         this.isInTheBoxList
           // @ts-ignore
@@ -94,14 +104,16 @@ export default {
             // @ts-ignore
             this.selectedSet.add(x)
           })
+
         // @ts-ignore
         this.isInTheBoxList = []
+        isClick = false
       },
       disabled: () => {
         return false
       },
-      stopSelector: 'div.disabled',
-      stopPropagation: true
+      stopSelector: 'div.disabled'
+      // stopPropagation: true
     })
   }
 }
