@@ -1,11 +1,10 @@
 <template>
   <div>
     <div ref="wrapper" class="wrapper">
-      <div ref="boxs" class="inner-box" :class="{ 'selected-box': isInTheBoxList[i - 1] || checkSelected(i - 1) }" v-for="i in 50" :key="i">{{ i }}</div>
+      <div class="inner-box" :class="{ selected: !item.disabled && (isInTheBoxList[idx] || checkSelected(idx)) }" v-for="(item, idx) in mockData" :key="item.id">{{ item.id }}</div>
     </div>
-
     <div>
-      <span :key="idx" v-for="(n, idx) in selectedSet">{{ n }},</span>
+      <span :key="x" v-for="x in selectedSet">{{ x }} </span>
     </div>
   </div>
 </template>
@@ -20,6 +19,13 @@ interface CustomRect {
   height: number
 }
 
+const mockData = new Array(100).fill(0).map((x, idx) => {
+  return {
+    id: idx,
+    disabled: Boolean(idx % 2)
+  }
+})
+
 export default {
   data (): {
     wrapperMouseSelection: MouseSelection | undefined
@@ -29,6 +35,7 @@ export default {
 
     innerBoxRectList: CustomRect[]
     selectedSet: Set<unknown>
+    mockData: typeof mockData
     } {
     let wrapperMouseSelection: MouseSelection | undefined
 
@@ -46,7 +53,9 @@ export default {
 
       innerBoxRectList,
 
-      selectedSet: new Set()
+      selectedSet: new Set(),
+
+      mockData
     }
   },
   methods: {
@@ -69,12 +78,13 @@ export default {
         return this.wrapperMouseSelection.isInTheSelection(rect)
       })
     }
+
     // @ts-ignore
     this.wrapperMouseSelection = new MouseSelection(this.$refs.wrapper, {
       onMousedown: () => {
         isClick = true
         // @ts-ignore
-        this.innerBoxRectList = (Array.from(document.querySelectorAll('.inner-box')) as HTMLElement[]).map((node: HTMLElement) => {
+        this.innerBoxRectList = (Array.from(this.$refs.wrapper.querySelectorAll('.inner-box')) as HTMLElement[]).map((node: HTMLElement) => {
           return {
             left: node.offsetLeft,
             top: node.offsetTop,
@@ -102,18 +112,21 @@ export default {
           }, [])
           .forEach((x: number) => {
             // @ts-ignore
-            this.selectedSet.add(x)
+            if (!this.mockData[x].disabled) {
+              // @ts-ignore
+              this.selectedSet.add(x)
+            }
           })
 
         // @ts-ignore
         this.isInTheBoxList = []
         isClick = false
       },
-      disabled: () => {
-        return false
-      },
-      stopSelector: 'div.disabled'
-      // stopPropagation: true
+      // disabled: () => {
+      //   return false
+      // },
+      // stopSelector: 'div.disabled',
+      stopPropagation: true
     })
   }
 }
@@ -127,15 +140,15 @@ export default {
   overflow: scroll;
   background: rgba(255, 192, 203, 0.3);
   .inner-box {
-    width: 100px;
-    height: 100px;
+    width: 40px;
+    height: 40px;
     background: rgba(255, 192, 203, 0.3);
     display: inline-block;
     margin-left: 20px;
     margin-top: 20px;
     vertical-align: top;
     user-select: none;
-    &.selected-box {
+    &.selected {
       background: rgba(255, 192, 203, 1);
     }
   }

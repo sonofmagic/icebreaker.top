@@ -275,7 +275,7 @@ class MouseSelection {
    */
   private _selectStart = (event: MouseEvent) => {
     // console.log('[_selectStart]:', event)
-    const nodeList = document.querySelectorAll(this.config.stopSelector)
+    const nodeList = this.targetDom.querySelectorAll(this.config.stopSelector)
     const isStopNode = findNode(event.target as Element, Array.from(nodeList) as DOMType[])
     if (this.config.stopSelector && isStopNode) {
       return
@@ -386,7 +386,7 @@ function isDOM (object: unknown) {
     return false
   }
   if (typeof HTMLElement === 'function') {
-    return object instanceof HTMLElement || object instanceof HTMLDocument
+    return object instanceof HTMLElement || object instanceof Document
   } else {
     return object && typeof object === 'object' && object.nodeType && typeof object.nodeName === 'string'
   }
