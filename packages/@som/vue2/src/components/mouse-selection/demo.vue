@@ -26,7 +26,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+// @ts-nocheck
 import MouseSelection from './lib/index'
 // import MouseSelection from '../dist/index'
 interface CustomRect {
@@ -35,42 +35,44 @@ interface CustomRect {
   width: number
   height: number
 }
-@Component({
+
+export default {
   data () {
+    const wrapperMouseSelection: MouseSelection = undefined
+    const rightWrapperMouseSelection: MouseSelection = undefined
+    const documentSelection: MouseSelection = undefined
+    const selectionPageRect: object = undefined
+    const isInTheBoxList: boolean[] = []
+    const isInTheBoxWrapList: boolean[] = []
+    const innerBoxRectList: CustomRect[] = []
     return {
-      mode: 'wrapper'
+      mode: 'wrapper',
+      wrapperMouseSelection,
+      rightWrapperMouseSelection,
+      documentSelection,
+      selectionPageRect,
+      isInTheBoxList,
+      isInTheBoxWrapList,
+      innerBoxRectList,
+      showModal: false,
+      usable: 'able'
     }
-  }
-})
-export default class App extends Vue {
-  public wrapperMouseSelection!: MouseSelection
-  public rightWrapperMouseSelection!: MouseSelection
-  public documentSelection!: MouseSelection
-  public selectionPageRect!: object
-  public isInTheBoxList: boolean[] = []
-  public isInTheBoxWrapList: boolean[] = []
-  public innerBoxRectList: CustomRect[] = []
-  public showModal = false
-  public usable = 'able'
-  public isInnerSelection () {}
-  public $refs: {
-    content: HTMLElement
-  }
-
-  public destroyRight () {
-    this.rightWrapperMouseSelection.destroy()
-  }
-
-  public handleShowModal () {
-    this.showModal = true
-    setTimeout(() => {
-      this.rightWrapperMouseSelection = new MouseSelection(this.$refs.content, {
-        stopPropagation: true
-      })
-    }, 500)
-  }
-
-  protected mounted () {
+  },
+  methods: {
+    destroyRight () {
+      this.rightWrapperMouseSelection.destroy()
+    },
+    isInnerSelection () {},
+    handleShowModal () {
+      this.showModal = true
+      setTimeout(() => {
+        this.rightWrapperMouseSelection = new MouseSelection(this.$refs.content, {
+          stopPropagation: true
+        })
+      }, 500)
+    }
+  },
+  mounted () {
     this.wrapperMouseSelection = new MouseSelection(document.querySelector('.left-wrapper'), {
       onMousedown: () => {
         this.innerBoxRectList = (Array.from(document.querySelectorAll('.inner-box')) as HTMLElement[]).map((node: HTMLElement) => {
@@ -120,7 +122,7 @@ export default class App extends Vue {
 }
 </script>
 
-<style lang="less">
+<style lang="scss">
 .full-screen {
   height: 100%;
   width: 100%;
@@ -130,21 +132,21 @@ export default class App extends Vue {
 html,
 body,
 #app {
-  .full-screen;
+  .full-screen,
   .options {
     padding: 16px;
   }
   .box {
     position: absolute;
-    height: ~'calc(100% - 50px)';
+    height: 'calc(100% - 50px)';
     //模拟浏览器滚动条的情况 : width设置Wie1500px;
     width: 100%;
     top: 50px;
     .test-box {
-      .full-screen;
+      .full-screen,
       .wrapper {
-        width: ~'calc(50% - 15px)';
-        height: ~'calc(100% - 20px)';
+        width: 'calc(50% - 15px)';
+        height: 'calc(100% - 20px)';
         position: absolute;
         top: 10px;
         background: rgba(255, 192, 203, 0.3);
@@ -159,6 +161,7 @@ body,
           margin-left: 20px;
           margin-top: 20px;
           vertical-align: top;
+          user-select: none;
           &.selected-box {
             background: rgba(255, 192, 203, 1);
           }

@@ -5,7 +5,12 @@ Vue.use(VueRouter)
 
 const routes: Array<RouteConfig> = [
   {
-    path: '/',
+    path: '/Selection',
+    name: 'Selection',
+    component: () => import('@/views/Selection.vue')
+  },
+  {
+    path: '/LowCode',
     name: 'LowCode',
     component: () => import('@/views/LowCode.vue')
   },

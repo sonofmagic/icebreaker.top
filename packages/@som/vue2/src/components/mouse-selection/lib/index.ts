@@ -1,4 +1,15 @@
+// @ts-nocheck
+
 type DOMType = HTMLElement | HTMLDocument | null
+
+interface CustomRect {
+  left: number
+  top: number
+  width: number
+  height: number
+  right: number
+  bottom: number
+}
 
 interface SelectionRects {
   selectionPageRect?: CustomRect
@@ -18,15 +29,6 @@ interface MouseSelectionOptions {
   stopPropagation?: boolean
   stopSelector?: string
   notSetWrapPosition?: boolean
-}
-
-interface CustomRect {
-  left: number
-  top: number
-  width: number
-  height: number
-  right: number
-  bottom: number
 }
 
 type IfEquals<X, Y, A = X, B = never> = (<T>() => T extends X ? 1 : 2) extends <T>() => T extends Y ? 1 : 2 ? B : A
@@ -86,7 +88,7 @@ const getInitCustomRect = () => ({
 
 class MouseSelection {
   // 矩形框选元素
-  public rectangleElement!: HTMLElement
+  public rectangleElement!: HTMLElement | null
   public targetDom!: DOMType
   public domRect: CustomRect | DOMRect = getInitCustomRect()
   public selectionPagePositionRect: CustomRect = getInitCustomRect()
