@@ -5,8 +5,7 @@
 </template>
 
 <style lang="scss">
-
-body {
-  margin: 0;
-}
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 </style>

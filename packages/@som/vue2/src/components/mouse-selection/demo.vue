@@ -1,34 +1,20 @@
 <template>
-  <div id="app">
-    <div class="options">
-      <span>左侧容器内框选</span>
-      <input type="radio" id="disabled" value="disabled" v-model="usable" />
-      <label for="disabled">不可用</label>
-      <input type="radio" id="able" value="able" v-model="usable" />
-      <label for="able">可用</label>
-      <button @click="destroyRight" style="margin-left: 20px">注销右侧框选</button>
-      <span>注销后，右侧内部框选失效，但是作用在document上的还存在</span>
-      <button @click="handleShowModal">显示弹窗</button>
-    </div>
+  <div>
     <div class="box">
-      <div v-if="mode === 'wrapper'" class="test-box test-inner-wrapper">
+      <div class="test-box test-inner-wrapper">
         <div class="wrapper left-wrapper" :class="{ 'selected-wrapper': isInTheBoxWrapList[0] }">
-          <div class="inner-box" :class="{ 'selected-box': isInTheBoxList[i - 1], disabled: i === 2 }" v-for="i in 50" :id="`left_inner_box_${i}`" :key="`left_${i}`">{{ i === 2 ? '这个不能触发框选' : '' }}</div>
+          <div class="inner-box" :class="{ 'selected-box': isInTheBoxList[i - 1], disabled: i === 2 }" v-for="i in 50" :id="`left_inner_box_${i}`" :key="`left_${i}`">{{ '' }}</div>
         </div>
         <div class="wrapper right-wrapper" :class="{ 'selected-wrapper': isInTheBoxWrapList[1] }"></div>
       </div>
-      <div v-else class="test-box test-full-page">可以自定义框选矩形样式</div>
-    </div>
-    <div v-show="showModal" class="modal">
-      <div ref="content" class="content"></div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-// @ts-nocheck
 import MouseSelection from './lib/index'
-// import MouseSelection from '../dist/index'
+// import { defineComponent, reactive, ref } from '@vue/composition-api'
+
 interface CustomRect {
   left: number
   top: number
@@ -36,45 +22,61 @@ interface CustomRect {
   height: number
 }
 
+// export default defineComponent({
+//   setup(props) {
+//     reactive<{
+//       wrapperMouseSelection: MouseSelection
+//     }>({
+//       wrapperMouseSelection: null,
+//       documentSelection:null,
+//       selectionPageRect:null,
+//       isInTheBoxList:[],
+//       isInTheBoxWrapList:[],
+//       innerBoxRectList:CustomRect[]
+//     })
+//   }
+// })
+
 export default {
-  data () {
-    const wrapperMouseSelection: MouseSelection = undefined
-    const rightWrapperMouseSelection: MouseSelection = undefined
-    const documentSelection: MouseSelection = undefined
-    const selectionPageRect: object = undefined
+  data (): {
+    wrapperMouseSelection: MouseSelection | undefined
+    documentSelection: MouseSelection | undefined
+    selectionPageRect: object | undefined
+    isInTheBoxList: boolean[]
+    isInTheBoxWrapList: boolean[]
+    innerBoxRectList: CustomRect[]
+    selectedSet: Set<unknown>
+    } {
+    let wrapperMouseSelection: MouseSelection | undefined
+
+    let documentSelection: MouseSelection | undefined
+    let selectionPageRect: object | undefined
     const isInTheBoxList: boolean[] = []
     const isInTheBoxWrapList: boolean[] = []
     const innerBoxRectList: CustomRect[] = []
     return {
-      mode: 'wrapper',
       wrapperMouseSelection,
-      rightWrapperMouseSelection,
+
       documentSelection,
       selectionPageRect,
       isInTheBoxList,
       isInTheBoxWrapList,
       innerBoxRectList,
-      showModal: false,
-      usable: 'able'
+
+      selectedSet: new Set()
     }
   },
   methods: {
-    destroyRight () {
-      this.rightWrapperMouseSelection.destroy()
-    },
-    isInnerSelection () {},
-    handleShowModal () {
-      this.showModal = true
-      setTimeout(() => {
-        this.rightWrapperMouseSelection = new MouseSelection(this.$refs.content, {
-          stopPropagation: true
-        })
-      }, 500)
+    doDestroy () {
+      // @ts-ignore
+      this.wrapperMouseSelection.destroy()
     }
   },
   mounted () {
+    // @ts-ignore
     this.wrapperMouseSelection = new MouseSelection(document.querySelector('.left-wrapper'), {
       onMousedown: () => {
+        // @ts-ignore
         this.innerBoxRectList = (Array.from(document.querySelectorAll('.inner-box')) as HTMLElement[]).map((node: HTMLElement) => {
           return {
             left: node.offsetLeft,
@@ -85,116 +87,68 @@ export default {
         })
       },
       onMousemove: () => {
+        // @ts-ignore
         this.isInTheBoxList = this.innerBoxRectList.map((rect) => {
+          // @ts-ignore
           return this.wrapperMouseSelection.isInTheSelection(rect)
         })
       },
       onMouseup: () => {
+        // @ts-ignore
         this.isInTheBoxList = []
       },
-      disabled: () => this.usable === 'disabled',
+      disabled: () => {
+        return false
+      },
       stopSelector: 'div.disabled',
       stopPropagation: true
     })
-    this.rightWrapperMouseSelection = new MouseSelection(document.querySelector('.right-wrapper'), {
-      className: 'right-wrapper-selection',
-      stopPropagation: true
-    })
-    // this.documentSelection = new MouseSelection(document, {
-    //     onMousedown: () => {
-    //       this.innerBoxRectList = (Array.from(
-    //         document.querySelectorAll(".wrapper")
-    //       ) as HTMLElement[]).map((node: HTMLElement) => {
-    //         return node.getBoundingClientRect()
-    //       });
-    //     },
-    //     onMousemove: (event) => {
-    //       this.isInTheBoxWrapList = this.innerBoxRectList.map(rect => {
-    //         return this.documentSelection.isInTheSelection(rect);
-    //       });
-    //     },
-    //     onMouseup: () => {
-    //       this.isInTheBoxWrapList = [];
-    //     },
-    //   }
-    // );
   }
 }
 </script>
 
 <style lang="scss">
-.full-screen {
-  height: 100%;
+.box {
+  position: absolute;
+  height: 'calc(100% - 50px)';
+  //模拟浏览器滚动条的情况 : width设置Wie1500px;
   width: 100%;
-  margin: 0;
-  padding: 0;
-}
-html,
-body,
-#app {
-  .full-screen,
-  .options {
-    padding: 16px;
-  }
-  .box {
-    position: absolute;
-    height: 'calc(100% - 50px)';
-    //模拟浏览器滚动条的情况 : width设置Wie1500px;
-    width: 100%;
-    top: 50px;
-    .test-box {
-      .full-screen,
-      .wrapper {
-        width: 'calc(50% - 15px)';
-        height: 'calc(100% - 20px)';
-        position: absolute;
-        top: 10px;
+  top: 50px;
+  .test-box {
+    .full-screen,
+    .wrapper {
+      width: 'calc(50% - 15px)';
+      height: 'calc(100% - 20px)';
+      position: absolute;
+      top: 10px;
+      background: rgba(255, 192, 203, 0.3);
+      &.selected-wrapper {
+        background: rgba(255, 192, 203, 0.5);
+      }
+      .inner-box {
+        width: 100px;
+        height: 100px;
         background: rgba(255, 192, 203, 0.3);
-        &.selected-wrapper {
-          background: rgba(255, 192, 203, 0.5);
+        display: inline-block;
+        margin-left: 20px;
+        margin-top: 20px;
+        vertical-align: top;
+        user-select: none;
+        &.selected-box {
+          background: rgba(255, 192, 203, 1);
         }
-        .inner-box {
-          width: 100px;
-          height: 100px;
-          background: rgba(255, 192, 203, 0.3);
-          display: inline-block;
-          margin-left: 20px;
-          margin-top: 20px;
-          vertical-align: top;
-          user-select: none;
-          &.selected-box {
-            background: rgba(255, 192, 203, 1);
-          }
-        }
-        &.left-wrapper {
-          left: 10px;
-          overflow: scroll;
-        }
-        &.right-wrapper {
-          right: 10px;
-        }
+      }
+      &.left-wrapper {
+        left: 10px;
+        overflow: scroll;
+      }
+      &.right-wrapper {
+        right: 10px;
       }
     }
   }
 }
-.right-wrapper-selection {
+.frame-selection-rectangle-element {
   border-style: dashed !important;
-}
-.modal {
-  position: fixed;
-  width: 700px;
-  height: 500px;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  background: bisque;
-  z-index: 999;
-  .content {
-    width: 500px;
-    height: 100%;
-    background: darkkhaki;
-    float: right;
-    // position: relative;
-  }
 }
 </style>
