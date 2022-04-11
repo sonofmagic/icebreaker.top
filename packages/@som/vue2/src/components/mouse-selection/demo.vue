@@ -7,7 +7,7 @@
       <span :key="x" v-for="x in selectedSet">{{ x }} </span>
     </div>
     <div class="grid grid-cols-6">
-      <Calendar class="mb-4" :key="i" :year="currentYear" :month="i" v-for="i in 12"></Calendar>
+      <Calendar v-model="calendarArray" class="mb-4" :key="i" :year="currentYear" :month="i" v-for="i in 12"></Calendar>
     </div>
   </div>
 </template>
@@ -35,6 +35,7 @@ export default {
   },
   data (): {
     currentYear: number
+    calendarArray: Set<string>
     wrapperMouseSelection: MouseSelection | undefined
     documentSelection: MouseSelection | undefined
 
@@ -54,7 +55,7 @@ export default {
     return {
       currentYear: 2022,
       wrapperMouseSelection,
-
+      calendarArray: new Set(),
       documentSelection,
 
       isInTheBoxList,

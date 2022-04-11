@@ -1,19 +1,22 @@
 <template>
-  <div class="w-[236px]">
-    <div class="text-lg text-[#3380FF] font-medium">{{ month }}月</div>
-    <div class="h-[188px]">
-      <div class="grid grid-cols-7 h-[26.8px]">
-        <div class="text-[13px] text-[#333333] font-medium flex justify-center items-center" :key="x" v-for="x in xAxisArr">{{ x }}</div>
+  <div class="som-calendar-wrap">
+    <div class="month-label">{{ month }}月</div>
+    <div class="main-content">
+      <div class="date-row axis">
+        <div class="row-item" :key="x" v-for="x in xAxisArr">{{ x }}</div>
       </div>
-      <div class="grid grid-cols-7 h-[161px]">
+      <div class="date-row">
         <div
-          class="text-[13px] text-[#666666] flex justify-center items-center"
-          :class="{
-            'text-[#C0C4CC]': item.disabled,
-            'cursor-not-allowed': item.disabled
-          }"
-          :key="item.value"
+          class="row-item"
+          :class="[
+            {
+              disabled: item.disabled,
+              selected: item.selected
+            }
+          ]"
+          :key="item.id"
           v-for="item in items"
+          @click="onClick(item)"
         >
           {{ item.text }}
         </div>
@@ -24,6 +27,7 @@
 
 <script>
 import dayjs from 'dayjs'
+import { v4 } from 'uuid'
 // dayjs().get
 const xAxisArr = ['日', '一', '二', '三', '四', '五', '六']
 export default {
@@ -44,6 +48,10 @@ export default {
     year: {
       type: [Number],
       default: 2022
+    },
+    value: {
+      type: [Set],
+      default: () => new Set()
     }
   },
   computed: {
@@ -64,29 +72,89 @@ export default {
         if (offset < 0) {
           const text = prevMonthEndDate + offset + 1
           return {
+            id: v4(),
             text,
             disabled: true,
-            value: [this.year, this.month, text].join('.')
+            value: this.valueFormat(text),
+            selected: false
           }
         } else if (offset >= daysInMonth) {
           // 下个月
           const text = offset - daysInMonth + 1
           return {
+            id: v4(),
             text,
             disabled: true,
-            value: [this.year, this.month, text].join('.')
+            value: this.valueFormat(text),
+            selected: false
           }
         }
+        const text = offset + 1
+        const value = this.valueFormat(text)
+        const disabled = false
         return {
-          text: offset + 1,
-          disabled: false
+          id: v4(),
+          text,
+          disabled,
+          value,
+          selected: this.value.has(value) && !disabled
         }
       })
       return arr
+    }
+    // hasSelected({ set }) {
+    //   return (item) => {
+    //     console.log(item)
+    //     return set.has(item.value) && !item.disabled
+    //   }
+    // }
+  },
+  methods: {
+    valueFormat (text) {
+      return [this.year, this.month, text].join('-')
+    },
+    // hasSelected (item) {
+    //   return this.value.has(item.value)
+    // },
+    onClick (item) {
+      // this.value.add(item.value)
+      // this.set.add(item.value)
+      this.value.add(item.value)
+      // this.$emit('input', this.value.add(item.value))
+      // this.set.add(item.value)
+      // this.$emit('input', this.value.concat(item.value))
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+.som-calendar-wrap {
+  @apply w-[236px];
+  .month-label {
+    @apply text-lg text-[#3380FF] font-medium;
+  }
+  .main-content {
+    @apply h-[188px];
+    .date-row {
+      @apply grid grid-cols-7 h-[161px];
+      &.axis {
+        @apply h-[26.8px];
+        .row-item {
+          @apply text-[#333333] cursor-auto;
+        }
+      }
+      .row-item {
+        @apply text-[#666666] text-[13px] leading-[20px] cursor-pointer font-medium flex justify-center items-center w-5 h-5;
+        user-select: none;
+        &.disabled {
+          @apply text-[#C0C4CC] cursor-not-allowed;
+        }
+        &.selected {
+          @apply text-white bg-[#3380ff];
+        }
+      }
+    }
+  }
+}
 </style>
