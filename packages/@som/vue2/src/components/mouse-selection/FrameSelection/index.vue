@@ -1,32 +1,29 @@
 <template>
   <FrameSelection ref="selection" @mousedown="onMousedown" @mousemove="onMousemove" @mouseup="onMouseup">
-    <div class="inner-box" :class="{ selected: !item.disabled && (isInTheBoxList[idx] || checkSelected(idx)) }" v-for="(item, idx) in mockData" :key="item.id">{{ item.id }}</div>
+    <FrameSelectionItem :selected="!item.disabled && (isInTheBoxList[idx] || checkSelected(idx))" v-for="(item, idx) in mockData" :key="item.id">{{ item.id }}</FrameSelectionItem>
   </FrameSelection>
 </template>
 
 <script>
 import FrameSelection from './selection.vue'
-
+import FrameSelectionItem from './item.vue'
 const mockData = new Array(100).fill(0).map((x, idx) => {
   return {
     id: idx,
     disabled: false // Boolean(idx % 2)
   }
 })
-// import FrameSelectionItem from './FrameSelection/item.vue'
+
 export default {
   components: {
-    FrameSelection
-    // FrameSelectionItem
+    FrameSelection,
+    FrameSelectionItem
   },
   data () {
     return {
       isInTheBoxList: [],
-
       innerBoxRectList: [],
-
       selectedSet: new Set(),
-
       mockData
     }
   },
@@ -36,15 +33,7 @@ export default {
     },
     onMousedown () {
       this.isClick = true
-
-      this.innerBoxRectList = Array.from(document.querySelectorAll('.inner-box')).map((node) => {
-        return {
-          left: node.offsetLeft,
-          top: node.offsetTop,
-          width: node.offsetWidth,
-          height: node.offsetHeight
-        }
-      })
+      this.innerBoxRectList = this.$refs.selection.getInnerBoxRectList()
     },
 
     onMousemove () {
@@ -83,19 +72,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.inner-box {
-  width: 40px;
-  height: 40px;
-  background: rgba(255, 192, 203, 0.3);
-  display: inline-block;
-  margin-left: 20px;
-  margin-top: 20px;
-  vertical-align: top;
-  user-select: none;
-  &.selected {
-    background: rgba(255, 192, 203, 1);
-  }
-}
-</style>

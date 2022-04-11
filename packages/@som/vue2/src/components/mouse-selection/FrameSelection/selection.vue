@@ -47,10 +47,20 @@ export default {
       if (this.selection) {
         return this.selection.isInTheSelection(rect)
       }
+    },
+    getInnerBoxRectList () {
+      return Array.from(this.$refs.wrap.querySelectorAll('.som-frame-selection-inner-box')).map((node) => {
+        return {
+          left: node.offsetLeft,
+          top: node.offsetTop,
+          width: node.offsetWidth,
+          height: node.offsetHeight
+        }
+      })
     }
   },
   mounted () {
-    this.selection = new MouseSelection(this.$refs.wrapper, {
+    this.selection = new MouseSelection(this.$refs.wrap, {
       onMousedown: (e) => {
         this.$emit('mousedown', e)
       },
