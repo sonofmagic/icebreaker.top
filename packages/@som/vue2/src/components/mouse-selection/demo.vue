@@ -81,65 +81,65 @@ export default {
     }
   },
   mounted () {
-    let isClick = false
+    // let isClick = false
 
-    const inBoxSync = () => {
-      // @ts-ignore
-      this.isInTheBoxList = this.innerBoxRectList.map((rect) => {
-        // @ts-ignore
-        return this.wrapperMouseSelection.isInTheSelection(rect)
-      })
-    }
+    // const inBoxSync = () => {
+    //   // @ts-ignore
+    //   this.isInTheBoxList = this.innerBoxRectList.map((rect) => {
+    //     // @ts-ignore
+    //     return this.wrapperMouseSelection.isInTheSelection(rect)
+    //   })
+    // }
 
-    // @ts-ignore
-    this.wrapperMouseSelection = new MouseSelection(this.$refs.wrapper, {
-      onMousedown: () => {
-        isClick = true
-        // @ts-ignore
-        this.innerBoxRectList = (Array.from(this.$refs.wrapper.querySelectorAll('.inner-box')) as HTMLElement[]).map((node: HTMLElement) => {
-          return {
-            left: node.offsetLeft,
-            top: node.offsetTop,
-            width: node.offsetWidth,
-            height: node.offsetHeight
-          }
-        })
-      },
-      onMousemove: () => {
-        isClick = false
-        inBoxSync()
-      },
-      onMouseup: () => {
-        if (isClick) {
-          inBoxSync()
-        }
-        // @ts-ignore
-        this.isInTheBoxList
-          // @ts-ignore
-          .reduce<number[]>((acc, cur, idx) => {
-            if (cur) {
-              acc.push(idx)
-            }
-            return acc
-          }, [])
-          .forEach((x: number) => {
-            // @ts-ignore
-            if (!this.mockData[x].disabled) {
-              // @ts-ignore
-              this.selectedSet.add(x)
-            }
-          })
+    // // @ts-ignore
+    // this.wrapperMouseSelection = new MouseSelection(this.$refs.wrapper, {
+    //   onMousedown: () => {
+    //     isClick = true
+    //     // @ts-ignore
+    //     this.innerBoxRectList = (Array.from(this.$refs.wrapper.querySelectorAll('.inner-box')) as HTMLElement[]).map((node: HTMLElement) => {
+    //       return {
+    //         left: node.offsetLeft,
+    //         top: node.offsetTop,
+    //         width: node.offsetWidth,
+    //         height: node.offsetHeight
+    //       }
+    //     })
+    //   },
+    //   onMousemove: () => {
+    //     isClick = false
+    //     inBoxSync()
+    //   },
+    //   onMouseup: () => {
+    //     if (isClick) {
+    //       inBoxSync()
+    //     }
+    //     // @ts-ignore
+    //     this.isInTheBoxList
+    //       // @ts-ignore
+    //       .reduce<number[]>((acc, cur, idx) => {
+    //         if (cur) {
+    //           acc.push(idx)
+    //         }
+    //         return acc
+    //       }, [])
+    //       .forEach((x: number) => {
+    //         // @ts-ignore
+    //         if (!this.mockData[x].disabled) {
+    //           // @ts-ignore
+    //           this.selectedSet.add(x)
+    //         }
+    //       })
 
-        // @ts-ignore
-        this.isInTheBoxList = []
-        isClick = false
-      },
-      // disabled: () => {
-      //   return false
-      // },
-      // stopSelector: 'div.disabled',
-      stopPropagation: true
-    })
+    //     // @ts-ignore
+    //     this.isInTheBoxList = []
+    //     isClick = false
+    //   },
+    //   // disabled: () => {
+    //   //   return false
+    //   // },
+    //   // stopSelector: 'div.disabled',
+    //   stopPropagation: true
+    // })
   }
 }
 </script>
@@ -162,7 +162,7 @@ export default {
   }
 }
 
-.frame-selection-rectangle-element {
-  border-style: dashed !important;
-}
+// .frame-selection-rectangle-element {
+//   border-style: dashed !important;
+// }
 </style>

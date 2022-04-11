@@ -1,81 +1,101 @@
 <template>
-  <div ref="wrap" class="som-frame-selection-wrapper">
-    <slot></slot>
-  </div>
+  <FrameSelection ref="selection" @mousedown="onMousedown" @mousemove="onMousemove" @mouseup="onMouseup">
+    <div class="inner-box" :class="{ selected: !item.disabled && (isInTheBoxList[idx] || checkSelected(idx)) }" v-for="(item, idx) in mockData" :key="item.id">{{ item.id }}</div>
+  </FrameSelection>
 </template>
 
 <script>
-import MouseSelection from '../lib/index'
+import FrameSelection from './selection.vue'
+
+const mockData = new Array(100).fill(0).map((x, idx) => {
+  return {
+    id: idx,
+    disabled: false // Boolean(idx % 2)
+  }
+})
+// import FrameSelectionItem from './FrameSelection/item.vue'
 export default {
-  name: 'FrameSelection',
-  componentName: 'SomFrameSelection',
-  provide () {
-    return {
-      SomFrameSelection: this
-    }
-  },
-  props: {
-    className: {
-      type: [String]
-    },
-    scale: {
-      type: [Number]
-    },
-    zIndex: {
-      type: [Number]
-    },
-    disabled: {
-      type: [Boolean]
-    },
-    stopPropagation: {
-      type: [Boolean]
-    },
-    stopSelector: {
-      type: [String]
-    },
-    notSetWrapPosition: {
-      type: [Boolean]
-    }
+  components: {
+    FrameSelection
+    // FrameSelectionItem
   },
   data () {
     return {
-      selection: null
+      isInTheBoxList: [],
+
+      innerBoxRectList: [],
+
+      selectedSet: new Set(),
+
+      mockData
     }
   },
   methods: {
-    isInTheSelection (rect) {
-      if (this.selection) {
-        return this.selection.isInTheSelection(rect)
+    checkSelected (id) {
+      return this.selectedSet.has(id)
+    },
+    onMousedown () {
+      this.isClick = true
+
+      this.innerBoxRectList = Array.from(document.querySelectorAll('.inner-box')).map((node) => {
+        return {
+          left: node.offsetLeft,
+          top: node.offsetTop,
+          width: node.offsetWidth,
+          height: node.offsetHeight
+        }
+      })
+    },
+
+    onMousemove () {
+      this.isClick = false
+      this.inBoxSync()
+    },
+    onMouseup () {
+      if (this.isClick) {
+        this.inBoxSync()
       }
+
+      this.isInTheBoxList
+        .reduce((acc, cur, idx) => {
+          if (cur) {
+            acc.push(idx)
+          }
+          return acc
+        }, [])
+        .forEach((x) => {
+          if (!this.mockData[x].disabled) {
+            this.selectedSet.add(x)
+          }
+        })
+
+      this.isInTheBoxList = []
+      this.isClick = false
+    },
+    inBoxSync () {
+      this.isInTheBoxList = this.innerBoxRectList.map((rect) => {
+        return this.$refs.selection.isInTheSelection(rect)
+      })
     }
   },
-  mounted () {
-    this.selection = new MouseSelection(this.$refs.wrapper, {
-      onMousedown: (e) => {
-        this.$emit('mousedown', e)
-      },
-      onMousemove: (e) => {
-        this.$emit('mousemove', e)
-      },
-      onMouseup: (e) => {
-        this.$emit('mouseup', e)
-      },
-      className: this.className,
-      disabled: () => {
-        return this.disabled
-      },
-      stopSelector: this.stopSelector,
-      stopPropagation: this.stopPropagation,
-      notSetWrapPosition: this.notSetWrapPosition,
-      scale: this.scale,
-      zIndex: this.zIndex
-    })
+  created () {
+    this.isClick = false
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.som-frame-selection-wrapper {
+.inner-box {
+  width: 40px;
+  height: 40px;
   background: rgba(255, 192, 203, 0.3);
+  display: inline-block;
+  margin-left: 20px;
+  margin-top: 20px;
+  vertical-align: top;
+  user-select: none;
+  &.selected {
+    background: rgba(255, 192, 203, 1);
+  }
 }
 </style>
