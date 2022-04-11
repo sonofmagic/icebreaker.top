@@ -1,14 +1,19 @@
 <template>
   <div>
-    <SelectionDemo></SelectionDemo>
-    <!-- <div ref="wrapper" class="wrapper">
-      <div class="inner-box" :class="{ selected: !item.disabled && (isInTheBoxList[idx] || checkSelected(idx)) }" v-for="(item, idx) in mockData" :key="item.id">{{ item.id }}</div>
-    </div>
-    <div>
-      <span :key="x" v-for="x in selectedSet">{{ x }} </span>
-    </div> -->
+    <FrameSelection :data="mockData">
+      <template v-slot="{ item, selected }">
+        <div
+          class="inner-box"
+          :class="{
+            selected: selected
+          }"
+        >
+          {{ item.id }}
+        </div>
+      </template>
+    </FrameSelection>
     <div class="grid grid-cols-6">
-      <Calendar v-model="calendarArray[i-1]" class="mb-4" :key="i" :year="currentYear" :month="i" v-for="i in 12"></Calendar>
+      <Calendar v-model="calendarArray[i - 1]" class="mb-4" :key="i" :year="currentYear" :month="i" v-for="i in 12"></Calendar>
     </div>
   </div>
 </template>
@@ -16,7 +21,7 @@
 <script lang="ts">
 import MouseSelection from './lib/index'
 import Calendar from './Calendar/index.vue'
-import SelectionDemo from './SelectionDemo.vue'
+import FrameSelection from './FrameSelection/index.vue'
 interface CustomRect {
   left: number
   top: number
@@ -34,7 +39,7 @@ const mockData = new Array(100).fill(0).map((x, idx) => {
 export default {
   components: {
     Calendar,
-    SelectionDemo
+    FrameSelection
   },
   data (): {
     currentYear: number
@@ -82,7 +87,6 @@ export default {
   },
   mounted () {
     // let isClick = false
-
     // const inBoxSync = () => {
     //   // @ts-ignore
     //   this.isInTheBoxList = this.innerBoxRectList.map((rect) => {
@@ -90,7 +94,6 @@ export default {
     //     return this.wrapperMouseSelection.isInTheSelection(rect)
     //   })
     // }
-
     // // @ts-ignore
     // this.wrapperMouseSelection = new MouseSelection(this.$refs.wrapper, {
     //   onMousedown: () => {
@@ -129,7 +132,6 @@ export default {
     //           this.selectedSet.add(x)
     //         }
     //       })
-
     //     // @ts-ignore
     //     this.isInTheBoxList = []
     //     isClick = false
@@ -145,20 +147,17 @@ export default {
 </script>
 
 <style lang="scss">
-.wrapper {
+.inner-box {
+  width: 40px;
+  height: 40px;
   background: rgba(255, 192, 203, 0.3);
-  .inner-box {
-    width: 40px;
-    height: 40px;
-    background: rgba(255, 192, 203, 0.3);
-    display: inline-block;
-    margin-left: 20px;
-    margin-top: 20px;
-    vertical-align: top;
-    user-select: none;
-    &.selected {
-      background: rgba(255, 192, 203, 1);
-    }
+  display: inline-block;
+  margin-left: 20px;
+  margin-top: 20px;
+  vertical-align: top;
+  user-select: none;
+  &.selected {
+    background: rgba(255, 192, 203, 1);
   }
 }
 

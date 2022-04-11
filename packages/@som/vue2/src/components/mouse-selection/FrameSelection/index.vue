@@ -1,30 +1,34 @@
 <template>
   <FrameSelection ref="selection" @mousedown="onMousedown" @mousemove="onMousemove" @mouseup="onMouseup">
-    <FrameSelectionItem :selected="!item.disabled && (isInTheBoxList[idx] || checkSelected(idx))" v-for="(item, idx) in mockData" :key="item.id">{{ item.id }}</FrameSelectionItem>
+    <FrameSelectionItem :selected="!item.disabled && (isInTheBoxList[idx] || checkSelected(idx))" v-for="(item, idx) in data" :key="item.id">
+      <template v-slot="{ selected }">
+        <slot :selected="selected" :item="item" :index="idx"></slot>
+      </template>
+    </FrameSelectionItem>
   </FrameSelection>
 </template>
 
 <script>
 import FrameSelection from './selection.vue'
 import FrameSelectionItem from './item.vue'
-const mockData = new Array(100).fill(0).map((x, idx) => {
-  return {
-    id: idx,
-    disabled: false // Boolean(idx % 2)
-  }
-})
 
 export default {
+  name: 'FrameSelectionIndex',
   components: {
     FrameSelection,
     FrameSelectionItem
+  },
+  props: {
+    data: {
+      type: [Array],
+      default: () => []
+    }
   },
   data () {
     return {
       isInTheBoxList: [],
       innerBoxRectList: [],
-      selectedSet: new Set(),
-      mockData
+      selectedSet: new Set()
     }
   },
   methods: {
@@ -53,7 +57,7 @@ export default {
           return acc
         }, [])
         .forEach((x) => {
-          if (!this.mockData[x].disabled) {
+          if (!this.data[x].disabled) {
             this.selectedSet.add(x)
           }
         })
