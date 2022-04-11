@@ -1,27 +1,31 @@
 <template>
-  <FrameSelection ref="selection" @mousedown="onMousedown" @mousemove="onMousemove" @mouseup="onMouseup">
-    <FrameSelectionItem :selected="!item.disabled && (isInTheBoxList[idx] || checkSelected(idx))" v-for="(item, idx) in data" :key="item.id">
+  <FrameSelectionGroup ref="selection" @mousedown="onMousedown" @mousemove="onMousemove" @mouseup="onMouseup">
+    <FrameSelectionItem :selected="!item.disabled && (isInTheBoxList[idx] || checkSelected(idx))" v-for="(item, idx) in data" :key="item[valueKey]">
       <template v-slot="{ selected }">
         <slot :selected="selected" :item="item" :index="idx"></slot>
       </template>
     </FrameSelectionItem>
-  </FrameSelection>
+  </FrameSelectionGroup>
 </template>
 
 <script>
-import FrameSelection from './selection.vue'
+import FrameSelectionGroup from './group.vue'
 import FrameSelectionItem from './item.vue'
 
 export default {
-  name: 'FrameSelectionIndex',
+  name: 'FrameSelection',
   components: {
-    FrameSelection,
+    FrameSelectionGroup,
     FrameSelectionItem
   },
   props: {
     data: {
       type: [Array],
       default: () => []
+    },
+    valueKey: {
+      type: [String],
+      default: 'id'
     }
   },
   data () {

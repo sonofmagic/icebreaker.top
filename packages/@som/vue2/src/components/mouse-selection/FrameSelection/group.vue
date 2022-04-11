@@ -1,5 +1,5 @@
 <template>
-  <div ref="wrap" class="som-frame-selection-wrapper">
+  <div ref="wrap" class="som-frame-selection-group-wrapper">
     <slot></slot>
   </div>
 </template>
@@ -7,8 +7,8 @@
 <script>
 import MouseSelection from '../lib/index'
 export default {
-  name: 'FrameSelection',
-  componentName: 'SomFrameSelection',
+  name: 'FrameSelectionGroup',
+  componentName: 'SomFrameSelectionGroup',
   provide () {
     return {
       SomFrameSelection: this

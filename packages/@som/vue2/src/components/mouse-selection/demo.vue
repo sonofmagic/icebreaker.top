@@ -19,7 +19,6 @@
 </template>
 
 <script lang="ts">
-import MouseSelection from './lib/index'
 import Calendar from './Calendar/index.vue'
 import FrameSelection from './FrameSelection/index.vue'
 interface CustomRect {
@@ -44,104 +43,16 @@ export default {
   data (): {
     currentYear: number
     calendarArray: string[][]
-    wrapperMouseSelection: MouseSelection | undefined
-    // documentSelection: MouseSelection | undefined
 
-    isInTheBoxList: boolean[]
-
-    innerBoxRectList: CustomRect[]
-    selectedSet: Set<unknown>
     mockData: typeof mockData
     } {
-    let wrapperMouseSelection: MouseSelection | undefined
-
-    // let documentSelection: MouseSelection | undefined
-
-    const isInTheBoxList: boolean[] = []
-
-    const innerBoxRectList: CustomRect[] = []
     return {
       currentYear: 2022,
-      wrapperMouseSelection,
       calendarArray: new Array(12).fill([]),
       // documentSelection,
 
-      isInTheBoxList,
-
-      innerBoxRectList,
-
-      selectedSet: new Set(),
-
       mockData
     }
-  },
-  methods: {
-    doDestroy () {
-      // @ts-ignore
-      this.wrapperMouseSelection.destroy()
-    },
-    checkSelected (id: number): boolean {
-      // @ts-ignore
-      return this.selectedSet.has(id)
-    }
-  },
-  mounted () {
-    // let isClick = false
-    // const inBoxSync = () => {
-    //   // @ts-ignore
-    //   this.isInTheBoxList = this.innerBoxRectList.map((rect) => {
-    //     // @ts-ignore
-    //     return this.wrapperMouseSelection.isInTheSelection(rect)
-    //   })
-    // }
-    // // @ts-ignore
-    // this.wrapperMouseSelection = new MouseSelection(this.$refs.wrapper, {
-    //   onMousedown: () => {
-    //     isClick = true
-    //     // @ts-ignore
-    //     this.innerBoxRectList = (Array.from(this.$refs.wrapper.querySelectorAll('.inner-box')) as HTMLElement[]).map((node: HTMLElement) => {
-    //       return {
-    //         left: node.offsetLeft,
-    //         top: node.offsetTop,
-    //         width: node.offsetWidth,
-    //         height: node.offsetHeight
-    //       }
-    //     })
-    //   },
-    //   onMousemove: () => {
-    //     isClick = false
-    //     inBoxSync()
-    //   },
-    //   onMouseup: () => {
-    //     if (isClick) {
-    //       inBoxSync()
-    //     }
-    //     // @ts-ignore
-    //     this.isInTheBoxList
-    //       // @ts-ignore
-    //       .reduce<number[]>((acc, cur, idx) => {
-    //         if (cur) {
-    //           acc.push(idx)
-    //         }
-    //         return acc
-    //       }, [])
-    //       .forEach((x: number) => {
-    //         // @ts-ignore
-    //         if (!this.mockData[x].disabled) {
-    //           // @ts-ignore
-    //           this.selectedSet.add(x)
-    //         }
-    //       })
-    //     // @ts-ignore
-    //     this.isInTheBoxList = []
-    //     isClick = false
-    //   },
-    //   // disabled: () => {
-    //   //   return false
-    //   // },
-    //   // stopSelector: 'div.disabled',
-    //   stopPropagation: true
-    // })
   }
 }
 </script>
