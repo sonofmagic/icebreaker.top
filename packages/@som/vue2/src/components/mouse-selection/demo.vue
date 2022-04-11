@@ -1,9 +1,24 @@
 <template>
   <div class="p-4">
     <div>
-      <el-form>
+      <el-form size="small" inline>
         <el-form-item label="年份选择">
-          <el-date-picker @change="onYearChange" size="small" value-format="yyyy" v-model="currentYear" type="year" placeholder="选择年"> </el-date-picker>
+          <el-date-picker @change="onYearChange" value-format="yyyy" v-model="currentYear" type="year" placeholder="选择年"> </el-date-picker>
+        </el-form-item>
+        <el-form-item label="设工作日为">
+          <el-select v-model="workday" value-key="color" @change="onWorkdayChange">
+            <el-option :key="b.color" :value="b" v-for="b in buttonList" :label="b.text">{{ b.text }}</el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="设周六为">
+          <el-select v-model="saturday" value-key="color" @change="onSaturdayChange">
+            <el-option :key="b.color" :value="b" v-for="b in buttonList" :label="b.text">{{ b.text }}</el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="设周日为">
+          <el-select v-model="sunday" value-key="color" @change="onSundayChange">
+            <el-option :key="b.color" :value="b" v-for="b in buttonList" :label="b.text">{{ b.text }}</el-option>
+          </el-select>
         </el-form-item>
       </el-form>
     </div>
@@ -72,6 +87,9 @@ export default {
   data () {
     const calendarItemCount = 42
     return {
+      workday: null,
+      saturday: null,
+      sunday: null,
       currentYear: '2022',
       calendarItemCount,
       calendarArray: new Array(12).fill([]),
@@ -117,6 +135,15 @@ export default {
     }
   },
   methods: {
+    onWorkdayChange (item) {
+      console.log(item)
+    },
+    onSaturdayChange (item) {
+      console.log(item)
+    },
+    onSundayChange (item) {
+      console.log(item)
+    },
     onYearChange () {
       this.clear()
     },
@@ -196,17 +223,15 @@ export default {
 </script>
 
 <style lang="scss">
-.inner-box {
-  width: 40px;
-  height: 40px;
-  background: rgba(255, 192, 203, 0.3);
-  display: inline-block;
-  margin-left: 20px;
-  margin-top: 20px;
-  vertical-align: top;
-  user-select: none;
-  &.selected {
-    background: rgba(255, 192, 203, 1);
+@mixin responsive-grid-items($container-width, $card-width, $col-num) {
+  @apply grid grid-cols-1;
+  @if $col-num > 1 {
+    @for $i from 2 through $col-num {
+      // @debug $container-width - $card-width * ($col-num - $i);
+      @media screen and (min-width: $container-width - $card-width * ($col-num - $i)) {
+        @apply grid-cols-#{$i};
+      }
+    }
   }
 }
 

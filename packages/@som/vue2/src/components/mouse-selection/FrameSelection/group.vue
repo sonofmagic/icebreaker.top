@@ -39,7 +39,13 @@ export default {
   },
   data () {
     return {
-      selection: null
+      selection: null,
+      fields: []
+    }
+  },
+  computed: {
+    cacheDoms ({ fields }) {
+      return fields.map((x) => x.$refs.dom)
     }
   },
   methods: {
@@ -49,7 +55,7 @@ export default {
       }
     },
     getInnerBoxRectList () {
-      return Array.from(this.$refs.wrap.querySelectorAll('.som-frame-selection-inner-box')).map((node) => {
+      return this.cacheDoms.map((node) => {
         return {
           left: node.offsetLeft,
           top: node.offsetTop,

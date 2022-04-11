@@ -30,7 +30,8 @@
 
 <script>
 import dayjs from 'dayjs'
-import { v4 } from 'uuid'
+// import { v4 } from 'uuid'
+import { nanoid } from 'nanoid'
 // dayjs().get
 const xAxisArr = ['日', '一', '二', '三', '四', '五', '六']
 export default {
@@ -100,7 +101,7 @@ export default {
         if (offset < 0) {
           const text = prevMonthEndDate + offset + 1
           return {
-            id: v4(),
+            id: nanoid(),
             text,
             disabled: true,
             value: this.valueFormat(text),
@@ -111,7 +112,7 @@ export default {
           // 下个月
           const text = offset - daysInMonth + 1
           return {
-            id: v4(),
+            id: nanoid(),
             text,
             disabled: true,
             value: this.valueFormat(text),
@@ -123,7 +124,7 @@ export default {
         const value = this.valueFormat(text)
         const disabled = false
         return {
-          id: v4(),
+          id: nanoid(),
           text,
           disabled,
           value,
@@ -161,7 +162,7 @@ export default {
         }
       }
       .row-item {
-        @apply text-[#666666] text-[13px] leading-[20px] cursor-pointer font-medium flex justify-center items-center w-5 h-5;
+        @apply text-[#666666] text-[13px] leading-[20px] cursor-pointer font-medium flex justify-center items-center w-5 h-5 transition-colors ;
         user-select: none;
         &.disabled {
           @apply text-[#C0C4CC] cursor-not-allowed;
