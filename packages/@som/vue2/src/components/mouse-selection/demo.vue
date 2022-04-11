@@ -6,12 +6,15 @@
     <div>
       <span :key="x" v-for="x in selectedSet">{{ x }} </span>
     </div>
+    <div class="grid grid-cols-6">
+      <Calendar :key="i" :year="currentYear" :month="i" v-for="i in 12"></Calendar>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import MouseSelection from './lib/index'
-
+import Calendar from './Calendar/index.vue'
 interface CustomRect {
   left: number
   top: number
@@ -27,7 +30,11 @@ const mockData = new Array(100).fill(0).map((x, idx) => {
 })
 
 export default {
+  components: {
+    Calendar
+  },
   data (): {
+    currentYear: number
     wrapperMouseSelection: MouseSelection | undefined
     documentSelection: MouseSelection | undefined
 
@@ -45,6 +52,7 @@ export default {
 
     const innerBoxRectList: CustomRect[] = []
     return {
+      currentYear: 2022,
       wrapperMouseSelection,
 
       documentSelection,
