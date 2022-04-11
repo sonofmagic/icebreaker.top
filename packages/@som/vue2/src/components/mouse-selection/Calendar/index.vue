@@ -6,22 +6,23 @@
         <div class="row-item" :key="x" v-for="x in xAxisArr">{{ x }}</div>
       </div>
       <div class="date-row">
-        <div
-          class="row-item"
-          :class="[
-            {
-              disabled: item.disabled,
-              selected: item.selected
-            }
-          ]"
-          :key="item.id"
-          v-for="item in items"
-          @click="onClick(item)"
-        >
-          <slot :item="item">
-            {{ item.text }}
+        <template v-for="(item, idx) in items">
+          <slot :item="item" :index="idx">
+            <div
+              class="row-item"
+              :class="[
+                {
+                  disabled: item.disabled,
+                  selected: item.selected
+                }
+              ]"
+              :key="item.id"
+              @click="onClick(item)"
+            >
+              {{ item.text }}
+            </div>
           </slot>
-        </div>
+        </template>
       </div>
     </div>
   </div>
@@ -66,33 +67,20 @@ export default {
     }
   },
   methods: {
+    emitInput () {
+      this.$emit(
+        'input',
+        this.items.filter((x) => x.selected).map((x) => x.value)
+      )
+    },
     valueFormat (text) {
       return [this.year, this.month, text].join('-')
     },
-    // hasSelected (item) {
-    //   return this.value.has(item.value)
-    // },
     onClick (item) {
       if (!item.disabled) {
-        // if (item.selected) {
-        //   this.value.add(item.value)
-        // } else {
-        //   this.value.delete(item.value)
-        // }
-
         item.selected = !item.selected
-        this.$emit(
-          'input',
-          this.items.filter((x) => x.selected).map((x) => x.value)
-        )
+        this.emitInput()
       }
-      // this.value.add(item.value)
-      // this.set.add(item.value)
-
-      // this.value.add(item.value)
-      // this.$emit('input', this.value.add(item.value))
-      // this.set.add(item.value)
-      // this.$emit('input', this.value.concat(item.value))
     },
     getItems () {
       const { year, month } = this
@@ -156,7 +144,7 @@ export default {
 .som-calendar-wrap {
   @apply w-[236px];
   .month-label {
-    @apply text-lg text-[#3380FF] font-medium;
+    @apply text-lg text-[#3380FF] font-medium select-none;
   }
   .main-content {
     @apply h-[188px];

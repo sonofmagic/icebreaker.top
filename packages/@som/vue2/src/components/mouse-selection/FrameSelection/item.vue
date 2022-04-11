@@ -17,8 +17,8 @@ export default {
 }
 </script>
 <style lang="css" scoped>
-.som-frame-selection-inner-box {
+/* .som-frame-selection-inner-box {
   display: inline-block;
   user-select: none;
-}
+} */
 </style>
