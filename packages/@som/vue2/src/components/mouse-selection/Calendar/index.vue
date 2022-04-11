@@ -1,19 +1,22 @@
 <template>
-  <div class="w-[220px]">
+  <div class="w-[236px]">
     <div class="text-lg text-[#3380FF] font-medium">{{ month }}月</div>
-    <div class="grid grid-cols-7">
-      <div class="text-center text-[13px] text-[#333333]" :key="x" v-for="x in xAxisArr">{{ x }}</div>
-    </div>
-    <div class="grid grid-cols-7">
-      <div
-        class="text-center text-[13px] text-[#666666]"
-        :class="{
-          'text-[#C0C4CC]': false
-        }"
-        :key="idx"
-        v-for="(item, idx) in items"
-      >
-        {{ item }}
+    <div class="h-[188px]">
+      <div class="grid grid-cols-7 h-[26.8px]">
+        <div class="text-[13px] text-[#333333] font-medium flex justify-center items-center" :key="x" v-for="x in xAxisArr">{{ x }}</div>
+      </div>
+      <div class="grid grid-cols-7 h-[161px]">
+        <div
+          class="text-[13px] text-[#666666] flex justify-center items-center"
+          :class="{
+            'text-[#C0C4CC]': item.disabled,
+            'cursor-not-allowed': item.disabled
+          }"
+          :key="item.value"
+          v-for="item in items"
+        >
+          {{ item.text }}
+        </div>
       </div>
     </div>
   </div>
@@ -51,17 +54,33 @@ export default {
         .month(month - 1)
       const daysInMonth = now.daysInMonth()
       const start = now.startOf('month')
-      // const end = now.endOf('month')
+      const prevMonth = now.add(-1, 'month')
+      const prevMonthEnd = prevMonth.endOf('month')
+      const prevMonthEndDate = prevMonthEnd.date()
       const startIdx = start.day()
       const arr = new Array(6 * 7).fill(0).map((x, idx) => {
         const offset = idx - startIdx
+        // 上个月
         if (offset < 0) {
-          return 0
+          const text = prevMonthEndDate + offset + 1
+          return {
+            text,
+            disabled: true,
+            value: [this.year, this.month, text].join('.')
+          }
+        } else if (offset >= daysInMonth) {
+          // 下个月
+          const text = offset - daysInMonth + 1
+          return {
+            text,
+            disabled: true,
+            value: [this.year, this.month, text].join('.')
+          }
         }
-        if (offset >= daysInMonth) {
-          return 0
+        return {
+          text: offset + 1,
+          disabled: false
         }
-        return offset + 1
       })
       return arr
     }

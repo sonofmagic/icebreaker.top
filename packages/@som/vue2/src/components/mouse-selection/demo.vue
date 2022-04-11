@@ -7,7 +7,7 @@
       <span :key="x" v-for="x in selectedSet">{{ x }} </span>
     </div>
     <div class="grid grid-cols-6">
-      <Calendar :key="i" :year="currentYear" :month="i" v-for="i in 12"></Calendar>
+      <Calendar class="mb-4" :key="i" :year="currentYear" :month="i" v-for="i in 12"></Calendar>
     </div>
   </div>
 </template>
