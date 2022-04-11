@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 type DOMType = HTMLElement | Document | null
 
 interface CustomRect {
@@ -53,7 +51,7 @@ function isDOMType (value: DOMType | MouseSelectionOptions | undefined): value i
   return isDOM(value)
 }
 
-function isDocument (value: DOMType): value is HTMLDocument {
+function isDocument (value: DOMType): value is Document {
   return value?.nodeName === '#document'
 }
 
@@ -121,7 +119,7 @@ class MouseSelection {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       this.wrapDOM = this.targetDom!
     }
-    this.scale = this.config.scale || 1.0 // 默认无缩放
+    this.scale = this.config?.scale || 1.0 // 默认无缩放
     this._setWrapDomPositionStyle()
     this._addMousedownListener(this.targetDom)
   }
@@ -185,12 +183,19 @@ class MouseSelection {
     this._removeMousedownListener(this.targetDom)
     this.rectangleElement = null
     this.targetDom = null
+    // @ts-ignore
     this.domRect = null
+    // @ts-ignore
     this.selectionPagePositionRect = null
+    // @ts-ignore
     this.selectionDOMPositionRect = null
+    // @ts-ignore
     this.startX = null
+    // @ts-ignore
     this.startY = null
+    // @ts-ignore
     this.moving = null
+    // @ts-ignore
     this.wrapDOM = null
   }
 
@@ -266,6 +271,7 @@ class MouseSelection {
           bottom: window.innerHeight
         }
       : dom?.getBoundingClientRect()
+    // @ts-ignore
     return scaleRect(domRect, 1 / this.scale)
   }
 
@@ -275,8 +281,10 @@ class MouseSelection {
    */
   private _selectStart = (event: MouseEvent) => {
     // console.log('[_selectStart]:', event)
+    // @ts-ignore
     const nodeList = this.targetDom.querySelectorAll(this.config.stopSelector)
     const isStopNode = findNode(event.target as Element, Array.from(nodeList) as DOMType[])
+    // @ts-ignore
     if (this.config.stopSelector && isStopNode) {
       return
     }
@@ -359,7 +367,8 @@ class MouseSelection {
    * @param value CSS属性值
    */
   private _setRectangleElementStyle (this: MouseSelection, props: StringTypeNotReadonlyCSSStyleDeclaration, value: string): void {
-    (this.rectangleElement as unknown).style[props] = value
+    // @ts-ignore
+    (this.rectangleElement as HTMLElement).style[props] = value
   }
 
   /**
@@ -388,6 +397,7 @@ function isDOM (object: unknown) {
   if (typeof HTMLElement === 'function') {
     return object instanceof HTMLElement || object instanceof Document
   } else {
+    // @ts-ignore
     return object && typeof object === 'object' && object.nodeType && typeof object.nodeName === 'string'
   }
 }

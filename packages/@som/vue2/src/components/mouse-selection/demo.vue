@@ -22,7 +22,7 @@ interface CustomRect {
 const mockData = new Array(100).fill(0).map((x, idx) => {
   return {
     id: idx,
-    disabled: Boolean(idx % 2)
+    disabled: false // Boolean(idx % 2)
   }
 })
 
