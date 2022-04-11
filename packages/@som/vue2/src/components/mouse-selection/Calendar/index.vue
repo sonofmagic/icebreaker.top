@@ -104,7 +104,8 @@ export default {
             text,
             disabled: true,
             value: this.valueFormat(text),
-            selected: false
+            selected: false,
+            color: null
           }
         } else if (offset >= daysInMonth) {
           // 下个月
@@ -114,7 +115,8 @@ export default {
             text,
             disabled: true,
             value: this.valueFormat(text),
-            selected: false
+            selected: false,
+            color: null
           }
         }
         const text = offset + 1
@@ -125,7 +127,8 @@ export default {
           text,
           disabled,
           value,
-          selected: this.value.includes(value) && !disabled
+          selected: this.value.includes(value) && !disabled,
+          color: null
         }
       })
       return arr

@@ -1,20 +1,31 @@
 <template>
-  <div>
-    <!-- <FrameSelection :data="mockData">
-      <template v-slot="{ item, selected }">
-        <div
-          class="inner-box"
-          :class="{
-            selected: selected
-          }"
-        >
-          {{ item.id }}
-        </div>
-      </template>
-    </FrameSelection> -->
+  <div class="p-4">
+    <div>
+      <el-form>
+        <el-form-item label="年份选择">
+          <el-date-picker @change="onYearChange" size="small" value-format="yyyy" v-model="currentYear" type="year" placeholder="选择年"> </el-date-picker>
+        </el-form-item>
+      </el-form>
+    </div>
+    <div class="space-x-3 mb-4">
+      <button
+        :style="[
+          {
+            color: b.color,
+            border: '1px solid ' + b.color
+          }
+        ]"
+        :key="b.color"
+        v-for="b in buttonList"
+        type="primary"
+        @click="onChangeColor(b)"
+      >
+        {{ b.text }}
+      </button>
+    </div>
     <FrameSelectionGroup ref="selection" @mousedown="onMousedown" @mousemove="onMousemove" @mouseup="onMouseup">
       <div class="grid grid-cols-6">
-        <Calendar class="mb-4" :key="i" :year="currentYear" :month="i" v-for="i in 12" @init="onCalendarInit($event, i - 1)">
+        <Calendar class="mb-4" :key="i" :year="parseInt(currentYear)" :month="i" v-for="i in 12" @init="onCalendarInit($event, i - 1)">
           <template v-slot="{ item, index }">
             <FrameSelectionItem
               :class="[
@@ -24,6 +35,11 @@
                 }
               ]"
               class="w-full h-full flex items-center justify-center row-item"
+              :style="[
+                {
+                  color: item.color
+                }
+              ]"
             >
               {{ item.text }}
             </FrameSelectionItem>
@@ -46,13 +62,6 @@ import FrameSelectionItem from './FrameSelection/item.vue'
 //   height: number
 // }
 
-const mockData = new Array(100).fill(0).map((x, idx) => {
-  return {
-    id: idx,
-    disabled: false // Boolean(idx % 2)
-  }
-})
-
 export default {
   components: {
     Calendar,
@@ -63,14 +72,30 @@ export default {
   data () {
     const calendarItemCount = 42
     return {
-      currentYear: 2022,
+      currentYear: '2022',
       calendarItemCount,
       calendarArray: new Array(12).fill([]),
-      mockData,
-
       isInTheBoxList: [],
       innerBoxRectList: [],
-      selectedSet: new Set()
+      selectedSet: new Set(),
+      buttonList: [
+        {
+          text: '工作日',
+          color: '#3380FF'
+        },
+        {
+          text: '自定义',
+          color: '#008A3B'
+        },
+        {
+          text: '假日',
+          color: '#FF7C37'
+        },
+        {
+          text: '节日',
+          color: '#FF3333'
+        }
+      ]
     }
   },
   props: {
@@ -92,6 +117,19 @@ export default {
     }
   },
   methods: {
+    onYearChange () {
+      this.clear()
+    },
+    onChangeColor (b) {
+      this.selectedSet.forEach((x) => {
+        this.totalCalendarArray[x].color = b.color
+      })
+      this.clear()
+      // b.color
+    },
+    clear () {
+      this.selectedSet.clear()
+    },
     isSelected (item, index, pidx) {
       const notDisabled = !item.disabled
       const idx = (pidx - 1) * this.calendarItemCount + index
@@ -123,7 +161,16 @@ export default {
         }, [])
         .forEach((x) => {
           if (!this.totalCalendarArray[x].disabled) {
-            this.selectedSet.add(x)
+            if (this.isClick) {
+              // toggle
+              if (this.selectedSet.has(x)) {
+                this.selectedSet.delete(x)
+              } else {
+                this.selectedSet.add(x)
+              }
+            } else {
+              this.selectedSet.add(x)
+            }
           }
         })
 
