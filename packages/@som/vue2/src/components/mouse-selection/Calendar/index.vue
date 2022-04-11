@@ -167,7 +167,7 @@ export default {
           @apply text-[#C0C4CC] cursor-not-allowed;
         }
         &.selected {
-          @apply text-white bg-[#3380ff];
+          @apply text-white bg-[#3380ff] #{!important};
         }
       }
     }
