@@ -33,7 +33,8 @@ const xAxisArr = ['日', '一', '二', '三', '四', '五', '六']
 export default {
   data () {
     return {
-      xAxisArr
+      xAxisArr,
+      items: []
     }
   },
   props: {
@@ -50,12 +51,49 @@ export default {
       default: 2022
     },
     value: {
-      type: [Set],
-      default: () => new Set()
+      type: [Array],
+      default: () => []
     }
   },
-  computed: {
-    items ({ year, month }) {
+  watch: {
+    month () {
+      this.sync()
+    },
+    year () {
+      this.sync()
+    }
+  },
+  methods: {
+    valueFormat (text) {
+      return [this.year, this.month, text].join('-')
+    },
+    // hasSelected (item) {
+    //   return this.value.has(item.value)
+    // },
+    onClick (item) {
+      if (!item.disabled) {
+        // if (item.selected) {
+        //   this.value.add(item.value)
+        // } else {
+        //   this.value.delete(item.value)
+        // }
+
+        item.selected = !item.selected
+        this.$emit(
+          'input',
+          this.items.filter((x) => x.selected).map((x) => x.value)
+        )
+      }
+      // this.value.add(item.value)
+      // this.set.add(item.value)
+
+      // this.value.add(item.value)
+      // this.$emit('input', this.value.add(item.value))
+      // this.set.add(item.value)
+      // this.$emit('input', this.value.concat(item.value))
+    },
+    getItems () {
+      const { year, month } = this
       // Months are zero indexed, so January is month 0.
       const now = dayjs()
         .year(year)
@@ -97,33 +135,17 @@ export default {
           text,
           disabled,
           value,
-          selected: this.value.has(value) && !disabled
+          selected: this.value.includes(value) && !disabled
         }
       })
       return arr
-    }
-    // hasSelected({ set }) {
-    //   return (item) => {
-    //     console.log(item)
-    //     return set.has(item.value) && !item.disabled
-    //   }
-    // }
-  },
-  methods: {
-    valueFormat (text) {
-      return [this.year, this.month, text].join('-')
     },
-    // hasSelected (item) {
-    //   return this.value.has(item.value)
-    // },
-    onClick (item) {
-      // this.value.add(item.value)
-      // this.set.add(item.value)
-      this.value.add(item.value)
-      // this.$emit('input', this.value.add(item.value))
-      // this.set.add(item.value)
-      // this.$emit('input', this.value.concat(item.value))
+    sync () {
+      this.items = this.getItems()
     }
+  },
+  created () {
+    this.sync()
   }
 }
 </script>
