@@ -1,19 +1,13 @@
 <template>
   <div class="som-frame-selection-inner-box">
-    <slot :selected="selected"></slot>
+    <slot></slot>
   </div>
 </template>
 
 <script>
 export default {
   name: 'FrameSelectionItem',
-  componentName: 'SomFrameSelectionItem',
-  props: {
-    selected: {
-      type: [Boolean],
-      default: false
-    }
-  }
+  componentName: 'SomFrameSelectionItem'
 }
 </script>
 <style lang="css" scoped>

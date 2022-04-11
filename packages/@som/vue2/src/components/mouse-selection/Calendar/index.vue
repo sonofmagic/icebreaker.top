@@ -132,6 +132,7 @@ export default {
     },
     sync () {
       this.items = this.getItems()
+      this.$emit('init', this.items)
     }
   },
   created () {

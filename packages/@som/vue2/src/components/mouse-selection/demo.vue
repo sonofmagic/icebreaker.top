@@ -14,16 +14,15 @@
     </FrameSelection> -->
     <FrameSelectionGroup ref="selection" @mousedown="onMousedown" @mousemove="onMousemove" @mouseup="onMouseup">
       <div class="grid grid-cols-6">
-        <Calendar class="mb-4" :key="i" :year="currentYear" :month="i" v-for="i in 12">
+        <Calendar class="mb-4" :key="i" :year="currentYear" :month="i" v-for="i in 12" @init="onCalendarInit($event, i - 1)">
           <template v-slot="{ item, index }">
             <FrameSelectionItem
               :class="[
                 {
                   disabled: item.disabled,
-                  selected: item.selected
+                  selected: isSelected(item, index, i)
                 }
               ]"
-              :selected="!item.disabled && (isInTheBoxList[index] || checkSelected(index))"
               class="w-full h-full flex items-center justify-center row-item"
             >
               {{ item.text }}
@@ -62,8 +61,10 @@ export default {
     FrameSelectionItem
   },
   data () {
+    const calendarItemCount = 42
     return {
       currentYear: 2022,
+      calendarItemCount,
       calendarArray: new Array(12).fill([]),
       mockData,
 
@@ -82,9 +83,22 @@ export default {
       default: 'id'
     }
   },
+  computed: {
+    totalCalendarArray ({ calendarArray }) {
+      return calendarArray.reduce((acc, cur) => {
+        acc = acc.concat(cur)
+        return acc
+      }, [])
+    }
+  },
   methods: {
-    checkSelected (id) {
-      return this.selectedSet.has(id)
+    isSelected (item, index, pidx) {
+      const notDisabled = !item.disabled
+      const idx = (pidx - 1) * this.calendarItemCount + index
+      return notDisabled && (this.isInTheBoxList[idx] || this.checkSelected(idx))
+    },
+    checkSelected (idx) {
+      return this.selectedSet.has(idx)
     },
     onMousedown () {
       this.isClick = true
@@ -108,7 +122,7 @@ export default {
           return acc
         }, [])
         .forEach((x) => {
-          if (!this.data[x].disabled) {
+          if (!this.totalCalendarArray[x].disabled) {
             this.selectedSet.add(x)
           }
         })
@@ -120,6 +134,11 @@ export default {
       this.isInTheBoxList = this.innerBoxRectList.map((rect) => {
         return this.$refs.selection.isInTheSelection(rect)
       })
+    },
+    onCalendarInit (data, idx) {
+      // console.log(data, idx)
+      this.calendarArray[idx] = data
+      // 42
     }
   },
   created () {
