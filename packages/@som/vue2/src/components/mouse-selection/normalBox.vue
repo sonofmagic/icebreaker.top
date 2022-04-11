@@ -22,7 +22,7 @@ interface CustomRect {
 const mockData = new Array(100).fill(0).map((x, idx) => {
   return {
     id: idx,
-    disabled: Boolean(idx % 2)
+    disabled: false // Boolean(idx % 2)
   }
 })
 
@@ -134,10 +134,6 @@ export default {
 
 <style lang="scss">
 .wrapper {
-  width: 'calc(50% - 15px)';
-  height: 'calc(100% - 20px)';
-
-  overflow: scroll;
   background: rgba(255, 192, 203, 0.3);
   .inner-box {
     width: 40px;

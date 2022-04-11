@@ -134,10 +134,6 @@ export default {
 
 <style lang="scss">
 .wrapper {
-  width: 'calc(50% - 15px)';
-  height: 'calc(100% - 20px)';
-
-  overflow: scroll;
   background: rgba(255, 192, 203, 0.3);
   .inner-box {
     width: 40px;
