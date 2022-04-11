@@ -18,7 +18,9 @@
           v-for="item in items"
           @click="onClick(item)"
         >
-          {{ item.text }}
+          <slot :item="item">
+            {{ item.text }}
+          </slot>
         </div>
       </div>
     </div>

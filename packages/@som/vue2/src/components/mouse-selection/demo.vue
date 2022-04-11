@@ -1,11 +1,12 @@
 <template>
   <div>
-    <div ref="wrapper" class="wrapper">
+    <SelectionDemo></SelectionDemo>
+    <!-- <div ref="wrapper" class="wrapper">
       <div class="inner-box" :class="{ selected: !item.disabled && (isInTheBoxList[idx] || checkSelected(idx)) }" v-for="(item, idx) in mockData" :key="item.id">{{ item.id }}</div>
     </div>
     <div>
       <span :key="x" v-for="x in selectedSet">{{ x }} </span>
-    </div>
+    </div> -->
     <div class="grid grid-cols-6">
       <Calendar v-model="calendarArray[i-1]" class="mb-4" :key="i" :year="currentYear" :month="i" v-for="i in 12"></Calendar>
     </div>
@@ -15,6 +16,7 @@
 <script lang="ts">
 import MouseSelection from './lib/index'
 import Calendar from './Calendar/index.vue'
+import SelectionDemo from './SelectionDemo.vue'
 interface CustomRect {
   left: number
   top: number
@@ -31,13 +33,14 @@ const mockData = new Array(100).fill(0).map((x, idx) => {
 
 export default {
   components: {
-    Calendar
+    Calendar,
+    SelectionDemo
   },
   data (): {
     currentYear: number
     calendarArray: string[][]
     wrapperMouseSelection: MouseSelection | undefined
-    documentSelection: MouseSelection | undefined
+    // documentSelection: MouseSelection | undefined
 
     isInTheBoxList: boolean[]
 
@@ -47,7 +50,7 @@ export default {
     } {
     let wrapperMouseSelection: MouseSelection | undefined
 
-    let documentSelection: MouseSelection | undefined
+    // let documentSelection: MouseSelection | undefined
 
     const isInTheBoxList: boolean[] = []
 
@@ -56,7 +59,7 @@ export default {
       currentYear: 2022,
       wrapperMouseSelection,
       calendarArray: new Array(12).fill([]),
-      documentSelection,
+      // documentSelection,
 
       isInTheBoxList,
 
