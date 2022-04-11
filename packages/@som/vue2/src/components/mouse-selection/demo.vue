@@ -184,7 +184,8 @@ export default {
     },
     onCalendarInit (data, idx) {
       // console.log(data, idx)
-      this.calendarArray[idx] = data
+      this.$set(this.calendarArray, idx, data)
+      // [idx] = data
       // 42
     }
   },
