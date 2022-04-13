@@ -68,6 +68,7 @@
     "vant": "^2.12.39",
     "vue-aplayer": "^1.6.1",
     "vue-echarts": "6.0.2",
+    "vue-frame-selection": "^0.0.2",
     "vue-relation-graph": "1.0.0",
     "vuex-persistedstate": "^4.1.0"
   },
