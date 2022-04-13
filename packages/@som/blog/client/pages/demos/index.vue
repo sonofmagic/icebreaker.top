@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray-100 min-h-screen">
+  <div class="min-h-screen bg-gray-100">
     <div class="container mx-auto">
       <van-notice-bar
         left-icon="volume-o"
@@ -53,6 +53,11 @@ export default {
           title: 'ColorPicker 主题色自定义',
           label: 'ColorPicker 主题色自定义',
           href: '/test/css-var',
+        },
+        {
+          title: 'vue-frame-selection',
+          label: 'vue-frame-selection 组件 demo',
+          href: '/demos/vue-frame-selection',
         },
       ],
     }
