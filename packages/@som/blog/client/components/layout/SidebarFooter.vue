@@ -1,7 +1,7 @@
 <template>
   <section class="container mx-auto py-2">
     <div
-      class="flex flex-col sm:flex-row justify-between items-center px-4 text-gray-600 text-xs dark:text-accents-600"
+      class="dark:text-accents-600 flex flex-col items-center justify-between px-4 text-xs text-gray-600 sm:flex-row"
     >
       <div>
         <span class="mr-4">© {{ fullYear }} icebreaker</span>
@@ -11,10 +11,17 @@
       </div>
       <div>version:{{ version }}</div>
       <div class="flex flex-col items-center md:flex-row">
-        <div>
-          <nuxt-link class="mr-5" to="/sitemap">站点地图</nuxt-link>
+        <div class="mr-3 space-x-3">
+          <nuxt-link to="/sitemap">站点地图</nuxt-link>
           <OutSideLink
-            class="text-base hover:text-gray-700 mr-5"
+            class="text-base hover:text-gray-700"
+            raw
+            href="https://www.icebreaker.top/rss.xml"
+          >
+            <FontAwesomeIcon :icon="['fas', 'square-rss']" />
+          </OutSideLink>
+          <OutSideLink
+            class="text-base hover:text-gray-700"
             raw
             href="https://github.com/sonofmagic/icebreaker.top"
           >

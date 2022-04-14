@@ -1,5 +1,5 @@
 <template>
-  <div class="application-main flex flex-col md:flex-row min-h-screen">
+  <div class="application-main flex min-h-screen flex-col md:flex-row">
     <aside class="team-left-column flex-shrink-0">
       <div class="sticky-column">
         <div class="hover-scroll-bar sticky-column-inner">
@@ -7,10 +7,10 @@
         </div>
       </div>
     </aside>
-    <div class="flex-auto md:w-8/12 px-4 lg:px-8 order-1 md:order-2">
-      <div class="flex flex-col md:flex-row">
-        <div class="md:w-full lg:w-8/12 mt-4">
-          <h2 class="text-base md:pt-4">All activity</h2>
+    <div class="order-1 flex-auto px-4 md:order-2 md:w-8/12 lg:px-8">
+      <div class="flex flex-col sm:-mx-6 md:flex-row">
+        <div class="mt-4 px-4 md:w-full lg:w-8/12">
+          <!-- <h2 class="text-base md:pt-4">All activity</h2> -->
           <template v-for="(arr, idx) in articlesArray">
             <div :key="idx">
               <DarkArticleCard
@@ -32,7 +32,7 @@
             <SidebarFooter></SidebarFooter>
           </div>
         </div>
-        <div class="mt-8 team-right-column md:w-4/12 md:px-6">
+        <div class="team-right-column mt-8 md:w-4/12 md:px-6">
           <DarkParadise />
         </div>
       </div>
@@ -120,7 +120,7 @@ export default {
 .application-main {
   @apply bg-canvas-inset;
   .team-left-column {
-    @apply bg-canvas-default max-w-full md:w-4/12  border-r border-b border-border-muted border-solid order-2 md:order-1;
+    @apply order-2 max-w-full border-r  border-b border-solid border-border-muted bg-canvas-default md:order-1 md:w-4/12;
     .sticky-column {
       // $navbar-height: 62px;
       @apply md:sticky md:top-[62px];
@@ -140,6 +140,6 @@ export default {
 }
 
 .load-more-btn {
-  @apply text-accent-fg bg-canvas-default border-border-default rounded-md p-1.5 w-full font-semibold mt-5 border border-solid hover:bg-canvas-subtle;
+  @apply mt-5 w-full rounded-md border border-solid border-border-default bg-canvas-default p-1.5 font-semibold text-accent-fg hover:bg-canvas-subtle;
 }
 </style>

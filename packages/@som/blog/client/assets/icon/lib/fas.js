@@ -23,6 +23,7 @@ import {
   faChevronRight,
   faSun,
   faMoon,
+  faRssSquare,
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -47,6 +48,7 @@ library.add(
   faTimesCircle,
   faChevronRight,
   faSun,
-  faMoon
+  faMoon,
+  faRssSquare
 )
 export default true

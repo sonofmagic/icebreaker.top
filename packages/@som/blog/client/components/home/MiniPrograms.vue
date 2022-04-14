@@ -5,7 +5,7 @@
       <div
         v-for="item in selfQrcode"
         :key="item.alt"
-        class="text-center w-40 text-sm my-2"
+        class="my-2 w-40 text-center text-sm"
       >
         <img class="w-40 rounded-md" :src="item.src" :alt="item.alt" />
         <div class="mt-2 mb-1">{{ item.alt }}</div>
@@ -36,6 +36,7 @@
 // import 股加融资计算器 from '@/assets/img/mini/股加融资计算器.jpg'
 import ProgramerCard from '@/assets/img/mini/programer-card.jpg'
 import Icebreaker from '@/assets/img/mini/icebreaker.jpg'
+import Tailwindcss from '@/assets/img/mini/tailwindcss.jpg'
 export default {
   name: 'MiniProgramsBar',
   data() {
@@ -72,6 +73,11 @@ export default {
           desc: '一个用于程序员自我展示和相互交流的小程序',
           alt: '程序员名片',
           src: ProgramerCard,
+        },
+        {
+          desc: 'tailwindcss参考小程序',
+          alt: 'tailwind',
+          src: Tailwindcss,
         },
       ],
     }
