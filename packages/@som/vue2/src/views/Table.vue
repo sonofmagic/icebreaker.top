@@ -94,11 +94,27 @@ export default {
         colSpan: 2,
         dataIndex: 'tel',
         customRender: (value, row, index) => {
+          const h = this.$createElement
           const obj = {
-            children: <div style="display:flex;"><div style="color:red;margin-right:10px;">出</div> {value}</div>,
+            children: h('div', {
+              style: {
+                display: 'flex',
+                justifyContent: 'space-between'
+              }
+            }, [
+              h('div', {
+
+                style: {
+                  color: 'red',
+                  'margin-right': '10px'
+                }
+              }, ['出']),
+              value
+            ]),
             attrs: {
               rowSpan: 0
             }
+            // <div style="display:flex;"><div style="color:red;margin-right:10px;">出</div> {value}</div>,
           }
           if (index === 2) {
             obj.attrs.rowSpan = 2
