@@ -33,6 +33,11 @@ const routes: Array<RouteConfig> = [
     path: '/github',
     name: 'Github',
     component: () => import('@/views/Github.vue')
+  },
+  {
+    path: '/table',
+    name: 'Table',
+    component: () => import('@/views/Table.vue')
   }
   // {
   //   path: '/about',

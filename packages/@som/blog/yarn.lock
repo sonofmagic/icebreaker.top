@@ -12990,10 +12990,10 @@ stylelint-scss@^4.0.0, stylelint-scss@^4.2.0:
     postcss-selector-parser "^6.0.6"
     postcss-value-parser "^4.1.0"
 
-stylelint@^14.7.0:
-  version "14.7.0"
-  resolved "https://registry.npmmirror.com/stylelint/-/stylelint-14.7.0.tgz#f2c4457a63ba813d72856818ab7d4141d2bdd6ab"
-  integrity sha512-vAVPAYaHhcexOiuvym0S64UWIIonMKgYz1Eh+SZgXKkKFLL+wwBzzWGH7Bdnk/HLyH3KlrX+tlisFdEG8ik+Lw==
+stylelint@^14.7.1:
+  version "14.7.1"
+  resolved "https://registry.npmmirror.com/stylelint/-/stylelint-14.7.1.tgz#f1b3236cbf9e1b25a04d03f76250943a58d3f37f"
+  integrity sha512-rUOWm67hrzGXXyO/cInENEejF4urh1dLgOb9cr/3XLDb/t/A+rXQp3p6+no8o8QCKTgBUdhVUq/bXMgE988PJw==
   dependencies:
     balanced-match "^2.0.0"
     colord "^2.9.2"
@@ -14125,10 +14125,10 @@ vue-eslint-parser@^8.0.1, vue-eslint-parser@^8.3.0:
     lodash "^4.17.21"
     semver "^7.3.5"
 
-vue-frame-selection@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.npmmirror.com/vue-frame-selection/-/vue-frame-selection-1.0.0.tgz#e4335ead43343de9fe9735e0410740a40c08158c"
-  integrity sha512-igdJv353Ry/C/GdzMOU0le1/6HHXDWjLQmRHYt9vm6B1H+Sb58Fn5MdIzTbKBShYriaPQ3NbZ1QL4bEGQIlK/g==
+vue-frame-selection@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.npmmirror.com/vue-frame-selection/-/vue-frame-selection-1.0.1.tgz#7209b8dd1be5c4bf5ad47df8688e70c5d4c886d4"
+  integrity sha512-eoDvo/0LWa7lEhTYT02xJEGWpOiCbFWouJHHR+nEn1BYycRGx96nvbgORIlcyBUJ76Nf1vJtdUEM85Jm1FExAw==
 
 vue-hot-reload-api@^2.3.0:
   version "2.3.4"

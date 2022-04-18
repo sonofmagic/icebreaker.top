@@ -68,7 +68,7 @@
     "vant": "^2.12.39",
     "vue-aplayer": "^1.6.1",
     "vue-echarts": "6.0.2",
-    "vue-frame-selection": "^1.0.0",
+    "vue-frame-selection": "^1.0.1",
     "vue-relation-graph": "1.0.0",
     "vuex-persistedstate": "^4.1.0"
   },
@@ -111,7 +111,7 @@
     "serverless-config-generator": "^1.1.1",
     "serverless-layer-deployer": "^0.3.0",
     "speed-measure-webpack-plugin": "^1.5.0",
-    "stylelint": "^14.7.0",
+    "stylelint": "^14.7.1",
     "stylelint-config-prettier": "^9.0.3",
     "stylelint-config-recommended-scss": "^6.0.0",
     "stylelint-config-standard": "^25.0.0",
