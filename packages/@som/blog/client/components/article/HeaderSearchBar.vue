@@ -12,7 +12,7 @@
       @select="handleSelect"
     >
       <template #default="{ item }">
-        <div class="flex justify-between items-center">
+        <div class="flex items-center justify-between">
           <template v-if="item.needLogin">
             <div class="text-blue-500">Click here for Login</div>
           </template>
@@ -28,8 +28,8 @@
 </template>
 
 <script>
-import SignInPopup from '@/components/layout/SignInPopup'
 import { mapGetters } from 'vuex'
+import SignInPopup from '@/components/layout/SignInPopup'
 export default {
   name: 'HeaderSearchBar',
   components: { SignInPopup },
@@ -81,11 +81,12 @@ export default {
 .header-search-wrapper {
   ::v-deep .el-input {
     > .el-input__inner {
-      background-color: #3f4448;
-      border: none;
-      width: 272px;
+      @apply h-[30px] w-[272px] border border-solid border-header-search-border bg-header-search-bg px-3 text-sm leading-[30px] text-scale-white;
+      // background-color: #3f4448;
+      // border: none;
+
       transition: width 0.2s ease-in-out;
-      color: #fff;
+      //color: #fff;
       // &:focus {
       //   width: 544px;
       // }
