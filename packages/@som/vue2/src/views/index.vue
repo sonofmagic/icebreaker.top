@@ -13,6 +13,14 @@ const width = 1024
 const radius = 32
 
 function chart () {
+  // const zoomHandler = d3
+  //   .zoom<SVGSVGElement, unknown>()
+  //   .extent([
+  //     [0, 0],
+  //     [width, height]
+  //   ])
+  //   .scaleExtent([0.1, 8])
+
   const nodesData = Array.from({ length: 2 }, () => ({
     x: Math.random() * (width - radius * 2) + radius,
     y: Math.random() * (height - radius * 2) + radius
@@ -24,8 +32,13 @@ function chart () {
     .attr('width', width)
     .attr('height', height)
     .attr('stroke-width', 2)
-
-  const links = svg.selectAll('line')
+  const wrapper = svg.append('g')
+  // zoomHandler.on('zoom', function (attrs) {
+  //   // console.log(attrs)
+  //   wrapper.attr('transform', attrs.transform)
+  // })
+  // svg.call(zoomHandler)// .on('wheel.zoom', null)
+  const links = wrapper.selectAll('line')
     .data(linksData.map(x => {
       return {
         source: nodesData[x.source],
@@ -39,7 +52,7 @@ function chart () {
     .attr('y2', d => d.target.y)
     .attr('stroke', 'black')
 
-  const circles = svg.selectAll('circle')
+  const circles = wrapper.selectAll('circle')
     .data(nodesData)
     .join('circle')
     .attr('cx', d => d.x)
@@ -49,7 +62,7 @@ function chart () {
     // @ts-ignore
     .call(drag())
 
-  const moons = svg.selectAll('.moon')
+  const moons = wrapper.selectAll('.moon')
     .data(nodesData)
     .join('circle')
     .classed('moon', true)
@@ -59,9 +72,30 @@ function chart () {
     .attr('fill', (d, i) => d3.schemeCategory10[i])
     .style('transition', 'transform 500ms ease')
     .attr('transform-origin', d => `${d.x}px ${d.y}px`)
+  // const path = d3.path();
+  // const arc = d3.arc()
+  //  Math.PI = 180°
+  // const pies = wrapper.selectAll('.pie')
+  //   .data(nodesData)
+  //   .join('polygon')
+  //   .attr('points', d => {
+  //     return [
+  //       [d.x,d.y]
+  //     ]
+
+  //   })
+  //   .classed('pie', true)
+  //   // .attr('transform-origin', d => `${d.x}px ${d.y}px`)
+  //   // .attr('transform', d => `translate(${d.x}, ${d.y - radius - 45})`)
+  //   .attr('fill', 'red')
+  //   .attr('stroke', 'black')
+  //   .attr('stroke-width', 1)
+
+  // Math.sin
   let i = 0
   setInterval(() => {
     moons.attr('transform', d => `rotate(${i * 6})`)
+    // pies.attr('transform', d => `translate(${d.x}, ${d.y - radius - 45}),rotate(${i * 6})`)
     i++
   }, 100)
   function drag () {
@@ -103,6 +137,8 @@ function chart () {
 
       moons.attr('cx', d => d.x)
         .attr('cy', d => d.y - radius - 20).attr('transform-origin', d => `${d.x}px ${d.y}px`)
+
+      // pies.attr('transform', d => `translate(${d.x}, ${d.y - radius - 45})`).attr('transform-origin', d => `${d.x}px ${d.y}px`)
     }
 
     function dragended (this: Element) {
