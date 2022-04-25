@@ -9,7 +9,7 @@ import Vue from 'vue'
 import { Input } from 'ant-design-vue'
 import { createForm } from '@formily/core'
 import { FormProvider, Field } from '@formily/vue'
-import 'ant-design-vue/dist/antd.css'
+
 export default Vue.extend({
   components: { FormProvider, Field },
   data () {

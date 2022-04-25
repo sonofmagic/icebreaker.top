@@ -1,13 +1,13 @@
 <template>
-  <div style="padding-top: 100px; padding-left: 100px">
+  <div class="text-white" style="padding-top: 100px; padding-left: 100px">
     <button @click="count--">-</button>
     <button @click="count++">+</button>
     <button @click="start">start</button>
     <button @click="stop">stop</button>
     <ContributionCalendarReactive :count="count"></ContributionCalendarReactive>
     <!-- <ContributionCalendar></ContributionCalendar> -->
-    <!-- <ContributionCalendarRaw /> -->
-    <!-- <ContributionCalendarData /> -->
+    <ContributionCalendarRaw />
+    <ContributionCalendarData />
 
     <div style="margin-top: 100px">
       <ContributionCalendar></ContributionCalendar>
@@ -34,8 +34,8 @@ export default Vue.extend({
   components: {
     D3Join,
     ContributionCalendarReactive,
-    // ContributionCalendarRaw,
-    // ContributionCalendarData,
+    ContributionCalendarRaw,
+    ContributionCalendarData,
     // D3Join,
     ContributionCalendar
   },
