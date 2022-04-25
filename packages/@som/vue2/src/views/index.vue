@@ -25,7 +25,12 @@ function chart () {
     x: Math.random() * (width - radius * 2) + radius,
     y: Math.random() * (height - radius * 2) + radius
   }))
-  const linksData = [{ source: 0, target: 1 }]
+  const linksData = [{ source: 0, target: 1 }].map(x => {
+    return {
+      source: nodesData[x.source],
+      target: nodesData[x.target]
+    }
+  })
   const svg = d3.create('svg')
     .attr('viewBox', [0, 0, width, height])
     .style('border', '1px solid black')
@@ -39,18 +44,25 @@ function chart () {
   // })
   // svg.call(zoomHandler)// .on('wheel.zoom', null)
   const links = wrapper.selectAll('line')
-    .data(linksData.map(x => {
-      return {
-        source: nodesData[x.source],
-        target: nodesData[x.target]
-      }
-    }))
+    .data(linksData)
     .join('line')
     .attr('x1', d => d.source.x)
     .attr('y1', d => d.source.y)
     .attr('x2', d => d.target.x)
     .attr('y2', d => d.target.y)
     .attr('stroke', 'black')
+
+  // const link = d3.linkRadial().angle(d => Math.atan2(d.target.y - d.source.y, d.target.x - d.source.x))
+  // // @ts-ignore
+  //   .x(d => d.x)
+  //   // @ts-ignore
+  //   .y(d => d.y)
+  // const links2 = wrapper.select('.curve-link').data(linksData).join('path').classed('curve-link', true).attr('d', (d) => {
+  //   return link({
+  //     source: [100, 100],
+  //     target: [300, 300]
+  //   })
+  // })
 
   const circles = wrapper.selectAll('circle')
     .data(nodesData)
