@@ -45,9 +45,25 @@ function chart () {
     .attr('cx', d => d.x)
     .attr('cy', d => d.y)
     .attr('r', radius)
-    .attr('fill', (d, i) => d3.schemeCategory10[i % 10])
+    .attr('fill', (d, i) => d3.schemeCategory10[i])
+    // @ts-ignore
     .call(drag())
 
+  const moons = svg.selectAll('.moon')
+    .data(nodesData)
+    .join('circle')
+    .classed('moon', true)
+    .attr('cx', d => d.x)
+    .attr('cy', d => d.y - radius - 20)
+    .attr('r', 10)
+    .attr('fill', (d, i) => d3.schemeCategory10[i])
+    .style('transition', 'transform 500ms ease')
+    .attr('transform-origin', d => `${d.x}px ${d.y}px`)
+  let i = 0
+  setInterval(() => {
+    moons.attr('transform', d => `rotate(${i * 6})`)
+    i++
+  }, 100)
   function drag () {
     // 限制在这块区域内
     const xMin = 0 + radius
@@ -84,6 +100,9 @@ function chart () {
         .attr('y1', d => d.source.y)
         .attr('x2', d => d.target.x)
         .attr('y2', d => d.target.y)
+
+      moons.attr('cx', d => d.x)
+        .attr('cy', d => d.y - radius - 20).attr('transform-origin', d => `${d.x}px ${d.y}px`)
     }
 
     function dragended (this: Element) {
