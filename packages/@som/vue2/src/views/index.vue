@@ -1,7 +1,12 @@
 <template>
-  <div ref="dom" class="p-4">
-
+  <div class="p-8">
+    <details :open="idx === 0">
+      <summary>拖拽球</summary>
+      <div ref="dom" class="p-4">
+      </div>
+    </details>
   </div>
+
 </template>
 
 <script lang="ts">
@@ -167,6 +172,11 @@ function chart () {
 }
 
 export default Vue.extend({
+  data () {
+    return {
+      idx: -1
+    }
+  },
   mounted () {
     // @ts-ignore
     this.$refs.dom.appendChild(chart())
