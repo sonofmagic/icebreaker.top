@@ -2953,13 +2953,6 @@ adm-zip@^0.5.1, adm-zip@^0.5.4, adm-zip@^0.5.5:
   resolved "https://registry.npmmirror.com/adm-zip/-/adm-zip-0.5.9.tgz#b33691028333821c0cf95c31374c5462f2905a83"
   integrity sha512-s+3fXLkeeLjZ2kLjCBwQufpI5fuN+kIGBxu6530nVQZGVol0d7Y/M88/xw9HGGUcJjKf8LutN3VPRUBq6N7Ajg==
 
-aegis-web-sdk@^1.35.25:
-  version "1.35.25"
-  resolved "https://registry.npmmirror.com/aegis-web-sdk/-/aegis-web-sdk-1.35.25.tgz#0148ea7534f33d6aa9d88638f19318290387c5d3"
-  integrity sha512-o91gPiGZEIc7+Ix8EEs5e6YMVkSVBkP3QldOePbMmG8K4mEliLzbIqpYO4idZQldV/yIjEbs3IyANzfRy6gKzg==
-  dependencies:
-    web-vitals "^1.1.2"
-
 after@0.8.2:
   version "0.8.2"
   resolved "https://registry.npmmirror.com/after/-/after-0.8.2.tgz#fedb394f9f0e02aa9768e702bda23b505fae7e1f"
@@ -14270,11 +14263,6 @@ web-namespaces@^1.0.0:
   version "1.1.4"
   resolved "https://registry.npmmirror.com/web-namespaces/-/web-namespaces-1.1.4.tgz#bc98a3de60dadd7faefc403d1076d529f5e030ec"
   integrity sha512-wYxSGajtmoP4WxfejAPIr4l0fVh+jeMXZb08wNc0tMg6xsfZXj3cECqIK0G7ZAqUq0PP8WlMDtaOGVBTAWztNw==
-
-web-vitals@^1.1.2:
-  version "1.1.2"
-  resolved "https://registry.npmmirror.com/web-vitals/-/web-vitals-1.1.2.tgz#06535308168986096239aa84716e68b4c6ae6d1c"
-  integrity sha512-PFMKIY+bRSXlMxVAQ+m2aw9c/ioUYfDgrYot0YUa+/xa0sakubWhSDyxAKwzymvXVdF4CZI71g06W+mqhzu6ig==
 
 webidl-conversions@^3.0.0:
   version "3.0.1"
