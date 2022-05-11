@@ -49,13 +49,13 @@
         <div class="mt-2 flex">
           <div
             class="npx-command flex cursor-pointer items-center rounded-md border border-solid border-[#cccccc] py-2 pl-3 pr-5 hover:border-[#00C642] hover:bg-[rgb(219,255,219)]"
-            @click="copyText('npx yangqiming')"
+            @click="copyText('npx yangqiming@latest')"
           >
             <span>
               <FontAwesomeIcon :icon="['fas', 'chevron-right']" />
             </span>
 
-            <pre class="ml-2">npx yangqiming</pre>
+            <pre class="ml-2">npx yangqiming@latest</pre>
             <span class="copy-icon">
               <FontAwesomeIcon :icon="['far', 'copy']" />
             </span>

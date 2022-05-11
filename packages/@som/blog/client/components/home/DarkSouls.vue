@@ -58,12 +58,12 @@
         <div>擅长扯淡,吹牛,撕x</div> -->
         <!-- <OutSideLink href="https://www.shareplus.cn/"></OutSideLink> -->
         <div class="mt-2 flex">
-          <div class="npx-command" @click="copyText('npx yangqiming')">
+          <div class="npx-command" @click="copyText('npx yangqiming@latest')">
             <span>
               <FontAwesomeIcon :icon="['fas', 'chevron-right']" />
             </span>
 
-            <pre class="ml-2">npx yangqiming</pre>
+            <pre class="ml-2">npx yangqiming@latest</pre>
             <span class="copy-icon">
               <FontAwesomeIcon :icon="['far', 'copy']" />
             </span>
