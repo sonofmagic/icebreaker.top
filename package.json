@@ -31,6 +31,7 @@
     "dev": "turbo run dev"
   },
   "devDependencies": {
+    "@types/prettier": "^2.6.3",
     "@typescript-eslint/eslint-plugin": "^5.30.0",
     "@typescript-eslint/parser": "^5.30.0",
     "cross-env": "^7.0.3",
@@ -39,6 +40,7 @@
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-import": "2.25.2",
     "eslint-plugin-n": "15.0.0",
+    "eslint-plugin-prettier": "^4.1.0",
     "eslint-plugin-promise": "6.0.0",
     "eslint-plugin-vue": "^9.1.1",
     "execa": "^5.0.0",
