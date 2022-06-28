@@ -4,9 +4,9 @@ import { defineNuxtConfig } from 'nuxt'
 export default defineNuxtConfig({
   modules: ['@nuxt/content'],
   content: {},
-  build: {
-    postcss: {
-      postcssOptions: require('./postcss.config.js'),
+  postcss: {
+    plugins: {
+      tailwindcss: {},
     },
   },
 })
