@@ -4,8 +4,13 @@
     <!-- <NuxtWelcome /> -->
   </div>
 </template>
-<style>
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+<style lang="scss">
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+html,
+body {
+  color: theme('colors.cyan.500');
+}
 </style>
