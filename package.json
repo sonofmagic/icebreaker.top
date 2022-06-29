@@ -28,7 +28,10 @@
     "url": "https://github.com/sonofmagic/sonofmagic.github.io/issues"
   },
   "scripts": {
-    "dev": "turbo run dev"
+    "dev": "turbo run dev",
+    "install:blog": "cd packages/@som/blog && yarn",
+    "deploy:blog": "cd packages/@som/blog && npm run deploy",
+    "sync:article": "cd packages/@som/blog && npm run sync"
   },
   "devDependencies": {
     "@types/prettier": "^2.6.3",
