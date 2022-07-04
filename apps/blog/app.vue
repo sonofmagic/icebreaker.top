@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <main>
     <!-- <div>
       <h1>Color mode: {{ $colorMode.value }}</h1>
       <select v-model="$colorMode.preference">
@@ -11,7 +11,7 @@
     </div> -->
     <ContentDoc class="prose prose-sm" />
     <!-- <NuxtWelcome /> -->
-  </div>
+  </main>
 </template>
 <script setup>
 // const colorMode = useColorMode()
