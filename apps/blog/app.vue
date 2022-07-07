@@ -15,8 +15,19 @@
       </div>
     </header>
     <main>
-      <div class="container mx-auto">
-        <ContentDoc class="prose dark:prose-invert" />
+      <div class="container mx-auto flex max-w-max">
+        <!-- <div>
+          <ContentList path="/articles" v-slot="{ list }">
+            <div v-for="article in list" :key="article._path">
+              <h2>{{ article.title }}</h2>
+              <p>{{ article.description }}</p>
+            </div>
+          </ContentList>
+        </div> -->
+        <div class="pt-10">
+          <ContentDoc class="prose dark:prose-invert" />
+        </div>
+        <div></div>
       </div>
     </main>
   </div>

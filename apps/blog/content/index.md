@@ -1,10 +1,11 @@
+
 # 令人愉快的 Nuxt3 教程 (二): 快速轻松地搭建博客
 
 继 [令人愉快的 Nuxt3 教程 (一): 应用的创建与配置](https://juejin.cn/post/7114476679598178312) 后，我们已经成功的创建了一个 `Nuxt3` 应用，同时已经添加了大量的开发配置。
 
 有道是 `纸上得来终觉浅，绝知此事要躬行`。接下来本文章将通过快速的搭建一个博客系统来学习 `Nuxt3`。各位开发者们看到这里也不用觉得害怕，因为这项工程，在众多现成的 `npm` 包加成下，已经变的非常的简单了。
 
-本章节将会主要使用 `nuxt` 团队打造的 `@nuxt/content`，它可以便捷的搭建一个内容管理系统。和那些 `vuepress`/`vitepress` 快速部署静态网站的生成器不同，`@nuxt/content` 方案自定义程度很高，它只为我们提供了一套 `markdown` 文件的渲染的机制，和围绕它进行一些数据交互的 `api` 和组件。
+本章节将会主要使用 `nuxt` 团队打造的 `@nuxt/content`，它可以便捷的搭建一个内容管理系统。和那些 `vuepress`/`vitepress` 快速部署静态网站的生成器不同，`@nuxt/content` 它只为我们提供了一套 `markdown` 文件的渲染的机制，和围绕它进行一些数据交互的 `api` 和组件，因此这个方案自定义程度很高。
 
 现在就让我们直接开始实践吧。
 
@@ -16,7 +17,7 @@
 yarn add -D @nuxt/content
 ```
 
-安装好后，在 `nuxt.config.ts` 的 `modules` 配置中添加：
+安装好后，在 `nuxt.config.ts` 的 `modules` 配置中注册，添加：
 
 ```ts
 export default defineNuxtConfig({
@@ -24,11 +25,11 @@ export default defineNuxtConfig({
 })
 ```
 
-> 注意：此时你在 `*.vue` 的 `script setup` 代码块中直接使用 `queryContent()` 这类的 `composables` 时，`eslint` 会报错，同时也没有相应的智能提示。这是因为很多 `nuxt3` 中的临时文件，包括 `*.d.ts` 这种都是动态生成在 `.nuxt` 目录下的。所以 `@nuxt/content` 的全局智能提示 `*.d.ts` 也需要先 `yarn dev` 运行一下，才会被引入到 `.nuxt/nuxt.d.ts` 中去(`tsconfig.json`同理)。所以添加完 `modules` 后先运行一下吧！
+> 注意：此时你在 `*.vue` 的 `script setup` 代码块中直接使用 `queryContent()` 这类的 `composables` 时，`eslint` 会报错，同时也没有相应的`ts`智能提示。这是因为很多 `nuxt3` 中的临时文件，包括 `*.d.ts` 这种都是动态生成在 `.nuxt` 目录下的。所以 `@nuxt/content` 的全局智能提示 `*.d.ts` 也需要先 `yarn dev` 运行一下，才会被引入到 `.nuxt/nuxt.d.ts` 中去(`tsconfig.json`同理)。所以添加完 `modules` 后先运行一下吧！
 
 ### 创建你的文章目录
 
-接着在项目目录下，建立一个 `content` 目录，并在其中创建一个 `index.md` 文件，添加内容：
+`@nuxt/content` 自身也是基于约定式的目录结构来构建数据的。接下来我们在项目目录下，建立一个 `content` 目录，并在其中创建一个 `index.md` 文件，添加内容：
 
 ```md
 # 短歌行
@@ -47,7 +48,7 @@ export default defineNuxtConfig({
 </template>
 ```
 
-接着执行 `yarn dev` 即可在开发环境中预览效果。
+接着执行 `yarn dev` 即可在开发环境中预览效果:
 
 ![Image](https://pic4.zhimg.com/80/v2-93b2f17dd4ed18115acb4308c04d6037.png)
 
@@ -98,7 +99,7 @@ module.exports = {
 }
 ```
 
-此时你就可以使用 `prose` 相关的原子化 `class` 来美化你的文章内容了，它会给你编写的文章内容添加预设的样式。只需在我们的 `ContentDoc` 添加属性: `<ContentDoc class="prose prose-sm" />` 即可呈现效果。
+此时你就可以使用 `prose` 相关的原子化 `class` 来美化你的文章内容了，它会给你编写的文章内容添加预设的样式。只需在我们的 `ContentDoc` 添加属性: `<ContentDoc class="prose" />` 即可呈现效果。
 
 ![Image](https://pic4.zhimg.com/80/v2-9ad0099818015ef82c803c0c1ea0900b.png)
 
@@ -145,7 +146,7 @@ export default defineNuxtConfig({
 })
 ```
 
-这样我们就可以直接使用 `useColorMode` 和模板代码中的 `$colorMode` 了:
+这样我们就可以直接使用 `useColorMode` 和 `vue` 组件实例中的 `$colorMode` 了:
 
 ![Image](https://pic4.zhimg.com/80/v2-58608fe75891745f3e2567ef6bb0cc89.png)
 
@@ -191,10 +192,10 @@ module.exports = {
         <option value="dark">Dark</option>
       </select>
     </div>
-    <ContentDoc class="prose prose-sm dark:prose-invert" />
+    <ContentDoc class="prose dark:prose-invert" />
   </main>
 </template>
-<script setup></script>
+<script setup lang="ts"></script>
 <style lang="scss">
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
@@ -215,7 +216,13 @@ body {
 
 ## 展示效果
 
-文章写到这里，接下来，让我们来简单添加一些样式，来看看这篇文章，在我们的博客应用中的展现效果吧！
+文章写到这里，接下来，让我们来简单添加一些样式，来看看本篇文章，在我们的博客应用中的展现效果吧！
+
+![展示效果](https://pic4.zhimg.com/80/v2-b3a368b0f1fde31bc2489711419f0eae.png)
+
+有了内容之后，接下来我们围绕自己的文章，就可以建立一套管理机制，来管理我们的博客应用了！
+
+接下来，即将进入 `Nuxt3` 约定式路由！
 
 ## 附录
 
