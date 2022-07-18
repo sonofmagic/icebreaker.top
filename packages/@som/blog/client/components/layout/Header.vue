@@ -34,7 +34,7 @@
     <client-only>
       <div class="tail flex flex-grow justify-end sm:flex-grow-0">
         <DarkModeToggle class="mr-2"></DarkModeToggle>
-        <template v-if="isRealLogined">
+        <!-- <template v-if="isRealLogined">
           <el-dropdown
             key="drop"
             class="outline-none"
@@ -74,10 +74,10 @@
           >
             Sign up
           </button>
-        </template>
+        </template> -->
       </div>
-      <SignInPopup v-model="SignInVisible"></SignInPopup>
-      <RegisterPopup v-model="RegisterVisible"></RegisterPopup>
+      <!-- <SignInPopup v-model="SignInVisible"></SignInPopup>
+      <RegisterPopup v-model="RegisterVisible"></RegisterPopup> -->
     </client-only>
   </header>
 </template>
@@ -85,8 +85,8 @@
 <script>
 import { mapGetters } from 'vuex'
 import { Dialog } from 'vant'
-import SignInPopup from './SignInPopup'
-import RegisterPopup from './RegisterPopup'
+// import SignInPopup from './SignInPopup'
+// import RegisterPopup from './RegisterPopup'
 import DarkModeToggle from './DarkModeToggle.vue'
 import HeaderSearchBar from '@/components/article/HeaderSearchBar'
 import defaultAvatar from '@/assets/img/default-avatar.png'
@@ -95,8 +95,8 @@ import Logo from '@/assets/img/avatar.jpg'
 export default {
   components: {
     HeaderSearchBar,
-    SignInPopup,
-    RegisterPopup,
+    // SignInPopup,
+    // RegisterPopup,
     DarkModeToggle,
     // ThemeSwitch,
   },

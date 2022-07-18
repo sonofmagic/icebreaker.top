@@ -62,7 +62,7 @@
         <!-- END -->
       </div>
       <div class="w-full flex-grow self-start p-4 shadow sm:w-auto">
-        <Comments />
+        <!-- <Comments /> -->
       </div>
     </div>
   </div>
@@ -71,14 +71,14 @@
 <script>
 import { gsap } from 'gsap'
 
-import Comments from '@/components/common/Comments/dark/DarkParadise.vue'
+// import Comments from '@/components/common/Comments/dark/DarkParadise.vue'
 import { isProd } from '@/utils/env'
 import ReadCount from '@/components/common/ReadCount.vue'
 
 export default {
   name: 'ArticlesYearMonthSlug',
   components: {
-    Comments,
+    // Comments,
     ReadCount,
   },
   layout: 'article',

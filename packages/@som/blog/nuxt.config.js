@@ -118,10 +118,10 @@ const config = {
       src: '@/plugins/server-only.js',
       mode: 'server',
     },
-    {
-      src: '@/plugins/cloudbase/client.js',
-      mode: 'client',
-    },
+    // {
+    //   src: '@/plugins/cloudbase/client.js',
+    //   mode: 'client',
+    // },
     {
       src: '@/plugins/gsap.js',
       mode: 'client',

@@ -33,7 +33,7 @@
           </div>
         </div>
         <div class="team-right-column mt-8 md:w-4/12 md:px-6">
-          <DarkParadise />
+          <!-- <DarkParadise /> -->
         </div>
       </div>
     </div>
@@ -45,14 +45,14 @@ import DarkSouls from '@/components/home/DarkSouls.vue'
 import { getPageList } from '@/api/article'
 import DarkArticleCard from '@/components/article/DarkArticleCard.vue'
 import SidebarFooter from '@/components/layout/SidebarFooter'
-import DarkParadise from '@/components/common/Comments/dark/DarkParadise.vue'
+// import DarkParadise from '@/components/common/Comments/dark/DarkParadise.vue'
 
 export default {
   components: {
     DarkSouls,
     DarkArticleCard,
     SidebarFooter,
-    DarkParadise,
+    // DarkParadise,
   },
   layout: 'noFooter',
   async asyncData({ $content }) {
