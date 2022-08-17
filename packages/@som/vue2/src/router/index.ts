@@ -43,6 +43,11 @@ const routes: Array<RouteConfig> = [
     path: '/table',
     name: 'Table',
     component: () => import('@/views/Table.vue')
+  },
+  {
+    path: '/event',
+    name: 'Event',
+    component: () => import('@/views/Event.vue')
   }
   // {
   //   path: '/about',

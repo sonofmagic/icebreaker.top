@@ -2,26 +2,28 @@ import { OrgChart } from './lib/d3-org-chart'
 import type { OrgChart as IOrgChart } from 'd3-org-chart'
 import './index.scss'
 import NodeVue from './Node.vue'
-interface IDataType { }
 
 // import type {  } from 'd3-org-chart'
 import Vue from 'vue'
+interface IDataType {
+  a:string
+}
 export default Vue.extend({
-  name: 'Chart',
+  name: 'D3OrgChart',
   props: ['dataSource'],
-  data(): {
+  data (): {
     chartReference?: IOrgChart<IDataType>
-  } {
+    } {
     return {
       chartReference: undefined
     }
   },
-  render(h) {
+  render (h) {
     return <div onClick={this.tokenDetail} ref="svgElementContainer"></div>
   },
 
   watch: {
-    dataSource(value) {
+    dataSource (value) {
       this.renderChart(value)
     }
   },
@@ -30,25 +32,22 @@ export default Vue.extend({
   //     return this.chartReference
   //   }
   // },
-  created() { },
-  mounted() {
+  mounted () {
     console.log(this.$scopedSlots)
   },
   methods: {
-    tokenDetail(e: PointerEvent) {
+    tokenDetail (e: MouseEvent) : void {
       // console.log(e.target,this)
       // @ts-ignore
       // console.log(e.target?.getAttribute('data-func-key'))
     },
-    renderChart(data: IDataType[] | null) {
+    renderChart (data: IDataType[] | null) {
       if (!this.chartReference) {
         // @ts-ignore
         this.chartReference = new OrgChart()
       }
       // console.log(this.chartReference.getChartState())
-      this.chartReference!.container(
-        this.$refs.svgElementContainer as unknown as string
-      ) // node or css selector
+      this.chartReference!.container(this.$refs.svgElementContainer as unknown as string) // node or css selector
         .data(data)
         .nodeHeight((d) => 120)
         .nodeWidth((d) => 240)
