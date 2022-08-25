@@ -27,7 +27,7 @@
         <div class="pt-10">
           <ContentDoc path="/" class="prose dark:prose-invert" />
         </div>
-        <div></div>
+        <div />
       </div>
     </main>
   </div>
