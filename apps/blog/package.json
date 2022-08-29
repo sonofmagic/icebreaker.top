@@ -9,14 +9,21 @@
     "preview": "nuxt preview"
   },
   "devDependencies": {
+    "@element-plus/icons-vue": "^2.0.9",
     "@nuxt/content": "^2.0.1",
     "@nuxtjs/color-mode": "^3.1.4",
     "@nuxtjs/eslint-config": "^10.0.0",
     "@nuxtjs/eslint-config-typescript": "^10.0.0",
+    "@nuxtjs/svg": "^0.4.0",
+    "@pinia/nuxt": "^0.4.1",
     "@tailwindcss/typography": "^0.5.4",
+    "@vueuse/nuxt": "^9.1.1",
     "nuxt": "npm:nuxt3@latest",
+    "pinia": "^2.0.21",
     "sass": "^1.54.5",
-    "tailwindcss": "^3.1.8"
+    "tailwindcss": "^3.1.8",
+    "unplugin-icons": "^0.14.8",
+    "unplugin-vue-components": "^0.22.4"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.1.2",
@@ -24,6 +31,7 @@
     "@fortawesome/free-regular-svg-icons": "^6.1.2",
     "@fortawesome/free-solid-svg-icons": "^6.1.2",
     "@fortawesome/vue-fontawesome": "^3.0.1",
+    "element-plus": "^2.2.15",
     "lodash": "^4.17.21"
   }
 }

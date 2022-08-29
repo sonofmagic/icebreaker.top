@@ -1,12 +1,16 @@
 <template>
-  <div>
-    <nuxt-link to="/article">
-      article
-    </nuxt-link>
+  <div class="p-20">
+    <RouteNode v-for="(r, i) in routes" :key="r.path" :route="r" />
   </div>
 </template>
 
-<script setuplang="ts"></script>
+<script setup lang="ts">
+
+const router = useRouter()
+
+const routes = router.getRoutes()
+
+</script>
 
 <style scoped>
 </style>
