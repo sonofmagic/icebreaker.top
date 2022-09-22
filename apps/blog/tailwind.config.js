@@ -1,3 +1,5 @@
+const { createPreset } = require('tailwind-css-variables-theme-generator')
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ['class', '.dark-mode'],
@@ -6,10 +8,31 @@ module.exports = {
     './layouts/**/*.vue',
     './pages/**/*.vue',
     './plugins/**/*.{js,ts}',
-    './app.vue',
+    './app.vue'
   ],
   theme: {
-    extend: {},
+    extend: {}
   },
   plugins: [require('@tailwindcss/typography')],
+  presets: [
+    createPreset({
+      entryPoint: './assets/scss/expose.scss',
+      outdir: 'expose',
+      files: {
+        extendColors: {
+          getVarName (s) {
+            return s.substring(2)
+          }
+        },
+        root: {
+          replacement: {
+            '{{filepath}}': '../constants.scss',
+            '{{variableName}}': '$root-vars'
+          }
+        },
+        util: true
+      },
+      write: true
+    })
+  ]
 }
