@@ -4,8 +4,8 @@
 // https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/rgb()
 @function getRgbaString($color) {
   @if (meta.type-of($color) == color) {
-    @return color.red($color) color.green($color) color.blue($color) /
-      color.alpha($color);
+    @return #{color.red($color) color.green($color) color.blue($color) /
+      color.alpha($color)};
   } @else {
     @return $color;
   }
@@ -13,7 +13,7 @@
 
 @function getRgbString($color) {
   @if (meta.type-of($color) == color) {
-    @return color.red($color) color.green($color) color.blue($color);
+    @return #{color.red($color) color.green($color) color.blue($color)};
   } @else {
     @return $color;
   }
