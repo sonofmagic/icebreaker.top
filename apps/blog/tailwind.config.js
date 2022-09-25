@@ -1,4 +1,4 @@
-const { createPreset } = require('tailwind-css-variables-theme-generator')
+const { createPlugin } = require('tailwind-css-variables-theme-generator')
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -8,31 +8,15 @@ module.exports = {
     './layouts/**/*.vue',
     './pages/**/*.vue',
     './plugins/**/*.{js,ts}',
-    './app.vue'
+    './app.vue',
   ],
   theme: {
-    extend: {}
+    extend: {},
   },
-  plugins: [require('@tailwindcss/typography')],
-  presets: [
-    createPreset({
+  plugins: [
+    require('@tailwindcss/typography'),
+    createPlugin({
       entryPoint: './assets/scss/expose.scss',
-      outdir: 'expose',
-      files: {
-        extendColors: {
-          getVarName (s) {
-            return s.substring(2)
-          }
-        },
-        root: {
-          replacement: {
-            '{{filepath}}': '../constants.scss',
-            '{{variableName}}': '$root-vars'
-          }
-        },
-        util: true
-      },
-      write: true
-    })
-  ]
+    }),
+  ],
 }
