@@ -33,7 +33,7 @@ jobs:
           node-version: '16.x'
           cache: 'yarn'
           cache-dependency-path: 'packages/@som/blog/yarn.lock'
-          registry-url: 'https://registry.npmjs.org'
+          # registry-url: 'https://registry.npmjs.org'
 
       - name: Install Dependencies
         run: yarn install:blog
