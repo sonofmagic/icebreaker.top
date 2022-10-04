@@ -37,9 +37,19 @@ export default {
     return {
       utils: [
         {
-          url: 'https://cdn.icebreaker.top/reg/index.html',
-          title: 'Regexper',
-          desc: '正则表达式可视化',
+          url: 'https://regex101.com/',
+          title: 'regex101',
+          desc: 'regex101',
+        },
+        {
+          url: 'https://regexr.com/',
+          title: 'regexr',
+          desc: 'regexr',
+        },
+        {
+          url: 'https://regexper.com/',
+          title: 'regexper',
+          desc: 'regexper',
         },
         {
           url: 'http://nodeca.github.io/js-yaml/',
