@@ -1956,6 +1956,13 @@
   resolved "https://registry.npmmirror.com/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
+"@icebreakers/deploy@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.npmmirror.com/@icebreakers/deploy/-/deploy-0.1.0.tgz#89020c5a8c14771216d5e58929f4fa6c79c5bbf7"
+  integrity sha512-tg7OMH/YPHHQm2RuGSrsQBmD95b4SFGbbVQqicz1NhEq51YZo3UAXlrnFfjJ7ySokOyZRg6nlmZbNMVFaSmeIQ==
+  dependencies:
+    cos-nodejs-sdk-v5 latest
+
 "@jridgewell/gen-mapping@^0.3.2":
   version "0.3.2"
   resolved "https://registry.npmmirror.com/@jridgewell/gen-mapping/-/gen-mapping-0.3.2.tgz#c1aedc61e853f2bb9f5dfe6d4442d3b565b253b9"
@@ -5512,7 +5519,7 @@ cos-nodejs-sdk-v5@^2.10.6:
     request "^2.88.2"
     xml2js "^0.4.19"
 
-cos-nodejs-sdk-v5@^2.11.12:
+cos-nodejs-sdk-v5@^2.11.12, cos-nodejs-sdk-v5@latest:
   version "2.11.12"
   resolved "https://registry.npmmirror.com/cos-nodejs-sdk-v5/-/cos-nodejs-sdk-v5-2.11.12.tgz#c35419237db93b3fe4037c9a972a4a0508a8a482"
   integrity sha512-XtSlcrwgcyO8K0LCwNmimtkBErC1yJ55cvZ7nWFWsT0c2AWBw8F/ftGvUhZIZhh7B2SlPdXsFZg+QOU7cwI2GQ==

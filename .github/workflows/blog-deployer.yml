@@ -11,7 +11,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-
       - name: Set Beijing Timezone
         uses: szenius/set-timezone@v1.0
         with:
@@ -45,8 +44,9 @@ jobs:
         env:
           TENCENT_SECRET_ID: ${{ secrets.TENCENT_SECRET_ID }}
           TENCENT_SECRET_KEY: ${{ secrets.TENCENT_SECRET_KEY }}
-          TENCENT_CLOUDBASE_ENVID: ${{ secrets.TENCENT_CLOUDBASE_ENVID }}
-          BASE_URL: ${{ secrets.BASE_URL }}
-          SERVERLESS_PLATFORM_VENDOR: tencent
+          TENCENT_COS_REGION: ${{ secrets.TENCENT_COS_REGION }}
+          TENCENT_COS_BUCKET: ${{ secrets.TENCENT_COS_BUCKET }}
+          # TENCENT_CLOUDBASE_ENVID: ${{ secrets.TENCENT_CLOUDBASE_ENVID }}
+          # BASE_URL: ${{ secrets.BASE_URL }}
+          # SERVERLESS_PLATFORM_VENDOR: tencent
         run: yarn deploy:blog
-
