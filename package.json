@@ -30,7 +30,7 @@
   "scripts": {
     "dev": "turbo run dev",
     "install:blog": "cd packages/@som/blog && yarn",
-    "deploy:blog": "cd packages/@som/blog && npm run deploy",
+    "deploy:blog": "cd packages/@som/blog && npm run deploy:cos",
     "sync:article": "cd packages/@som/blog && npm run sync"
   },
   "devDependencies": {
