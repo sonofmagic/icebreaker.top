@@ -42,7 +42,7 @@
 
 <script>
 import { passwordRule } from '@/utils/formRules'
-import errorHandler from '@/cloudbase/errorHandler'
+// import errorHandler from '@/cloudbase/errorHandler'
 export default {
   name: 'Register',
   data() {
@@ -81,9 +81,8 @@ export default {
         try {
           const { email, password } = this.formValue
           this.registerBtnLoading = true
-          await this.$auth
-            .signUpWithEmailAndPassword(email, password)
-            .catch(errorHandler)
+          await this.$auth.signUpWithEmailAndPassword(email, password)
+          // .catch(errorHandler)
           this.$message.success('邮件已发送到您填写的邮箱，请注意查收!')
           this.$emit('success')
         } catch (error) {
