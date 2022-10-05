@@ -16,7 +16,7 @@ export default defineNuxtConfig({
     ]
   },
   css: ['@fortawesome/fontawesome-svg-core/styles.css'],
-  modules: ['@nuxt/content', '@nuxtjs/color-mode'],
+  modules: ['@nuxt/content', '@nuxtjs/color-mode', '@nuxtjs/supabase'],
   content: {
     highlight: {
       preload: [
