@@ -1,4 +1,4 @@
-import { defineNuxtConfig } from 'nuxt'
+import { defineNuxtConfig } from 'nuxt/config'
 import IconsResolver from 'unplugin-icons/resolver'
 import Components from 'unplugin-vue-components/vite'
 const lifecycle = process.env.npm_lifecycle_event
@@ -16,7 +16,19 @@ export default defineNuxtConfig({
     ]
   },
   css: ['@fortawesome/fontawesome-svg-core/styles.css'],
-  modules: ['@nuxt/content', '@nuxtjs/color-mode', '@nuxtjs/supabase'],
+  modules: [
+    '@nuxt/content',
+    '@nuxtjs/color-mode',
+    '@nuxtjs/supabase',
+    '@nuxtjs/tailwindcss'
+  ],
+  tailwindcss: {
+    cssPath: '~/assets/scss/tailwind.scss'
+  },
+  colorMode: {
+    classPrefix: '',
+    classSuffix: ''
+  },
   content: {
     highlight: {
       preload: [
@@ -32,11 +44,11 @@ export default defineNuxtConfig({
       ]
     }
   },
-  postcss: {
-    plugins: {
-      tailwindcss: {}
-    }
-  },
+  // postcss: {
+  //   plugins: {
+  //     tailwindcss: {},
+  //   },
+  // },
   vite: {
     // mode: 'development',
     plugins: [
