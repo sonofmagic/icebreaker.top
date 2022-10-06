@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="flex flex-col min-h-screen">
     <header
       class="sticky top-0 z-40 h-16 border-b border-solid border-slate-900/10 backdrop-blur-sm transition-colors duration-300 dark:border-slate-50/[0.06]"
     >
@@ -14,9 +14,8 @@
         />
       </div>
     </header>
-    <main>
-      <slot />
-    </main>
+
+    <slot />
   </div>
 </template>
 <script setup lang="ts">

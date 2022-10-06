@@ -1,6 +1,11 @@
 import { defineNuxtConfig } from 'nuxt/config'
-import IconsResolver from 'unplugin-icons/resolver'
-import Components from 'unplugin-vue-components/vite'
+// import IconsResolver from 'unplugin-icons/resolver'
+// import AutoImport from 'unplugin-auto-import/vite'
+// import Components from 'unplugin-vue-components/vite'
+// import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+// const WebpackAutoImport = require('unplugin-auto-import/webpack')
+// const WebpackComponents = require('unplugin-vue-components/webpack')
+import ElementPlus from 'unplugin-element-plus/vite'
 const lifecycle = process.env.npm_lifecycle_event
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
@@ -15,7 +20,10 @@ export default defineNuxtConfig({
       }
     ]
   },
-  css: ['@fortawesome/fontawesome-svg-core/styles.css'],
+  css: [
+    '@fortawesome/fontawesome-svg-core/styles.css',
+    '~/assets/scss/index.scss'
+  ],
   modules: [
     '@nuxt/content',
     '@nuxtjs/color-mode',
@@ -49,17 +57,35 @@ export default defineNuxtConfig({
   //     tailwindcss: {},
   //   },
   // },
+  // webpack: {
+  //   plugins: [
+  //     WebpackAutoImport({
+  //       resolvers: [ElementPlusResolver()]
+  //     }),
+  //     WebpackComponents({
+  //       resolvers: [ElementPlusResolver()]
+  //     })
+  //   ]
+  // },
+
   vite: {
     // mode: 'development',
     plugins: [
-      Components({
-        dts: true,
-        resolvers: [IconsResolver({})]
-      })
+      ElementPlus()
+      // Components({
+      //   dts: true,
+      //   resolvers: [IconsResolver({})]
+      // }),
+      // AutoImport({
+      //   resolvers: [ElementPlusResolver()]
+      // }),
+      // Components({
+      //   resolvers: [ElementPlusResolver()]
+      // })
     ]
   },
   build: {
-    transpile: lifecycle === 'build' ? ['element-plus'] : []
+    transpile: ['element-plus/es']
   },
   buildModules: [
     '@pinia/nuxt',
@@ -67,6 +93,7 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     'unplugin-icons/nuxt'
   ],
+
   components: true,
   vueuse: {
     ssrHandlers: true

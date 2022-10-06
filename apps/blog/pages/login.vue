@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="w-full flex justify-center items-center flex-grow">
     <Auth />
   </div>
 </template>
