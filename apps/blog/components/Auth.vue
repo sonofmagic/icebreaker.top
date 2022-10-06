@@ -1,16 +1,16 @@
 <template>
-  <form class="row flex-center flex" @submit.prevent="handleLogin">
+  <client-only>
     <div class="col-6 form-widget">
       <div>
-        <el-input v-model="email" type="email" placeholder="Your email" />
+        <el-input v-model="email" placeholder="Your email" />
       </div>
       <div>
-        <el-button type="primary" :loading="loading" @click="handleLogin">
+        <el-button type="primary" plain :loading="loading" @click="handleLogin">
           Send magic link
         </el-button>
       </div>
     </div>
-  </form>
+  </client-only>
 </template>
 
 <script setup>

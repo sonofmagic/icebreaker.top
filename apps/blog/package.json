@@ -51,6 +51,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.2.0",
     "@fortawesome/vue-fontawesome": "^3.0.1",
     "@supabase/supabase-js": "^1.35.7",
+    "@tanstack/vue-query": "^4.10.1",
     "@vueuse/core": "^9.3.0",
     "d3-color": "^3.1.0",
     "element-plus": "^2.2.17",

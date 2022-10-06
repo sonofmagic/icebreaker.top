@@ -5,7 +5,8 @@
 </template>
 
 <script setup lang="ts">
-
+import { useQuery } from '@tanstack/vue-query'
+// const { isLoading, isError, data, error } = useQuery(['todos'],$fetch() )
 const router = useRouter()
 
 const routes = router.getRoutes()

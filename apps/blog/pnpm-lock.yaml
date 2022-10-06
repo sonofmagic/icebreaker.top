@@ -18,6 +18,7 @@ specifiers:
   '@pinia/nuxt': ^0.4.2
   '@supabase/supabase-js': ^1.35.7
   '@tailwindcss/typography': ^0.5.7
+  '@tanstack/vue-query': ^4.10.1
   '@types/prettier': ^2.7.1
   '@typescript-eslint/eslint-plugin': ^5.38.0
   '@typescript-eslint/parser': ^5.38.0
@@ -50,6 +51,7 @@ dependencies:
   '@fortawesome/free-solid-svg-icons': 6.2.0
   '@fortawesome/vue-fontawesome': 3.0.1_2jo7f6j6pn2m7lj4deimyvebc4
   '@supabase/supabase-js': 1.35.7
+  '@tanstack/vue-query': 4.10.1
   '@vueuse/core': 9.3.0
   d3-color: 3.1.0
   element-plus: 2.2.17
@@ -365,6 +367,13 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /@babel/runtime/7.19.0:
+    resolution: {integrity: sha512-eR8Lo9hnDS7tqkO7NsV+mKvCmv5boaXFSZ70DnfhcgiEne8hv9oCEd36Klw74EtizEqLsy4YnW8UWwpBVolHZA==}
+    engines: {node: '>=6.9.0'}
+    dependencies:
+      regenerator-runtime: 0.13.9
+    dev: false
 
   /@babel/standalone/7.19.3:
     resolution: {integrity: sha512-zSdDx28L6f27Y59OMrl8mBbtyB/cpIGlHm7wVOHlcmUTpD10AiUILkekZATkkpsuTagTWezdJmUaeY8P2SONUA==}
@@ -1174,6 +1183,25 @@ packages:
       tailwindcss: 3.1.8
     dev: true
 
+  /@tanstack/query-core/4.10.1:
+    resolution: {integrity: sha512-UZRYzjgQSfYhQ+cJX0CspAbzutf8p93gR1xFjQuH3OYcb/7t3WnHkdb/qC9mbqrfWXN/JAbBTJlTU/XQHc5HbA==}
+    dev: false
+
+  /@tanstack/vue-query/4.10.1:
+    resolution: {integrity: sha512-vlmaG8kgcQSi1qHCXe8Dol4t+gOH+4+9N0xv3tlIvPjNPubVZhNBmG+FvLwYH0yXB7eBflLWmk4wma5B97mmtg==}
+    peerDependencies:
+      '@vue/composition-api': ^1.1.2
+      vue: ^2.5.0 || ^3.0.0
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+    dependencies:
+      '@tanstack/query-core': 4.10.1
+      '@vue/devtools-api': 6.4.3
+      match-sorter: 6.3.1
+      vue-demi: 0.13.11
+    dev: false
+
   /@trysound/sax/0.2.0:
     resolution: {integrity: sha512-L7z9BgrNEcYyUYtF+HaEfiS5ebkh9jXqbszz7pC0hRBPaatV0XjSD3+eHrpqFemQfgwiFF0QPIarnIihIDn7OA==}
     engines: {node: '>=10.13.0'}
@@ -1502,7 +1530,6 @@ packages:
 
   /@vue/devtools-api/6.4.3:
     resolution: {integrity: sha512-9WCRwdROJvWcHAdyrR7SZMM/qUvllDZnpndHXokThkUsjnJ2xe4/pvsH9FZrxFe22L+JmDKczL79HjLJ7DK9rg==}
-    dev: true
 
   /@vue/reactivity-transform/3.2.40:
     resolution: {integrity: sha512-HQUCVwEaacq6fGEsg2NUuGKIhUveMCjOk8jGHqLXPI2w6zFoPrlQhwWEaINTv5kkZDXKEnCijAp+4gNEHG03yw==}
@@ -5687,6 +5714,13 @@ packages:
     resolution: {integrity: sha512-y8j3a5/DkJCmS5x4dMCQL+OR0+2EAq3DOtio1COSHsmW2BGXnNCK3v12hJt1LrUz5iZH5g0LmuYOjDdI+czghA==}
     dev: true
 
+  /match-sorter/6.3.1:
+    resolution: {integrity: sha512-mxybbo3pPNuA+ZuCUhm5bwNkXrJTbsk5VWbR5wiwz/GC6LIiegBGn2w3O08UG/jdbYLinw51fSQ5xNU1U3MgBw==}
+    dependencies:
+      '@babel/runtime': 7.19.0
+      remove-accents: 0.4.2
+    dev: false
+
   /mdast-squeeze-paragraphs/5.2.0:
     resolution: {integrity: sha512-uqPZ2smyXe0gNjweQaDkm7eK/KgvcS0u9X9yu28Yj/UOmK6CN6JRs/puzAGQw72vZcxWxs05LxkUTwZIsQZvrw==}
     dependencies:
@@ -7668,6 +7702,10 @@ packages:
       redis-errors: 1.2.0
     dev: true
 
+  /regenerator-runtime/0.13.9:
+    resolution: {integrity: sha512-p3VT+cOEgxFsRRA9X4lkI1E+k2/CtnKtU4gcxyaCUreilL/vqI6CdZ3wxVUx3UOUg+gnUOQQcRI7BmSI656MYA==}
+    dev: false
+
   /regex-not/1.0.2:
     resolution: {integrity: sha512-J6SDjUgDxQj5NusnOtdFxDwN/+HWykR8GELwctJ7mdqhcyy1xEc4SRFHUXvxTp661YaVKAjfRLZ9cCqS6tn32A==}
     engines: {node: '>=0.10.0'}
@@ -7810,6 +7848,10 @@ packages:
       mdast-squeeze-paragraphs: 5.2.0
       unified: 10.1.2
     dev: true
+
+  /remove-accents/0.4.2:
+    resolution: {integrity: sha512-7pXIJqJOq5tFgG1A2Zxti3Ht8jJF337m4sowbuHsW30ZnkQFnDzy9qBNhgzX8ZLW4+UBcXiiR7SwR6pokHsxiA==}
+    dev: false
 
   /repeat-element/1.1.4:
     resolution: {integrity: sha512-LFiNfRcSu7KK3evMyYOuCzv3L10TW7yC1G2/+StMjK8Y6Vqd2MG7r/Qjw4ghtuCOjFvlnms/iMmLqpvW/ES/WQ==}
