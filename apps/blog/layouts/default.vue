@@ -10,24 +10,38 @@
           </div>
           <div class="flex space-x-4 items-center">
             <template v-if="user">
-              <div class="" @click="navigateTo('/account')">
-                {{ user.id }}
-              </div>
+              <el-dropdown @command="handleCommand">
+                <el-avatar :src="user.user_metadata.avatar_url" />
+                <template #dropdown>
+                  <el-dropdown-menu>
+                    <el-dropdown-item command="account">
+                      account
+                    </el-dropdown-item>
+                    <el-dropdown-item command="signout">
+                      signout
+                    </el-dropdown-item>
+                  </el-dropdown-menu>
+                </template>
+              </el-dropdown>
+              <!-- <div class="" @click="navigateTo('/account')">
+
+              </div> -->
             </template>
             <template v-else>
-              <el-button plain @click="navigateTo('/login')">
-                Login
+              <el-button type="primary" plain @click="navigateTo('/login')">
+                Login / Signup
               </el-button>
-              <el-button type="primary" plain @click="navigateTo('/signup')">
+              <!-- <el-button type="primary" plain @click="navigateTo('/signup')">
                 Signup
-              </el-button>
+              </el-button> -->
             </template>
-
-            <font-awesome-icon
-              class="cursor-pointer text-2xl text-[rgb(113,113,122)] hover:text-[rgb(63,63,70)] dark:text-[rgb(146,173,173)] dark:hover:text-[rgb(209,226,226)]"
-              :icon="icon"
-              @click="toggleTheme"
-            />
+            <div class="w-6">
+              <font-awesome-icon
+                class="cursor-pointer text-2xl text-[rgb(113,113,122)] hover:text-[rgb(63,63,70)] dark:text-[rgb(146,173,173)] dark:hover:text-[rgb(209,226,226)]"
+                :icon="icon"
+                @click="toggleTheme"
+              />
+            </div>
           </div>
         </div>
       </header>
@@ -37,7 +51,9 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ElButton } from 'element-plus'
+import { ElButton, ElAvatar, ElDropdown, ElDropdownItem, ElDropdownMenu } from 'element-plus'
+import { aw } from '~~/dist/_nuxt/entry.ef6b0fac'
+const supabase = useSupabaseClient()
 const user = useSupabaseUser()
 const colorMode = useColorMode()
 const icon = computed(() => {
@@ -50,5 +66,23 @@ const toggleTheme = () => {
 
 const go2HomePage = async () => {
   await navigateTo('/')
+}
+
+const signOut = async () => {
+  await supabase.auth.signOut()
+}
+
+const handleCommand = async (command: 'account' | 'signout') => {
+  switch (command) {
+    case 'account': {
+      await navigateTo('/account')
+      break
+    }
+    case 'signout': {
+      await signOut()
+      await navigateTo('/')
+      break
+    }
+  }
 }
 </script>

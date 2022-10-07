@@ -1,6 +1,7 @@
 <template>
   <client-only>
-    <div class="col-6 form-widget">
+    <div class="flex flex-col items-center space-y-4 border p-8 rounded">
+      <div>Sign in/up</div>
       <div>
         <el-input v-model="email" placeholder="Your email" />
       </div>
@@ -9,18 +10,30 @@
           Send magic link
         </el-button>
       </div>
-      <div @click="oauthLogin('github')">
-        Github
+      <div>
+        <el-button plain :loading="loading" @click="resetPassword">
+          Reset password
+        </el-button>
       </div>
-      <div @click="oauthLogin('google')">
-        Google
+      <div>OAuth</div>
+      <div class="flex space-x-4">
+        <font-awesome-icon
+          class="text-4xl cursor-pointer text-gray-300 hover:text-gray-900"
+          icon="fa-brands fa-github"
+          @click="oauthLogin('github')"
+        />
+        <font-awesome-icon
+          class="text-4xl cursor-pointer text-gray-300 hover:text-gray-900"
+          icon="fa-brands fa-google"
+          @click="oauthLogin('google')"
+        />
       </div>
     </div>
   </client-only>
 </template>
 
 <script setup lang="ts">
-import { ElInput, ElButton } from 'element-plus'
+import { ElInput, ElButton, ElMessage } from 'element-plus'
 const supabase = useSupabaseClient()
 
 const loading = ref(false)
@@ -30,7 +43,7 @@ const handleLogin = async () => {
     loading.value = true
     const { error } = await supabase.auth.signIn({ email: email.value })
     if (error) { throw error }
-    alert('Check your email for the login link!')
+    ElMessage.success('Check your email for the login link!')
   } catch (error) {
     alert(error.error_description || error.message)
   } finally {
@@ -43,5 +56,10 @@ const oauthLogin = async (provider: 'github' | 'google') => {
     provider
   })
   console.log(user, session, error)
+}
+
+const resetPassword = async () => {
+  await supabase.auth.api.resetPasswordForEmail(email.value)
+  ElMessage.success('Check your email for the reset password!')
 }
 </script>

@@ -1,68 +1,65 @@
 <template>
-  <form class="form-widget" @submit.prevent="updateProfile">
-    <Avatar v-model:path="avatar_path" @upload="updateProfile" />
-    <div>
-      <label for="email">Email</label>
-      <input id="email" type="text" :value="user.email" disabled>
-    </div>
-    <div>
-      <label for="username">Name</label>
-      <input id="username" v-model="username" type="text">
-    </div>
-    <div>
-      <label for="website">Website</label>
-      <input id="website" v-model="website" type="website">
-    </div>
-
-    <div>
-      <input
-        type="submit"
-        class="button primary block"
-        :value="loading ? 'Loading ...' : 'Update'"
-        :disabled="loading"
-      >
-    </div>
-
-    <div>
-      <button class="button block" :disabled="loading" @click="signOut">
-        Sign Out
-      </button>
-    </div>
-  </form>
+  <ElForm :model="formValue" label-width="120px" @submit.prevent>
+    <ElFormItem label="avatar">
+      <Avatar v-model:path="formValue.avatar_url" />
+      <!-- <ElUpload>
+        <ElAvatar :src="formValue.avatar_url" />
+      </ElUpload> -->
+    </ElFormItem>
+    <ElFormItem label="email">
+      <ElInput readonly :model-value="user.email" />
+    </ElFormItem>
+    <ElFormItem label="username">
+      <ElInput v-model="formValue.username" />
+    </ElFormItem>
+    <ElFormItem label="website">
+      <ElInput v-model="formValue.website" />
+    </ElFormItem>
+    <ElButton type="primary" @click="updateProfile">
+      Update
+    </ElButton>
+  </ElForm>
 </template>
 
-<script setup>
+<script setup lang="ts">
+import { ElForm, ElFormItem, ElButton, ElInput, ElUpload, ElAvatar } from 'element-plus'
+
 const supabase = useSupabaseClient()
 
+interface IFormValue {
+  username: string
+  website: string
+  avatar_url: string
+}
+const formValue = reactive<IFormValue>({
+  username: '',
+  website: '',
+  avatar_url: ''
+})
 const loading = ref(true)
-const username = ref('')
-const website = ref('')
-const avatar_path = ref('')
 
 loading.value = true
 const user = useSupabaseUser()
+
 const { data } = await supabase
   .from('profiles')
   .select('username, website, avatar_url')
   .eq('id', user.value.id)
   .single()
 if (data) {
-  username.value = data.username
-  website.value = data.website
-  avatar_path.value = data.avatar_url
+  formValue.username = data.username
+  formValue.website = data.website
+  formValue.avatar_url = data.avatar_url
 }
 loading.value = false
 
 async function updateProfile () {
   try {
     loading.value = true
-    const user = useSupabaseUser()
 
     const updates = {
       id: user.value.id,
-      username: username.value,
-      website: website.value,
-      avatar_url: avatar_path.value,
+      ...formValue,
       updated_at: new Date()
     }
     const { error } = await supabase.from('profiles').upsert(updates, {
@@ -76,16 +73,4 @@ async function updateProfile () {
   }
 }
 
-async function signOut () {
-  try {
-    loading.value = true
-    const { error } = await supabase.auth.signOut()
-    if (error) { throw error }
-    navigateTo('/')
-  } catch (error) {
-    alert(error.message)
-  } finally {
-    loading.value = false
-  }
-}
 </script>
