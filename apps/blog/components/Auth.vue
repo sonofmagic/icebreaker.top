@@ -9,11 +9,17 @@
           Send magic link
         </el-button>
       </div>
+      <div @click="oauthLogin('github')">
+        Github
+      </div>
+      <div @click="oauthLogin('google')">
+        Google
+      </div>
     </div>
   </client-only>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ElInput, ElButton } from 'element-plus'
 const supabase = useSupabaseClient()
 
@@ -30,5 +36,12 @@ const handleLogin = async () => {
   } finally {
     loading.value = false
   }
+}
+
+const oauthLogin = async (provider: 'github' | 'google') => {
+  const { user, session, error } = await supabase.auth.signIn({
+    provider
+  })
+  console.log(user, session, error)
 }
 </script>

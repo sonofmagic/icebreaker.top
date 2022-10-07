@@ -57,6 +57,7 @@ async function updateProfile () {
   try {
     loading.value = true
     const user = useSupabaseUser()
+
     const updates = {
       id: user.value.id,
       username: username.value,
@@ -80,6 +81,7 @@ async function signOut () {
     loading.value = true
     const { error } = await supabase.auth.signOut()
     if (error) { throw error }
+    navigateTo('/')
   } catch (error) {
     alert(error.message)
   } finally {
