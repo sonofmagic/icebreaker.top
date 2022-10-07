@@ -25,7 +25,7 @@ specifiers:
   '@vueuse/core': ^9.3.0
   '@vueuse/nuxt': ^9.2.0
   d3-color: ^3.1.0
-  dotenv: ^16.0.2
+  dotenv: ^16.0.3
   element-plus: ^2.2.17
   eslint: 8.24.0
   eslint-plugin-n: 15.3.0

@@ -6,7 +6,7 @@ import { defineNuxtConfig } from 'nuxt/config'
 // const WebpackAutoImport = require('unplugin-auto-import/webpack')
 // const WebpackComponents = require('unplugin-vue-components/webpack')
 import ElementPlus from 'unplugin-element-plus/vite'
-const lifecycle = process.env.npm_lifecycle_event
+// const lifecycle = process.env.npm_lifecycle_event
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
   head: {
@@ -28,7 +28,8 @@ export default defineNuxtConfig({
     '@nuxt/content',
     '@nuxtjs/color-mode',
     '@nuxtjs/supabase',
-    '@nuxtjs/tailwindcss'
+    '@nuxtjs/tailwindcss',
+    '@pinia/nuxt'
   ],
   tailwindcss: {
     cssPath: '~/assets/scss/tailwind.scss'
@@ -87,12 +88,7 @@ export default defineNuxtConfig({
   build: {
     transpile: ['element-plus/es']
   },
-  buildModules: [
-    '@pinia/nuxt',
-    '@nuxtjs/svg',
-    '@vueuse/nuxt',
-    'unplugin-icons/nuxt'
-  ],
+  buildModules: ['@nuxtjs/svg', '@vueuse/nuxt', 'unplugin-icons/nuxt'],
 
   components: true,
   vueuse: {

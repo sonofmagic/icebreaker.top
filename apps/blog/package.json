@@ -6,7 +6,8 @@
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
-    "preview": "nuxt preview"
+    "preview": "nuxt preview",
+    "deploy": "node scripts/deploy.js"
   },
   "comment": {
     "nuxt": "npm:nuxt3@latest"
@@ -27,7 +28,7 @@
     "@typescript-eslint/eslint-plugin": "^5.38.0",
     "@typescript-eslint/parser": "^5.38.0",
     "@vueuse/nuxt": "^9.2.0",
-    "dotenv": "^16.0.2",
+    "dotenv": "^16.0.3",
     "eslint": "8.24.0",
     "eslint-plugin-n": "15.3.0",
     "eslint-plugin-promise": "6.0.1",
