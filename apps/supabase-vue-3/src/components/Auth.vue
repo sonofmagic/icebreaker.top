@@ -20,6 +20,7 @@
         />
       </div>
     </div>
+    <div @click="handleOauthLogin">Github</div>
   </form>
 </template>
 
@@ -45,10 +46,17 @@ export default {
       }
     }
 
+    const handleOauthLogin = async () => {
+      await supabase.auth.signIn({
+        provider: 'github',
+      })
+    }
+
     return {
       loading,
       email,
       handleLogin,
+      handleOauthLogin,
     }
   },
 }
