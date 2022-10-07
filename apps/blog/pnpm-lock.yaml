@@ -37,6 +37,7 @@ specifiers:
   sass: ^1.55.0
   tailwind-css-variables-theme-generator: ^0.3.6
   tailwindcss: ^3.1.8
+  tencentcloud-sdk-nodejs: ^4.0.455
   turbo: ^1.5.3
   typescript: ^4.8.3
   unplugin-auto-import: ^0.11.2
@@ -83,6 +84,7 @@ devDependencies:
   sass: 1.55.0
   tailwind-css-variables-theme-generator: 0.3.8_iclg5uurdqdfmvlr3rnilcmrsq
   tailwindcss: 3.1.8
+  tencentcloud-sdk-nodejs: 4.0.455
   turbo: 1.5.5
   typescript: 4.8.4
   unplugin-auto-import: 0.11.2_@vueuse+core@9.3.0
@@ -4194,6 +4196,15 @@ packages:
   /form-data/2.3.3:
     resolution: {integrity: sha512-1lLKB2Mu3aGP1Q/2eCOx0fNbRMe7XdwktwOruhfqqd0rIJWwN4Dh+E3hrPSlDCXnSR7UtZ1N38rVXm+6+MEhJQ==}
     engines: {node: '>= 0.12'}
+    dependencies:
+      asynckit: 0.4.0
+      combined-stream: 1.0.8
+      mime-types: 2.1.35
+    dev: true
+
+  /form-data/3.0.1:
+    resolution: {integrity: sha512-RHkBKtLWUVwd7SqRIvCZMEvAMoGUp0XU+seQiZejj0COz3RI3hWP4sCv3gZWWLjJTd7rGwcsF5eKZGii0r/hbg==}
+    engines: {node: '>= 6'}
     dependencies:
       asynckit: 0.4.0
       combined-stream: 1.0.8
@@ -8775,6 +8786,21 @@ packages:
       yallist: 4.0.0
     dev: true
 
+  /tencentcloud-sdk-nodejs/4.0.455:
+    resolution: {integrity: sha512-ADsmEpmj+zbP/dsoMFMcB2eTuDAPLDQK8tWWPRvmo/ku28ojWTuUO9byfTnbK8WhRb3MXN+aKS3OBJZPgiSgqg==}
+    engines: {node: '>=10'}
+    dependencies:
+      form-data: 3.0.1
+      get-stream: 6.0.1
+      https-proxy-agent: 5.0.1
+      is-stream: 2.0.1
+      node-fetch: 2.6.7
+      tslib: 1.13.0
+    transitivePeerDependencies:
+      - encoding
+      - supports-color
+    dev: true
+
   /terser/5.15.1:
     resolution: {integrity: sha512-K1faMUvpm/FBxjBXud0LWVAGxmvoPbZbfTCYbSgaaYQaIXI3/TdI7a7ZGA73Zrou6Q8Zmz3oeUTsp/dj+ag2Xw==}
     engines: {node: '>=10'}
@@ -8884,6 +8910,10 @@ packages:
       json5: 1.0.1
       minimist: 1.2.6
       strip-bom: 3.0.0
+    dev: true
+
+  /tslib/1.13.0:
+    resolution: {integrity: sha512-i/6DQjL8Xf3be4K/E6Wgpekn5Qasl1usyw++dAA35Ue5orEn65VIxOA+YvNNl9HV3qv70T7CNwjODHZrLwvd1Q==}
     dev: true
 
   /tslib/1.14.1:
