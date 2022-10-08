@@ -22,10 +22,15 @@ export default defineConfig({
   plugins: [
     vue(),
     AutoImport({
+      dts: 'src/auto-imports.d.ts',
       resolvers: [ElementPlusResolver()],
       imports: ['vue', 'vue-router'],
+      eslintrc: {
+        enabled: true,
+      },
     }),
     Components({
+      dts: 'src/components.d.ts',
       resolvers: [ElementPlusResolver()],
     }),
   ],

@@ -1,5 +1,5 @@
 <template>
-  <form class="row flex-center flex" @submit.prevent="handleLogin">
+  <form class="row flex-center flex" @submit.prevent>
     <div class="col-6 form-widget">
       <div>
         <el-input
@@ -11,7 +11,7 @@
       </div>
       <div>
         <el-button
-          type="submit"
+          @click="handleLogin"
           class="button block"
           :loading="loading"
           :disabled="loading"
