@@ -30,94 +30,78 @@
   </form>
 </template>
 
-<script>
-import { supabase } from '../supabase'
-import { store } from '../store'
-import { onMounted, ref } from 'vue'
+<script lang="ts" setup>
+// import { supabase } fro../supabase/supabasese'
+// import { useUserStore } from '@/store/user'
 
-export default {
-  setup() {
-    const loading = ref(true)
-    const username = ref('')
-    const website = ref('')
-    const avatar_url = ref('')
+// const loading = ref(true)
+// const username = ref('')
+// const website = ref('')
+// const avatar_url = ref('')
 
-    async function getProfile() {
-      try {
-        loading.value = true
-        store.user = supabase.auth.user()
+// async function getProfile() {
+//   try {
+//     loading.value = true
+//     store.user = supabase.auth.user()
 
-        const { data, error, status } = await supabase
-          .from('profiles')
-          .select(`username, website, avatar_url`)
-          .eq('id', store.user.id)
-          .single()
+//     const { data, error, status } = await supabase
+//       .from('profiles')
+//       .select(`username, website, avatar_url`)
+//       .eq('id', store.user.id)
+//       .single()
 
-        if (error && status !== 406) throw error
+//     if (error && status !== 406) throw error
 
-        if (data) {
-          username.value = data.username
-          website.value = data.website
-          avatar_url.value = data.avatar_url
-        }
-      } catch (error) {
-        alert(error.message)
-      } finally {
-        loading.value = false
-      }
-    }
+//     if (data) {
+//       username.value = data.username
+//       website.value = data.website
+//       avatar_url.value = data.avatar_url
+//     }
+//   } catch (error) {
+//     alert(error.message)
+//   } finally {
+//     loading.value = false
+//   }
+// }
 
-    async function updateProfile() {
-      try {
-        loading.value = true
-        store.user = supabase.auth.user()
+// async function updateProfile() {
+//   try {
+//     loading.value = true
+//     store.user = supabase.auth.user()
 
-        const updates = {
-          id: store.user.id,
-          username: username.value,
-          website: website.value,
-          avatar_url: avatar_url.value,
-          updated_at: new Date(),
-        }
+//     const updates = {
+//       id: store.user.id,
+//       username: username.value,
+//       website: website.value,
+//       avatar_url: avatar_url.value,
+//       updated_at: new Date(),
+//     }
 
-        const { error } = await supabase.from('profiles').upsert(updates, {
-          returning: 'minimal', // Don't return the value after inserting
-        })
+//     const { error } = await supabase.from('profiles').upsert(updates, {
+//       returning: 'minimal', // Don't return the value after inserting
+//     })
 
-        if (error) throw error
-      } catch (error) {
-        alert(error.message)
-      } finally {
-        loading.value = false
-      }
-    }
+//     if (error) throw error
+//   } catch (error) {
+//     alert(error.message)
+//   } finally {
+//     loading.value = false
+//   }
+// }
 
-    async function signOut() {
-      try {
-        loading.value = true
-        const { error } = await supabase.auth.signOut()
-        if (error) throw error
-      } catch (error) {
-        alert(error.message)
-      } finally {
-        loading.value = false
-      }
-    }
+// async function signOut() {
+//   try {
+//     loading.value = true
+//     const { error } = await supabase.auth.signOut()
+//     if (error) throw error
+//   } catch (error) {
+//     alert(error.message)
+//   } finally {
+//     loading.value = false
+//   }
+// }
 
-    onMounted(() => {
-      getProfile()
-    })
-
-    return {
-      store,
-      loading,
-      username,
-      website,
-      avatar_url,
-
-      updateProfile,
-      signOut,
-    }
-  },
-}
+// onMounted(() => {
+//   getProfile()
+// })
 </script>
