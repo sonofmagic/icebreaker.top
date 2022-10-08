@@ -1,5 +1,5 @@
 <template>
-  <div class="container" style="padding: 50px 0 100px 0">
+  <div class="container m-8 border p-8">
     <!-- <Profile v-if="store.user" />
     <Auth v-else /> -->
   </div>

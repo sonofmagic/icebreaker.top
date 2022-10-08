@@ -1,6 +1,7 @@
 {
   "name": "supabase-vue-3",
   "private": true,
+  "type": "module",
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
