@@ -3,6 +3,7 @@ import '@/assets/scss/global.scss'
 import App from './App.vue'
 import { createPinia } from 'pinia'
 import router from './router'
+import '@/plugins/fortawesome'
 const store = createPinia()
 
 const app = createApp(App)

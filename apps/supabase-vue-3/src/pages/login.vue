@@ -1,5 +1,7 @@
 <template>
-  <div>Hello world!</div>
+  <div>
+    <Auth></Auth>
+  </div>
 </template>
 
 <script setup lang="ts"></script>

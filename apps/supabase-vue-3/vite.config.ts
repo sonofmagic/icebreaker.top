@@ -33,7 +33,14 @@ export default defineConfig({
     }),
     Components({
       dts: 'src/components.d.ts',
-      resolvers: [ElementPlusResolver()]
+      resolvers: [
+        ElementPlusResolver(),
+        (componentName) => {
+          if (componentName.startsWith('FontAwesomeIcon')) {
+            return { name: componentName, from: '@fortawesome/vue-fontawesome' }
+          }
+        }
+      ]
     })
   ],
   server: {

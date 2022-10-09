@@ -52,7 +52,7 @@
 </template>
 <script setup lang="ts">
 import { ElButton, ElAvatar, ElDropdown, ElDropdownItem, ElDropdownMenu } from 'element-plus'
-import { aw } from '~~/dist/_nuxt/entry.ef6b0fac'
+
 const supabase = useSupabaseClient()
 const user = useSupabaseUser()
 const colorMode = useColorMode()
