@@ -17,6 +17,7 @@ specifiers:
   unplugin-vue-components: ^0.22.8
   vite: ^3.1.6
   vue: ^3.2.25
+  vue-router: ^4.1.5
   vue-tsc: ^1.0.0
 
 dependencies:
@@ -27,6 +28,7 @@ dependencies:
   js-cookie: 3.0.1
   pinia: 2.0.22_bfjwoga25wxjazzogo7o372nwq
   vue: 3.2.40
+  vue-router: 4.1.5_vue@3.2.40
 
 devDependencies:
   '@types/js-cookie': 3.0.2
@@ -1521,6 +1523,15 @@ packages:
         optional: true
     dependencies:
       vue: 3.2.40
+
+  /vue-router/4.1.5_vue@3.2.40:
+    resolution: {integrity: sha512-IsvoF5D2GQ/EGTs/Th4NQms9gd2NSqV+yylxIyp/OYp8xOwxmU8Kj/74E9DTSYAyH5LX7idVUngN3JSj1X4xcQ==}
+    peerDependencies:
+      vue: ^3.2.0
+    dependencies:
+      '@vue/devtools-api': 6.4.3
+      vue: 3.2.40
+    dev: false
 
   /vue-template-compiler/2.7.10:
     resolution: {integrity: sha512-QO+8R9YRq1Gudm8ZMdo/lImZLJVUIAM8c07Vp84ojdDAf8HmPJc7XB556PcXV218k2AkKznsRz6xB5uOjAC4EQ==}
