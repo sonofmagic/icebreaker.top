@@ -9,15 +9,15 @@ import path from 'path'
 export default defineConfig({
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, 'src'),
-    },
+      '@': path.resolve(__dirname, 'src')
+    }
   },
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: '@use "@/assets/scss/variables.scss" as *;',
-      },
-    },
+        additionalData: '@use "@/assets/scss/variables.scss" as *;'
+      }
+    }
   },
   plugins: [
     vue(),
@@ -26,16 +26,18 @@ export default defineConfig({
       resolvers: [ElementPlusResolver()],
       imports: ['vue', 'vue-router'],
       eslintrc: {
-        enabled: true,
+        enabled: true
       },
+      dirs: ['./src/hooks/**', './src/store/**'],
+      vueTemplate: true
     }),
     Components({
       dts: 'src/components.d.ts',
-      resolvers: [ElementPlusResolver()],
-    }),
+      resolvers: [ElementPlusResolver()]
+    })
   ],
   server: {
     port: 3000,
-    host: true,
-  },
+    host: true
+  }
 })

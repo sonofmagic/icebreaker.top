@@ -1,11 +1,10 @@
 <template>
-  <Profile v-if="userStore.user" />
+  <Profile v-if="user" />
   <Auth v-else />
 </template>
 
 <script setup lang="ts">
-import { useUserStore } from '@/store/user'
-const userStore = useUserStore()
+const { user } = useUserStoreRefs()
 </script>
 
 <style scoped></style>

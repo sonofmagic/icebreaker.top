@@ -8,7 +8,11 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     Auth: typeof import('./components/Auth.vue')['default']
+    ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElButton: typeof import('element-plus/es')['ElButton']
+    ElDropdown: typeof import('element-plus/es')['ElDropdown']
+    ElDropdownItem: typeof import('element-plus/es')['ElDropdownItem']
+    ElDropdownMenu: typeof import('element-plus/es')['ElDropdownMenu']
     ElInput: typeof import('element-plus/es')['ElInput']
     Profile: typeof import('./components/Profile.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
