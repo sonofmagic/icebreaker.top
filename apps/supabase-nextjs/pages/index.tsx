@@ -42,12 +42,18 @@ const LoginPage = () => {
       <button onClick={() => supabaseClient.auth.signOut()}>Sign out</button>
       <button
         onClick={() => {
-          axios.post('/account/update/email', {
+          axios.post('/api/account/update/email', {
             id: user.id,
-            email: '1324318532@qq.com',
+            email: 'yangqimingshizhu@163.com',
           })
         }}>
         Update Email
+      </button>
+      <button
+        onClick={() => {
+          axios.get('/api/account/getUser')
+        }}>
+        getUser
       </button>
       <p>user:</p>
       <pre>{JSON.stringify(user, null, 2)}</pre>
