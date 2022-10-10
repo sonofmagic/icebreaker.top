@@ -15,6 +15,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.2.0",
     "@fortawesome/vue-fontawesome": "^3.0.1",
     "@supabase/supabase-js": "^1.35.7",
+    "@vueuse/components": "^9.3.0",
     "@vueuse/core": "^9.3.0",
     "@vueuse/integrations": "^9.3.0",
     "element-plus": "^2.2.17",
@@ -26,6 +27,7 @@
   "devDependencies": {
     "@types/js-cookie": "^3.0.2",
     "@vitejs/plugin-vue": "^3.1.2",
+    "postcss": "^8.4.17",
     "postcss-scss": "^4.0.5",
     "sass": "^1.55.0",
     "tailwindcss": "^3.1.8",
