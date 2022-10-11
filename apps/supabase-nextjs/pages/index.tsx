@@ -2,6 +2,7 @@ import { Auth } from '@supabase/ui'
 import { useUser } from '@supabase/auth-helpers-react'
 import { supabaseClient } from '@supabase/auth-helpers-nextjs'
 import { useEffect, useState } from 'react'
+import { createClient } from '@supabase/supabase-js'
 import axios from 'axios'
 interface TestRow {
   id: number
@@ -27,7 +28,25 @@ const LoginPage = () => {
   if (!user)
     return (
       <>
-        {error && <p>{error.message}</p>}
+        <button
+          onClick={async () => {
+            const client = createClient(
+              '/api/supabase',
+              process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string
+            )
+            const { session } = await client.auth.signIn({
+              email: '1111',
+              password: '2222',
+            })
+
+            if (session) {
+              supabaseClient.auth.setAuth(session.access_token)
+              console.log('setAuth successfully')
+            }
+            console.log(session)
+          }}>
+          login
+        </button>
         <Auth
           supabaseClient={supabaseClient}
           providers={['google', 'github']}
