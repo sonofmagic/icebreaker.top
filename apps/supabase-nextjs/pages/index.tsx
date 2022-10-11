@@ -41,6 +41,8 @@ const LoginPage = () => {
 
             if (session) {
               supabaseClient.auth.setAuth(session.access_token)
+              supabaseClient.auth.setSession(session.refresh_token!)
+
               console.log('setAuth successfully')
             }
             console.log(session)

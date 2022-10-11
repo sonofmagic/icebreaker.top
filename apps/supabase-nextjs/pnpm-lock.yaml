@@ -7,11 +7,13 @@ specifiers:
   '@supabase/auth-ui-react': ^0.2.1
   '@supabase/supabase-js': ^1.35.7
   '@supabase/ui': ^0.36.5
+  '@types/cookie': ^0.5.1
   '@types/node': 18.8.3
   '@types/react': 18.0.21
   '@types/react-dom': 18.0.6
   '@types/react-redux': ^7.1.24
   axios: ^1.1.2
+  cookie: ^0.5.0
   eslint: 8.25.0
   eslint-config-next: 12.3.1
   immer: ^9.0.15
@@ -33,6 +35,7 @@ dependencies:
   '@supabase/ui': 0.36.5_biqbaboplfbrettd7655fr4n2y
   '@types/react-redux': 7.1.24
   axios: 1.1.2
+  cookie: 0.5.0
   immer: 9.0.15
   next: 12.3.1_2mygebwfgdyopr3fy2qddu2eli
   react: 18.2.0
@@ -41,6 +44,7 @@ dependencies:
   use-immer: 0.7.0
 
 devDependencies:
+  '@types/cookie': 0.5.1
   '@types/node': 18.8.3
   '@types/react': 18.0.21
   '@types/react-dom': 18.0.6
@@ -396,6 +400,10 @@ packages:
       tslib: 2.4.0
     dev: false
 
+  /@types/cookie/0.5.1:
+    resolution: {integrity: sha512-COUnqfB2+ckwXXSFInsFdOAWQzCCx+a5hq2ruyj+Vjund94RJQd4LG2u9hnvJrTgunKAaax7ancBYlDrNYxA0g==}
+    dev: true
+
   /@types/hoist-non-react-statics/3.3.1:
     resolution: {integrity: sha512-iMIqiko6ooLrTh1joXodJK5X9xeEALT1kM5G3ZLhD3hszxBdIEd5C75U834D9mLcINgD4OyZf5uQXjkuYydWvA==}
     dependencies:
@@ -737,6 +745,11 @@ packages:
   /concat-map/0.0.1:
     resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
     dev: true
+
+  /cookie/0.5.0:
+    resolution: {integrity: sha512-YZ3GUyn/o8gfKJlnlX7g7xq4gyO6OSuhGPKaaGssGB2qgDUS0gPgtTvoyZLTt9Ab6dC4hfc9dV5arkvc/OCmrw==}
+    engines: {node: '>= 0.6'}
+    dev: false
 
   /core-js-pure/3.25.5:
     resolution: {integrity: sha512-oml3M22pHM+igfWHDfdLVq2ShWmjM2V4L+dQEBs0DWVIqEm9WHCwGAlZ6BmyBQGy5sFrJmcx+856D9lVKyGWYg==}
