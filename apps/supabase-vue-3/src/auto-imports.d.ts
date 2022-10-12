@@ -52,7 +52,6 @@ declare global {
   const useRouter: typeof import('vue-router')['useRouter']
   const useSlots: typeof import('vue')['useSlots']
   const useSupabaseClient: typeof import('./hooks/supabase')['useSupabaseClient']
-  const useSupabaseUser: typeof import('./hooks/supabase')['useSupabaseUser']
   const useUserStore: typeof import('./store/user')['useUserStore']
   const useUserStoreRefs: typeof import('./store/user')['useUserStoreRefs']
   const watch: typeof import('vue')['watch']
@@ -115,7 +114,6 @@ declare module '@vue/runtime-core' {
     readonly useRouter: UnwrapRef<typeof import('vue-router')['useRouter']>
     readonly useSlots: UnwrapRef<typeof import('vue')['useSlots']>
     readonly useSupabaseClient: UnwrapRef<typeof import('./hooks/supabase')['useSupabaseClient']>
-    readonly useSupabaseUser: UnwrapRef<typeof import('./hooks/supabase')['useSupabaseUser']>
     readonly useUserStore: UnwrapRef<typeof import('./store/user')['useUserStore']>
     readonly useUserStoreRefs: UnwrapRef<typeof import('./store/user')['useUserStoreRefs']>
     readonly watch: UnwrapRef<typeof import('vue')['watch']>

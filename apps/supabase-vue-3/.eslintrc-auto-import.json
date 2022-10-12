@@ -51,7 +51,6 @@
     "useRouter": true,
     "useSlots": true,
     "useSupabaseClient": true,
-    "useSupabaseUser": true,
     "useUserStore": true,
     "useUserStoreRefs": true,
     "watch": true,

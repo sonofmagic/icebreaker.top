@@ -32,19 +32,19 @@ const email = ref('')
 const handleLogin = async () => {
   try {
     loading.value = true
-    const { error } = await supabase.auth.signIn({ email: email.value })
-    if (error) throw error
-    alert('Check your email for the login link!')
+    const { error } = await supabase.auth.signInWithOtp({ email: email.value })
+    if (error) {
+      console.log(error)
+    }
   } catch (error) {
-    alert(error.error_description || error.message)
   } finally {
     loading.value = false
   }
 }
 
 const handleOauthLogin = async () => {
-  await supabase.auth.signIn({
-    provider: 'github',
+  await supabase.auth.signInWithOAuth({
+    provider: 'github'
   })
 }
 </script>
