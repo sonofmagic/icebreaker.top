@@ -1,6 +1,7 @@
 import { Auth } from '@supabase/ui'
+
+import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs'
 import { useUser } from '@supabase/auth-helpers-react'
-import { supabaseClient } from '@supabase/auth-helpers-nextjs'
 import { useEffect, useState } from 'react'
 import { createClient } from '@supabase/supabase-js'
 import axios from 'axios'
@@ -9,13 +10,13 @@ interface TestRow {
 }
 
 const LoginPage = () => {
-  const { user, error } = useUser()
+  const user = useUser()
   const [data, setData] = useState<TestRow | null>(null)
-
+  const [supabaseClient] = useState(() => createBrowserSupabaseClient())
   useEffect(() => {
     async function loadData() {
       const { data } = await supabaseClient
-        .from<TestRow>('test')
+        .from('test')
         .select('*')
         .eq('id', 1)
         .single()
@@ -31,19 +32,21 @@ const LoginPage = () => {
         <button
           onClick={async () => {
             const client = createClient(
-              '/api/supabase',
+              window.location.origin + '/api/supabase',
               process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string
             )
-            const { session } = await client.auth.signIn({
+
+            const {
+              data: { session },
+            } = await client.auth.signInWithPassword({
               email: '1111',
               password: '2222',
             })
 
             if (session) {
-              supabaseClient.auth.setAuth(session.access_token)
-              supabaseClient.auth.setSession(session.refresh_token!)
+              supabaseClient.auth.setSession(session)
 
-              console.log('setAuth successfully')
+              console.log('setSession successfully')
             }
             console.log(session)
           }}>

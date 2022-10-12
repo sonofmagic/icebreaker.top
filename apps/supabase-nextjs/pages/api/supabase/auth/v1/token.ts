@@ -7,13 +7,16 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const password = 'some-password@123456'
-  const { data, error } = await serviceRoleClient.auth.api.listUsers()
+  const {
+    data: { users },
+    error,
+  } = await serviceRoleClient.auth.admin.listUsers()
   if (error) {
     res.send(error)
     return
   }
-  if (data) {
-    const hit = data[0]
+  if (users) {
+    const hit = users[0]
     // const { error } = await serviceRoleClient.auth.api.updateUserById(hit.id, {
     //   password,
     // })
@@ -21,11 +24,11 @@ export default async function handler(
     //   res.send(error)
     //   return
     // }
-    const result = await serviceRoleClient.auth.signIn({
-      email: hit.email,
+    const { data } = await serviceRoleClient.auth.signInWithPassword({
+      email: hit.email!,
       password,
     })
-    const { session } = result
+    const { session } = data
     if (session) {
       res.setHeader('set-cookie', [
         cookie.serialize('sb-access-token', session.access_token, {
