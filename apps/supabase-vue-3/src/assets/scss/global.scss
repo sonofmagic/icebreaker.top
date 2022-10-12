@@ -4,5 +4,5 @@
 @import 'element-plus/theme-chalk/dark/css-vars.css';
 html,
 body {
-  @apply transition-colors dark:bg-[rgb(0,30,38)] dark:text-white;
+  @apply transition-colors bg-white dark:bg-[rgb(0,30,38)] dark:text-white;
 }
