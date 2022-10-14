@@ -83,6 +83,12 @@ const handleVerifyEmail = async () => {
     token: captchaToken.value,
     type: 'magiclink'
   })
+  if (error) {
+    ElMessage.error(error.message)
+  } else {
+    ElMessage.success('Login successfully')
+    navigateTo('/')
+  }
   console.log(data, error)
 }
 </script>
