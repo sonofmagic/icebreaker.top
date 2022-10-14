@@ -6,9 +6,10 @@ specifiers:
   '@fortawesome/free-regular-svg-icons': ^6.2.0
   '@fortawesome/free-solid-svg-icons': ^6.2.0
   '@fortawesome/vue-fontawesome': ^3.0.1
-  '@icebreakers/deploy': ^0.1.0
+  '@icebreakers/deploy': ^0.1.1
   '@supabase/supabase-js': ^2.0.0
   '@tailwindcss/typography': ^0.5.7
+  '@tanstack/vue-query': ^4.10.3
   '@types/js-cookie': ^3.0.2
   '@vitejs/plugin-vue': ^3.1.2
   '@vueuse/components': ^9.3.0
@@ -20,9 +21,9 @@ specifiers:
   postcss: ^8.4.18
   postcss-scss: ^4.0.5
   sass: ^1.55.0
+  swiper: ^8.4.4
   tailwind-css-variables-theme-generator: ^0.3.8
   tailwindcss: ^3.1.8
-  tencentcloud-sdk-nodejs: ^4.0.459
   typescript: ^4.6.4
   unplugin-auto-import: ^0.11.2
   unplugin-icons: ^0.14.11
@@ -39,17 +40,19 @@ dependencies:
   '@fortawesome/free-solid-svg-icons': 6.2.0
   '@fortawesome/vue-fontawesome': 3.0.1_ehtls4nlds6e63ahmro7mfqbhy
   '@supabase/supabase-js': 2.0.0
+  '@tanstack/vue-query': 4.10.3_vue@3.2.40
   '@vueuse/components': 9.3.0_vue@3.2.40
   '@vueuse/core': 9.3.0_vue@3.2.40
   '@vueuse/integrations': 9.3.0_vue@3.2.40
   element-plus: 2.2.18_vue@3.2.40
   js-cookie: 3.0.1
   pinia: 2.0.23_bfjwoga25wxjazzogo7o372nwq
+  swiper: 8.4.4
   vue: 3.2.40
   vue-router: 4.1.5_vue@3.2.40
 
 devDependencies:
-  '@icebreakers/deploy': 0.1.0
+  '@icebreakers/deploy': 0.1.1
   '@tailwindcss/typography': 0.5.7_tailwindcss@3.1.8
   '@types/js-cookie': 3.0.2
   '@vitejs/plugin-vue': 3.1.2_vite@3.1.8+vue@3.2.40
@@ -58,7 +61,6 @@ devDependencies:
   sass: 1.55.0
   tailwind-css-variables-theme-generator: 0.3.8_iclg5uurdqdfmvlr3rnilcmrsq
   tailwindcss: 3.1.8_postcss@8.4.18
-  tencentcloud-sdk-nodejs: 4.0.459
   typescript: 4.8.4
   unplugin-auto-import: 0.11.2_@vueuse+core@9.3.0
   unplugin-icons: 0.14.11
@@ -191,10 +193,14 @@ packages:
       vue: 3.2.40
     dev: false
 
-  /@icebreakers/deploy/0.1.0:
-    resolution: {integrity: sha512-tg7OMH/YPHHQm2RuGSrsQBmD95b4SFGbbVQqicz1NhEq51YZo3UAXlrnFfjJ7ySokOyZRg6nlmZbNMVFaSmeIQ==}
+  /@icebreakers/deploy/0.1.1:
+    resolution: {integrity: sha512-CxmmPOZBmcMd18wuF+5k5iETG7l7fawwNfw54XQW+jCNa4KJ9tBjiaRhbdWpXSh9CsQC6pdv/AwKGYxn7GtFKw==}
     dependencies:
       cos-nodejs-sdk-v5: 2.11.12
+      tencentcloud-sdk-nodejs: 4.0.459
+    transitivePeerDependencies:
+      - encoding
+      - supports-color
     dev: true
 
   /@iconify/types/2.0.0:
@@ -313,6 +319,33 @@ packages:
       postcss-selector-parser: 6.0.10
       tailwindcss: 3.1.8_postcss@8.4.18
     dev: true
+
+  /@tanstack/match-sorter-utils/8.5.14:
+    resolution: {integrity: sha512-lVNhzTcOJ2bZ4IU+PeCPQ36vowBHvviJb2ZfdRFX5uhy7G0jM8N34zAMbmS5ZmVH8D2B7oU82OWo0e/5ZFzQrw==}
+    engines: {node: '>=12'}
+    dependencies:
+      remove-accents: 0.4.2
+    dev: false
+
+  /@tanstack/query-core/4.10.3:
+    resolution: {integrity: sha512-+ME02sUmBfx3Pjd+0XtEthK8/4rVMD2jcxvnW9DSgFONpKtpjzfRzjY4ykzpDw1QEo2eoPvl7NS8J5mNI199aA==}
+    dev: false
+
+  /@tanstack/vue-query/4.10.3_vue@3.2.40:
+    resolution: {integrity: sha512-s5nRGVgRvLhkHCbKUz9U3QgCtSlNuL4BUg+CGTO4226EatEb3PNaL2/xzLwNEvWCdVa6hTuBB0PM9iimdZzThA==}
+    peerDependencies:
+      '@vue/composition-api': ^1.1.2
+      vue: ^2.5.0 || ^3.0.0
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+    dependencies:
+      '@tanstack/match-sorter-utils': 8.5.14
+      '@tanstack/query-core': 4.10.3
+      '@vue/devtools-api': 6.4.4
+      vue: 3.2.40
+      vue-demi: 0.13.11_vue@3.2.40
+    dev: false
 
   /@types/js-cookie/3.0.2:
     resolution: {integrity: sha512-6+0ekgfusHftJNYpihfkMu8BWdeHs9EOJuGcSofErjstGPfPGEu9yTu4t460lTzzAMl2cM5zngQJqPMHbbnvYA==}
@@ -858,6 +891,12 @@ packages:
   /dlv/1.1.3:
     resolution: {integrity: sha512-+HlytyjlPKnIG8XuRG8WvmBP8xs8P71y+SKKS6ZXWoEgLuePxtDoUEiH7WkdePWrQ5JBpE6aoVqfZfJUQkjXwA==}
     dev: true
+
+  /dom7/4.0.4:
+    resolution: {integrity: sha512-DSSgBzQ4rJWQp1u6o+3FVwMNnT5bzQbMb+o31TjYYeRi05uAcpF8koxdfzeoe5ElzPmua7W7N28YJhF7iEKqIw==}
+    dependencies:
+      ssr-window: 4.0.2
+    dev: false
 
   /dot-prop/6.0.1:
     resolution: {integrity: sha512-tE7ztYzXHIeyvc7N+hR3oi7FIbf/NIjVP9hmAt3yMXzrQ072/fpjGLx2GxNxGxUl5V73MEqYzioOMoVhGMJ5cA==}
@@ -1873,6 +1912,10 @@ packages:
       picomatch: 2.3.1
     dev: true
 
+  /remove-accents/0.4.2:
+    resolution: {integrity: sha512-7pXIJqJOq5tFgG1A2Zxti3Ht8jJF337m4sowbuHsW30ZnkQFnDzy9qBNhgzX8ZLW4+UBcXiiR7SwR6pokHsxiA==}
+    dev: false
+
   /request/2.88.2:
     resolution: {integrity: sha512-MsvtOrfG9ZcrOwAW+Qi+F6HbD0CWXEh9ou77uOb7FM2WPhwT7smM833PzanhJLsgXjN89Ir6V2PczXNnMpwKhw==}
     engines: {node: '>= 6'}
@@ -2015,6 +2058,10 @@ packages:
       tweetnacl: 0.14.5
     dev: true
 
+  /ssr-window/4.0.2:
+    resolution: {integrity: sha512-ISv/Ch+ig7SOtw7G2+qkwfVASzazUnvlDTwypdLoPoySv+6MqlOV10VwPSE6EWkGjhW50lUmghPmpYZXMu/+AQ==}
+    dev: false
+
   /strip-final-newline/2.0.0:
     resolution: {integrity: sha512-BrpvfNAE3dcvq7ll3xVumzjKjZQ5tI1sEUIKr3Uoks0XUl45St3FlatVqef9prk4jRDzhW6WZg+3bk93y6pLjA==}
     engines: {node: '>=6'}
@@ -2030,6 +2077,15 @@ packages:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
     dev: true
+
+  /swiper/8.4.4:
+    resolution: {integrity: sha512-jA/8BfOZwT8PqPSnMX0TENZYitXEhNa7ZSNj1Diqh5LZyUJoBQaZcqAiPQ/PIg1+IPaRn/V8ZYVb0nxHMh51yw==}
+    engines: {node: '>= 4.7.0'}
+    requiresBuild: true
+    dependencies:
+      dom7: 4.0.4
+      ssr-window: 4.0.2
+    dev: false
 
   /tailwind-css-variables-theme-generator/0.3.8_iclg5uurdqdfmvlr3rnilcmrsq:
     resolution: {integrity: sha512-1IIF39wQpOnFQk7AxHkCg/QWZQ72oXOaYal4Zc4yuS00AIhCwRGkNWFD31FvIJs5XbD6QBKlGWDS3cR9PhzNog==}

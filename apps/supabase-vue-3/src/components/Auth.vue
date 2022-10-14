@@ -1,15 +1,15 @@
 <template>
-  <div class="flex flex-col items-center space-y-4 rounded border p-8">
+  <div class="flex flex-col items-center space-y-4 p-8">
     <div>Sign in/up</div>
     <div>
       <el-input v-model="email" placeholder="Your email" />
     </div>
     <div>
-      <el-input v-model="captchaToken" placeholder="Your captchaToken" />
+      <el-input v-model="token" :maxlength="6" placeholder="Your token" />
     </div>
     <div>
       <el-button type="primary" plain :loading="loading" @click="handleLogin">
-        Send magic link / token
+        Send magic link & token
       </el-button>
     </div>
     <div>
@@ -48,7 +48,7 @@ const supabase = useSupabaseClient()
 
 const loading = ref(false)
 const email = ref('')
-const captchaToken = ref('')
+const token = ref('')
 const handleLogin = async () => {
   try {
     loading.value = true
@@ -80,7 +80,7 @@ const resetPassword = async () => {
 const handleVerifyEmail = async () => {
   const { data, error } = await supabase.auth.verifyOtp({
     email: email.value,
-    token: captchaToken.value,
+    token: token.value,
     type: 'magiclink'
   })
   if (error) {

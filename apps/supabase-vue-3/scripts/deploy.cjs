@@ -6,7 +6,6 @@ const {
   TENCENT_COS_BUCKET
 } = process.env
 const { TencentCOSWebsiteDeployer } = require('@icebreakers/deploy')
-const tencentcloud = require('tencentcloud-sdk-nodejs')
 
 function wait(ts = 500) {
   return new Promise((resolve) => {
@@ -15,18 +14,8 @@ function wait(ts = 500) {
     }, ts)
   })
 }
-const CdnClient = tencentcloud.cdn.v20180606.Client
 
 async function main() {
-  const clientConfig = {
-    credential: {
-      secretId: TENCENT_SECRET_ID,
-      secretKey: TENCENT_SECRET_KEY
-    }
-  }
-
-  const client = new CdnClient(clientConfig)
-
   const params = {
     Paths: ['https://cloudbase.icebreaker.top/'],
     FlushType: 'flush'
@@ -46,7 +35,7 @@ async function main() {
 
   await wait(2000)
 
-  const res = await client.PurgeUrlsCache({
+  const res = await deployer.purgeUrlsCache({
     Urls: params.Paths
   })
   console.log(res)
