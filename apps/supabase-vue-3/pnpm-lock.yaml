@@ -11,6 +11,7 @@ specifiers:
   '@tailwindcss/typography': ^0.5.7
   '@tanstack/vue-query': ^4.10.3
   '@types/js-cookie': ^3.0.2
+  '@types/validator': ^13.7.7
   '@vitejs/plugin-vue': ^3.1.2
   '@vueuse/components': ^9.3.0
   '@vueuse/core': ^9.3.0
@@ -28,6 +29,7 @@ specifiers:
   unplugin-auto-import: ^0.11.2
   unplugin-icons: ^0.14.11
   unplugin-vue-components: ^0.22.8
+  validator: ^13.7.0
   vite: ^3.1.8
   vue: ^3.2.25
   vue-router: ^4.1.5
@@ -48,6 +50,7 @@ dependencies:
   js-cookie: 3.0.1
   pinia: 2.0.23_bfjwoga25wxjazzogo7o372nwq
   swiper: 8.4.4
+  validator: 13.7.0
   vue: 3.2.40
   vue-router: 4.1.5_vue@3.2.40
 
@@ -55,6 +58,7 @@ devDependencies:
   '@icebreakers/deploy': 0.1.1
   '@tailwindcss/typography': 0.5.7_tailwindcss@3.1.8
   '@types/js-cookie': 3.0.2
+  '@types/validator': 13.7.7
   '@vitejs/plugin-vue': 3.1.2_vite@3.1.8+vue@3.2.40
   postcss: 8.4.18
   postcss-scss: 4.0.5_postcss@8.4.18
@@ -364,6 +368,10 @@ packages:
   /@types/phoenix/1.5.4:
     resolution: {integrity: sha512-L5eZmzw89eXBKkiqVBcJfU1QGx9y+wurRIEgt0cuLH0hwNtVUxtx+6cu0R2STwWj468sjXyBYPYDtGclUd1kjQ==}
     dev: false
+
+  /@types/validator/13.7.7:
+    resolution: {integrity: sha512-jiEw2kTUJ8Jsh4A1K4b5Pkjj9Xz6FktLLOQ36ZVLRkmxFbpTvAV2VRoKMojz8UlZxNg/2dZqzpigH4JYn1bkQg==}
+    dev: true
 
   /@types/web-bluetooth/0.0.15:
     resolution: {integrity: sha512-w7hEHXnPMEZ+4nGKl/KDRVpxkwYxYExuHOYXyzIzCDzEZ9ZCGMAewulr9IqJu2LR4N37fcnb1XVeuZ09qgOxhA==}
@@ -2323,6 +2331,11 @@ packages:
     deprecated: Please upgrade  to version 7 or higher.  Older versions may use Math.random() in certain circumstances, which is known to be problematic.  See https://v8.dev/blog/math-random for details.
     hasBin: true
     dev: true
+
+  /validator/13.7.0:
+    resolution: {integrity: sha512-nYXQLCBkpJ8X6ltALua9dRrZDHVYxjJ1wgskNt1lH9fzGjs3tgojGSCBjmEPwkWS1y29+DrizMTW19Pr9uB2nw==}
+    engines: {node: '>= 0.10'}
+    dev: false
 
   /verror/1.10.0:
     resolution: {integrity: sha512-ZZKSmDAEFOijERBLkmYfJ+vmk3w+7hOLYDNkRCuRuMJGEmqYNCNLyBBFwWKVMhfwaEF3WOd0Zlw86U/WC/+nYw==}
