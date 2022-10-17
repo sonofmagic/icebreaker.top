@@ -1,6 +1,14 @@
 <template>
   <div>
-    <div class="mb-8 text-lg text-center">验证</div>
+    <div class="mb-8 text-lg text-center relative">
+      <div class="absolute left-0 cursor-pointer" @click="prev">
+        <el-icon>
+          <ArrowLeftBold />
+        </el-icon>
+      </div>
+
+      验证
+    </div>
     <el-form ref="formRef" :model="state" :rules="rules">
       <el-form-item prop="token">
         <el-input v-model="token" placeholder="验证码" />
@@ -24,12 +32,19 @@
 
 <script setup lang="ts">
 import { StateSymbol } from './constants'
+import { ArrowLeftBold } from '@element-plus/icons-vue'
 import type { FormInstance, FormItemRule } from 'element-plus'
+import { useSwiper } from 'swiper/vue'
 const supabase = useSupabaseClient()
 const state = inject(StateSymbol)
 const formRef = ref<FormInstance>()
 const { email, token } = toRefs(state!)
 const loading = ref<boolean>(false)
+const swiper = useSwiper()
+const prev = () => {
+  swiper.value.slidePrev()
+}
+
 const rules = reactive<Record<string, FormItemRule[]>>({
   token: [
     {

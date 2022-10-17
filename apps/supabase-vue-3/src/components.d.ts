@@ -15,6 +15,7 @@ declare module '@vue/runtime-core' {
     ElDropdownMenu: typeof import('element-plus/es')['ElDropdownMenu']
     ElForm: typeof import('element-plus/es')['ElForm']
     ElFormItem: typeof import('element-plus/es')['ElFormItem']
+    ElIcon: typeof import('element-plus/es')['ElIcon']
     ElInput: typeof import('element-plus/es')['ElInput']
     EmailForm: typeof import('./components/Login/EmailForm.vue')['default']
     EmailLogin: typeof import('./components/Login/EmailLogin.vue')['default']

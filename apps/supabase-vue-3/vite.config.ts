@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
+import IconsResolver from 'unplugin-icons/resolver'
 import Icons from 'unplugin-icons/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import path from 'path'
@@ -24,7 +25,12 @@ export default defineConfig({
     vue(),
     AutoImport({
       dts: 'src/auto-imports.d.ts',
-      resolvers: [ElementPlusResolver()],
+      resolvers: [
+        ElementPlusResolver(),
+        IconsResolver({
+          prefix: 'Icon'
+        })
+      ],
       imports: ['vue', 'vue-router'],
       eslintrc: {
         enabled: true
@@ -36,6 +42,9 @@ export default defineConfig({
       dts: 'src/components.d.ts',
       resolvers: [
         ElementPlusResolver(),
+        IconsResolver({
+          enabledCollections: ['ep']
+        }),
         (componentName) => {
           if (componentName.startsWith('FontAwesomeIcon')) {
             return { name: componentName, from: '@fortawesome/vue-fontawesome' }
@@ -43,7 +52,9 @@ export default defineConfig({
         }
       ]
     }),
-    Icons({})
+    Icons({
+      autoInstall: true
+    })
   ],
   server: {
     port: 3000,
