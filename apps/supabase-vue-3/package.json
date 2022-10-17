@@ -17,6 +17,7 @@
     "@fortawesome/vue-fontawesome": "^3.0.1",
     "@supabase/supabase-js": "^2.0.0",
     "@tanstack/vue-query": "^4.12.0",
+    "@vant/use": "^1.4.3",
     "@vueuse/components": "^9.3.1",
     "@vueuse/core": "^9.3.1",
     "@vueuse/integrations": "^9.3.1",

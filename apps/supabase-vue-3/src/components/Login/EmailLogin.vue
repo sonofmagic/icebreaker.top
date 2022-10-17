@@ -1,5 +1,5 @@
 <template>
-  <Swiper :allow-touch-move="false" class="w-full">
+  <Swiper class="w-full">
     <SwiperSlide>
       <EmailForm></EmailForm>
     </SwiperSlide>
@@ -7,6 +7,7 @@
       <VerifyOtp></VerifyOtp>
     </SwiperSlide>
   </Swiper>
+  <!-- :allow-touch-move="false" -->
 </template>
 
 <script setup lang="ts">
