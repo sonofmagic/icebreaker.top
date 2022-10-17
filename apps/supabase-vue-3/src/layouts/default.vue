@@ -10,6 +10,10 @@
         >
           ice breaker
         </div>
+        <div class="space-x-4">
+          <RouterLink to="/auth">Authentication</RouterLink>
+          <RouterLink to="/storage">Storage</RouterLink>
+        </div>
         <div class="flex items-center space-x-4">
           <template v-if="user">
             <el-dropdown @command="handleCommand">

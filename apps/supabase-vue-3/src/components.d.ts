@@ -25,6 +25,7 @@ declare module '@vue/runtime-core' {
     Profile: typeof import('./components/Profile.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SupabaseUpload: typeof import('./components/UI/SupabaseUpload/index.vue')['default']
     VerifyOtp: typeof import('./components/Login/VerifyOtp.vue')['default']
   }
 }
