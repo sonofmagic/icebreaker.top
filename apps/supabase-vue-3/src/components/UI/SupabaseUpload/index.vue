@@ -35,7 +35,7 @@ const props = withDefaults(
   defineProps<{
     modelValue?: UploadUserFile[]
     bucket: string
-    pathFormat?: (file: File, options: UploadRequestOptions) => string
+    pathFormat?: (file: File, options?: UploadRequestOptions) => string
   }>(),
   {
     modelValue: () => [],
