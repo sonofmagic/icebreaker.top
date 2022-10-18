@@ -4,6 +4,7 @@
       <div>pub bucket</div>
       <SupabaseUpload
         bucket="pub"
+        policy="public"
         :path-format="pubPathFormat"
         v-model="pubFileList"
         :list-type="'picture-card'"
@@ -19,7 +20,8 @@
       <SupabaseUpload
         bucket="self"
         :path-format="selfPathFormat"
-        v-model:file-list="selfFileList"
+        v-model="selfFileList"
+        :list-type="'picture-card'"
       >
         <template #trigger>
           <el-button type="primary">self upload</el-button>
@@ -42,7 +44,15 @@ const pubFileList = ref<
     path: '8737a2e5-1c96-4d5e-a2fe-c8f2850cec8f/cbMSnzKMq0YdDuaLCdFoz.png'
   }
 ])
-const selfFileList = ref<UploadUserFile[]>([])
+const selfFileList = ref<
+  (UploadUserFile & { bucket?: string; path?: string })[]
+>([
+  {
+    name: 'AAA',
+    bucket: 'self',
+    path: '8737a2e5-1c96-4d5e-a2fe-c8f2850cec8f/Sw3pD_7POk8UsA60El2Xs.jpg'
+  }
+])
 const { user } = useUserStoreRefs()
 const pubPathFormat = (file: File): string => {
   const extname = path.extname(file.name)

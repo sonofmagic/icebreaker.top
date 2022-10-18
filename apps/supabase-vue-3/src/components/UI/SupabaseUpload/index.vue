@@ -42,10 +42,12 @@ const props = withDefaults(
     pathFormat?: (file: File, options?: UploadRequestOptions) => string
     onSuccess?: UploadProps['onSuccess']
     listType?: UploadProps['listType']
+    policy?: 'public' | 'private'
   }>(),
   {
     modelValue: () => [],
-    pathFormat: (file: File) => file.name
+    pathFormat: (file: File) => file.name,
+    policy: 'private'
   }
 )
 
@@ -54,6 +56,13 @@ const emit = defineEmits(['update:modelValue'])
 const getPublicUrl = (bucket: string, path: string) => {
   const { data } = supabase.storage.from(bucket).getPublicUrl(path)
   return data.publicUrl
+}
+const createSignedUrl = async (bucket: string, path: string) => {
+  // half an hour
+  const { data } = await supabase.storage
+    .from(bucket)
+    .createSignedUrl(path, 60 * 30)
+  return data?.signedUrl
 }
 
 const fileList = computed<UploadUserFile[]>({
@@ -67,7 +76,13 @@ const fileList = computed<UploadUserFile[]>({
 onMounted(() => {
   props.modelValue.forEach((x) => {
     if (x.bucket && x.path && !x.url) {
-      x.url = getPublicUrl(x.bucket, x.path)
+      if (props.policy === 'public') {
+        x.url = getPublicUrl(x.bucket, x.path)
+      } else {
+        createSignedUrl(x.bucket, x.path).then((url) => {
+          x.url = url
+        })
+      }
     }
   })
 })
