@@ -4,6 +4,7 @@
     ref="uploadRef"
     action=""
     :http-request="customHttpRequest"
+    :list-type="props.listType"
   >
     <template>
       <slot></slot>
@@ -27,15 +28,20 @@ import type {
   UploadProps,
   UploadRawFile,
   UploadUserFile,
-  UploadRequestOptions
+  UploadRequestOptions,
+  UploadFile,
+  UploadFiles
 } from 'element-plus'
+
 const uploadRef = ref<UploadInstance>()
 const supabase = useSupabaseClient()
 const props = withDefaults(
   defineProps<{
-    modelValue?: UploadUserFile[]
+    modelValue?: (UploadUserFile & { bucket?: string; path?: string })[]
     bucket: string
     pathFormat?: (file: File, options?: UploadRequestOptions) => string
+    onSuccess?: UploadProps['onSuccess']
+    listType?: UploadProps['listType']
   }>(),
   {
     modelValue: () => [],
@@ -45,6 +51,11 @@ const props = withDefaults(
 
 const emit = defineEmits(['update:modelValue'])
 
+const getPublicUrl = (bucket: string, path: string) => {
+  const { data } = supabase.storage.from(bucket).getPublicUrl(path)
+  return data.publicUrl
+}
+
 const fileList = computed<UploadUserFile[]>({
   get() {
     return props.modelValue
@@ -53,22 +64,57 @@ const fileList = computed<UploadUserFile[]>({
     emit('update:modelValue', nv)
   }
 })
+onMounted(() => {
+  props.modelValue.forEach((x) => {
+    if (x.bucket && x.path && !x.url) {
+      x.url = getPublicUrl(x.bucket, x.path)
+    }
+  })
+})
 
 const customHttpRequest: (
   options: UploadRequestOptions
 ) => XMLHttpRequest | Promise<unknown> = async (options) => {
-  console.log(options)
-  const { onSuccess, onError } = options
+  const { file } = options
   const { data, error } = await supabase.storage
     .from(props.bucket)
-    .upload(props.pathFormat(options.file, options), options.file)
+    .upload(props.pathFormat(file, options), file)
   if (error) {
     // @ts-ignore
-    onError(error)
+    // onError(error)
+    throw error
   } else {
-    onSuccess(data)
+    // // @ts-ignore
+    // file.path = data.path
+    // // @ts-ignore
+    // file.bucket = props.bucket
+    // onSuccess(data)
+    // @ts-ignore
+    data.bucket = props.bucket
+    return data
   }
 }
+
+// const onSuccess: (
+//   response: any,
+//   uploadFile: UploadFile,
+//   uploadFiles: UploadFiles
+// ) => void = (data, uploadFile, uploadFiles) => {
+//   console.log(data, uploadFile, uploadFiles)
+//   // @ts-ignore
+//   uploadFile.bucket = props.bucket
+//   debugger
+//   // @ts-ignore
+//   uploadFile.path = data.path
+// }
+
+// const onError: (
+//   error: Error,
+//   uploadFile: UploadFile,
+//   uploadFiles: UploadFiles
+// ) => void = (error, uploadFile, uploadFiles) => {
+//   console.log(error, uploadFile, uploadFiles)
+// }
 </script>
 
 <style scoped></style>
