@@ -11,7 +11,7 @@
       </tbody>
     </table>
     <OnClickOutside @trigger="closeModal">
-      <div v-show="tooltipVisible" ref="tooltip" class="absolute border bg-white">
+      <div :style="{'visibility':tooltipVisible?'visible':'hidden'}" ref="tooltip" class="absolute border bg-white">
         <div class="hover:bg-gray-200 px-4 py-1 cursor-pointer">
           复制
         </div>
@@ -21,13 +21,13 @@
 
       </div>
     </OnClickOutside>
-
+    <div class="absolute border-[#3380FF] pointer-events-none" :style="[selectionStyle]"></div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue-demi'
-import { computePosition, ReferenceElement } from '@floating-ui/dom'
+import { computePosition, ReferenceElement, offset } from '@floating-ui/dom'
 import { OnClickOutside } from '@vueuse/components'
 export default defineComponent({
   components: { OnClickOutside },
@@ -57,7 +57,14 @@ export default defineComponent({
       const dom = document.createElement('div')
     }
     const tooltip = ref<HTMLDivElement>()
-
+    const selectionStyle = ref({
+      left: 0,
+      right: 0,
+      top: 0,
+      bottom: 0,
+      width: 0,
+      height: 0
+    })
     function onContextmenu (e: MouseEvent) {
       const virtualEl: ReferenceElement = {
         getBoundingClientRect () {
@@ -76,8 +83,13 @@ export default defineComponent({
 
       console.log(e)
       if (tooltip.value) {
+        const rect = tooltip.value.getBoundingClientRect()
+        console.log(rect)
         computePosition(virtualEl, tooltip.value, {
-          placement: 'right'
+          placement: 'right',
+          middleware: [offset({
+            alignmentAxis: -rect.height / 2
+          })]
         }).then(({ x, y }) => {
           Object.assign(tooltip.value!.style, {
             left: `${x}px`,
@@ -93,7 +105,16 @@ export default defineComponent({
     function onMousedown (e: MouseEvent) {
       if (e.buttons === 1) {
         startSelection.value = true
-        console.log('onMousedown')
+        console.log('onMousedown', e.target)
+        // @ts-ignore
+        const rect = (<HTMLElement>e.target).getBoundingClientRect()
+        console.log(rect)
+        selectionStyle.value.left = rect.left
+        selectionStyle.value.top = rect.top
+        selectionStyle.value.bottom = rect.bottom
+        selectionStyle.value.right = rect.right
+        selectionStyle.value.width = rect.width
+        selectionStyle.value.height = rect.height
       }
     }
 
@@ -118,7 +139,8 @@ export default defineComponent({
       onContextmenu,
       onMousedown,
       onMouseup,
-      onMousemove
+      onMousemove,
+      selectionStyle
     }
   }
 
