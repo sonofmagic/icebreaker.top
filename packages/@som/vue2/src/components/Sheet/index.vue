@@ -58,7 +58,7 @@ export default defineComponent({
     }
     const tooltip = ref<HTMLDivElement>()
 
-    function onContextmenu (e: PointerEvent) {
+    function onContextmenu (e: MouseEvent) {
       const virtualEl: ReferenceElement = {
         getBoundingClientRect () {
           return {
