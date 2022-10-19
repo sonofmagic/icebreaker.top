@@ -26,13 +26,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import { computePosition } from '@floating-ui/dom'
+import { defineComponent, ref } from 'vue-demi'
+import { computePosition, ReferenceElement } from '@floating-ui/dom'
 import { OnClickOutside } from '@vueuse/components'
 export default defineComponent({
   components: { OnClickOutside },
-  data () {
-    const dataSet = []
+  setup () {
+    const dataSetSource = []
     for (let i = 0; i < 10; i++) {
       const tr = []
       for (let j = 0; j < 10; j++) {
@@ -45,23 +45,21 @@ export default defineComponent({
         }
         tr.push(td)
       }
-      dataSet.push(tr)
+      dataSetSource.push(tr)
     }
-    return {
-      dataSet,
-      startSelection: false,
-      tooltipVisible: false
+    const dataSet = ref(dataSetSource)
+    const startSelection = ref(false)
+    const tooltipVisible = ref(false)
+    const closeModal = () => {
+      tooltipVisible.value = false
     }
-  },
-  methods: {
-    closeModal () {
-      this.tooltipVisible = false
-    },
-    createSelection () {
+    function createSelection () {
       const dom = document.createElement('div')
-    },
-    onContextmenu (e: PointerEvent) {
-      const virtualEl = {
+    }
+    const tooltip = ref<HTMLDivElement>()
+
+    function onContextmenu (e: PointerEvent) {
+      const virtualEl: ReferenceElement = {
         getBoundingClientRect () {
           return {
             x: e.x,
@@ -69,46 +67,58 @@ export default defineComponent({
             top: e.clientY,
             left: e.clientX,
             width: 0,
-            height: 0
+            height: 0,
+            bottom: 0,
+            right: 0
           }
         }
       }
 
       console.log(e)
-      // @ts-ignore
-      computePosition(virtualEl, this.$refs.tooltip, {
-        placement: 'right'
-      }).then(({ x, y }) => {
-        // @ts-ignore
-        Object.assign(this.$refs.tooltip.style, {
-          left: `${x}px`,
-          top: `${y}px`
+      if (tooltip.value) {
+        computePosition(virtualEl, tooltip.value, {
+          placement: 'right'
+        }).then(({ x, y }) => {
+          Object.assign(tooltip.value!.style, {
+            left: `${x}px`,
+            top: `${y}px`
+          })
+          tooltipVisible.value = true
         })
-        this.tooltipVisible = true
-      })
+      }
+
       console.log('contextmenu')
-    },
-    onMousedown (e: PointerEvent) {
-      if (e.button === 1) {
-        this.startSelection = true
+    }
+    // https://developer.mozilla.org/zh-CN/docs/Web/API/MouseEvent/buttons
+    function onMousedown (e: MouseEvent) {
+      if (e.buttons === 1) {
+        startSelection.value = true
         console.log('onMousedown')
       }
-    },
-    onMouseup (e: PointerEvent) {
-      if (e.button === 1) {
-        this.startSelection = false
+    }
+
+    function onMouseup (e: MouseEvent) {
+      if (e.buttons === 0) {
+        startSelection.value = false
         console.log('onMouseup')
       }
-    },
-    // onClick (item: any, y: number, x: number, e: Event) {
-    //   const dom = e.target
-    //   console.log(e)
-    //   item.selected = true
-    // },
-    onMousemove () {
-      if (this.startSelection) {
+    }
+
+    function onMousemove () {
+      if (startSelection.value) {
         console.log('onMousemove')
       }
+    }
+    return {
+      dataSet,
+      startSelection,
+      tooltipVisible,
+      closeModal,
+      tooltip,
+      onContextmenu,
+      onMousedown,
+      onMouseup,
+      onMousemove
     }
   }
 
