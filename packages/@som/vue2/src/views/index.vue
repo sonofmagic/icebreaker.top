@@ -1,5 +1,5 @@
 <template>
-  <div class="border">
+  <div class="border pt-20 pl-60">
     <!-- <TwoBall></TwoBall> -->
     <Sheet></Sheet>
   </div>

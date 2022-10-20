@@ -16,6 +16,7 @@
     "@vue/composition-api": "^1.7.1",
     "@vueuse/components": "^9.3.0",
     "ant-design-vue": "1.7.8",
+    "column-resizer": "^1.3.6",
     "core-js": "^3.25.5",
     "d3": "^7.6.1",
     "d3-org-chart": "^2.6.0",
@@ -30,6 +31,7 @@
     "vue-d3-org-chart": "^0.0.2",
     "vue-demi": "^0.13.11",
     "vue-router": "^3.2.0",
+    "vue-virtual-scroll-list": "^2.3.4",
     "vuex": "^3.4.0"
   },
   "devDependencies": {

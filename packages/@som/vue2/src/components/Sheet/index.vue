@@ -2,7 +2,7 @@
   <div>
 
     <div ref="container" class="relative h-[60vh] overflow-auto">
-      <div class="table w-auto table-fixed border-collapse">
+      <div ref="table" class="table w-auto table-fixed border-collapse">
         <div class="table-row-group">
           <div class="table-row" :key="y" v-for="(row,y) in dataSet">
             <div class="table-cell border min-w-[120px] h-8 cursor-default select-none"
@@ -39,11 +39,15 @@
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue-demi'
 import { computePosition, ReferenceElement, offset } from '@floating-ui/dom'
-
+// @ts-ignore
+import ColumnResizer from 'column-resizer'
+// @ts-ignore
+import VirtualList from 'vue-virtual-scroll-list'
 import { pick } from 'lodash-es'
 import { useKeyModifier, onClickOutside, useWindowScroll } from '@vueuse/core'
+console.log(ColumnResizer)
 export default defineComponent({
-
+  components: { VirtualList },
   setup() {
     const selectionBorderOffest = 1
     interface IDataSourceItem {
