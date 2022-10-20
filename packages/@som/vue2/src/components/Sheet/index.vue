@@ -1,34 +1,34 @@
 <template>
   <div ref="container" class="relative h-[80vh] overflow-auto">
-    <table class="w-auto table-fixed border-collapse">
-      <tbody>
-        <tr :key="y" v-for="(row,y) in dataSet">
-          <td class="border min-w-[120px] h-8 cursor-default select-none" @contextmenu.prevent="onContextmenu"
-            @mousedown="onMousedown($event,{
+    <div class="table w-auto table-fixed border-collapse">
+      <div class="table-row-group">
+        <div class="table-row" :key="y" v-for="(row,y) in dataSet">
+          <div class="table-cell border min-w-[120px] h-8 cursor-default select-none"
+            @contextmenu.prevent="onContextmenu" @mousedown="onMousedown($event,{
               rowIndex:y,colIndex:x,item
             })" @mouseup="onMouseup($event,{
               rowIndex:y,colIndex:x,item
             })" @mousemove="onMousemove" :key="item.id" v-for="(item,x) in row">
             {{item.value}}
-          </td>
-        </tr>
-      </tbody>
-    </table>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div class="absolute ring-2 ring-offset-0 ring-blue-600 pointer-events-none bg-gray-900 bg-opacity-10"
       :style="[selectionStyle]"></div>
-      <!-- ring-2 ring-offset-0 ring-blue-600 -->
-    <OnClickOutside @trigger="closeModal">
-      <div :style="{'visibility':tooltipVisible?'visible':'hidden'}" ref="tooltip" class="absolute border bg-white">
-        <div class="hover:bg-gray-200 px-4 py-1 cursor-pointer" @click="closeModal">
-          复制
-        </div>
-        <div class="hover:bg-gray-200 px-4 py-1 cursor-pointer" @click="closeModal">
-          粘贴
-        </div>
+    <!-- ring-2 ring-offset-0 ring-blue-600 -->
 
+    <div :style="{'visibility':tooltipVisible?'visible':'hidden'}" ref="tooltip" class="absolute border bg-white">
+      <div class="hover:bg-gray-200 px-4 py-1 cursor-pointer" @click="closeModal">
+        复制
       </div>
-    </OnClickOutside>
+      <div class="hover:bg-gray-200 px-4 py-1 cursor-pointer" @click="closeModal">
+        粘贴
+      </div>
+
+    </div>
+
   </div>
 </template>
 
@@ -157,7 +157,7 @@ export default defineComponent({
       if (e.buttons === 1) {
         startSelection.value = true
         console.log('onMousedown')
-        // @ts-ignore
+
         const rect = (<HTMLElement>e.target).getBoundingClientRect()
 
         console.log(rect)
