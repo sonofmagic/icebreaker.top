@@ -1,35 +1,39 @@
 <template>
-  <div ref="container" class="relative h-[80vh] overflow-auto">
-    <div class="table w-auto table-fixed border-collapse">
-      <div class="table-row-group">
-        <div class="table-row" :key="y" v-for="(row,y) in dataSet">
-          <div class="table-cell border min-w-[120px] h-8 cursor-default select-none"
-            @contextmenu.prevent="onContextmenu" @mousedown="onMousedown($event,{
-              rowIndex:y,colIndex:x,item
-            })" @mouseup="onMouseup($event,{
-              rowIndex:y,colIndex:x,item
-            })" @mousemove="onMousemove" :key="item.id" v-for="(item,x) in row">
-            {{item.value}}
+  <div>
+
+    <div ref="container" class="relative h-[60vh] overflow-auto">
+      <div class="table w-auto table-fixed border-collapse">
+        <div class="table-row-group">
+          <div class="table-row" :key="y" v-for="(row,y) in dataSet">
+            <div class="table-cell border min-w-[120px] h-8 cursor-default select-none"
+              @contextmenu.prevent="onContextmenu" @mousedown="onMousedown($event,{
+                rowIndex:y,colIndex:x,item
+              })" @mouseup="onMouseup($event,{
+                rowIndex:y,colIndex:x,item
+              })" @mousemove="onMousemove" :key="item.id" v-for="(item,x) in row">
+              {{item.value}}
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="absolute ring-2 ring-offset-0 ring-blue-600 pointer-events-none bg-gray-900 bg-opacity-10"
-      :style="[selectionStyle]"></div>
-    <!-- ring-2 ring-offset-0 ring-blue-600 -->
+      <div class="absolute ring-2 ring-offset-0 ring-blue-600 pointer-events-none bg-gray-900 bg-opacity-10"
+        :style="[selectionStyle]"></div>
+      <!-- ring-2 ring-offset-0 ring-blue-600 -->
 
-    <div :style="{'visibility':tooltipVisible?'visible':'hidden'}" ref="tooltip" class="absolute border bg-white">
-      <div class="hover:bg-gray-200 px-4 py-1 cursor-pointer" @click="closeModal">
-        复制
+      <div :style="{'visibility':tooltipVisible?'visible':'hidden'}" ref="tooltip" class="absolute border bg-white">
+        <div class="hover:bg-gray-200 px-4 py-1 cursor-pointer" @click="closeModal">
+          复制
+        </div>
+        <div class="hover:bg-gray-200 px-4 py-1 cursor-pointer" @click="closeModal">
+          粘贴
+        </div>
+
       </div>
-      <div class="hover:bg-gray-200 px-4 py-1 cursor-pointer" @click="closeModal">
-        粘贴
-      </div>
 
     </div>
-
   </div>
+
 </template>
 
 <script lang="ts">
@@ -37,7 +41,7 @@ import { computed, defineComponent, ref } from 'vue-demi'
 import { computePosition, ReferenceElement, offset } from '@floating-ui/dom'
 
 import { pick } from 'lodash-es'
-import { useKeyModifier, onClickOutside } from '@vueuse/core'
+import { useKeyModifier, onClickOutside, useWindowScroll } from '@vueuse/core'
 export default defineComponent({
 
   setup() {
@@ -53,7 +57,7 @@ export default defineComponent({
     interface ICellAttrs {
       rowIndex: number, colIndex: number, item: IDataSourceItem
     }
-
+    const { x: windowX, y: windowY } = useWindowScroll()
     const container = ref<HTMLDivElement>()
     const shiftState = useKeyModifier('Shift')
     const controlState = useKeyModifier('Control')
@@ -151,25 +155,51 @@ export default defineComponent({
 
     }
 
+    function setMoveStyle(rect: DOMRect) {
+      if (rect.x > selectionPosition.value.x) {
+        // 右
+        selectionPosition.value.right = rect.right + container.value!.scrollLeft - selectionBorderOffest + windowX.value
 
+      } else {
+        // 左
+        selectionPosition.value.left = rect.left + container.value!.scrollLeft - selectionBorderOffest + windowX.value
+
+      }
+      selectionPosition.value.width = Math.abs(rect.x - selectionPosition.value.x) + rect.width
+
+      if (rect.y > selectionPosition.value.y) {
+        // 下
+        selectionPosition.value.bottom = rect.bottom + container.value!.scrollTop - selectionBorderOffest + windowY.value
+      } else {
+        // 上
+        selectionPosition.value.top = rect.top + container.value!.scrollTop - selectionBorderOffest + windowY.value
+      }
+      selectionPosition.value.height = Math.abs(rect.y - selectionPosition.value.y) + rect.height
+    }
     // https://developer.mozilla.org/zh-CN/docs/Web/API/MouseEvent/buttons
     function onMousedown(e: MouseEvent, attrs: ICellAttrs) {
       if (e.buttons === 1) {
-        startSelection.value = true
-        console.log('onMousedown')
-
         const rect = (<HTMLElement>e.target).getBoundingClientRect()
+        if (shiftState.value) {
 
-        console.log(rect)
-        selectionPosition.value.left = rect.left + container.value!.scrollLeft - selectionBorderOffest
-        selectionPosition.value.top = rect.top + container.value!.scrollTop - selectionBorderOffest
-        selectionPosition.value.bottom = rect.bottom + container.value!.scrollTop - selectionBorderOffest
-        selectionPosition.value.right = rect.right + container.value!.scrollLeft - selectionBorderOffest
-        selectionPosition.value.width = rect.width
-        selectionPosition.value.height = rect.height
-        selectionPosition.value.x = rect.x
-        selectionPosition.value.y = rect.y
-        selectionStartCell.value = attrs
+          setMoveStyle(rect)
+
+        } else {
+          startSelection.value = true
+          console.log('onMousedown')
+
+          console.log(rect)
+          selectionPosition.value.left = rect.left + container.value!.scrollLeft - selectionBorderOffest + windowX.value
+          selectionPosition.value.top = rect.top + container.value!.scrollTop - selectionBorderOffest + windowY.value
+          selectionPosition.value.bottom = rect.bottom + container.value!.scrollTop - selectionBorderOffest + windowY.value
+          selectionPosition.value.right = rect.right + container.value!.scrollLeft - selectionBorderOffest + windowX.value
+          selectionPosition.value.width = rect.width
+          selectionPosition.value.height = rect.height
+          selectionPosition.value.x = rect.x
+          selectionPosition.value.y = rect.y
+          selectionStartCell.value = attrs
+        }
+
       }
     }
 
@@ -186,31 +216,14 @@ export default defineComponent({
       }
     }
 
+
     function onMousemove(e: MouseEvent) {
       if (startSelection.value) {
         console.log('onMousemove')
         const rect = (<HTMLElement>e.target).getBoundingClientRect()
         // console.log(rect, selectionPosition.value)
+        setMoveStyle(rect)
 
-        if (rect.x > selectionPosition.value.x) {
-          // 右
-          selectionPosition.value.right = rect.right + container.value!.scrollLeft - selectionBorderOffest
-
-        } else {
-          // 左
-          selectionPosition.value.left = rect.left + container.value!.scrollLeft - selectionBorderOffest
-
-        }
-        selectionPosition.value.width = Math.abs(rect.x - selectionPosition.value.x) + rect.width
-
-        if (rect.y > selectionPosition.value.y) {
-          // 下
-          selectionPosition.value.bottom = rect.bottom + container.value!.scrollTop - selectionBorderOffest
-        } else {
-          // 上
-          selectionPosition.value.top = rect.top + container.value!.scrollTop - selectionBorderOffest
-        }
-        selectionPosition.value.height = Math.abs(rect.y - selectionPosition.value.y) + rect.height
       }
     }
     onClickOutside(tooltip, () => {
