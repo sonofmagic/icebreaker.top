@@ -1,6 +1,6 @@
 <template>
   <div ref="container" class="relative h-[80vh] overflow-auto">
-    <table class="w-auto table-fixed">
+    <table class="w-auto table-fixed border-collapse">
       <tbody>
         <tr :key="y" v-for="(row,y) in dataSet">
           <td class="border min-w-[120px] h-8 cursor-default select-none" @contextmenu.prevent="onContextmenu"
@@ -15,8 +15,9 @@
       </tbody>
     </table>
 
-    <div class="absolute ring-1 ring-offset-[0px] ring-blue-600 pointer-events-none bg-gray-900 bg-opacity-10"
+    <div class="absolute ring-2 ring-offset-0 ring-blue-600 pointer-events-none bg-gray-900 bg-opacity-10"
       :style="[selectionStyle]"></div>
+      <!-- ring-2 ring-offset-0 ring-blue-600 -->
     <OnClickOutside @trigger="closeModal">
       <div :style="{'visibility':tooltipVisible?'visible':'hidden'}" ref="tooltip" class="absolute border bg-white">
         <div class="hover:bg-gray-200 px-4 py-1 cursor-pointer" @click="closeModal">
@@ -40,7 +41,7 @@ import { useKeyModifier, onClickOutside } from '@vueuse/core'
 export default defineComponent({
 
   setup() {
-
+    const selectionBorderOffest = 1
     interface IDataSourceItem {
       value: string
       id: string
@@ -100,12 +101,7 @@ export default defineComponent({
         return acc
       }, {})
     })
-    const scrollLeft = computed(() => {
-      return container.value ? container.value.scrollLeft : 0
-    })
-    const scrollTop = computed(() => {
-      return container.value ? container.value.scrollTop : 0
-    })
+
     function onContextmenu(e: MouseEvent) {
       const virtualEl: ReferenceElement = {
         getBoundingClientRect() {
@@ -165,10 +161,10 @@ export default defineComponent({
         const rect = (<HTMLElement>e.target).getBoundingClientRect()
 
         console.log(rect)
-        selectionPosition.value.left = rect.left + container.value!.scrollLeft
-        selectionPosition.value.top = rect.top + container.value!.scrollTop
-        selectionPosition.value.bottom = rect.bottom + container.value!.scrollTop
-        selectionPosition.value.right = rect.right + container.value!.scrollLeft
+        selectionPosition.value.left = rect.left + container.value!.scrollLeft - selectionBorderOffest
+        selectionPosition.value.top = rect.top + container.value!.scrollTop - selectionBorderOffest
+        selectionPosition.value.bottom = rect.bottom + container.value!.scrollTop - selectionBorderOffest
+        selectionPosition.value.right = rect.right + container.value!.scrollLeft - selectionBorderOffest
         selectionPosition.value.width = rect.width
         selectionPosition.value.height = rect.height
         selectionPosition.value.x = rect.x
@@ -198,21 +194,21 @@ export default defineComponent({
 
         if (rect.x > selectionPosition.value.x) {
           // 右
-          selectionPosition.value.right = rect.right + container.value!.scrollLeft
+          selectionPosition.value.right = rect.right + container.value!.scrollLeft - selectionBorderOffest
 
         } else {
           // 左
-          selectionPosition.value.left = rect.left + container.value!.scrollLeft
+          selectionPosition.value.left = rect.left + container.value!.scrollLeft - selectionBorderOffest
 
         }
         selectionPosition.value.width = Math.abs(rect.x - selectionPosition.value.x) + rect.width
 
         if (rect.y > selectionPosition.value.y) {
           // 下
-          selectionPosition.value.bottom = rect.bottom + container.value!.scrollTop
+          selectionPosition.value.bottom = rect.bottom + container.value!.scrollTop - selectionBorderOffest
         } else {
           // 上
-          selectionPosition.value.top = rect.top + container.value!.scrollTop
+          selectionPosition.value.top = rect.top + container.value!.scrollTop - selectionBorderOffest
         }
         selectionPosition.value.height = Math.abs(rect.y - selectionPosition.value.y) + rect.height
       }
@@ -235,8 +231,7 @@ export default defineComponent({
       selectionEndCell,
       selectionStartCell,
       container,
-      scrollLeft,
-      scrollTop
+
     }
   }
 
