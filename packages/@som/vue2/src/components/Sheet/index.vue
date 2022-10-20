@@ -4,8 +4,12 @@
       <tbody>
         <tr :key="y" v-for="(row,y) in dataSet">
           <td class="border min-w-[120px] h-8 cursor-default select-none" @contextmenu.prevent="onContextmenu"
-            @mousedown="onMousedown" @mouseup="onMouseup" @mousemove="onMousemove" :key="td.id" v-for="(td,x) in row">
-            {{td.value}}
+            @mousedown="onMousedown($event,{
+              rowIndex:y,colIndex:x,item
+            })" @mouseup="onMouseup($event,{
+              rowIndex:y,colIndex:x,item
+            })" @mousemove="onMousemove" :key="item.id" v-for="(item,x) in row">
+            {{item.value}}
           </td>
         </tr>
       </tbody>
@@ -14,10 +18,10 @@
     <div class="absolute ring-1 ring-offset-[0px] ring-blue-600 pointer-events-none " :style="[selectionStyle]"></div>
     <OnClickOutside @trigger="closeModal">
       <div :style="{'visibility':tooltipVisible?'visible':'hidden'}" ref="tooltip" class="absolute border bg-white">
-        <div class="hover:bg-gray-200 px-4 py-1 cursor-pointer">
+        <div class="hover:bg-gray-200 px-4 py-1 cursor-pointer" @click="closeModal">
           复制
         </div>
-        <div class="hover:bg-gray-200 px-4 py-1 cursor-pointer">
+        <div class="hover:bg-gray-200 px-4 py-1 cursor-pointer" @click="closeModal">
           粘贴
         </div>
 
@@ -34,7 +38,20 @@ import { pick } from 'lodash-es'
 export default defineComponent({
   components: { OnClickOutside },
   setup() {
-    const dataSetSource = []
+
+    interface IDataSourceItem {
+      value: string
+      id: string
+      selected: boolean
+      readonly: boolean
+      disabled: boolean
+    }
+
+    interface ICellAttrs {
+      rowIndex: number, colIndex: number, item: IDataSourceItem
+    }
+
+    const dataSetSource: IDataSourceItem[][] = []
     for (let i = 0; i < 10; i++) {
       const tr = []
       for (let j = 0; j < 10; j++) {
@@ -70,6 +87,8 @@ export default defineComponent({
       x: 0,
       y: 0,
     })
+    const selectionStartCell = ref<ICellAttrs>()
+    const selectionEndCell = ref<ICellAttrs>()
     const selectionStyle = computed(() => {
       return Object.entries(pick(selectionPosition.value, ['left', 'right', 'top', 'bottom', 'width', 'height'])).reduce<Record<string, string>>((acc, [key, value]) => {
         acc[key] = value + 'px'
@@ -99,6 +118,7 @@ export default defineComponent({
         computePosition(virtualEl, tooltip.value, {
           placement: 'right',
           middleware: [offset({
+            mainAxis: 10,
             alignmentAxis: -rect.height / 2
           })]
         }).then(({ x, y }) => {
@@ -112,8 +132,21 @@ export default defineComponent({
 
       console.log('contextmenu')
     }
+    function getSelectionValues(start: ICellAttrs, end: ICellAttrs) {
+      const { colIndex: startcolIndex, rowIndex: startrowIndex } = start
+      const { colIndex: endcolIndex, rowIndex: endrowIndex } = end
+      const rows = [Math.min(startrowIndex, endrowIndex), Math.max(startrowIndex, endrowIndex) + 1]
+      const cols = [Math.min(startcolIndex, endcolIndex), Math.max(startcolIndex, endcolIndex) + 1]
+      const values = dataSet.value.slice(...rows).map(x => {
+        return x.slice(...cols)
+      })
+      return values.flat(1)
+
+    }
+
+
     // https://developer.mozilla.org/zh-CN/docs/Web/API/MouseEvent/buttons
-    function onMousedown(e: MouseEvent) {
+    function onMousedown(e: MouseEvent, attrs: ICellAttrs) {
       if (e.buttons === 1) {
         startSelection.value = true
         console.log('onMousedown', e.target)
@@ -128,13 +161,19 @@ export default defineComponent({
         selectionPosition.value.height = rect.height
         selectionPosition.value.x = rect.x
         selectionPosition.value.y = rect.y
+        selectionStartCell.value = attrs
       }
     }
 
-    function onMouseup(e: MouseEvent) {
+    function onMouseup(e: MouseEvent, attrs: ICellAttrs) {
       if (e.buttons === 0) {
         startSelection.value = false
         console.log('onMouseup')
+        selectionEndCell.value = attrs
+        if (selectionStartCell.value && selectionEndCell.value) {
+          const values = getSelectionValues(selectionStartCell.value, selectionEndCell.value)
+          console.log(values)
+        }
 
       }
     }
@@ -176,7 +215,9 @@ export default defineComponent({
       onMousedown,
       onMouseup,
       onMousemove,
-      selectionStyle
+      selectionStyle,
+      selectionEndCell,
+      selectionStartCell
     }
   }
 
