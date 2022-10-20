@@ -22,6 +22,7 @@
     "dayjs": "^1.11.5",
     "element-ui": "^2.15.10",
     "javascript-stringify": "^2.1.0",
+    "lodash-es": "^4.17.21",
     "nanoid": "^4.0.0",
     "simple-lodash-template-loader": "^1.0.5",
     "uuid": "^9.0.0",
@@ -34,6 +35,7 @@
   "devDependencies": {
     "@types/d3": "^7.4.0",
     "@types/d3-org-chart": "^2.6.1",
+    "@types/lodash-es": "^4.17.6",
     "@types/tailwindcss": "^3.1.0",
     "@typescript-eslint/eslint-plugin": "^5.40.1",
     "@typescript-eslint/parser": "^5.40.1",

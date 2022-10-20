@@ -10,6 +10,8 @@
         </tr>
       </tbody>
     </table>
+
+    <div class="absolute ring-1 ring-offset-[0px] ring-blue-600 pointer-events-none " :style="[selectionStyle]"></div>
     <OnClickOutside @trigger="closeModal">
       <div :style="{'visibility':tooltipVisible?'visible':'hidden'}" ref="tooltip" class="absolute border bg-white">
         <div class="hover:bg-gray-200 px-4 py-1 cursor-pointer">
@@ -21,17 +23,17 @@
 
       </div>
     </OnClickOutside>
-    <div class="absolute border-[#3380FF] pointer-events-none" :style="[selectionStyle]"></div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue-demi'
+import { computed, defineComponent, ref } from 'vue-demi'
 import { computePosition, ReferenceElement, offset } from '@floating-ui/dom'
 import { OnClickOutside } from '@vueuse/components'
+import { pick } from 'lodash-es'
 export default defineComponent({
   components: { OnClickOutside },
-  setup () {
+  setup() {
     const dataSetSource = []
     for (let i = 0; i < 10; i++) {
       const tr = []
@@ -53,21 +55,30 @@ export default defineComponent({
     const closeModal = () => {
       tooltipVisible.value = false
     }
-    function createSelection () {
+    function createSelection() {
       const dom = document.createElement('div')
     }
     const tooltip = ref<HTMLDivElement>()
-    const selectionStyle = ref({
+
+    const selectionPosition = ref({
       left: 0,
       right: 0,
       top: 0,
       bottom: 0,
       width: 0,
-      height: 0
+      height: 0,
+      x: 0,
+      y: 0,
     })
-    function onContextmenu (e: MouseEvent) {
+    const selectionStyle = computed(() => {
+      return Object.entries(pick(selectionPosition.value, ['left', 'right', 'top', 'bottom', 'width', 'height'])).reduce<Record<string, string>>((acc, [key, value]) => {
+        acc[key] = value + 'px'
+        return acc
+      }, {})
+    })
+    function onContextmenu(e: MouseEvent) {
       const virtualEl: ReferenceElement = {
-        getBoundingClientRect () {
+        getBoundingClientRect() {
           return {
             x: e.x,
             y: e.y,
@@ -102,32 +113,57 @@ export default defineComponent({
       console.log('contextmenu')
     }
     // https://developer.mozilla.org/zh-CN/docs/Web/API/MouseEvent/buttons
-    function onMousedown (e: MouseEvent) {
+    function onMousedown(e: MouseEvent) {
       if (e.buttons === 1) {
         startSelection.value = true
         console.log('onMousedown', e.target)
         // @ts-ignore
         const rect = (<HTMLElement>e.target).getBoundingClientRect()
-        console.log(rect)
-        selectionStyle.value.left = rect.left
-        selectionStyle.value.top = rect.top
-        selectionStyle.value.bottom = rect.bottom
-        selectionStyle.value.right = rect.right
-        selectionStyle.value.width = rect.width
-        selectionStyle.value.height = rect.height
+        // console.log(rect)
+        selectionPosition.value.left = rect.left
+        selectionPosition.value.top = rect.top
+        selectionPosition.value.bottom = rect.bottom
+        selectionPosition.value.right = rect.right
+        selectionPosition.value.width = rect.width
+        selectionPosition.value.height = rect.height
+        selectionPosition.value.x = rect.x
+        selectionPosition.value.y = rect.y
       }
     }
 
-    function onMouseup (e: MouseEvent) {
+    function onMouseup(e: MouseEvent) {
       if (e.buttons === 0) {
         startSelection.value = false
         console.log('onMouseup')
+
       }
     }
 
-    function onMousemove () {
+    function onMousemove(e: MouseEvent) {
       if (startSelection.value) {
         console.log('onMousemove')
+        const rect = (<HTMLElement>e.target).getBoundingClientRect()
+        // console.log(rect, selectionPosition.value)
+
+        if (rect.x > selectionPosition.value.x) {
+          // 右
+          selectionPosition.value.right = rect.right
+
+        } else {
+          // 左
+          selectionPosition.value.left = rect.left
+
+        }
+        selectionPosition.value.width = Math.abs(rect.x - selectionPosition.value.x) + rect.width
+
+        if (rect.y > selectionPosition.value.y) {
+          // 下
+          selectionPosition.value.bottom = rect.bottom
+        } else {
+          // 上
+          selectionPosition.value.top = rect.top
+        }
+        selectionPosition.value.height = Math.abs(rect.y - selectionPosition.value.y) + rect.height
       }
     }
     return {
