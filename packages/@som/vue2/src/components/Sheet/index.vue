@@ -1,6 +1,6 @@
 <template>
-  <div class="relative">
-    <table class="w-auto table-fixed ">
+  <div ref="container" class="relative h-[80vh] overflow-auto">
+    <table class="w-auto table-fixed">
       <tbody>
         <tr :key="y" v-for="(row,y) in dataSet">
           <td class="border min-w-[120px] h-8 cursor-default select-none" @contextmenu.prevent="onContextmenu"
@@ -15,7 +15,8 @@
       </tbody>
     </table>
 
-    <div class="absolute ring-1 ring-offset-[0px] ring-blue-600 pointer-events-none " :style="[selectionStyle]"></div>
+    <div class="absolute ring-1 ring-offset-[0px] ring-blue-600 pointer-events-none bg-gray-900 bg-opacity-10"
+      :style="[selectionStyle]"></div>
     <OnClickOutside @trigger="closeModal">
       <div :style="{'visibility':tooltipVisible?'visible':'hidden'}" ref="tooltip" class="absolute border bg-white">
         <div class="hover:bg-gray-200 px-4 py-1 cursor-pointer" @click="closeModal">
@@ -33,10 +34,11 @@
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue-demi'
 import { computePosition, ReferenceElement, offset } from '@floating-ui/dom'
-import { OnClickOutside } from '@vueuse/components'
+
 import { pick } from 'lodash-es'
+import { useKeyModifier, onClickOutside } from '@vueuse/core'
 export default defineComponent({
-  components: { OnClickOutside },
+
   setup() {
 
     interface IDataSourceItem {
@@ -51,8 +53,11 @@ export default defineComponent({
       rowIndex: number, colIndex: number, item: IDataSourceItem
     }
 
+    const container = ref<HTMLDivElement>()
+    const shiftState = useKeyModifier('Shift')
+    const controlState = useKeyModifier('Control')
     const dataSetSource: IDataSourceItem[][] = []
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 50; i++) {
       const tr = []
       for (let j = 0; j < 10; j++) {
         const td = {
@@ -94,6 +99,12 @@ export default defineComponent({
         acc[key] = value + 'px'
         return acc
       }, {})
+    })
+    const scrollLeft = computed(() => {
+      return container.value ? container.value.scrollLeft : 0
+    })
+    const scrollTop = computed(() => {
+      return container.value ? container.value.scrollTop : 0
     })
     function onContextmenu(e: MouseEvent) {
       const virtualEl: ReferenceElement = {
@@ -149,14 +160,15 @@ export default defineComponent({
     function onMousedown(e: MouseEvent, attrs: ICellAttrs) {
       if (e.buttons === 1) {
         startSelection.value = true
-        console.log('onMousedown', e.target)
+        console.log('onMousedown')
         // @ts-ignore
         const rect = (<HTMLElement>e.target).getBoundingClientRect()
-        // console.log(rect)
-        selectionPosition.value.left = rect.left
-        selectionPosition.value.top = rect.top
-        selectionPosition.value.bottom = rect.bottom
-        selectionPosition.value.right = rect.right
+
+        console.log(rect)
+        selectionPosition.value.left = rect.left + container.value!.scrollLeft
+        selectionPosition.value.top = rect.top + container.value!.scrollTop
+        selectionPosition.value.bottom = rect.bottom + container.value!.scrollTop
+        selectionPosition.value.right = rect.right + container.value!.scrollLeft
         selectionPosition.value.width = rect.width
         selectionPosition.value.height = rect.height
         selectionPosition.value.x = rect.x
@@ -186,25 +198,29 @@ export default defineComponent({
 
         if (rect.x > selectionPosition.value.x) {
           // 右
-          selectionPosition.value.right = rect.right
+          selectionPosition.value.right = rect.right + container.value!.scrollLeft
 
         } else {
           // 左
-          selectionPosition.value.left = rect.left
+          selectionPosition.value.left = rect.left + container.value!.scrollLeft
 
         }
         selectionPosition.value.width = Math.abs(rect.x - selectionPosition.value.x) + rect.width
 
         if (rect.y > selectionPosition.value.y) {
           // 下
-          selectionPosition.value.bottom = rect.bottom
+          selectionPosition.value.bottom = rect.bottom + container.value!.scrollTop
         } else {
           // 上
-          selectionPosition.value.top = rect.top
+          selectionPosition.value.top = rect.top + container.value!.scrollTop
         }
         selectionPosition.value.height = Math.abs(rect.y - selectionPosition.value.y) + rect.height
       }
     }
+    onClickOutside(tooltip, () => {
+      closeModal()
+    })
+
     return {
       dataSet,
       startSelection,
@@ -217,7 +233,10 @@ export default defineComponent({
       onMousemove,
       selectionStyle,
       selectionEndCell,
-      selectionStartCell
+      selectionStartCell,
+      container,
+      scrollLeft,
+      scrollTop
     }
   }
 
