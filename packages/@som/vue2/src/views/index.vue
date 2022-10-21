@@ -1,5 +1,5 @@
 <template>
-  <div class="border pt-20 pl-60">
+  <div class="relative left-[100px] top-[100px]">
     <!-- <TwoBall></TwoBall> -->
     <Sheet></Sheet>
   </div>
@@ -7,10 +7,10 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import TwoBall from '@/components/TwoBalls/index.vue'
+// import TwoBall from '@/components/TwoBalls/index.vue'
 import Sheet from '@/components/Sheet/index.vue'
 export default Vue.extend({
-  components: { Sheet, TwoBall }
+  components: { Sheet }
 })
 </script>
 

@@ -1,7 +1,7 @@
 <template>
   <div>
 
-    <div ref="container" class="relative h-[60vh] overflow-auto">
+    <div ref="container" class="relative">
       <div ref="table" class="table w-auto table-fixed border-collapse">
         <div class="table-row-group">
           <div class="table-row" :key="y" v-for="(row,y) in dataSet">
@@ -37,19 +37,22 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from 'vue-demi'
+import { computed, defineComponent, ref, onMounted } from 'vue-demi'
 import { computePosition, ReferenceElement, offset } from '@floating-ui/dom'
 // @ts-ignore
 import ColumnResizer from 'column-resizer'
 // @ts-ignore
 import VirtualList from 'vue-virtual-scroll-list'
 import { pick } from 'lodash-es'
-import { useKeyModifier, onClickOutside, useWindowScroll } from '@vueuse/core'
-console.log(ColumnResizer)
+import { onClickOutside, useWindowScroll } from '@vueuse/core'
+import useContainer from './hooks/useContainer'
+
+
+
 export default defineComponent({
   components: { VirtualList },
   setup() {
-    const selectionBorderOffest = 1
+    const selectionBorderOffest = 0.5
     interface IDataSourceItem {
       value: string
       id: string
@@ -63,8 +66,7 @@ export default defineComponent({
     }
     const { x: windowX, y: windowY } = useWindowScroll()
     const container = ref<HTMLDivElement>()
-    const shiftState = useKeyModifier('Shift')
-    const controlState = useKeyModifier('Control')
+    const { left: containerLeft, top: containerTop } = useContainer(container)
     const dataSetSource: IDataSourceItem[][] = []
     for (let i = 0; i < 50; i++) {
       const tr = []
@@ -86,11 +88,9 @@ export default defineComponent({
     const closeModal = () => {
       tooltipVisible.value = false
     }
-    function createSelection() {
-      const dom = document.createElement('div')
-    }
-    const tooltip = ref<HTMLDivElement>()
 
+    const tooltip = ref<HTMLDivElement>()
+    const startCell = ref<EventTarget | null>()
     const selectionPosition = ref({
       left: 0,
       right: 0,
@@ -98,14 +98,26 @@ export default defineComponent({
       bottom: 0,
       width: 0,
       height: 0,
-      x: 0,
-      y: 0,
+    })
+
+    const resetSelectionPosition = ref({
+      left: 0,
+      right: 0,
+      top: 0,
+      bottom: 0,
+      width: 0,
+      height: 0,
     })
     const selectionStartCell = ref<ICellAttrs>()
     const selectionEndCell = ref<ICellAttrs>()
     const selectionStyle = computed(() => {
       return Object.entries(pick(selectionPosition.value, ['left', 'right', 'top', 'bottom', 'width', 'height'])).reduce<Record<string, string>>((acc, [key, value]) => {
-        acc[key] = value + 'px'
+        if (['left', 'right', 'top', 'bottom'].includes(key)) {
+          acc[key] = (value - selectionBorderOffest) + 'px'
+        } else {
+          acc[key] = value + 'px'
+        }
+
         return acc
       }, {})
     })
@@ -159,51 +171,83 @@ export default defineComponent({
 
     }
 
+    function resetSelection(col?: 'x' | 'y') {
+      if (col === 'x') {
+        selectionPosition.value.width = resetSelectionPosition.value.width
+        selectionPosition.value.left = resetSelectionPosition.value.left
+        selectionPosition.value.right = resetSelectionPosition.value.right
+      } else if (col === 'y') {
+        selectionPosition.value.height = resetSelectionPosition.value.height
+        selectionPosition.value.top = resetSelectionPosition.value.top
+        selectionPosition.value.bottom = resetSelectionPosition.value.bottom
+      } else {
+        Object.assign(selectionPosition.value, resetSelectionPosition.value)
+      }
+
+
+    }
+
     function setMoveStyle(rect: DOMRect) {
-      if (rect.x > selectionPosition.value.x) {
+      // console.log(rect.left, selectionPosition.value.left)
+      const offsetX = rect.left - containerLeft.value - selectionPosition.value.left
+
+
+      if (offsetX > 0) {
         // 右
-        selectionPosition.value.right = rect.right + container.value!.scrollLeft - selectionBorderOffest + windowX.value
+        selectionPosition.value.right = rect.right + container.value!.scrollLeft + windowX.value //- containerLeft.value
+        selectionPosition.value.width = Math.abs(offsetX) + rect.width
 
-      } else {
+      } else if (offsetX < 0) {
         // 左
-        selectionPosition.value.left = rect.left + container.value!.scrollLeft - selectionBorderOffest + windowX.value
 
+        selectionPosition.value.left = rect.left + container.value!.scrollLeft + windowX.value //- containerLeft.value
+
+        selectionPosition.value.width = Math.abs(offsetX) + rect.width
+
+      } else{
+        resetSelection('x')
       }
-      selectionPosition.value.width = Math.abs(rect.x - selectionPosition.value.x) + rect.width
-
-      if (rect.y > selectionPosition.value.y) {
+      const offsetY = rect.top - containerTop.value - selectionPosition.value.top
+      // console.log(rect.top, selectionPosition.value.top)
+      if (offsetY > 0) {
         // 下
-        selectionPosition.value.bottom = rect.bottom + container.value!.scrollTop - selectionBorderOffest + windowY.value
-      } else {
+        selectionPosition.value.bottom = rect.bottom + container.value!.scrollTop + windowY.value //- containerTop.value
+        selectionPosition.value.height = Math.abs(offsetY) + rect.height
+      } else if (offsetY < 0) {
         // 上
-        selectionPosition.value.top = rect.top + container.value!.scrollTop - selectionBorderOffest + windowY.value
+        selectionPosition.value.top = rect.top + container.value!.scrollTop + windowY.value //- containerTop.value
+        selectionPosition.value.height = Math.abs(offsetY) + rect.height
+      }else{
+        resetSelection('y')
       }
-      selectionPosition.value.height = Math.abs(rect.y - selectionPosition.value.y) + rect.height
+      console.log(offsetX, offsetY)
+      // if (offsetX === 0 && offsetY === 0) {
+      //   resetSelection()
+      // }
+
+
     }
     // https://developer.mozilla.org/zh-CN/docs/Web/API/MouseEvent/buttons
     function onMousedown(e: MouseEvent, attrs: ICellAttrs) {
       if (e.buttons === 1) {
-        const rect = (<HTMLElement>e.target).getBoundingClientRect()
-        if (shiftState.value) {
+        startCell.value = e.target
+        const rect = (<HTMLElement>startCell.value).getBoundingClientRect()
 
-          setMoveStyle(rect)
+        startSelection.value = true
+        console.log('onMousedown')
 
-        } else {
-          startSelection.value = true
-          console.log('onMousedown')
+        console.log(rect, containerTop.value, containerLeft.value)
+        selectionPosition.value.left = rect.left + container.value!.scrollLeft + windowX.value - containerLeft.value
+        selectionPosition.value.right = rect.right + container.value!.scrollLeft + windowX.value - containerLeft.value
+        selectionPosition.value.top = rect.top + container.value!.scrollTop + windowY.value - containerTop.value
+        selectionPosition.value.bottom = rect.bottom + container.value!.scrollTop + windowY.value - containerTop.value
 
-          console.log(rect)
-          selectionPosition.value.left = rect.left + container.value!.scrollLeft - selectionBorderOffest + windowX.value
-          selectionPosition.value.top = rect.top + container.value!.scrollTop - selectionBorderOffest + windowY.value
-          selectionPosition.value.bottom = rect.bottom + container.value!.scrollTop - selectionBorderOffest + windowY.value
-          selectionPosition.value.right = rect.right + container.value!.scrollLeft - selectionBorderOffest + windowX.value
-          selectionPosition.value.width = rect.width
-          selectionPosition.value.height = rect.height
-          selectionPosition.value.x = rect.x
-          selectionPosition.value.y = rect.y
-          selectionStartCell.value = attrs
-        }
+        selectionPosition.value.width = rect.width
+        selectionPosition.value.height = rect.height
 
+
+        selectionStartCell.value = attrs
+        Object.assign(resetSelectionPosition.value, selectionPosition.value)
       }
     }
 
@@ -223,7 +267,7 @@ export default defineComponent({
 
     function onMousemove(e: MouseEvent) {
       if (startSelection.value) {
-        console.log('onMousemove')
+        console.log('onMousemove', e.target)
         const rect = (<HTMLElement>e.target).getBoundingClientRect()
         // console.log(rect, selectionPosition.value)
         setMoveStyle(rect)
@@ -233,6 +277,8 @@ export default defineComponent({
     onClickOutside(tooltip, () => {
       closeModal()
     })
+
+
 
     return {
       dataSet,
@@ -248,6 +294,7 @@ export default defineComponent({
       selectionEndCell,
       selectionStartCell,
       container,
+
 
     }
   }
