@@ -1,5 +1,5 @@
 <template>
-  <div class="relative left-[100px] top-[100px]">
+  <div class="relative left-[64px] top-[64px]">
     <!-- <TwoBall></TwoBall> -->
     <Sheet></Sheet>
   </div>

@@ -5,7 +5,7 @@
       <div ref="table" class="table w-auto table-fixed border-collapse">
         <div class="table-row-group">
           <div class="table-row" :key="y" v-for="(row,y) in dataSet">
-            <div class="table-cell border min-w-[120px] h-8 cursor-default select-none"
+            <div class="table-cell border min-w-[100px] h-8 cursor-default select-none"
               @contextmenu.prevent="onContextmenu" @mousedown="onMousedown($event,{
                 rowIndex:y,colIndex:x,item
               })" @mouseup="onMouseup($event,{
@@ -54,7 +54,7 @@ const { x: windowX, y: windowY } = useWindowScroll()
 const container = ref<HTMLDivElement>()
 const { left: containerLeft, top: containerTop, scrollX: containerScrollX, scrollY: containerScrollY } = useContainer(container)
 
-const { resetSelectionPosition, selectionPosition, startCellAttrs, endCellAttrs, startEventTarget, assign: selectionAssign, reset: selectionReset, selectionStyle } = useSelection({
+const { resetSelectionPosition, selectionPosition, startCellAttrs, endCellAttrs, startEventTarget, assign: selectionAssign, reset: selectionReset, selectionStyle, startEventTargetRect } = useSelection({
   container: {
     left: containerLeft,
     scrollX: containerScrollX,
@@ -146,10 +146,10 @@ function getSelectionValues(start: ICellAttrs, end: ICellAttrs) {
 
 function setMoveStyle(rect: DOMRect) {
   // console.log(rect.left, selectionPosition.value.left)
-  const eventTargetRect = getBoundingClientRect(startEventTarget.value)
-  console.log(eventTargetRect)
-  const offsetX = rect.left - containerLeft.value - selectionPosition.value.left
-  const offsetY = rect.top - containerTop.value - selectionPosition.value.top
+  const centerRect = getBoundingClientRect(startEventTarget.value)
+  // console.log(centerRect)
+  const offsetX = rect.left - centerRect.left  //containerLeft.value - selectionPosition.value.left
+  const offsetY = rect.top - centerRect.top // containerTop.value - selectionPosition.value.top
 
   if (offsetX > 0) {
     // 右
@@ -172,8 +172,10 @@ function setMoveStyle(rect: DOMRect) {
     selectionPosition.value.height = Math.abs(offsetY) + rect.height
   } else if (offsetY < 0) {
     // 上
+    //  - containerTop.value
     selectionPosition.value.top = rect.top + containerScrollY.value + windowY.value //- containerTop.value
     selectionPosition.value.height = Math.abs(offsetY) + rect.height
+
   } else {
     selectionReset('y')
   }
@@ -193,6 +195,7 @@ function onMousedown(e: MouseEvent, attrs: ICellAttrs) {
     // 设置开始拖动
     startSelection.value = true
     console.log('onMousedown')
+    // startEventTargetRect.value = rect
     // + windowY.value
     const computedRect = {
       left: rect.left + containerScrollX.value - containerLeft.value,
@@ -237,7 +240,7 @@ function _onMousemove(e: MouseEvent) {
   }
 }
 
-const onMousemove = throttle(_onMousemove, 500)
+const onMousemove = throttle(_onMousemove, 1000)
 onClickOutside(tooltip, () => {
   closeModal()
 })

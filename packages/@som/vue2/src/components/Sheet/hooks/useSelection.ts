@@ -58,7 +58,7 @@ export default function useSelection (options: useSelectionOptions) {
   const endCellAttrs = ref<ICellAttrs>()
 
   const startEventTarget = ref<EventTarget | null>()
-  // const startEventTargetRect = ref<DOMRect | null>()
+  const startEventTargetRect = ref<DOMRect | null>()
   const assign = (rect: Partial<ISelectionRect>) => {
     // Object.entries(rect).forEach(([key, value]) => {
     //   if (value) {
@@ -100,7 +100,7 @@ export default function useSelection (options: useSelectionOptions) {
     startCellAttrs,
     endCellAttrs,
     startEventTarget,
-    // startEventTargetRect,
+    startEventTargetRect,
     assign,
     reset,
     selectionStyle
