@@ -36,7 +36,7 @@
 
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { computed, defineComponent, ref, onMounted } from 'vue-demi'
 import { computePosition, ReferenceElement, offset } from '@floating-ui/dom'
 // @ts-ignore
@@ -49,225 +49,201 @@ import useContainer from './hooks/useContainer'
 import useSelection, { IDataSourceItem, ICellAttrs } from './hooks/useSelection'
 import { getDirection, getBoundingClientRect } from './utils'
 import { throttle } from 'lodash-es'
-export default defineComponent({
-  components: { VirtualList },
-  setup() {
 
-    const { x: windowX, y: windowY } = useWindowScroll()
-    const container = ref<HTMLDivElement>()
-    const { left: containerLeft, top: containerTop, scrollX: containerScrollX, scrollY: containerScrollY } = useContainer(container)
+const { x: windowX, y: windowY } = useWindowScroll()
+const container = ref<HTMLDivElement>()
+const { left: containerLeft, top: containerTop, scrollX: containerScrollX, scrollY: containerScrollY } = useContainer(container)
 
-    const { resetSelectionPosition, selectionPosition, startCellAttrs, endCellAttrs, startEventTarget, assign: selectionAssign, reset: selectionReset, selectionStyle } = useSelection({
-      container: {
-        left: containerLeft,
-        scrollX: containerScrollX,
-        scrollY: containerScrollY,
-        top: containerTop
-      },
-      window: {
-        scrollX: windowX,
-        scrollY: windowY
-      }
-    })
+const { resetSelectionPosition, selectionPosition, startCellAttrs, endCellAttrs, startEventTarget, assign: selectionAssign, reset: selectionReset, selectionStyle } = useSelection({
+  container: {
+    left: containerLeft,
+    scrollX: containerScrollX,
+    scrollY: containerScrollY,
+    top: containerTop
+  },
+  window: {
+    scrollX: windowX,
+    scrollY: windowY
+  }
+})
 
-    const dataSetSource: IDataSourceItem[][] = []
-    for (let i = 0; i < 50; i++) {
-      const tr = []
-      for (let j = 0; j < 10; j++) {
-        const td = {
-          value: `${i}-${j}`,
-          id: `${i}-${j}`,
-          selected: false,
-          readonly: false,
-          disabled: false
-        }
-        tr.push(td)
-      }
-      dataSetSource.push(tr)
+const dataSetSource: IDataSourceItem[][] = []
+for (let i = 0; i < 50; i++) {
+  const tr = []
+  for (let j = 0; j < 10; j++) {
+    const td = {
+      value: `${i}-${j}`,
+      id: `${i}-${j}`,
+      selected: false,
+      readonly: false,
+      disabled: false
     }
-    const dataSet = ref(dataSetSource)
-    const startSelection = ref(false)
-    const tooltipVisible = ref(false)
-    const closeModal = () => {
-      tooltipVisible.value = false
-    }
+    tr.push(td)
+  }
+  dataSetSource.push(tr)
+}
+const dataSet = ref(dataSetSource)
+const startSelection = ref(false)
+const tooltipVisible = ref(false)
+const closeModal = () => {
+  tooltipVisible.value = false
+}
 
-    const tooltip = ref<HTMLDivElement>()
+const tooltip = ref<HTMLDivElement>()
 
 
 
-    function onContextmenu(e: MouseEvent) {
-      const virtualEl: ReferenceElement = {
-        getBoundingClientRect() {
-          return {
-            x: e.x,
-            y: e.y,
-            top: e.clientY,
-            left: e.clientX,
-            width: 0,
-            height: 0,
-            bottom: 0,
-            right: 0
-          }
-        }
+function onContextmenu(e: MouseEvent) {
+  const virtualEl: ReferenceElement = {
+    getBoundingClientRect() {
+      return {
+        x: e.x,
+        y: e.y,
+        top: e.clientY,
+        left: e.clientX,
+        width: 0,
+        height: 0,
+        bottom: 0,
+        right: 0
       }
-
-      console.log(e)
-      if (tooltip.value) {
-        const rect = tooltip.value.getBoundingClientRect()
-        console.log(rect)
-        computePosition(virtualEl, tooltip.value, {
-          placement: 'right',
-          middleware: [offset({
-            mainAxis: 10,
-            alignmentAxis: -rect.height / 2
-          })]
-        }).then(({ x, y }) => {
-          Object.assign(tooltip.value!.style, {
-            left: `${x}px`,
-            top: `${y}px`
-          })
-          tooltipVisible.value = true
-        })
-      }
-
-      console.log('contextmenu')
-    }
-    function getSelectionValues(start: ICellAttrs, end: ICellAttrs) {
-      const { colIndex: startcolIndex, rowIndex: startrowIndex } = start
-      const { colIndex: endcolIndex, rowIndex: endrowIndex } = end
-      const rows = [Math.min(startrowIndex, endrowIndex), Math.max(startrowIndex, endrowIndex) + 1]
-      const cols = [Math.min(startcolIndex, endcolIndex), Math.max(startcolIndex, endcolIndex) + 1]
-      const values = dataSet.value.slice(...rows).map(x => {
-        return x.slice(...cols)
-      })
-      return values.flat(1)
-
-    }
-
-
-
-    function setMoveStyle(rect: DOMRect) {
-      // console.log(rect.left, selectionPosition.value.left)
-      const eventTargetRect = getBoundingClientRect(startEventTarget.value)
-      console.log(eventTargetRect)
-      const offsetX = rect.left - containerLeft.value - selectionPosition.value.left
-      const offsetY = rect.top - containerTop.value - selectionPosition.value.top
-
-      if (offsetX > 0) {
-        // 右
-        selectionPosition.value.right = rect.right + containerScrollX.value + windowX.value //- containerLeft.value
-        selectionPosition.value.width = Math.abs(offsetX) + rect.width
-
-      } else if (offsetX < 0) {
-        // 左
-
-        selectionPosition.value.left = rect.left + containerScrollX.value + windowX.value //- containerLeft.value
-
-        selectionPosition.value.width = Math.abs(offsetX) + rect.width
-
-      } else {
-        selectionReset('x')
-
-      }
-
-      // console.log(rect.top, selectionPosition.value.top)
-      if (offsetY > 0) {
-        // 下
-        selectionPosition.value.bottom = rect.bottom + containerScrollY.value + windowY.value //- containerTop.value
-        selectionPosition.value.height = Math.abs(offsetY) + rect.height
-      } else if (offsetY < 0) {
-        // 上
-        //  debugger
-        selectionPosition.value.top = rect.top + containerScrollY.value + windowY.value - containerTop.value  //- containerTop.value
-        selectionPosition.value.height = Math.abs(offsetY) + rect.height
-      } else {
-        selectionReset('y')
-      }
-      console.log(offsetX, offsetY, getDirection([offsetX, offsetY]))
-
-
-
-    }
-    // https://developer.mozilla.org/zh-CN/docs/Web/API/MouseEvent/buttons
-    function onMousedown(e: MouseEvent, attrs: ICellAttrs) {
-      if (e.buttons === 1) {
-        startEventTarget.value = e.target
-
-        const rect = getBoundingClientRect(startEventTarget.value)
-
-
-        // 设置开始拖动
-        startSelection.value = true
-        console.log('onMousedown')
-        const computedRect = {
-          left: rect.left + containerScrollX.value + windowX.value - containerLeft.value,
-          right: rect.right + containerScrollX.value + windowX.value - containerLeft.value,
-          top: rect.top + containerScrollY.value + windowY.value - containerTop.value,
-          bottom: rect.bottom + containerScrollY.value + windowY.value - containerTop.value,
-          width: rect.width,
-          height: rect.height
-        }
-        console.log(containerScrollY.value, windowY.value, containerTop.value, computedRect)
-        // debugger
-        selectionAssign(computedRect)
-
-
-
-        endCellAttrs.value = attrs
-        Object.assign(resetSelectionPosition.value, selectionPosition.value)
-      }
-    }
-
-    function onMouseup(e: MouseEvent, attrs: ICellAttrs) {
-      if (e.buttons === 0) {
-        startSelection.value = false
-        console.log('onMouseup')
-        startCellAttrs.value = attrs
-        if (endCellAttrs.value && startCellAttrs.value) {
-          const values = getSelectionValues(endCellAttrs.value, startCellAttrs.value)
-          console.log(values)
-        }
-
-      }
-    }
-
-
-    function onMousemove(e: MouseEvent) {
-      if (startSelection.value) {
-        // console.log('onMousemove', e.target)
-        const rect = (<HTMLElement>e.target).getBoundingClientRect()
-        // console.log(rect, selectionPosition.value)
-        setMoveStyle(rect)
-
-      }
-    }
-    onClickOutside(tooltip, () => {
-      closeModal()
-    })
-
-
-
-    return {
-      dataSet,
-      startSelection,
-      tooltipVisible,
-      closeModal,
-      tooltip,
-      onContextmenu,
-      onMousedown,
-      onMouseup,
-      onMousemove: throttle(onMousemove, 60),
-      selectionStyle,
-      startCellAttrs,
-      endCellAttrs,
-      container,
-
-
     }
   }
 
+  console.log(e)
+  if (tooltip.value) {
+    const rect = tooltip.value.getBoundingClientRect()
+    console.log(rect)
+    computePosition(virtualEl, tooltip.value, {
+      placement: 'right',
+      middleware: [offset({
+        mainAxis: 10,
+        alignmentAxis: -rect.height / 2
+      })]
+    }).then(({ x, y }) => {
+      Object.assign(tooltip.value!.style, {
+        left: `${x}px`,
+        top: `${y}px`
+      })
+      tooltipVisible.value = true
+    })
+  }
+
+  console.log('contextmenu')
+}
+function getSelectionValues(start: ICellAttrs, end: ICellAttrs) {
+  const { colIndex: startcolIndex, rowIndex: startrowIndex } = start
+  const { colIndex: endcolIndex, rowIndex: endrowIndex } = end
+  const rows = [Math.min(startrowIndex, endrowIndex), Math.max(startrowIndex, endrowIndex) + 1]
+  const cols = [Math.min(startcolIndex, endcolIndex), Math.max(startcolIndex, endcolIndex) + 1]
+  const values = dataSet.value.slice(...rows).map(x => {
+    return x.slice(...cols)
+  })
+  return values.flat(1)
+
+}
+
+
+
+function setMoveStyle(rect: DOMRect) {
+  // console.log(rect.left, selectionPosition.value.left)
+  const eventTargetRect = getBoundingClientRect(startEventTarget.value)
+  console.log(eventTargetRect)
+  const offsetX = rect.left - containerLeft.value - selectionPosition.value.left
+  const offsetY = rect.top - containerTop.value - selectionPosition.value.top
+
+  if (offsetX > 0) {
+    // 右
+    selectionPosition.value.right = rect.right + containerScrollX.value + windowX.value //- containerLeft.value
+    selectionPosition.value.width = Math.abs(offsetX) + rect.width
+
+  } else if (offsetX < 0) {
+    // 左
+    selectionPosition.value.left = rect.left + containerScrollX.value + windowX.value //- containerLeft.value
+    selectionPosition.value.width = Math.abs(offsetX) + rect.width
+  } else {
+    selectionReset('x')
+
+  }
+
+  // console.log(rect.top, selectionPosition.value.top)
+  if (offsetY > 0) {
+    // 下
+    selectionPosition.value.bottom = rect.bottom + containerScrollY.value + windowY.value //- containerTop.value
+    selectionPosition.value.height = Math.abs(offsetY) + rect.height
+  } else if (offsetY < 0) {
+    // 上
+    selectionPosition.value.top = rect.top + containerScrollY.value + windowY.value //- containerTop.value
+    selectionPosition.value.height = Math.abs(offsetY) + rect.height
+  } else {
+    selectionReset('y')
+  }
+  console.log(offsetX, offsetY, getDirection([offsetX, offsetY]))
+
+
+
+}
+// https://developer.mozilla.org/zh-CN/docs/Web/API/MouseEvent/buttons
+function onMousedown(e: MouseEvent, attrs: ICellAttrs) {
+  if (e.buttons === 1) {
+    startEventTarget.value = e.target
+
+    const rect = getBoundingClientRect(startEventTarget.value)
+
+
+    // 设置开始拖动
+    startSelection.value = true
+    console.log('onMousedown')
+    // + windowY.value
+    const computedRect = {
+      left: rect.left + containerScrollX.value - containerLeft.value,
+      right: rect.right + containerScrollX.value - containerLeft.value,
+      top: rect.top + containerScrollY.value - containerTop.value,
+      bottom: rect.bottom + containerScrollY.value - containerTop.value,
+      width: rect.width,
+      height: rect.height
+    }
+    // console.log(containerScrollY.value, windowY.value, containerTop.value, computedRect)
+    // debugger
+    selectionAssign(computedRect)
+
+
+
+    endCellAttrs.value = attrs
+    Object.assign(resetSelectionPosition.value, selectionPosition.value)
+  }
+}
+
+function onMouseup(e: MouseEvent, attrs: ICellAttrs) {
+  if (e.buttons === 0) {
+    startSelection.value = false
+    console.log('onMouseup')
+    startCellAttrs.value = attrs
+    if (endCellAttrs.value && startCellAttrs.value) {
+      const values = getSelectionValues(endCellAttrs.value, startCellAttrs.value)
+      console.log(values)
+    }
+
+  }
+}
+
+
+function _onMousemove(e: MouseEvent) {
+  if (startSelection.value) {
+    // console.log('onMousemove', e.target)
+    const rect = (<HTMLElement>e.target).getBoundingClientRect()
+    // console.log(rect, selectionPosition.value)
+    setMoveStyle(rect)
+
+  }
+}
+
+const onMousemove = throttle(_onMousemove, 500)
+onClickOutside(tooltip, () => {
+  closeModal()
 })
+
+
+
 </script>
 
 <style lang="scss" scoped>
