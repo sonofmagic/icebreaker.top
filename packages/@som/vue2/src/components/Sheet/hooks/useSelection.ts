@@ -1,4 +1,4 @@
-import { computed, defineComponent, ref, onMounted } from 'vue-demi'
+import { computed, defineComponent, ref, onMounted, Ref } from 'vue-demi'
 import { pick } from 'lodash-es'
 export interface IDataSourceItem {
   value: string
@@ -23,7 +23,20 @@ export interface ISelectionRect {
   height: number
 }
 
-export default function useSelection () {
+export interface useSelectionOptions {
+  window: {
+    scrollX: Ref<number>
+    scrollY: Ref<number>
+  }
+  container: {
+    left: Ref<number>
+    top: Ref<number>
+    scrollX: Ref<number>
+    scrollY: Ref<number>
+  }
+}
+
+export default function useSelection (options: useSelectionOptions) {
   const selectionPosition = ref<ISelectionRect>({
     left: 0,
     right: 0,
@@ -41,11 +54,11 @@ export default function useSelection () {
     width: 0,
     height: 0
   })
-  const selectionStartCell = ref<ICellAttrs>()
-  const selectionEndCell = ref<ICellAttrs>()
+  const startCellAttrs = ref<ICellAttrs>()
+  const endCellAttrs = ref<ICellAttrs>()
 
   const startEventTarget = ref<EventTarget | null>()
-
+  // const startEventTargetRect = ref<DOMRect | null>()
   const assign = (rect: Partial<ISelectionRect>) => {
     // Object.entries(rect).forEach(([key, value]) => {
     //   if (value) {
@@ -84,9 +97,10 @@ export default function useSelection () {
   return {
     resetSelectionPosition,
     selectionPosition,
-    selectionStartCell,
-    selectionEndCell,
+    startCellAttrs,
+    endCellAttrs,
     startEventTarget,
+    // startEventTargetRect,
     assign,
     reset,
     selectionStyle

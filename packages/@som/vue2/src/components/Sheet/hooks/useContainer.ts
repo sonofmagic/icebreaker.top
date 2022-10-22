@@ -1,7 +1,8 @@
-import { useElementBounding, MaybeElement } from '@vueuse/core'
+import { useElementBounding, MaybeElement, useScroll } from '@vueuse/core'
 import type { Ref } from 'vue-demi'
-export default function useContainer (el: Ref<MaybeElement>) {
+export default function useContainer (el: Ref<HTMLElement | null | undefined>) {
   const { x, y, top, right, bottom, left, width, height, update } = useElementBounding(el)
+  const { x: scrollX, y: scrollY, directions, isScrolling, arrivedState } = useScroll(el)
   return {
     x,
     y,
@@ -11,6 +12,11 @@ export default function useContainer (el: Ref<MaybeElement>) {
     left,
     width,
     height,
-    update
+    update,
+    directions,
+    isScrolling,
+    arrivedState,
+    scrollX,
+    scrollY
   }
 }

@@ -47,17 +47,29 @@ import { pick } from 'lodash-es'
 import { onClickOutside, useWindowScroll, useScroll } from '@vueuse/core'
 import useContainer from './hooks/useContainer'
 import useSelection, { IDataSourceItem, ICellAttrs } from './hooks/useSelection'
-import { getDirection } from './utils'
+import { getDirection, getBoundingClientRect } from './utils'
 import { throttle } from 'lodash-es'
 export default defineComponent({
   components: { VirtualList },
   setup() {
-    const { resetSelectionPosition, selectionPosition, selectionEndCell, selectionStartCell, startEventTarget, assign: selectionAssign, reset: selectionReset, selectionStyle } = useSelection()
 
     const { x: windowX, y: windowY } = useWindowScroll()
     const container = ref<HTMLDivElement>()
-    const { left: containerLeft, top: containerTop } = useContainer(container)
-    const { x: containerScrollX, y: containerScrollY } = useScroll(container)
+    const { left: containerLeft, top: containerTop, scrollX: containerScrollX, scrollY: containerScrollY } = useContainer(container)
+
+    const { resetSelectionPosition, selectionPosition, startCellAttrs, endCellAttrs, startEventTarget, assign: selectionAssign, reset: selectionReset, selectionStyle } = useSelection({
+      container: {
+        left: containerLeft,
+        scrollX: containerScrollX,
+        scrollY: containerScrollY,
+        top: containerTop
+      },
+      window: {
+        scrollX: windowX,
+        scrollY: windowY
+      }
+    })
+
     const dataSetSource: IDataSourceItem[][] = []
     for (let i = 0; i < 50; i++) {
       const tr = []
@@ -137,8 +149,10 @@ export default defineComponent({
 
     function setMoveStyle(rect: DOMRect) {
       // console.log(rect.left, selectionPosition.value.left)
+      const eventTargetRect = getBoundingClientRect(startEventTarget.value)
+      console.log(eventTargetRect)
       const offsetX = rect.left - containerLeft.value - selectionPosition.value.left
-
+      const offsetY = rect.top - containerTop.value - selectionPosition.value.top
 
       if (offsetX > 0) {
         // 右
@@ -156,7 +170,7 @@ export default defineComponent({
         selectionReset('x')
 
       }
-      const offsetY = rect.top - containerTop.value - selectionPosition.value.top
+
       // console.log(rect.top, selectionPosition.value.top)
       if (offsetY > 0) {
         // 下
@@ -164,12 +178,13 @@ export default defineComponent({
         selectionPosition.value.height = Math.abs(offsetY) + rect.height
       } else if (offsetY < 0) {
         // 上
-        selectionPosition.value.top = rect.top + containerScrollY.value + windowY.value //- containerTop.value
+        //  debugger
+        selectionPosition.value.top = rect.top + containerScrollY.value + windowY.value - containerTop.value  //- containerTop.value
         selectionPosition.value.height = Math.abs(offsetY) + rect.height
       } else {
         selectionReset('y')
       }
-      console.log(getDirection([offsetX, offsetY]))
+      console.log(offsetX, offsetY, getDirection([offsetX, offsetY]))
 
 
 
@@ -178,8 +193,11 @@ export default defineComponent({
     function onMousedown(e: MouseEvent, attrs: ICellAttrs) {
       if (e.buttons === 1) {
         startEventTarget.value = e.target
-        const rect = (<HTMLElement>startEventTarget.value).getBoundingClientRect()
 
+        const rect = getBoundingClientRect(startEventTarget.value)
+
+
+        // 设置开始拖动
         startSelection.value = true
         console.log('onMousedown')
         const computedRect = {
@@ -190,12 +208,13 @@ export default defineComponent({
           width: rect.width,
           height: rect.height
         }
-        console.log(computedRect)
+        console.log(containerScrollY.value, windowY.value, containerTop.value, computedRect)
+        // debugger
         selectionAssign(computedRect)
 
 
 
-        selectionStartCell.value = attrs
+        endCellAttrs.value = attrs
         Object.assign(resetSelectionPosition.value, selectionPosition.value)
       }
     }
@@ -204,9 +223,9 @@ export default defineComponent({
       if (e.buttons === 0) {
         startSelection.value = false
         console.log('onMouseup')
-        selectionEndCell.value = attrs
-        if (selectionStartCell.value && selectionEndCell.value) {
-          const values = getSelectionValues(selectionStartCell.value, selectionEndCell.value)
+        startCellAttrs.value = attrs
+        if (endCellAttrs.value && startCellAttrs.value) {
+          const values = getSelectionValues(endCellAttrs.value, startCellAttrs.value)
           console.log(values)
         }
 
@@ -240,8 +259,8 @@ export default defineComponent({
       onMouseup,
       onMousemove: throttle(onMousemove, 60),
       selectionStyle,
-      selectionEndCell,
-      selectionStartCell,
+      startCellAttrs,
+      endCellAttrs,
       container,
 
 
