@@ -46,24 +46,14 @@ import VirtualList from 'vue-virtual-scroll-list'
 import { pick } from 'lodash-es'
 import { onClickOutside, useWindowScroll } from '@vueuse/core'
 import useContainer from './hooks/useContainer'
-
+import useSelection, { IDataSourceItem, ICellAttrs } from './hooks/useSelection'
 
 
 export default defineComponent({
   components: { VirtualList },
   setup() {
+    const { resetSelectionPosition, selectionPosition, selectionEndCell, selectionStartCell, startEventTarget, assign: selectionAssign } = useSelection()
     const selectionBorderOffest = 0.5
-    interface IDataSourceItem {
-      value: string
-      id: string
-      selected: boolean
-      readonly: boolean
-      disabled: boolean
-    }
-
-    interface ICellAttrs {
-      rowIndex: number, colIndex: number, item: IDataSourceItem
-    }
     const { x: windowX, y: windowY } = useWindowScroll()
     const container = ref<HTMLDivElement>()
     const { left: containerLeft, top: containerTop } = useContainer(container)
@@ -90,26 +80,7 @@ export default defineComponent({
     }
 
     const tooltip = ref<HTMLDivElement>()
-    const startCell = ref<EventTarget | null>()
-    const selectionPosition = ref({
-      left: 0,
-      right: 0,
-      top: 0,
-      bottom: 0,
-      width: 0,
-      height: 0,
-    })
 
-    const resetSelectionPosition = ref({
-      left: 0,
-      right: 0,
-      top: 0,
-      bottom: 0,
-      width: 0,
-      height: 0,
-    })
-    const selectionStartCell = ref<ICellAttrs>()
-    const selectionEndCell = ref<ICellAttrs>()
     const selectionStyle = computed(() => {
       return Object.entries(pick(selectionPosition.value, ['left', 'right', 'top', 'bottom', 'width', 'height'])).reduce<Record<string, string>>((acc, [key, value]) => {
         if (['left', 'right', 'top', 'bottom'].includes(key)) {
@@ -204,7 +175,7 @@ export default defineComponent({
 
         selectionPosition.value.width = Math.abs(offsetX) + rect.width
 
-      } else{
+      } else {
         resetSelection('x')
       }
       const offsetY = rect.top - containerTop.value - selectionPosition.value.top
@@ -217,7 +188,7 @@ export default defineComponent({
         // 上
         selectionPosition.value.top = rect.top + container.value!.scrollTop + windowY.value //- containerTop.value
         selectionPosition.value.height = Math.abs(offsetY) + rect.height
-      }else{
+      } else {
         resetSelection('y')
       }
       console.log(offsetX, offsetY)
@@ -230,20 +201,25 @@ export default defineComponent({
     // https://developer.mozilla.org/zh-CN/docs/Web/API/MouseEvent/buttons
     function onMousedown(e: MouseEvent, attrs: ICellAttrs) {
       if (e.buttons === 1) {
-        startCell.value = e.target
-        const rect = (<HTMLElement>startCell.value).getBoundingClientRect()
+        startEventTarget.value = e.target
+        const rect = (<HTMLElement>startEventTarget.value).getBoundingClientRect()
 
         startSelection.value = true
         console.log('onMousedown')
 
         console.log(rect, containerTop.value, containerLeft.value)
-        selectionPosition.value.left = rect.left + container.value!.scrollLeft + windowX.value - containerLeft.value
-        selectionPosition.value.right = rect.right + container.value!.scrollLeft + windowX.value - containerLeft.value
-        selectionPosition.value.top = rect.top + container.value!.scrollTop + windowY.value - containerTop.value
-        selectionPosition.value.bottom = rect.bottom + container.value!.scrollTop + windowY.value - containerTop.value
 
-        selectionPosition.value.width = rect.width
-        selectionPosition.value.height = rect.height
+        const computedRect = {
+          left: rect.left + (container.value ? container.value.scrollLeft : 0) + windowX.value - containerLeft.value,
+          right: rect.right + container.value!.scrollLeft + windowX.value - containerLeft.value,
+          top: rect.top + container.value!.scrollTop + windowY.value - containerTop.value,
+          bottom: rect.bottom + container.value!.scrollTop + windowY.value - containerTop.value,
+          width: rect.width,
+          height: rect.height
+        }
+        console.log(computedRect)
+        selectionAssign(computedRect)
+
 
 
         selectionStartCell.value = attrs
