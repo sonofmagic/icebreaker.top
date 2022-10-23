@@ -1,7 +1,7 @@
 <template>
-  <tr>
-    <td class="border min-w-[100px] h-[50px] cursor-default select-none" @contextmenu.prevent="onContextmenu"
-      @mousedown="onMousedown($event,{
+  <div>
+    <div class="table-cell border min-w-[100px] h-[50px] cursor-default select-none"
+      @contextmenu.prevent="onContextmenu" @mousedown="onMousedown($event,{
         rowIndex:index,colIndex:x,item
       })" @mouseup="onMouseup($event,{
         rowIndex:index,colIndex:x,item
@@ -10,8 +10,8 @@
       })" :key="item.id" v-for="(item,x) in source.cells">
 
       {{item.value}}
-    </td>
-  </tr>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">

@@ -7,8 +7,9 @@
           <th :key="i" v-for="(t,i) in titles" class="border h-[50px]">{{t}}</th>
         </tr>
       </thead> -->
-    <!-- <VirtualList ref="table" class="w-auto table-fixed border-collapse text-center bg-white h-[500px]" :data-key="'key'"
-      :data-sources="dataSet" :data-component="SheetRow" root-tag="table" wrap-tag="tbody">
+    <!-- <VirtualList ref="table"
+      class="w-auto table table-fixed border-collapse text-center bg-white h-[500px] overflow-y-auto" :data-key="'key'"
+      :data-sources="dataSet" :data-component="SheetRow">
     </VirtualList> -->
     <table ref="table" class="w-auto table-fixed border-collapse text-center bg-white">
 
@@ -88,7 +89,7 @@ for (let i = 0; i < 30; i++) {
   titles.value.push(firstDay.add(i, 'day').format('YYYY-MM-DD'))
 
 }
-for (let i = 0; i < 50; i++) {
+for (let i = 0; i < 150; i++) {
   const tr = []
   for (let j = 0; j < 30; j++) {
     const td = {
