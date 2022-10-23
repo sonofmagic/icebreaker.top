@@ -5,7 +5,7 @@
       <div ref="table" class="table w-auto table-fixed border-collapse">
         <div class="table-row-group">
           <div class="table-row" :key="y" v-for="(row,y) in dataSet">
-            <div class="table-cell border min-w-[100px] h-8 cursor-default select-none"
+            <div class="table-cell border min-w-[100px] h-[50px] cursor-default select-none"
               @contextmenu.prevent="onContextmenu" @mousedown="onMousedown($event,{
                 rowIndex:y,colIndex:x,item
               })" @mouseup="onMouseup($event,{
@@ -158,7 +158,7 @@ function setMoveStyle(rect: DOMRect) {
 
   } else if (offsetX < 0) {
     // 左
-    selectionPosition.value.left = rect.left + containerScrollX.value + windowX.value //- containerLeft.value
+    selectionPosition.value.left = rect.left + containerScrollX.value - containerLeft.value
     selectionPosition.value.width = Math.abs(offsetX) + rect.width
   } else {
     selectionReset('x')
@@ -173,7 +173,8 @@ function setMoveStyle(rect: DOMRect) {
   } else if (offsetY < 0) {
     // 上
     //  - containerTop.value
-    selectionPosition.value.top = rect.top + containerScrollY.value + windowY.value //- containerTop.value
+    console.log(containerTop.value, windowY.value)
+    selectionPosition.value.top = rect.top + containerScrollY.value - containerTop.value
     selectionPosition.value.height = Math.abs(offsetY) + rect.height
 
   } else {
@@ -240,7 +241,7 @@ function _onMousemove(e: MouseEvent) {
   }
 }
 
-const onMousemove = throttle(_onMousemove, 1000)
+const onMousemove = throttle(_onMousemove, 60)
 onClickOutside(tooltip, () => {
   closeModal()
 })
