@@ -17,9 +17,9 @@
         </div>
       </div>
 
-      <div class="absolute ring-2 ring-offset-0 ring-blue-600 pointer-events-none bg-gray-900 bg-opacity-10"
-        :style="[selectionStyle]"></div>
-
+      <!-- <div class="absolute ring-2 ring-offset-0 ring-blue-600 pointer-events-none bg-gray-900 bg-opacity-10"
+        :style="[selectionStyle]"></div> -->
+      <Selection :style="[selectionStyle]"></Selection>
 
       <div :style="{'visibility':tooltipVisible?'visible':'hidden'}" ref="tooltip" class="absolute border bg-white">
         <div class="hover:bg-gray-200 px-4 py-1 cursor-pointer" @click="closeModal">
@@ -49,7 +49,8 @@ import useContainer from './hooks/useContainer'
 import useSelection, { IDataSourceItem, ICellAttrs } from './hooks/useSelection'
 import { getDirection, getBoundingClientRect } from './utils'
 import { throttle } from 'lodash-es'
-import DebugCell from './components/DebugCell'
+import DebugCell from './components/DebugCell.vue'
+import Selection from './components/Selection.vue'
 const { x: windowX, y: windowY } = useWindowScroll()
 const container = ref<HTMLDivElement>()
 const { left: containerLeft, top: containerTop, scrollX: containerScrollX, scrollY: containerScrollY } = useContainer(container)
@@ -241,7 +242,7 @@ function _onMousemove(e: MouseEvent) {
   }
 }
 
-const onMousemove = throttle(_onMousemove, 60)
+const onMousemove = throttle(_onMousemove, 20)
 onClickOutside(tooltip, () => {
   closeModal()
 })
