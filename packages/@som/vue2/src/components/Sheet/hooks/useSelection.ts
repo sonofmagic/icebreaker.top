@@ -1,18 +1,6 @@
 import { computed, defineComponent, ref, onMounted, Ref } from 'vue-demi'
 import { pick } from 'lodash-es'
-export interface IDataSourceItem {
-  value: string
-  id: string
-  selected: boolean
-  readonly: boolean
-  disabled: boolean
-}
-
-export interface ICellAttrs {
-  rowIndex: number
-  colIndex: number
-  item: IDataSourceItem
-}
+import { IDataSourceItem, ICellAttrs } from '../types'
 
 export interface ISelectionRect {
   left: number

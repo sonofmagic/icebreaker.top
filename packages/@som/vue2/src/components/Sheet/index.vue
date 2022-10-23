@@ -2,22 +2,30 @@
 
 
   <div ref="container" class="relative overflow-auto">
-    <div ref="table" class="table w-auto table-fixed border-collapse">
-      <div class="table-header-group"></div>
-      <div class="table-row-group">
-        <div class="table-row" :key="y" v-for="(row,y) in dataSet">
-          <div class="table-cell border min-w-[100px] h-[50px] cursor-default select-none"
-            @contextmenu.prevent="onContextmenu" @mousedown="onMousedown($event,{
+    <!-- <thead class="sticky top-0 left-0 bg-white z-10">
+        <tr>
+          <th :key="i" v-for="(t,i) in titles" class="border h-[50px]">{{t}}</th>
+        </tr>
+      </thead> -->
+    <!-- <VirtualList ref="table" class="w-auto table-fixed border-collapse text-center bg-white h-[500px]" :data-key="'key'"
+      :data-sources="dataSet" :data-component="SheetRow" root-tag="table" wrap-tag="tbody">
+    </VirtualList> -->
+    <table ref="table" class="w-auto table-fixed border-collapse text-center bg-white">
+
+      <tbody>
+        <tr :key="y" v-for="(row,y) in dataSet">
+          <td class="border min-w-[100px] h-[50px] cursor-default select-none" @contextmenu.prevent="onContextmenu"
+            @mousedown="onMousedown($event,{
               rowIndex:y,colIndex:x,item
             })" @mouseup="onMouseup($event,{
               rowIndex:y,colIndex:x,item
             })" @mousemove="onMousemove" :key="item.id" v-for="(item,x) in row.cells">
-            <!-- <DebugCell></DebugCell> -->
             {{item.value}}
-          </div>
-        </div>
-      </div>
-    </div>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
 
     <!-- <div class="absolute ring-2 ring-offset-0 ring-blue-600 pointer-events-none bg-gray-900 bg-opacity-10"
         :style="[selectionStyle]"></div> -->
@@ -46,13 +54,16 @@ import ColumnResizer from 'column-resizer'
 // @ts-ignore
 import VirtualList from 'vue-virtual-scroll-list'
 import { pick } from 'lodash-es'
-import { onClickOutside, useWindowScroll, useScroll } from '@vueuse/core'
+import { onClickOutside, useWindowScroll, useScroll, unrefElement } from '@vueuse/core'
 import useContainer from './hooks/useContainer'
-import useSelection, { IDataSourceItem, ICellAttrs } from './hooks/useSelection'
+import useSelection from './hooks/useSelection'
 import { getDirection, getBoundingClientRect } from './utils'
+import type { IDataSourceItem, IDataSourceRow, ICellAttrs } from './types'
 import { throttle } from 'lodash-es'
+import dayjs from 'dayjs'
 import DebugCell from './components/DebugCell.vue'
 import Selection from './components/Selection.vue'
+import SheetRow from './components/SheetRow.vue'
 const { x: windowX, y: windowY } = useWindowScroll()
 const container = ref<HTMLDivElement>()
 const { left: containerLeft, top: containerTop, scrollX: containerScrollX, scrollY: containerScrollY } = useContainer(container)
@@ -70,11 +81,13 @@ const { resetSelectionPosition, selectionPosition, startCellAttrs, endCellAttrs,
   }
 })
 
-const dataSetSource: {
-  key: string
-  title: string
-  cells: IDataSourceItem[]
-}[] = []
+const dataSetSource: IDataSourceRow[] = []
+const titles = ref<string[]>([])
+const firstDay = dayjs().startOf('M')
+for (let i = 0; i < 30; i++) {
+  titles.value.push(firstDay.add(i, 'day').format('YYYY-MM-DD'))
+
+}
 for (let i = 0; i < 50; i++) {
   const tr = []
   for (let j = 0; j < 30; j++) {
@@ -91,7 +104,6 @@ for (let i = 0; i < 50; i++) {
   dataSetSource.push({
     cells: tr,
     key: 'row' + i,
-    title: 'title:' + i
   })
 }
 const dataSet = ref(dataSetSource)
