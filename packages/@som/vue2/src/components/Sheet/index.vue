@@ -1,38 +1,40 @@
 <template>
-  <div>
 
-    <div ref="container" class="relative">
-      <div ref="table" class="table w-auto table-fixed border-collapse">
-        <div class="table-row-group">
-          <div class="table-row" :key="y" v-for="(row,y) in dataSet">
-            <div class="table-cell border min-w-[100px] h-[50px] cursor-default select-none"
-              @contextmenu.prevent="onContextmenu" @mousedown="onMousedown($event,{
-                rowIndex:y,colIndex:x,item
-              })" @mouseup="onMouseup($event,{
-                rowIndex:y,colIndex:x,item
-              })" @mousemove="onMousemove" :key="item.id" v-for="(item,x) in row">
-              <DebugCell></DebugCell>
-            </div>
+
+  <div ref="container" class="relative overflow-auto">
+    <div ref="table" class="table w-auto table-fixed border-collapse">
+      <div class="table-header-group"></div>
+      <div class="table-row-group">
+        <div class="table-row" :key="y" v-for="(row,y) in dataSet">
+          <div class="table-cell border min-w-[100px] h-[50px] cursor-default select-none"
+            @contextmenu.prevent="onContextmenu" @mousedown="onMousedown($event,{
+              rowIndex:y,colIndex:x,item
+            })" @mouseup="onMouseup($event,{
+              rowIndex:y,colIndex:x,item
+            })" @mousemove="onMousemove" :key="item.id" v-for="(item,x) in row.cells">
+            <!-- <DebugCell></DebugCell> -->
+            {{item.value}}
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- <div class="absolute ring-2 ring-offset-0 ring-blue-600 pointer-events-none bg-gray-900 bg-opacity-10"
+    <!-- <div class="absolute ring-2 ring-offset-0 ring-blue-600 pointer-events-none bg-gray-900 bg-opacity-10"
         :style="[selectionStyle]"></div> -->
-      <Selection :style="[selectionStyle]"></Selection>
+    <Selection :style="[selectionStyle]"></Selection>
 
-      <div :style="{'visibility':tooltipVisible?'visible':'hidden'}" ref="tooltip" class="absolute border bg-white">
-        <div class="hover:bg-gray-200 px-4 py-1 cursor-pointer" @click="closeModal">
-          复制
-        </div>
-        <div class="hover:bg-gray-200 px-4 py-1 cursor-pointer" @click="closeModal">
-          粘贴
-        </div>
-
+    <div :style="{'visibility':tooltipVisible?'visible':'hidden'}" ref="tooltip" class="absolute border bg-white">
+      <div class="hover:bg-gray-200 px-4 py-1 cursor-pointer" @click="closeModal">
+        复制
+      </div>
+      <div class="hover:bg-gray-200 px-4 py-1 cursor-pointer" @click="closeModal">
+        粘贴
       </div>
 
     </div>
+
   </div>
+
 
 </template>
 
@@ -68,20 +70,29 @@ const { resetSelectionPosition, selectionPosition, startCellAttrs, endCellAttrs,
   }
 })
 
-const dataSetSource: IDataSourceItem[][] = []
+const dataSetSource: {
+  key: string
+  title: string
+  cells: IDataSourceItem[]
+}[] = []
 for (let i = 0; i < 50; i++) {
   const tr = []
-  for (let j = 0; j < 10; j++) {
+  for (let j = 0; j < 30; j++) {
     const td = {
       value: `${i}-${j}`,
       id: `${i}-${j}`,
       selected: false,
       readonly: false,
-      disabled: false
+      disabled: false,
+
     }
     tr.push(td)
   }
-  dataSetSource.push(tr)
+  dataSetSource.push({
+    cells: tr,
+    key: 'row' + i,
+    title: 'title:' + i
+  })
 }
 const dataSet = ref(dataSetSource)
 const startSelection = ref(false)
@@ -137,7 +148,7 @@ function getSelectionValues(start: ICellAttrs, end: ICellAttrs) {
   const rows = [Math.min(startrowIndex, endrowIndex), Math.max(startrowIndex, endrowIndex) + 1]
   const cols = [Math.min(startcolIndex, endcolIndex), Math.max(startcolIndex, endcolIndex) + 1]
   const values = dataSet.value.slice(...rows).map(x => {
-    return x.slice(...cols)
+    return x.cells.slice(...cols)
   })
   return values.flat(1)
 
