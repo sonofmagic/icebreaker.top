@@ -11,7 +11,7 @@
               })" @mouseup="onMouseup($event,{
                 rowIndex:y,colIndex:x,item
               })" @mousemove="onMousemove" :key="item.id" v-for="(item,x) in row">
-              {{item.value}}
+              <DebugCell></DebugCell>
             </div>
           </div>
         </div>
@@ -49,7 +49,7 @@ import useContainer from './hooks/useContainer'
 import useSelection, { IDataSourceItem, ICellAttrs } from './hooks/useSelection'
 import { getDirection, getBoundingClientRect } from './utils'
 import { throttle } from 'lodash-es'
-
+import DebugCell from './components/DebugCell'
 const { x: windowX, y: windowY } = useWindowScroll()
 const container = ref<HTMLDivElement>()
 const { left: containerLeft, top: containerTop, scrollX: containerScrollX, scrollY: containerScrollY } = useContainer(container)
