@@ -1,28 +1,7 @@
 import { computed, defineComponent, ref, onMounted, Ref } from 'vue-demi'
+import { ISelectionRect, useSelectionOptions } from './type'
+import { IDataSourceItem, ICellAttrs } from '../../types'
 import { pick } from 'lodash-es'
-import { IDataSourceItem, ICellAttrs } from '../types'
-
-export interface ISelectionRect {
-  left: number
-  right: number
-  top: number
-  bottom: number
-  width: number
-  height: number
-}
-
-export interface useSelectionOptions {
-  window: {
-    scrollX: Ref<number>
-    scrollY: Ref<number>
-  }
-  container: {
-    left: Ref<number>
-    top: Ref<number>
-    scrollX: Ref<number>
-    scrollY: Ref<number>
-  }
-}
 
 export function useSelection(options: useSelectionOptions) {
   const selectionPosition = ref<ISelectionRect>({
@@ -94,10 +73,3 @@ export function useSelection(options: useSelectionOptions) {
     selectionStyle
   }
 }
-
-export default defineComponent({
-  name: 'CellSelection',
-  render() {
-    return <div class="absolute ring-2 ring-offset-0 ring-blue-600 pointer-events-none bg-gray-900 bg-opacity-10"></div>
-  }
-})

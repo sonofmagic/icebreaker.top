@@ -13,13 +13,17 @@
       :data-sources="dataSet" :data-component="SheetRow">
     </VirtualList> -->
     <table ref="table" class="w-auto table-fixed border-collapse text-center bg-white">
-
+      <colgroup>
+        <col :key="col.key" :style="{
+          'min-width':col.width +'px'
+        }" v-for="col in cols">
+        </col>
+      </colgroup>
       <tbody>
-        <tr :key="y" v-for="(row,y) in dataSet">
-          <td class="border min-w-[120px] h-[48px] cursor-default select-none" @contextmenu.prevent="onContextmenu"
-            @mousedown="onMousedown($event, {
-              rowIndex: y, colIndex: x, item
-            })" @mouseup="onMouseup($event, {
+        <tr :key="y" v-for="(row, y) in dataSet">
+          <td class="border h-[48px] cursor-default select-none" @contextmenu.prevent="onContextmenu" @mousedown="onMousedown($event, {
+            rowIndex: y, colIndex: x, item
+          })" @mouseup="onMouseup($event, {
   rowIndex: y, colIndex: x, item
 })" @mousemove="onMousemove" :key="item.id" v-for="(item, x) in row.cells">
             {{ item.value }}
@@ -89,8 +93,8 @@ import { throttle } from 'lodash-es'
 import dayjs from 'dayjs'
 // import DebugCell from './components/DebugCell.vue'
 
-import  { useContextMenu,ContextMenu } from './components/ContextMenu'
-import Selection, { useSelection } from './components/Selection.tsx'
+import { useContextMenu, ContextMenu } from './components/ContextMenu'
+import { useSelection, Selection } from './components/Selection'
 
 // import SheetRow from './components/SheetRow.vue'
 
@@ -114,10 +118,18 @@ const { resetSelectionPosition, selectionPosition, startCellAttrs, endCellAttrs,
 })
 
 const dataSetSource: IDataSourceRow[] = []
-const titles = ref<string[]>([])
+const cols = ref<{
+  key: string | number
+  title: string
+  width: number | string
+}[]>([])
 const firstDay = dayjs().startOf('M')
 for (let i = 0; i < 30; i++) {
-  titles.value.push(firstDay.add(i, 'day').format('YYYY-MM-DD'))
+  cols.value.push({
+    width: 120,
+    title: firstDay.add(i, 'day').format('YYYY-MM-DD'),
+    key:i
+  })
 
 }
 for (let i = 0; i < 150; i++) {
