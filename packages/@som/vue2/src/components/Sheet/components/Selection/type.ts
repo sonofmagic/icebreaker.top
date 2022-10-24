@@ -21,3 +21,9 @@ export interface useSelectionOptions {
     scrollY: Ref<number>
   }
 }
+
+export interface ISelectionContext {
+  el?: HTMLDivElement
+  // getBoundingClientRect?: () => DOMRect
+  // style: Record<string, string>
+}

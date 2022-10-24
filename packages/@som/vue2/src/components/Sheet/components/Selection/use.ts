@@ -1,11 +1,11 @@
 import { computed, defineComponent, ref, onMounted, Ref } from 'vue-demi'
-import { ISelectionRect, useSelectionOptions } from './type'
+import { ISelectionRect, useSelectionOptions, ISelectionContext } from './type'
 import { IDataSourceItem, ICellAttrs } from '../../types'
 import { pick } from 'lodash-es'
 
 export function useSelection(options: useSelectionOptions) {
   const selectionBorderOffest = 0
-
+  const context: ISelectionContext = {}
   const selectionPosition = ref<ISelectionRect>({
     left: 0,
     right: 0,
@@ -29,12 +29,6 @@ export function useSelection(options: useSelectionOptions) {
   const startEventTarget = ref<EventTarget | null>()
   const startEventTargetRect = ref<DOMRect | null>()
   const assign = (rect: Partial<ISelectionRect>) => {
-    // Object.entries(rect).forEach(([key, value]) => {
-    //   if (value) {
-    //     // @ts-ignore
-    //     selectionPosition.value[key] = value
-    //   }
-    // })
     return Object.assign(selectionPosition.value, rect)
   }
 
@@ -72,6 +66,7 @@ export function useSelection(options: useSelectionOptions) {
     startEventTargetRect,
     assign,
     reset,
-    selectionStyle
+    selectionStyle,
+    context
   }
 }

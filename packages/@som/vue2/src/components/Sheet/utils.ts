@@ -1,4 +1,4 @@
-function getXDirect (offset: number) {
+function getXDirect(offset: number) {
   if (offset > 0) {
     return '→'
   } else if (offset < 0) {
@@ -7,7 +7,7 @@ function getXDirect (offset: number) {
   return '·'
 }
 
-function getYDirect (offset: number) {
+function getYDirect(offset: number) {
   if (offset > 0) {
     return '↓'
   } else if (offset < 0) {
@@ -16,11 +16,11 @@ function getYDirect (offset: number) {
   return '·'
 }
 
-export function getDirection ([offsetX, offsetY]: [number, number]) {
+export function getDirection([offsetX, offsetY]: [number, number]) {
   return [getXDirect(offsetX), getYDirect(offsetY)]
 }
 
-export function getBoundingClientRect (el: HTMLElement | EventTarget | null | undefined): DOMRect {
+export function getBoundingClientRect(el: HTMLElement | EventTarget | null | undefined): DOMRect {
   if (el) {
     const rect = (<HTMLElement>el).getBoundingClientRect()
     return rect
@@ -34,7 +34,7 @@ export function getBoundingClientRect (el: HTMLElement | EventTarget | null | un
     width: 0,
     x: 0,
     y: 0,
-    toJSON () {
+    toJSON() {
       return ''
     }
   }

@@ -2,7 +2,7 @@
 
 
   <div ref="container" class="relative overflow-y-auto">
-    <ContextMenu></ContextMenu>
+
     <!-- <thead class="sticky top-0 left-0 bg-white z-10">
         <tr>
           <th :key="i" v-for="(t,i) in titles" class="border h-[50px]">{{t}}</th>
@@ -39,10 +39,7 @@
       </table>
     </div>
 
-
-    <!-- <div class="absolute ring-2 ring-offset-0 ring-blue-600 pointer-events-none bg-gray-900 bg-opacity-10"
-        :style="[selectionStyle]"></div> -->
-    <Selection :style="[selectionStyle]"></Selection>
+    <Selection :context="selectionContext" :style="[selectionStyle]"></Selection>
     <ContextMenu :context="menuContext">
       <div class="w-32 text-center">
         <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="closeContextMenu">
@@ -92,7 +89,7 @@ import dayjs from 'dayjs'
 
 import { useContextMenu, ContextMenu } from './components/ContextMenu'
 import { useSelection, Selection } from './components/Selection'
-import { OnClickOutside } from '@vueuse/components'
+// import { OnClickOutside } from '@vueuse/components'
 // import SheetRow from './components/SheetRow.vue'
 
 
@@ -101,7 +98,7 @@ const { shiftState } = useKeyBoard()
 const container = ref<HTMLDivElement>()
 const { left: containerLeft, top: containerTop, scrollX: containerScrollX, scrollY: containerScrollY } = useContainer(container)
 
-const { resetSelectionPosition, selectionPosition, startCellAttrs, endCellAttrs, startEventTarget, assign: selectionAssign, reset: selectionReset, selectionStyle, startEventTargetRect } = useSelection({
+const { resetSelectionPosition, selectionPosition, startCellAttrs, endCellAttrs, startEventTarget, assign: selectionAssign, reset: selectionReset, selectionStyle,context :selectionContext } = useSelection({
   container: {
     left: containerLeft,
     scrollX: containerScrollX,
@@ -157,10 +154,17 @@ const closeContextMenu = () => {
 }
 
 function onContextmenu(e: MouseEvent) {
+  if(selectionContext.el){
+    const rect = selectionContext.el.getBoundingClientRect()
+  // console.log(rect)
+  // e.clientX
+  // e.clientY
   menuContext.show({
-    x: e.clientX,
-    y: e.clientY
+    x: rect.left + rect.width,
+    y: rect.top + (rect.height /2)
   })
+  }
+
 }
 function getSelectionValues(start: ICellAttrs, end: ICellAttrs) {
   const { colIndex: startcolIndex, rowIndex: startrowIndex } = start
