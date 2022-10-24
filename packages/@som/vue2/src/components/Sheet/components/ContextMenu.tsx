@@ -1,9 +1,15 @@
 import { defineComponent, ref, toRefs, Ref, onMounted, watch } from 'vue-demi'
 import { onClickOutside, useWindowScroll, useScroll, unrefElement } from '@vueuse/core'
 import { computePosition, ReferenceElement, offset } from '@floating-ui/dom'
+
+interface IPosition {
+  x: number
+  y: number
+}
+
 interface IContextMenuContext {
   close: () => void
-  show: (e: MouseEvent) => void
+  show: (e: IPosition) => void
   el?: HTMLDivElement
 }
 
@@ -41,14 +47,14 @@ export default defineComponent({
       visible.value = false
     }
 
-    function show (e: MouseEvent) {
+    function show (e: IPosition) {
       const virtualEl: ReferenceElement = {
         getBoundingClientRect () {
           return {
-            x: e.x,
-            y: e.y,
-            top: e.clientY,
-            left: e.clientX,
+            x: e.x, // e.x,
+            y: e.y, // e.y,
+            left: e.x,
+            top: e.y,
             width: 0,
             height: 0,
             bottom: 0,
@@ -101,12 +107,7 @@ export default defineComponent({
   render () {
     return (
       <div style={{ visibility: this.visible ? 'visible' : 'hidden' }} ref="menuRef" class="absolute border bg-white">
-        <div class="hover:bg-gray-200 px-4 py-1 cursor-pointer" onClick={this.close}>
-          复制
-        </div>
-        <div class="hover:bg-gray-200 px-4 py-1 cursor-pointer" onClick={this.close}>
-          粘贴
-        </div>
+        {this.$slots.default}
       </div>
     )
   }

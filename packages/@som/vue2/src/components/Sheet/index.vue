@@ -32,7 +32,26 @@
     <!-- <div class="absolute ring-2 ring-offset-0 ring-blue-600 pointer-events-none bg-gray-900 bg-opacity-10"
         :style="[selectionStyle]"></div> -->
     <Selection :style="[selectionStyle]"></Selection>
-    <ContextMenu :context="menuContext"></ContextMenu>
+    <ContextMenu :context="menuContext">
+      <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="closeContextMenu">
+        复制
+      </div>
+      <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="closeContextMenu">
+        粘贴
+      </div>
+      <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="closeContextMenu">
+        锁定
+      </div>
+      <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="closeContextMenu">
+        解锁
+      </div>
+      <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="closeContextMenu">
+        行/列复制
+      </div>
+      <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="closeContextMenu">
+        复制上一区间
+      </div>
+    </ContextMenu>
     <!-- <div :style="{ 'visibility': tooltipVisible ? 'visible' : 'hidden' }" ref="tooltip"
       class="absolute border bg-white">
       <div class="hover:bg-gray-200 px-4 py-1 cursor-pointer" @click="closeModal">
@@ -117,11 +136,16 @@ for (let i = 0; i < 150; i++) {
 const dataSet = ref(dataSetSource)
 const startSelection = ref(false)
 
-const { context : menuContext} = useContextMenu()
-
+const { context: menuContext } = useContextMenu()
+const closeContextMenu = () => {
+  menuContext.close()
+}
 
 function onContextmenu(e: MouseEvent) {
-  menuContext.show(e)
+  menuContext.show({
+    x:e.clientX,
+    y:e.clientY
+  })
 }
 function getSelectionValues(start: ICellAttrs, end: ICellAttrs) {
   const { colIndex: startcolIndex, rowIndex: startrowIndex } = start
