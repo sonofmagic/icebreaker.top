@@ -87,7 +87,7 @@ export const ContextMenu = defineComponent({
   },
   render() {
     return (
-      <div style={{ visibility: this.visible ? 'visible' : 'hidden' }} ref="menuRef" class="absolute border bg-white">
+      <div style={{ visibility: this.visible ? 'visible' : 'hidden' }} ref="menuRef" class="absolute border bg-white left-0 top-0">
         {this.$slots.default}
       </div>
     )
