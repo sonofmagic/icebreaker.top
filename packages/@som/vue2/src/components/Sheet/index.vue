@@ -216,8 +216,6 @@ function onMousedown(e: MouseEvent, attrs: ICellAttrs) {
     // 设置开始拖动
 
     startSelection.value = true
-
-
     console.log('onMousedown')
     // startEventTargetRect.value = rect
     // + windowY.value
