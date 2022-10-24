@@ -39,7 +39,7 @@
       </table>
     </div>
 
-    <Selection :context="selectionContext" :style="[selectionStyle]"></Selection>
+    <Selection :context="selectionContext" :style-object="selectionStyle"></Selection>
     <ContextMenu :context="menuContext">
       <div class="w-32 text-center">
         <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="closeContextMenu">

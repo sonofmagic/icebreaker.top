@@ -1,6 +1,6 @@
 import { defineComponent, ref, toRefs, Ref, onMounted, watch, PropType } from 'vue-demi'
 import { onClickOutside } from '@vueuse/core'
-import { computePosition, ReferenceElement, offset } from '@floating-ui/dom'
+import { computePosition, ReferenceElement, offset, flip } from '@floating-ui/dom'
 import { IContextMenuContext, IContextMenuProps, IPosition } from './type'
 export const ContextMenu = defineComponent({
   name: 'ContextMenu',
@@ -43,7 +43,8 @@ export const ContextMenu = defineComponent({
             offset({
               mainAxis: 10,
               alignmentAxis: -rect.height / 2
-            })
+            }),
+            flip()
           ]
         }).then(({ x, y }) => {
           Object.assign(menuRef.value!.style, {
@@ -62,9 +63,17 @@ export const ContextMenu = defineComponent({
     //   context.value.close = close
     //   context.value.show = show
     // }
+
+    watch(
+      () => menuRef.value,
+      () => {
+        if (context?.value) {
+          context.value.el = menuRef.value
+        }
+      }
+    )
     onMounted(() => {
       if (context?.value) {
-        context.value.el = menuRef.value
         context.value.close = close
         context.value.show = show
       }
