@@ -24,7 +24,7 @@ specifiers:
   ant-design-vue: 1.7.8
   autoprefixer: ^10.4.12
   column-resizer: ^1.3.6
-  core-js: ^3.25.5
+  core-js: ^3.26.0
   d3: ^7.6.1
   d3-org-chart: ^2.6.0
   dayjs: ^1.11.6
@@ -66,7 +66,7 @@ dependencies:
   '@vueuse/components': 9.3.1_ugk432boennyisqo4tgx5zxzca
   ant-design-vue: 1.7.8_2s2ymob7v2oigx3hqbmnjuqthq
   column-resizer: 1.3.6
-  core-js: 3.25.5
+  core-js: 3.26.0
   d3: 7.6.1
   d3-org-chart: 2.6.0
   dayjs: 1.11.6
@@ -90,7 +90,7 @@ devDependencies:
   '@types/tailwindcss': 3.1.0_postcss@8.4.18
   '@typescript-eslint/eslint-plugin': 5.40.1_s2o6cfxge74pyezk7yizqdqnou
   '@typescript-eslint/parser': 5.40.1_t7ph7dpvh7g5bfovntuojbuu4i
-  '@vue/cli-plugin-babel': 5.0.8_54kiau5gtaij3dwj22emdv2aoe
+  '@vue/cli-plugin-babel': 5.0.8_5paf7mbdoqtixo22ozyav5tbju
   '@vue/cli-plugin-router': 5.0.8_@vue+cli-service@5.0.8
   '@vue/cli-plugin-typescript': 5.0.8_7kbwgnvp5owbg5ubrgnkzv5634
   '@vue/cli-plugin-vuex': 5.0.8_@vue+cli-service@5.0.8
@@ -1669,7 +1669,7 @@ packages:
   /@simonwep/pickr/1.7.4:
     resolution: {integrity: sha512-fq7jgKJT21uWGC1mARBHvvd1JYlEf93o7SuVOB4Lr0x/2UPuNC9Oe9n/GzVeg4oVtqMDfh1wIEJpsdOJEZb+3g==}
     dependencies:
-      core-js: 3.25.5
+      core-js: 3.26.0
       nanopop: 2.2.0
     dev: false
 
@@ -2192,7 +2192,7 @@ packages:
       svg-tags: 1.0.0
     dev: true
 
-  /@vue/babel-preset-app/5.0.8_core-js@3.25.5+vue@2.7.13:
+  /@vue/babel-preset-app/5.0.8_core-js@3.26.0+vue@2.7.13:
     resolution: {integrity: sha512-yl+5qhpjd8e1G4cMXfORkkBlvtPCIgmRf3IYCWYDKIQ7m+PPa5iTm4feiNmCMD6yGqQWMhhK/7M3oWGL9boKwg==}
     peerDependencies:
       core-js: ^3
@@ -2216,7 +2216,7 @@ packages:
       '@vue/babel-plugin-jsx': 1.1.1_@babel+core@7.19.6
       '@vue/babel-preset-jsx': 1.4.0_6dl6k7whpivudzawllhtmuuqsm
       babel-plugin-dynamic-import-node: 2.3.3
-      core-js: 3.25.5
+      core-js: 3.26.0
       core-js-compat: 3.25.5
       semver: 7.3.8
       vue: 2.7.13
@@ -2310,13 +2310,13 @@ packages:
     resolution: {integrity: sha512-KmtievE/B4kcXp6SuM2gzsnSd8WebkQpg3XaB6GmFh1BJGRqa1UiW9up7L/Q67uOdTigHxr5Ar2lZms4RcDjwQ==}
     dev: true
 
-  /@vue/cli-plugin-babel/5.0.8_54kiau5gtaij3dwj22emdv2aoe:
+  /@vue/cli-plugin-babel/5.0.8_5paf7mbdoqtixo22ozyav5tbju:
     resolution: {integrity: sha512-a4qqkml3FAJ3auqB2kN2EMPocb/iu0ykeELwed+9B1c1nQ1HKgslKMHMPavYx3Cd/QAx2mBD4hwKBqZXEI/CsQ==}
     peerDependencies:
       '@vue/cli-service': ^3.0.0 || ^4.0.0 || ^5.0.0-0
     dependencies:
       '@babel/core': 7.19.6
-      '@vue/babel-preset-app': 5.0.8_core-js@3.25.5+vue@2.7.13
+      '@vue/babel-preset-app': 5.0.8_core-js@3.26.0+vue@2.7.13
       '@vue/cli-service': 5.0.8_g4cobnlcwqjuuergnjsmdirt4i
       '@vue/cli-shared-utils': 5.0.8
       babel-loader: 8.2.5_6zc4kxld457avlfyhj3lzsljlm
@@ -3798,8 +3798,8 @@ packages:
     requiresBuild: true
     dev: false
 
-  /core-js/3.25.5:
-    resolution: {integrity: sha512-nbm6eZSjm+ZuBQxCUPQKQCoUEfFOXjUZ8dTTyikyKaWrTYmAVbykQfwsKE5dBK88u3QCkCrzsx/PPlKfhsvgpw==}
+  /core-js/3.26.0:
+    resolution: {integrity: sha512-+DkDrhoR4Y0PxDz6rurahuB+I45OsEUv8E1maPTB6OuHRohMMcznBq9TMpdpDMm/hUPob/mJJS3PqgbHpMTQgw==}
     requiresBuild: true
 
   /core-util-is/1.0.3:

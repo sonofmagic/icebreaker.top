@@ -2,6 +2,7 @@
 
 
   <div ref="container" class="relative overflow-auto">
+    <ContextMenu></ContextMenu>
     <!-- <thead class="sticky top-0 left-0 bg-white z-10">
         <tr>
           <th :key="i" v-for="(t,i) in titles" class="border h-[50px]">{{t}}</th>
@@ -15,13 +16,13 @@
 
       <tbody>
         <tr :key="y" v-for="(row,y) in dataSet">
-          <td class="border min-w-[100px] h-[50px] cursor-default select-none" @contextmenu.prevent="onContextmenu"
-            @mousedown="onMousedown($event,{
-              rowIndex:y,colIndex:x,item
-            })" @mouseup="onMouseup($event,{
-              rowIndex:y,colIndex:x,item
-            })" @mousemove="onMousemove" :key="item.id" v-for="(item,x) in row.cells">
-            {{item.value}}
+          <td class="border min-w-[120px] h-[48px] cursor-default select-none" @contextmenu.prevent="onContextmenu"
+            @mousedown="onMousedown($event, {
+              rowIndex: y, colIndex: x, item
+            })" @mouseup="onMouseup($event, {
+  rowIndex: y, colIndex: x, item
+})" @mousemove="onMousemove" :key="item.id" v-for="(item, x) in row.cells">
+            {{ item.value }}
           </td>
         </tr>
 
@@ -32,7 +33,7 @@
         :style="[selectionStyle]"></div> -->
     <Selection :style="[selectionStyle]"></Selection>
 
-    <div :style="{'visibility':tooltipVisible?'visible':'hidden'}" ref="tooltip" class="absolute border bg-white">
+    <div :style="{ 'visibility': tooltipVisible ? 'visible' : 'hidden' }" ref="tooltip" class="absolute border bg-white">
       <div class="hover:bg-gray-200 px-4 py-1 cursor-pointer" @click="closeModal">
         复制
       </div>
@@ -58,14 +59,18 @@ import { pick } from 'lodash-es'
 import { onClickOutside, useWindowScroll, useScroll, unrefElement } from '@vueuse/core'
 import useContainer from './hooks/useContainer'
 import useSelection from './hooks/useSelection'
+import useKeyBoard from './hooks/useKeyBoard'
 import { getDirection, getBoundingClientRect } from './utils'
 import type { IDataSourceItem, IDataSourceRow, ICellAttrs } from './types'
 import { throttle } from 'lodash-es'
 import dayjs from 'dayjs'
-import DebugCell from './components/DebugCell.vue'
+// import DebugCell from './components/DebugCell.vue'
 import Selection from './components/Selection.vue'
-import SheetRow from './components/SheetRow.vue'
+import ContextMenu from './components/ContextMenu.tsx'
+// import SheetRow from './components/SheetRow.vue'
+
 const { x: windowX, y: windowY } = useWindowScroll()
+const { shiftState } = useKeyBoard()
 const container = ref<HTMLDivElement>()
 const { left: containerLeft, top: containerTop, scrollX: containerScrollX, scrollY: containerScrollY } = useContainer(container)
 
@@ -198,7 +203,7 @@ function setMoveStyle(rect: DOMRect) {
   } else if (offsetY < 0) {
     // 上
     //  - containerTop.value
-    console.log(containerTop.value, windowY.value)
+    // console.log(containerTop.value, windowY.value)
     selectionPosition.value.top = rect.top + containerScrollY.value - containerTop.value
     selectionPosition.value.height = Math.abs(offsetY) + rect.height
 
@@ -214,12 +219,14 @@ function setMoveStyle(rect: DOMRect) {
 function onMousedown(e: MouseEvent, attrs: ICellAttrs) {
   if (e.buttons === 1) {
     startEventTarget.value = e.target
-
     const rect = getBoundingClientRect(startEventTarget.value)
 
 
     // 设置开始拖动
+
     startSelection.value = true
+
+
     console.log('onMousedown')
     // startEventTargetRect.value = rect
     // + windowY.value
@@ -234,9 +241,6 @@ function onMousedown(e: MouseEvent, attrs: ICellAttrs) {
     // console.log(containerScrollY.value, windowY.value, containerTop.value, computedRect)
     // debugger
     selectionAssign(computedRect)
-
-
-
     endCellAttrs.value = attrs
     Object.assign(resetSelectionPosition.value, selectionPosition.value)
   }

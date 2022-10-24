@@ -4,7 +4,7 @@
     <div class="flex relative p-16 h-screen">
       <div class="mr-2 flex-shrink-0 w-[200px] overflow-auto">
         <div class=" table border-collapse w-full">
-          <div class="!h-[50px] border table-row" :key="i" v-for="i in 50">
+          <div class="h-[48px] border table-row" :key="i" v-for="i in 50">
             <div class="table-cell p-2">
 
               <el-checkbox></el-checkbox>
