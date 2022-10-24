@@ -89,7 +89,7 @@ import { throttle } from 'lodash-es'
 import dayjs from 'dayjs'
 // import DebugCell from './components/DebugCell.vue'
 
-import ContextMenu, { useContextMenu } from './components/ContextMenu.tsx'
+import  { useContextMenu,ContextMenu } from './components/ContextMenu'
 import Selection, { useSelection } from './components/Selection.tsx'
 
 // import SheetRow from './components/SheetRow.vue'

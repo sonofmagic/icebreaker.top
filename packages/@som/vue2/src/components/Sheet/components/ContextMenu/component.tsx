@@ -1,38 +1,8 @@
 import { defineComponent, ref, toRefs, Ref, onMounted, watch } from 'vue-demi'
-import { onClickOutside, useWindowScroll, useScroll, unrefElement } from '@vueuse/core'
+import { onClickOutside } from '@vueuse/core'
 import { computePosition, ReferenceElement, offset } from '@floating-ui/dom'
-
-interface IPosition {
-  x: number
-  y: number
-}
-
-interface IContextMenuContext {
-  close: () => void
-  show: (e: IPosition) => void
-  el?: HTMLDivElement
-}
-
-interface IContextMenuProps {
-  context?: IContextMenuContext
-}
-
-export function useContextMenu() {
-  const context: IContextMenuContext = {
-    show() {
-      throw new Error('context is null')
-    },
-    close() {
-      throw new Error('context is null')
-    },
-    el: undefined
-  }
-  return {
-    context
-  }
-}
-
-export default defineComponent({
+import { IContextMenuContext, IContextMenuProps, IPosition } from './type'
+export const ContextMenu = defineComponent({
   name: 'ContextMenu',
   props: {
     context: []
