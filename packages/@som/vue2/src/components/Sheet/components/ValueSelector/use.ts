@@ -1,7 +1,8 @@
-import { IContextMenuContext } from './type'
 import { reactive } from 'vue-demi'
-export function useContextMenu() {
-  const context: IContextMenuContext = reactive({
+
+import { IValueSelectorContext } from './type'
+export function useValueSelector() {
+  const context: IValueSelectorContext = reactive({
     show() {
       throw new Error('context is null')
     },
