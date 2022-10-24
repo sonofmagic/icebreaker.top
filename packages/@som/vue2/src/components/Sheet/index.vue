@@ -33,24 +33,27 @@
         :style="[selectionStyle]"></div> -->
     <Selection :style="[selectionStyle]"></Selection>
     <ContextMenu :context="menuContext">
-      <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="closeContextMenu">
-        复制
+      <div class="w-32 text-center">
+        <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="closeContextMenu">
+          复制
+        </div>
+        <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="closeContextMenu">
+          粘贴
+        </div>
+        <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="closeContextMenu">
+          锁定
+        </div>
+        <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="closeContextMenu">
+          解锁
+        </div>
+        <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="closeContextMenu">
+          行/列复制
+        </div>
+        <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="closeContextMenu">
+          复制上一区间
+        </div>
       </div>
-      <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="closeContextMenu">
-        粘贴
-      </div>
-      <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="closeContextMenu">
-        锁定
-      </div>
-      <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="closeContextMenu">
-        解锁
-      </div>
-      <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="closeContextMenu">
-        行/列复制
-      </div>
-      <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="closeContextMenu">
-        复制上一区间
-      </div>
+
     </ContextMenu>
     <!-- <div :style="{ 'visibility': tooltipVisible ? 'visible' : 'hidden' }" ref="tooltip"
       class="absolute border bg-white">
@@ -78,15 +81,16 @@ import VirtualList from 'vue-virtual-scroll-list'
 import { pick } from 'lodash-es'
 import { onClickOutside, useWindowScroll, useScroll, unrefElement } from '@vueuse/core'
 import useContainer from './hooks/useContainer'
-import useSelection from './hooks/useSelection'
+
 import useKeyBoard from './hooks/useKeyBoard'
 import { getDirection, getBoundingClientRect } from './utils'
 import type { IDataSourceItem, IDataSourceRow, ICellAttrs } from './types'
 import { throttle } from 'lodash-es'
 import dayjs from 'dayjs'
 // import DebugCell from './components/DebugCell.vue'
-import Selection from './components/Selection.vue'
+
 import ContextMenu, { useContextMenu } from './components/ContextMenu.tsx'
+import Selection,{useSelection}  from './components/Selection.tsx'
 // import SheetRow from './components/SheetRow.vue'
 
 
@@ -143,8 +147,8 @@ const closeContextMenu = () => {
 
 function onContextmenu(e: MouseEvent) {
   menuContext.show({
-    x:e.clientX,
-    y:e.clientY
+    x: e.clientX,
+    y: e.clientY
   })
 }
 function getSelectionValues(start: ICellAttrs, end: ICellAttrs) {
