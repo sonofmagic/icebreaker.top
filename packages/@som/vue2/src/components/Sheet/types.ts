@@ -21,3 +21,8 @@ export interface ISheetRowCustomEvent {
   event: MouseEvent
   attrs: ICellAttrs
 }
+
+export interface IPosition {
+  x: number
+  y: number
+}

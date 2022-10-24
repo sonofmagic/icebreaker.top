@@ -1,7 +1,4 @@
-export interface IPosition {
-  x: number
-  y: number
-}
+import { IPosition } from '../../types'
 
 export interface IContextMenuContext {
   close: () => void

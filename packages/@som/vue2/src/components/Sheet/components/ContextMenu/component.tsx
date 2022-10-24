@@ -1,7 +1,8 @@
 import { defineComponent, ref, toRefs, Ref, onMounted, watch, PropType } from 'vue-demi'
 import { onClickOutside } from '@vueuse/core'
 import { computePosition, ReferenceElement, offset, flip } from '@floating-ui/dom'
-import { IContextMenuContext, IContextMenuProps, IPosition } from './type'
+import { IContextMenuContext, IContextMenuProps } from './type'
+import { IPosition } from '../../types'
 export const ContextMenu = defineComponent({
   name: 'ContextMenu',
   props: {
@@ -69,15 +70,11 @@ export const ContextMenu = defineComponent({
       () => {
         if (context?.value) {
           context.value.el = menuRef.value
+          context.value.close = close
+          context.value.show = show
         }
       }
     )
-    onMounted(() => {
-      if (context?.value) {
-        context.value.close = close
-        context.value.show = show
-      }
-    })
 
     return {
       visible,

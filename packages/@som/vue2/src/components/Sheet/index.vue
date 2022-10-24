@@ -228,15 +228,13 @@ function onMousedown(e: MouseEvent, attrs: ICellAttrs) {
     return
   }
   if (e.buttons === 1) {
-
-
     startEventTarget.value = e.target
     const rect = getBoundingClientRect(startEventTarget.value)
-
-
     // 设置开始拖动
+    if(shiftState.value){
+      startSelection.value = true
+    }
 
-    startSelection.value = true
     console.log('onMousedown')
     // startEventTargetRect.value = rect
     // + windowY.value
