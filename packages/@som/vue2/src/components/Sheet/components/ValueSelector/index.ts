@@ -1,0 +1,1 @@
+export { ValueSelector } from './component'

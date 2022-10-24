@@ -27,8 +27,11 @@
               rowIndex: y, colIndex: x, item
             })" @mouseup="onMouseup($event, {
   rowIndex: y, colIndex: x, item
-})" @mousemove="onMousemove" :key="item.id" v-for="(item, x) in row.cells">
+})" @mousemove="onMousemove" :key="item.id" v-for="(item, x) in row.cells" @dblclick="item.value = item.value + '1'">
+
               {{ item.value }}
+              <!-- <div @dblclick="item.value = item.value + '1'">{{ item.value }}</div> -->
+
             </td>
           </tr>
 
@@ -63,16 +66,7 @@
       </div>
 
     </ContextMenu>
-    <!-- <div :style="{ 'visibility': tooltipVisible ? 'visible' : 'hidden' }" ref="tooltip"
-      class="absolute border bg-white">
-      <div class="hover:bg-gray-200 px-4 py-1 cursor-pointer" @click="closeModal">
-        复制
-      </div>
-      <div class="hover:bg-gray-200 px-4 py-1 cursor-pointer" @click="closeModal">
-        粘贴
-      </div>
-
-    </div> -->
+    <ValueSelector></ValueSelector>
 
   </div>
 
@@ -81,25 +75,24 @@
 
 <script lang="ts" setup>
 import { computed, defineComponent, ref, onMounted } from 'vue-demi'
-
+import { ValueSelector } from './components/ValueSelector'
 // @ts-ignore
 import ColumnResizer from 'column-resizer'
 // @ts-ignore
 import VirtualList from 'vue-virtual-scroll-list'
-import { pick } from 'lodash-es'
+import { pick, throttle } from 'lodash-es'
 import { onClickOutside, useWindowScroll, useScroll, unrefElement } from '@vueuse/core'
 import useContainer from './hooks/useContainer'
 
 import useKeyBoard from './hooks/useKeyBoard'
 import { getDirection, getBoundingClientRect } from './utils'
 import type { IDataSourceItem, IDataSourceRow, ICellAttrs } from './types'
-import { throttle } from 'lodash-es'
 import dayjs from 'dayjs'
-// import DebugCell from './components/DebugCell.vue'
+
 
 import { useContextMenu, ContextMenu } from './components/ContextMenu'
 import { useSelection, Selection } from './components/Selection'
-
+import { OnClickOutside } from '@vueuse/components'
 // import SheetRow from './components/SheetRow.vue'
 
 
@@ -136,7 +129,7 @@ for (let i = 0; i < 30; i++) {
   })
 
 }
-for (let i = 0; i < 150; i++) {
+for (let i = 0; i < 100; i++) {
   const tr = []
   for (let j = 0; j < 30; j++) {
     const td = {
@@ -145,6 +138,7 @@ for (let i = 0; i < 150; i++) {
       selected: false,
       readonly: false,
       disabled: false,
+      editing: false
 
     }
     tr.push(td)
@@ -186,12 +180,12 @@ function setMoveStyle(rect: DOMRect) {
   // console.log(rect.left, selectionPosition.value.left)
   const centerRect = getBoundingClientRect(startEventTarget.value)
   // console.log(centerRect)
-  const offsetX = rect.left - centerRect.left  //containerLeft.value - selectionPosition.value.left
+  const offsetX = rect.left - centerRect.left  // containerLeft.value - selectionPosition.value.left
   const offsetY = rect.top - centerRect.top // containerTop.value - selectionPosition.value.top
 
   if (offsetX > 0) {
     // 右
-    selectionPosition.value.right = rect.right + containerScrollX.value + windowX.value //- containerLeft.value
+    selectionPosition.value.right = rect.right + containerScrollX.value + windowX.value // - containerLeft.value
     selectionPosition.value.width = Math.abs(offsetX) + rect.width
 
   } else if (offsetX < 0) {
@@ -206,7 +200,7 @@ function setMoveStyle(rect: DOMRect) {
   // console.log(rect.top, selectionPosition.value.top)
   if (offsetY > 0) {
     // 下
-    selectionPosition.value.bottom = rect.bottom + containerScrollY.value + windowY.value //- containerTop.value
+    selectionPosition.value.bottom = rect.bottom + containerScrollY.value + windowY.value // - containerTop.value
     selectionPosition.value.height = Math.abs(offsetY) + rect.height
   } else if (offsetY < 0) {
     // 上
@@ -225,7 +219,13 @@ function setMoveStyle(rect: DOMRect) {
 }
 // https://developer.mozilla.org/zh-CN/docs/Web/API/MouseEvent/buttons
 function onMousedown(e: MouseEvent, attrs: ICellAttrs) {
+  const el = e.target as HTMLElement
+  if (el.tagName !== 'TD') {
+    return
+  }
   if (e.buttons === 1) {
+
+
     startEventTarget.value = e.target
     const rect = getBoundingClientRect(startEventTarget.value)
 
@@ -267,9 +267,16 @@ function onMouseup(e: MouseEvent, attrs: ICellAttrs) {
 
 
 function _onMousemove(e: MouseEvent) {
+  const el = e.target as HTMLElement
+  if (el.tagName !== 'TD') {
+    return
+  }
   if (startSelection.value) {
     // console.log('onMousemove', e.target)
-    const rect = (<HTMLElement>e.target).getBoundingClientRect()
+
+
+    const rect = el.getBoundingClientRect()
+
     // console.log(rect, selectionPosition.value)
     setMoveStyle(rect)
 

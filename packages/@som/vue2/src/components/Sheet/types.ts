@@ -4,6 +4,7 @@ export interface IDataSourceItem {
   selected: boolean
   readonly: boolean
   disabled: boolean
+  editing: boolean
 }
 
 export interface IDataSourceRow {
