@@ -32,8 +32,9 @@
     <!-- <div class="absolute ring-2 ring-offset-0 ring-blue-600 pointer-events-none bg-gray-900 bg-opacity-10"
         :style="[selectionStyle]"></div> -->
     <Selection :style="[selectionStyle]"></Selection>
-
-    <div :style="{ 'visibility': tooltipVisible ? 'visible' : 'hidden' }" ref="tooltip" class="absolute border bg-white">
+    <ContextMenu :context="menuContext"></ContextMenu>
+    <!-- <div :style="{ 'visibility': tooltipVisible ? 'visible' : 'hidden' }" ref="tooltip"
+      class="absolute border bg-white">
       <div class="hover:bg-gray-200 px-4 py-1 cursor-pointer" @click="closeModal">
         复制
       </div>
@@ -41,7 +42,7 @@
         粘贴
       </div>
 
-    </div>
+    </div> -->
 
   </div>
 
@@ -50,7 +51,7 @@
 
 <script lang="ts" setup>
 import { computed, defineComponent, ref, onMounted } from 'vue-demi'
-import { computePosition, ReferenceElement, offset } from '@floating-ui/dom'
+
 // @ts-ignore
 import ColumnResizer from 'column-resizer'
 // @ts-ignore
@@ -66,8 +67,9 @@ import { throttle } from 'lodash-es'
 import dayjs from 'dayjs'
 // import DebugCell from './components/DebugCell.vue'
 import Selection from './components/Selection.vue'
-import ContextMenu from './components/ContextMenu.tsx'
+import ContextMenu, { useContextMenu } from './components/ContextMenu.tsx'
 // import SheetRow from './components/SheetRow.vue'
+
 
 const { x: windowX, y: windowY } = useWindowScroll()
 const { shiftState } = useKeyBoard()
@@ -114,51 +116,12 @@ for (let i = 0; i < 150; i++) {
 }
 const dataSet = ref(dataSetSource)
 const startSelection = ref(false)
-const tooltipVisible = ref(false)
-const closeModal = () => {
-  tooltipVisible.value = false
-}
 
-const tooltip = ref<HTMLDivElement>()
-
+const { context : menuContext} = useContextMenu()
 
 
 function onContextmenu(e: MouseEvent) {
-  const virtualEl: ReferenceElement = {
-    getBoundingClientRect() {
-      return {
-        x: e.x,
-        y: e.y,
-        top: e.clientY,
-        left: e.clientX,
-        width: 0,
-        height: 0,
-        bottom: 0,
-        right: 0
-      }
-    }
-  }
-
-  console.log(e)
-  if (tooltip.value) {
-    const rect = tooltip.value.getBoundingClientRect()
-    console.log(rect)
-    computePosition(virtualEl, tooltip.value, {
-      placement: 'right',
-      middleware: [offset({
-        mainAxis: 10,
-        alignmentAxis: -rect.height / 2
-      })]
-    }).then(({ x, y }) => {
-      Object.assign(tooltip.value!.style, {
-        left: `${x}px`,
-        top: `${y}px`
-      })
-      tooltipVisible.value = true
-    })
-  }
-
-  console.log('contextmenu')
+  menuContext.show(e)
 }
 function getSelectionValues(start: ICellAttrs, end: ICellAttrs) {
   const { colIndex: startcolIndex, rowIndex: startrowIndex } = start
@@ -271,9 +234,6 @@ function _onMousemove(e: MouseEvent) {
 }
 
 const onMousemove = throttle(_onMousemove, 20)
-onClickOutside(tooltip, () => {
-  closeModal()
-})
 
 
 
