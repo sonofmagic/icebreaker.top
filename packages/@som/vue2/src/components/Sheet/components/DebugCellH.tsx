@@ -2,7 +2,7 @@ import { defineComponent, ref } from 'vue-demi'
 import { useElementBounding } from '@vueuse/core'
 export default defineComponent({
   name: 'DebugCell',
-  setup () {
+  setup() {
     const domRef = ref<HTMLDivElement | null>()
     const { left, top } = useElementBounding(domRef)
     return () => {

@@ -1,15 +1,15 @@
 <template>
   <div>
     <div class="table-cell border min-w-[100px] h-[50px] cursor-default select-none"
-      @contextmenu.prevent="onContextmenu" @mousedown="onMousedown($event,{
-        rowIndex:index,colIndex:x,item
-      })" @mouseup="onMouseup($event,{
-        rowIndex:index,colIndex:x,item
-      })" @mousemove="onMousemove($event,{
-        rowIndex:index,colIndex:x,item
-      })" :key="item.id" v-for="(item,x) in source.cells">
+      @contextmenu.prevent="onContextmenu" @mousedown="onMousedown($event, {
+        rowIndex: index, colIndex: x, item
+      })" @mouseup="onMouseup($event, {
+  rowIndex: index, colIndex: x, item
+})" @mousemove="onMousemove($event, {
+  rowIndex: index, colIndex: x, item
+})" :key="item.id" v-for="(item,x) in source.cells">
 
-      {{item.value}}
+      {{ item.value }}
     </div>
   </div>
 </template>

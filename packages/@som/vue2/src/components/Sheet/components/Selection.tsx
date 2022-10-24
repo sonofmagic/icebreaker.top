@@ -24,7 +24,7 @@ export interface useSelectionOptions {
   }
 }
 
-export function useSelection (options: useSelectionOptions) {
+export function useSelection(options: useSelectionOptions) {
   const selectionPosition = ref<ISelectionRect>({
     left: 0,
     right: 0,
@@ -97,7 +97,7 @@ export function useSelection (options: useSelectionOptions) {
 
 export default defineComponent({
   name: 'CellSelection',
-  render () {
+  render() {
     return <div class="absolute ring-2 ring-offset-0 ring-blue-600 pointer-events-none bg-gray-900 bg-opacity-10"></div>
   }
 })

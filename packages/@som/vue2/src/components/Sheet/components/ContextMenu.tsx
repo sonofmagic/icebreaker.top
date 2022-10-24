@@ -17,12 +17,12 @@ interface IContextMenuProps {
   context?: IContextMenuContext
 }
 
-export function useContextMenu () {
+export function useContextMenu() {
   const context: IContextMenuContext = {
-    show () {
+    show() {
       throw new Error('context is null')
     },
-    close () {
+    close() {
       throw new Error('context is null')
     },
     el: undefined
@@ -37,19 +37,19 @@ export default defineComponent({
   props: {
     context: []
   },
-  setup (props: IContextMenuProps) {
+  setup(props: IContextMenuProps) {
     const { context } = toRefs(props)
 
     const visible = ref(false)
     const menuRef = ref<HTMLDivElement>()
 
-    function close () {
+    function close() {
       visible.value = false
     }
 
-    function show (e: IPosition) {
+    function show(e: IPosition) {
       const virtualEl: ReferenceElement = {
-        getBoundingClientRect () {
+        getBoundingClientRect() {
           return {
             x: e.x, // e.x,
             y: e.y, // e.y,
@@ -104,7 +104,7 @@ export default defineComponent({
       close
     }
   },
-  render () {
+  render() {
     return (
       <div style={{ visibility: this.visible ? 'visible' : 'hidden' }} ref="menuRef" class="absolute border bg-white">
         {this.$slots.default}
