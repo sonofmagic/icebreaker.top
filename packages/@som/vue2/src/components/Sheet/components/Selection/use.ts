@@ -4,6 +4,8 @@ import { IDataSourceItem, ICellAttrs } from '../../types'
 import { pick } from 'lodash-es'
 
 export function useSelection(options: useSelectionOptions) {
+  const selectionBorderOffest = 0
+
   const selectionPosition = ref<ISelectionRect>({
     left: 0,
     right: 0,
@@ -49,7 +51,7 @@ export function useSelection(options: useSelectionOptions) {
       Object.assign(selectionPosition.value, resetSelectionPosition.value)
     }
   }
-  const selectionBorderOffest = 0.5
+
   const selectionStyle = computed(() => {
     return Object.entries(pick(selectionPosition.value, ['left', 'right', 'top', 'bottom', 'width', 'height'])).reduce<Record<string, string>>((acc, [key, value]) => {
       if (['left', 'right', 'top', 'bottom'].includes(key)) {

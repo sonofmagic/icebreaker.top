@@ -1,7 +1,7 @@
 <template>
 
 
-  <div ref="container" class="relative overflow-auto">
+  <div ref="container" class="relative overflow-y-auto">
     <ContextMenu></ContextMenu>
     <!-- <thead class="sticky top-0 left-0 bg-white z-10">
         <tr>
@@ -12,26 +12,30 @@
       class="w-auto table table-fixed border-collapse text-center bg-white h-[500px] overflow-y-auto" :data-key="'key'"
       :data-sources="dataSet" :data-component="SheetRow">
     </VirtualList> -->
-    <table ref="table" class="w-auto table-fixed border-collapse text-center bg-white">
-      <colgroup>
-        <col :key="col.key" :style="{
-          'min-width':col.width +'px'
-        }" v-for="col in cols">
-        </col>
-      </colgroup>
-      <tbody>
-        <tr :key="y" v-for="(row, y) in dataSet">
-          <td class="border h-[48px] cursor-default select-none" @contextmenu.prevent="onContextmenu" @mousedown="onMousedown($event, {
-            rowIndex: y, colIndex: x, item
-          })" @mouseup="onMouseup($event, {
+    <!-- <table ></table> -->
+    <div>
+      <table ref="table" class="w-auto table-fixed border-collapse text-center bg-white">
+        <colgroup>
+          <col :key="col.key" :style="{
+            'min-width': col.width + 'px'
+          }" v-for="col in cols">
+          </col>
+        </colgroup>
+        <tbody>
+          <tr :key="y" v-for="(row, y) in dataSet">
+            <td class="border h-[48px] cursor-default select-none" @contextmenu.prevent="onContextmenu" @mousedown="onMousedown($event, {
+              rowIndex: y, colIndex: x, item
+            })" @mouseup="onMouseup($event, {
   rowIndex: y, colIndex: x, item
 })" @mousemove="onMousemove" :key="item.id" v-for="(item, x) in row.cells">
-            {{ item.value }}
-          </td>
-        </tr>
+              {{ item.value }}
+            </td>
+          </tr>
 
-      </tbody>
-    </table>
+        </tbody>
+      </table>
+    </div>
+
 
     <!-- <div class="absolute ring-2 ring-offset-0 ring-blue-600 pointer-events-none bg-gray-900 bg-opacity-10"
         :style="[selectionStyle]"></div> -->
@@ -128,7 +132,7 @@ for (let i = 0; i < 30; i++) {
   cols.value.push({
     width: 120,
     title: firstDay.add(i, 'day').format('YYYY-MM-DD'),
-    key:i
+    key: i
   })
 
 }

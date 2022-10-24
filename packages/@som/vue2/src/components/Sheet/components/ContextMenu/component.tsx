@@ -1,13 +1,15 @@
-import { defineComponent, ref, toRefs, Ref, onMounted, watch } from 'vue-demi'
+import { defineComponent, ref, toRefs, Ref, onMounted, watch, PropType } from 'vue-demi'
 import { onClickOutside } from '@vueuse/core'
 import { computePosition, ReferenceElement, offset } from '@floating-ui/dom'
 import { IContextMenuContext, IContextMenuProps, IPosition } from './type'
 export const ContextMenu = defineComponent({
   name: 'ContextMenu',
   props: {
-    context: []
+    context: {
+      type: Object as PropType<IContextMenuContext>
+    }
   },
-  setup(props: IContextMenuProps) {
+  setup(props) {
     const { context } = toRefs(props)
 
     const visible = ref(false)
