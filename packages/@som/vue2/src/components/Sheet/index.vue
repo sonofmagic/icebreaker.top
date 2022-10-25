@@ -30,11 +30,14 @@
   rowIndex: y, colIndex: x, item
 })" @mousemove="onMousemove" v-for="(item, x) in row.cells" @dblclick="onDblclick($event, {
   rowIndex: y, colIndex: x, item
+})" @mouseleave="onMouseleave($event, {
+  rowIndex: y, colIndex: x, item
+})" @mouseenter="onMouseenter($event, {
+  rowIndex: y, colIndex: x, item
 })">
 
 
-              <div v-if="item.value"
-              :class="item.value?'cursor-pointer':''"
+              <div v-if="item.value" :class="item.value ? 'cursor-pointer' : ''"
                 class="select-none pointer-events-auto relative w-full h-full flex justify-between border-l-[2px] border-blue-600">
 
                 <div class="text-left flex flex-col justify-evenly pl-1.5">
@@ -90,6 +93,13 @@
         </div>
       </div>
     </Popover>
+    <Popover :context="showDetailContext" :placement="'bottom-start'">
+      <div class="bg-white w-[160px] text-xs border px-2 py-1 space-y-1">
+        <div class="text-[13px] text-[#333333]">撒大声地</div>
+        <div class="text-[#333333]">11:11-33:22 24.00h</div>
+        <div class="text-[#B1B9CC]">备注:测试数据占位占位占位占位占位占位</div>
+      </div>
+    </Popover>
 
   </div>
 
@@ -116,11 +126,12 @@ import dayjs from 'dayjs'
 import { useContextMenu, ContextMenu } from './components/ContextMenu'
 import { useSelection, Selection } from './components/Selection'
 // import { ValueSelector, useValueSelector } from './components/ValueSelector'
-import {Popover,usePopover} from './components/Popover'
+import { Popover, usePopover } from './components/Popover'
 // import { OnClickOutside } from '@vueuse/components'
 // import SheetRow from './components/SheetRow.vue'
 
 const { context: valueSelectorContext } = usePopover()
+const { context: showDetailContext } = usePopover()
 const { x: windowX, y: windowY } = useWindowScroll()
 const { shiftState } = useKeyBoard()
 const container = ref<HTMLDivElement>()
@@ -349,9 +360,7 @@ function onDblclick(e: MouseEvent, attrs: ICellAttrs) {
   console.log('onDblclick', e)
   const target = getTdElement(e)
   if (target) {
-    const el = target
-
-    const rect = el.getBoundingClientRect()
+    const rect = target.getBoundingClientRect()
 
     valueSelectorContext.show({
       x: rect.left,
@@ -379,13 +388,40 @@ function _onMousemove(e: MouseEvent) {
 
 const onMousemove = throttle(_onMousemove, 20)
 
-
-
 const selectValue: (e: MouseEvent, value: unknown) => void = (e, value) => {
   e.stopPropagation()
   if (dblclickCellAttrs.value) {
     dblclickCellAttrs.value.item.value = value
   }
+}
+
+
+function onMouseenter(e: MouseEvent, attrs: ICellAttrs) {
+  // console.log('onMouseenter',e)
+
+  const target = getTdElement(e)
+  if (target) {
+    showDetailContext.close()
+    if (attrs.item.value) {
+      const rect = target.getBoundingClientRect()
+
+      showDetailContext.show({
+        x: rect.left,
+        y: rect.bottom
+      })
+    }
+
+
+  }
+
+}
+
+function onMouseleave(e: MouseEvent, attrs: ICellAttrs) {
+  // console.log('onMouseleave',e)
+  // const target = getTdElement(e)
+  // if(target){
+  //   showDetailContext.close()
+  // }
 }
 </script>
 

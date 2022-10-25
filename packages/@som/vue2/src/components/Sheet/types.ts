@@ -6,6 +6,7 @@ export interface IDataSourceItem {
   disabled: boolean
   editing: boolean
   locked: boolean
+  note?: string
 }
 
 export interface IDataSourceRow {

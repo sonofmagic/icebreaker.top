@@ -39,10 +39,10 @@ export const Popover = defineComponent({
         computePosition(virtualEl, dom.value, {
           placement: placement.value,
           middleware: [
-            offset({
-              mainAxis: 5
-              // alignmentAxis: -rect.height / 2
-            }),
+            // offset({
+            //   mainAxis: 5
+            //   // alignmentAxis: -rect.height / 2
+            // }),
             flip()
           ]
         }).then(({ x, y }) => {
