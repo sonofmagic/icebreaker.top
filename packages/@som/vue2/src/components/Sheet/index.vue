@@ -1,27 +1,46 @@
 
 <template>
+  <!-- <table class="border-collapse sticky top-0 left-0 z-10 w-auto table-fixed">
+      <colgroup>
+        <col :style="{
+          'min-width': col.width + 'px'
+        }" :key="col.key" :width="col.width" v-for="col in cols">
+        </col>
+      </colgroup>
+      <thead class=" bg-white z-10">
+        <tr>
+          <th :key="i" v-for="(t, i) in cols" class="border h-[50px] text-center">{{ t.title }}</th>
+        </tr>
+      </thead>
 
-
+    </table> -->
+  <!-- <VirtualList ref="table"
+  class="w-auto table table-fixed border-collapse text-center bg-white h-[500px] overflow-y-auto" :data-key="'key'"
+  :data-sources="dataSet" :data-component="SheetRow">
+</VirtualList> -->
   <div ref="container" class="relative overflow-y-auto">
 
-    <!-- <thead class="sticky top-0 left-0 bg-white z-10">
-        <tr>
-          <th :key="i" v-for="(t,i) in titles" class="border h-[50px]">{{t}}</th>
-        </tr>
-      </thead> -->
-    <!-- <VirtualList ref="table"
-      class="w-auto table table-fixed border-collapse text-center bg-white h-[500px] overflow-y-auto" :data-key="'key'"
-      :data-sources="dataSet" :data-component="SheetRow">
-    </VirtualList> -->
-    <!-- <table ></table> -->
+
+
+
     <div>
       <table ref="table" class="w-auto table-fixed border-collapse text-center bg-white">
         <colgroup>
           <col :key="col.key" :style="{
             'min-width': col.width + 'px'
-          }" v-for="col in cols">
+          }" :width="col.width" v-for="col in cols">
           </col>
         </colgroup>
+        <thead class=" bg-white z-10">
+          <tr>
+            <th :key="i" v-for="(t, i) in cols" class="sticky top-0 left-0  h-[48px] text-center bg-white border">
+              <!-- <div class="border w-full h-full"> -->
+              {{ t.title }}
+              <!-- </div> -->
+
+            </th>
+          </tr>
+        </thead>
         <tbody>
           <tr :key="y" v-for="(row, y) in dataSet">
             <td data-sheet-cell="1" class="border h-[48px] cursor-default select-none" :key="item.id"
@@ -109,6 +128,7 @@
     </Popover>
 
   </div>
+
 
 
 </template>
