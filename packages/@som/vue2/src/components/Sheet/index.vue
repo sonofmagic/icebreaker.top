@@ -77,13 +77,15 @@
 
     </ContextMenu>
     <ValueSelector :context="valueSelectorContext">
-      <div>未定义</div>
-      <input class="border" placeholder="请输入" />
-      <div class="overflow-auto h-[200px]">
-        <div :key="i" v-for="i in 30" @click="selectValue($event, i)"
-          class="flex justify-around cursor-pointer hover:bg-blue-300">
-          <div class="flex-1">撒大声地</div>
-          <div class="flex-1">{{ i }}</div>
+      <div class="bg-white w-[360px]  p-2 border ">
+        <div>未定义</div>
+        <input class="border" placeholder="请输入" />
+        <div class="overflow-auto h-[200px]">
+          <div :key="i" v-for="i in 30" @click="selectValue($event, i)"
+            class="flex justify-around cursor-pointer hover:bg-blue-300">
+            <div class="flex-1">撒大声地</div>
+            <div class="flex-1">{{ i }}</div>
+          </div>
         </div>
       </div>
     </ValueSelector>

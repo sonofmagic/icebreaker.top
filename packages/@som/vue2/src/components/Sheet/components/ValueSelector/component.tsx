@@ -78,7 +78,7 @@ export const ValueSelector = defineComponent({
   },
   render() {
     return (
-      <div ref="dom" style={{ visibility: this.visible ? 'visible' : 'hidden' }} class="bg-white w-[360px] border absolute left-0 top-0 p-2">
+      <div ref="dom" style={{ visibility: this.visible ? 'visible' : 'hidden' }} class="absolute left-0 top-0">
         {this.$slots.default}
       </div>
     )
