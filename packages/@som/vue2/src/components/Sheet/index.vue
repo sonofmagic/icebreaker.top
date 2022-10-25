@@ -1,3 +1,4 @@
+
 <template>
 
 
@@ -37,8 +38,11 @@
 })">
 
 
-              <div v-if="item.value" :class="item.value ? 'cursor-pointer' : ''"
-                class="select-none pointer-events-auto relative w-full h-full flex justify-between border-l-[2px] border-blue-600">
+              <div v-if="item.value" :class="{
+                'cursor-pointer': Boolean(item.value),
+                'has-note': Boolean(item.note)
+              }"
+                class="sheet-cell-inner select-none pointer-events-auto relative w-full h-full flex justify-between border-l-[2px] border-blue-600">
 
                 <div class="text-left flex flex-col justify-evenly pl-1.5">
                   <div class="text-[13px] text-[#333333]">加科技看看{{ item.value }}</div>
@@ -71,6 +75,9 @@
         <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="unlock">
           解锁
         </div>
+        <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="doNote">
+          备注
+        </div>
         <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="closeContextMenu">
           行/列复制
         </div>
@@ -95,9 +102,9 @@
     </Popover>
     <Popover :context="showDetailContext" :placement="'bottom-start'">
       <div class="bg-white w-[160px] text-xs border px-2 py-1 space-y-1">
-        <div class="text-[13px] text-[#333333]">撒大声地</div>
+        <div class="text-[13px] text-[#333333]">{{ detailCellAttrs?.item.value }}的值啊啊</div>
         <div class="text-[#333333]">11:11-33:22 24.00h</div>
-        <div class="text-[#B1B9CC]">备注:测试数据占位占位占位占位占位占位</div>
+        <div class="text-[#B1B9CC]" v-if="detailCellAttrs?.item.note">备注:{{ detailCellAttrs?.item.note }}</div>
       </div>
     </Popover>
 
@@ -107,7 +114,8 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, defineComponent, ref, onMounted } from 'vue-demi'
+import { MessageBox } from 'element-ui'
+import { computed, defineComponent, ref, onMounted, nextTick, reactive } from 'vue-demi'
 
 // @ts-ignore
 import ColumnResizer from 'column-resizer'
@@ -169,14 +177,15 @@ for (let i = 0; i < 30; i++) {
 for (let i = 0; i < 100; i++) {
   const tr = []
   for (let j = 0; j < 30; j++) {
-    const td = {
+    const td: IDataSourceItem = {
       value: undefined,// `${i}-${j}`,
       id: `${i}-${j}`,
       selected: false,
       readonly: false,
       disabled: false,
       editing: false,
-      locked: false
+      locked: false,
+      note: ''
 
     }
     tr.push(td)
@@ -367,6 +376,7 @@ function onDblclick(e: MouseEvent, attrs: ICellAttrs) {
       y: rect.bottom
     })
     dblclickCellAttrs.value = attrs
+
   }
 
 }
@@ -396,6 +406,8 @@ const selectValue: (e: MouseEvent, value: unknown) => void = (e, value) => {
 }
 
 
+const detailCellAttrs = ref<ICellAttrs>()
+
 function onMouseenter(e: MouseEvent, attrs: ICellAttrs) {
   // console.log('onMouseenter',e)
 
@@ -404,7 +416,7 @@ function onMouseenter(e: MouseEvent, attrs: ICellAttrs) {
     showDetailContext.close()
     if (attrs.item.value) {
       const rect = target.getBoundingClientRect()
-
+      detailCellAttrs.value = attrs
       showDetailContext.show({
         x: rect.left,
         y: rect.bottom
@@ -413,6 +425,26 @@ function onMouseenter(e: MouseEvent, attrs: ICellAttrs) {
 
 
   }
+
+}
+
+async function doNote() {
+  if (selectionValues.value) {
+    const single = selectionValues.value.length === 1
+    const res = await MessageBox.prompt('', '添加备注', {
+      inputType: 'textArea',
+      inputValue: single ? selectionValues.value[0].note : '',
+      inputPlaceholder: '请输入备注',
+      closeOnClickModal: false,
+      closeOnPressEscape: false
+    })
+    selectionValues.value?.forEach(x => {
+      // @ts-ignore
+      x.note = res.value
+    })
+
+  }
+
 
 }
 
@@ -426,5 +458,15 @@ function onMouseleave(e: MouseEvent, attrs: ICellAttrs) {
 </script>
 
 <style lang="scss" scoped>
-
+.has-note::after {
+  // background-color: #3380FF;
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 0;
+  width: 0;
+  border-top: 11px solid #3380FF;
+  border-left: 13px solid transparent;
+}
 </style>
