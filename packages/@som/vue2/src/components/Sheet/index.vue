@@ -23,11 +23,14 @@
         </colgroup>
         <tbody>
           <tr :key="y" v-for="(row, y) in dataSet">
-            <td class="border h-[48px] cursor-default select-none" @contextmenu.prevent="onContextmenu" @mousedown="onMousedown($event, {
-              rowIndex: y, colIndex: x, item
-            })" @mouseup="onMouseup($event, {
+            <td class="border h-[48px] cursor-default select-none" :key="item.id" @contextmenu.prevent="onContextmenu"
+              @mousedown="onMousedown($event, {
+                rowIndex: y, colIndex: x, item
+              })" @mouseup="onMouseup($event, {
   rowIndex: y, colIndex: x, item
-})" @mousemove="onMousemove" :key="item.id" v-for="(item, x) in row.cells" @dblclick="item.value = item.value + '1'">
+})" @mousemove="onMousemove" v-for="(item, x) in row.cells" @dblclick="onDblclick($event, {
+  rowIndex: y, colIndex: x, item
+})">
 
               {{ item.value }}
               <!-- <div @dblclick="item.value = item.value + '1'">{{ item.value }}</div> -->
@@ -63,7 +66,7 @@
       </div>
 
     </ContextMenu>
-    <ValueSelector></ValueSelector>
+    <ValueSelector :context="valueSelectorContext" @select="selectValue"></ValueSelector>
 
   </div>
 
@@ -72,7 +75,7 @@
 
 <script lang="ts" setup>
 import { computed, defineComponent, ref, onMounted } from 'vue-demi'
-import { ValueSelector } from './components/ValueSelector'
+
 // @ts-ignore
 import ColumnResizer from 'column-resizer'
 // @ts-ignore
@@ -89,16 +92,17 @@ import dayjs from 'dayjs'
 
 import { useContextMenu, ContextMenu } from './components/ContextMenu'
 import { useSelection, Selection } from './components/Selection'
+import { ValueSelector, useValueSelector } from './components/ValueSelector'
 // import { OnClickOutside } from '@vueuse/components'
 // import SheetRow from './components/SheetRow.vue'
 
-
+const { context: valueSelectorContext } = useValueSelector()
 const { x: windowX, y: windowY } = useWindowScroll()
 const { shiftState } = useKeyBoard()
 const container = ref<HTMLDivElement>()
 const { left: containerLeft, top: containerTop, scrollX: containerScrollX, scrollY: containerScrollY } = useContainer(container)
 
-const { resetSelectionPosition, selectionPosition, startCellAttrs, endCellAttrs, startEventTarget, assign: selectionAssign, reset: selectionReset, selectionStyle,context :selectionContext } = useSelection({
+const { resetSelectionPosition, selectionPosition, startCellAttrs, endCellAttrs, startEventTarget, assign: selectionAssign, reset: selectionReset, selectionStyle, context: selectionContext } = useSelection({
   container: {
     left: containerLeft,
     scrollX: containerScrollX,
@@ -130,7 +134,7 @@ for (let i = 0; i < 100; i++) {
   const tr = []
   for (let j = 0; j < 30; j++) {
     const td = {
-      value: `${i}-${j}`,
+      value: undefined,// `${i}-${j}`,
       id: `${i}-${j}`,
       selected: false,
       readonly: false,
@@ -154,15 +158,15 @@ const closeContextMenu = () => {
 }
 
 function onContextmenu(e: MouseEvent) {
-  if(selectionContext.el){
+  if (selectionContext.el) {
     const rect = selectionContext.el.getBoundingClientRect()
-  // console.log(rect)
-  // e.clientX
-  // e.clientY
-  menuContext.show({
-    x: rect.left + rect.width,
-    y: rect.top + (rect.height /2)
-  })
+    // console.log(rect)
+    // e.clientX
+    // e.clientY
+    menuContext.show({
+      x: rect.left + rect.width,
+      y: rect.top + (rect.height / 2)
+    })
   }
 
 }
@@ -231,7 +235,7 @@ function onMousedown(e: MouseEvent, attrs: ICellAttrs) {
     startEventTarget.value = e.target
     const rect = getBoundingClientRect(startEventTarget.value)
     // 设置开始拖动
-    if(shiftState.value){
+    if (shiftState.value) {
       startSelection.value = true
     }
 
@@ -267,6 +271,29 @@ function onMouseup(e: MouseEvent, attrs: ICellAttrs) {
   }
 }
 
+const dblclickCellAttrs = ref<ICellAttrs>()
+
+function onDblclick(e: MouseEvent, attrs: ICellAttrs) {
+
+  const el = e.target as HTMLElement
+  if (el.tagName !== 'TD') {
+    return
+  }
+  const rect = el.getBoundingClientRect()
+
+  valueSelectorContext.show({
+    x: rect.left,
+    y: rect.bottom
+  })
+  dblclickCellAttrs.value = attrs
+}
+
+function selectValue(value:unknown){
+  console.log(value)
+  if(dblclickCellAttrs.value){
+    dblclickCellAttrs.value.item.value = value
+  }
+}
 
 function _onMousemove(e: MouseEvent) {
   const el = e.target as HTMLElement

@@ -1,5 +1,5 @@
 export interface IDataSourceItem {
-  value: string
+  value?: unknown
   id: string
   selected: boolean
   readonly: boolean
