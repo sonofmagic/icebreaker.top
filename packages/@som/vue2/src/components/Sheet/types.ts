@@ -5,6 +5,7 @@ export interface IDataSourceItem {
   readonly: boolean
   disabled: boolean
   editing: boolean
+  locked: boolean
 }
 
 export interface IDataSourceRow {

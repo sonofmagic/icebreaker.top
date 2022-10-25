@@ -23,8 +23,8 @@
         </colgroup>
         <tbody>
           <tr :key="y" v-for="(row, y) in dataSet">
-            <td class="border h-[48px] cursor-default select-none" :key="item.id" @contextmenu.prevent="onContextmenu"
-              @mousedown="onMousedown($event, {
+            <td data-sheet-cell="1" class="border h-[48px] cursor-default select-none" :key="item.id"
+              @contextmenu.prevent="onContextmenu" @mousedown="onMousedown($event, {
                 rowIndex: y, colIndex: x, item
               })" @mouseup="onMouseup($event, {
   rowIndex: y, colIndex: x, item
@@ -32,8 +32,8 @@
   rowIndex: y, colIndex: x, item
 })">
 
-              {{ item.value }}
-              <!-- <div @dblclick="item.value = item.value + '1'">{{ item.value }}</div> -->
+
+              <div class="select-none pointer-events-auto relative w-full h-full">{{ item.value }}</div>
 
             </td>
           </tr>
@@ -100,6 +100,7 @@ const { context: valueSelectorContext } = useValueSelector()
 const { x: windowX, y: windowY } = useWindowScroll()
 const { shiftState } = useKeyBoard()
 const container = ref<HTMLDivElement>()
+const selectionValues = ref<IDataSourceItem[]>()
 const { left: containerLeft, top: containerTop, scrollX: containerScrollX, scrollY: containerScrollY } = useContainer(container)
 
 const { resetSelectionPosition, selectionPosition, startCellAttrs, endCellAttrs, startEventTarget, assign: selectionAssign, reset: selectionReset, selectionStyle, context: selectionContext } = useSelection({
@@ -139,7 +140,8 @@ for (let i = 0; i < 100; i++) {
       selected: false,
       readonly: false,
       disabled: false,
-      editing: false
+      editing: false,
+      locked: false
 
     }
     tr.push(td)
@@ -153,6 +155,8 @@ const dataSet = ref(dataSetSource)
 const startSelection = ref(false)
 
 const { context: menuContext } = useContextMenu()
+
+
 const closeContextMenu = () => {
   menuContext.close()
 }
@@ -170,7 +174,7 @@ function onContextmenu(e: MouseEvent) {
   }
 
 }
-function getSelectionValues(start: ICellAttrs, end: ICellAttrs) {
+function getSelectionValues(start: ICellAttrs, end: ICellAttrs): IDataSourceItem[] {
   const { colIndex: startcolIndex, rowIndex: startrowIndex } = start
   const { colIndex: endcolIndex, rowIndex: endrowIndex } = end
   const rows = [Math.min(startrowIndex, endrowIndex), Math.max(startrowIndex, endrowIndex) + 1]
@@ -225,14 +229,39 @@ function setMoveStyle(rect: DOMRect) {
 
 
 }
+
+// function checkValid(e: MouseEvent) {
+//   const el = e.target as HTMLElement
+//   if (el.tagName !== 'TD') {
+//     return false
+//   }
+//   return true
+// }
+
+function getTdElement(e: MouseEvent) {
+  // @ts-ignore
+  const path = e.path as Element[]
+  if (Array.isArray(path)) {
+
+    for (let i = 1; i < path.length; i++) {
+      const element = path[i];
+      // @ts-ignore
+      if (element.tagName === 'TD' && element.dataset.sheetCell === '1') {
+        return element
+      }
+    }
+    return null
+  } else {
+    return null
+  }
+
+}
 // https://developer.mozilla.org/zh-CN/docs/Web/API/MouseEvent/buttons
 function onMousedown(e: MouseEvent, attrs: ICellAttrs) {
-  const el = e.target as HTMLElement
-  if (el.tagName !== 'TD') {
-    return
-  }
-  if (e.buttons === 1) {
-    startEventTarget.value = e.target
+  const target = getTdElement(e)
+
+  if (e.buttons === 1 && target) {
+    startEventTarget.value = target
     const rect = getBoundingClientRect(startEventTarget.value)
     // 设置开始拖动
     if (shiftState.value) {
@@ -265,51 +294,48 @@ function onMouseup(e: MouseEvent, attrs: ICellAttrs) {
     startCellAttrs.value = attrs
     if (endCellAttrs.value && startCellAttrs.value) {
       const values = getSelectionValues(endCellAttrs.value, startCellAttrs.value)
-      console.log(values)
+      selectionValues.value = values
     }
-
   }
 }
 
 const dblclickCellAttrs = ref<ICellAttrs>()
 
 function onDblclick(e: MouseEvent, attrs: ICellAttrs) {
+  console.log('onDblclick')
+  const target = getTdElement(e)
+  if (target) {
+    const el = target
 
-  const el = e.target as HTMLElement
-  if (el.tagName !== 'TD') {
-    return
+    const rect = el.getBoundingClientRect()
+
+    valueSelectorContext.show({
+      x: rect.left,
+      y: rect.bottom
+    })
+    dblclickCellAttrs.value = attrs
   }
-  const rect = el.getBoundingClientRect()
 
-  valueSelectorContext.show({
-    x: rect.left,
-    y: rect.bottom
-  })
-  dblclickCellAttrs.value = attrs
 }
 
-function selectValue(value:unknown){
+function selectValue(value: unknown) {
   console.log(value)
-  if(dblclickCellAttrs.value){
+  if (dblclickCellAttrs.value) {
     dblclickCellAttrs.value.item.value = value
   }
 }
 
 function _onMousemove(e: MouseEvent) {
-  const el = e.target as HTMLElement
-  if (el.tagName !== 'TD') {
-    return
+  const target = getTdElement(e)
+  if(target){
+    const el = target
+
+if (startSelection.value) {
+  const rect = el.getBoundingClientRect()
+  setMoveStyle(rect)
+}
   }
-  if (startSelection.value) {
-    // console.log('onMousemove', e.target)
 
-
-    const rect = el.getBoundingClientRect()
-
-    // console.log(rect, selectionPosition.value)
-    setMoveStyle(rect)
-
-  }
 }
 
 const onMousemove = throttle(_onMousemove, 20)
