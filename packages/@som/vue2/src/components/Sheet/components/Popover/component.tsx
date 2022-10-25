@@ -1,18 +1,21 @@
 import { defineComponent, ref, PropType, watch, toRefs } from 'vue-demi'
 import type { IPosition } from '../../types'
-import { computePosition, ReferenceElement, offset, flip } from '@floating-ui/dom'
-import type { IValueSelectorContext } from './type'
+import { computePosition, ReferenceElement, offset, flip, Placement } from '@floating-ui/dom'
+import type { IPopoverContext } from './type'
 import { onClickOutside } from '@vueuse/core'
-export const ValueSelector = defineComponent({
-  name: 'ValueSelector',
+export const Popover = defineComponent({
+  name: 'SheetPopover',
   props: {
     context: {
-      type: Object as PropType<IValueSelectorContext>
+      type: Object as PropType<IPopoverContext>
+    },
+    placement: {
+      type: String as PropType<Placement>
     }
   },
   setup(props) {
     const visible = ref(false)
-    const { context } = toRefs(props)
+    const { context, placement } = toRefs(props)
     const dom = ref<HTMLDivElement>()
 
     function show(e: IPosition) {
@@ -34,7 +37,7 @@ export const ValueSelector = defineComponent({
         // const rect = dom.value.getBoundingClientRect()
 
         computePosition(virtualEl, dom.value, {
-          placement: 'bottom-start',
+          placement: placement.value,
           middleware: [
             offset({
               mainAxis: 5

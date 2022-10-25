@@ -1,8 +1,8 @@
 import { reactive } from 'vue-demi'
 
-import { IValueSelectorContext } from './type'
-export function useValueSelector() {
-  const context: IValueSelectorContext = reactive({
+import { IPopoverContext } from './type'
+export function usePopover() {
+  const context: IPopoverContext = reactive({
     show() {
       throw new Error('context is null')
     },

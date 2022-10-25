@@ -1,6 +1,6 @@
 import { IPosition } from '../../types'
 
-export interface IValueSelectorContext {
+export interface IPopoverContext {
   close: () => void
   show: (e: IPosition) => void
   el?: HTMLDivElement

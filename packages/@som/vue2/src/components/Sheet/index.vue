@@ -34,6 +34,7 @@
 
 
               <div v-if="item.value"
+              :class="item.value?'cursor-pointer':''"
                 class="select-none pointer-events-auto relative w-full h-full flex justify-between border-l-[2px] border-blue-600">
 
                 <div class="text-left flex flex-col justify-evenly pl-1.5">
@@ -76,7 +77,7 @@
       </div>
 
     </ContextMenu>
-    <ValueSelector :context="valueSelectorContext">
+    <Popover :context="valueSelectorContext" placement="bottom-start">
       <div class="bg-white w-[360px]  p-2 border ">
         <div>未定义</div>
         <input class="border" placeholder="请输入" />
@@ -88,7 +89,7 @@
           </div>
         </div>
       </div>
-    </ValueSelector>
+    </Popover>
 
   </div>
 
@@ -114,11 +115,12 @@ import dayjs from 'dayjs'
 
 import { useContextMenu, ContextMenu } from './components/ContextMenu'
 import { useSelection, Selection } from './components/Selection'
-import { ValueSelector, useValueSelector } from './components/ValueSelector'
+// import { ValueSelector, useValueSelector } from './components/ValueSelector'
+import {Popover,usePopover} from './components/Popover'
 // import { OnClickOutside } from '@vueuse/components'
 // import SheetRow from './components/SheetRow.vue'
 
-const { context: valueSelectorContext } = useValueSelector()
+const { context: valueSelectorContext } = usePopover()
 const { x: windowX, y: windowY } = useWindowScroll()
 const { shiftState } = useKeyBoard()
 const container = ref<HTMLDivElement>()
