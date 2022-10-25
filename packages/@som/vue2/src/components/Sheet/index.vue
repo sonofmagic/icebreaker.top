@@ -33,7 +33,17 @@
 })">
 
 
-              <div class="select-none pointer-events-auto relative w-full h-full">{{ item.value }}</div>
+              <div v-if="item.value"
+                class="select-none pointer-events-auto relative w-full h-full flex justify-between border-l-[2px] border-blue-600">
+
+                <div class="text-left flex flex-col justify-evenly pl-1.5">
+                  <div class="text-[13px] text-[#333333]">加科技看看{{ item.value }}</div>
+                  <div class="text-xs text-[#B1B9CC]">15:30-18:00</div>
+                </div>
+                <div class="text-xs flex items-center pr-1.5">{{ item.locked ? '锁' : '' }}</div>
+
+
+              </div>
 
             </td>
           </tr>
@@ -51,10 +61,10 @@
         <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="closeContextMenu">
           粘贴
         </div>
-        <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="closeContextMenu">
+        <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="doLock">
           锁定
         </div>
-        <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="closeContextMenu">
+        <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="unlock">
           解锁
         </div>
         <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="closeContextMenu">
@@ -243,7 +253,7 @@ function getTdElement(e: MouseEvent) {
   const path = e.path as Element[]
   if (Array.isArray(path)) {
 
-    for (let i = 1; i < path.length; i++) {
+    for (let i = 0; i < path.length; i++) {
       const element = path[i];
       // @ts-ignore
       if (element.tagName === 'TD' && element.dataset.sheetCell === '1') {
@@ -259,7 +269,7 @@ function getTdElement(e: MouseEvent) {
 // https://developer.mozilla.org/zh-CN/docs/Web/API/MouseEvent/buttons
 function onMousedown(e: MouseEvent, attrs: ICellAttrs) {
   const target = getTdElement(e)
-
+  console.log('onMousedown',e)
   if (e.buttons === 1 && target) {
     startEventTarget.value = target
     const rect = getBoundingClientRect(startEventTarget.value)
@@ -268,7 +278,7 @@ function onMousedown(e: MouseEvent, attrs: ICellAttrs) {
       startSelection.value = true
     }
 
-    console.log('onMousedown')
+
     // startEventTargetRect.value = rect
     // + windowY.value
     const computedRect = {
@@ -288,9 +298,11 @@ function onMousedown(e: MouseEvent, attrs: ICellAttrs) {
 }
 
 function onMouseup(e: MouseEvent, attrs: ICellAttrs) {
-  if (e.buttons === 0) {
+
+  console.log('onMouseup',e)
+  if (e.buttons === 0 && e.button ===0) {
     startSelection.value = false
-    console.log('onMouseup')
+
     startCellAttrs.value = attrs
     if (endCellAttrs.value && startCellAttrs.value) {
       const values = getSelectionValues(endCellAttrs.value, startCellAttrs.value)
@@ -299,10 +311,28 @@ function onMouseup(e: MouseEvent, attrs: ICellAttrs) {
   }
 }
 
+function doLock(){
+  selectionValues.value?.forEach(x=>{
+    if(x.value){
+      x.locked = true
+}
+
+  })
+  closeContextMenu()
+}
+
+function unlock(){
+  selectionValues.value?.forEach(x=>{
+
+    x.locked = false
+  })
+  closeContextMenu()
+}
+
 const dblclickCellAttrs = ref<ICellAttrs>()
 
 function onDblclick(e: MouseEvent, attrs: ICellAttrs) {
-  console.log('onDblclick')
+  console.log('onDblclick',e)
   const target = getTdElement(e)
   if (target) {
     const el = target
@@ -327,13 +357,13 @@ function selectValue(value: unknown) {
 
 function _onMousemove(e: MouseEvent) {
   const target = getTdElement(e)
-  if(target){
+  if (target) {
     const el = target
 
-if (startSelection.value) {
-  const rect = el.getBoundingClientRect()
-  setMoveStyle(rect)
-}
+    if (startSelection.value) {
+      const rect = el.getBoundingClientRect()
+      setMoveStyle(rect)
+    }
   }
 
 }
