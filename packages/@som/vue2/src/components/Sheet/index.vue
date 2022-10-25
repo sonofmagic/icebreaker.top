@@ -270,7 +270,7 @@ function getTdElement(e: MouseEvent) {
 function onMousedown(e: MouseEvent, attrs: ICellAttrs) {
   const target = getTdElement(e)
   console.log('onMousedown',e)
-  if (e.buttons === 1 && target) {
+  if (e.buttons === 1 && e.button ===0 && target) {
     startEventTarget.value = target
     const rect = getBoundingClientRect(startEventTarget.value)
     // 设置开始拖动
@@ -300,7 +300,7 @@ function onMousedown(e: MouseEvent, attrs: ICellAttrs) {
 function onMouseup(e: MouseEvent, attrs: ICellAttrs) {
 
   console.log('onMouseup',e)
-  if (e.buttons === 0 && e.button ===0) {
+  if (e.buttons === 0 && e.button === 0) {
     startSelection.value = false
 
     startCellAttrs.value = attrs
