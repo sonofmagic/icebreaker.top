@@ -76,7 +76,17 @@
       </div>
 
     </ContextMenu>
-    <ValueSelector :context="valueSelectorContext" @select="selectValue"></ValueSelector>
+    <ValueSelector :context="valueSelectorContext">
+      <div>未定义</div>
+      <input class="border" placeholder="请输入" />
+      <div class="overflow-auto h-[200px]">
+        <div :key="i" v-for="i in 30" @click="selectValue($event, i)"
+          class="flex justify-around cursor-pointer hover:bg-blue-300">
+          <div class="flex-1">撒大声地</div>
+          <div class="flex-1">{{ i }}</div>
+        </div>
+      </div>
+    </ValueSelector>
 
   </div>
 
@@ -269,8 +279,8 @@ function getTdElement(e: MouseEvent) {
 // https://developer.mozilla.org/zh-CN/docs/Web/API/MouseEvent/buttons
 function onMousedown(e: MouseEvent, attrs: ICellAttrs) {
   const target = getTdElement(e)
-  console.log('onMousedown',e)
-  if (e.buttons === 1 && e.button ===0 && target) {
+  console.log('onMousedown', e)
+  if (e.buttons === 1 && e.button === 0 && target) {
     startEventTarget.value = target
     const rect = getBoundingClientRect(startEventTarget.value)
     // 设置开始拖动
@@ -299,7 +309,7 @@ function onMousedown(e: MouseEvent, attrs: ICellAttrs) {
 
 function onMouseup(e: MouseEvent, attrs: ICellAttrs) {
 
-  console.log('onMouseup',e)
+  console.log('onMouseup', e)
   if (e.buttons === 0 && e.button === 0) {
     startSelection.value = false
 
@@ -311,18 +321,18 @@ function onMouseup(e: MouseEvent, attrs: ICellAttrs) {
   }
 }
 
-function doLock(){
-  selectionValues.value?.forEach(x=>{
-    if(x.value){
+function doLock() {
+  selectionValues.value?.forEach(x => {
+    if (x.value) {
       x.locked = true
-}
+    }
 
   })
   closeContextMenu()
 }
 
-function unlock(){
-  selectionValues.value?.forEach(x=>{
+function unlock() {
+  selectionValues.value?.forEach(x => {
 
     x.locked = false
   })
@@ -332,7 +342,7 @@ function unlock(){
 const dblclickCellAttrs = ref<ICellAttrs>()
 
 function onDblclick(e: MouseEvent, attrs: ICellAttrs) {
-  console.log('onDblclick',e)
+  console.log('onDblclick', e)
   const target = getTdElement(e)
   if (target) {
     const el = target
@@ -348,12 +358,7 @@ function onDblclick(e: MouseEvent, attrs: ICellAttrs) {
 
 }
 
-function selectValue(value: unknown) {
-  console.log(value)
-  if (dblclickCellAttrs.value) {
-    dblclickCellAttrs.value.item.value = value
-  }
-}
+
 
 function _onMousemove(e: MouseEvent) {
   const target = getTdElement(e)
@@ -372,6 +377,12 @@ const onMousemove = throttle(_onMousemove, 20)
 
 
 
+const selectValue: (e: MouseEvent, value: unknown) => void = (e, value) => {
+  e.stopPropagation()
+  if (dblclickCellAttrs.value) {
+    dblclickCellAttrs.value.item.value = value
+  }
+}
 </script>
 
 <style lang="scss" scoped>

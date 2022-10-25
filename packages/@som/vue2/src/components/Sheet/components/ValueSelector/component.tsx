@@ -10,7 +10,6 @@ export const ValueSelector = defineComponent({
       type: Object as PropType<IValueSelectorContext>
     }
   },
-  emits: ['select'],
   setup(props) {
     const visible = ref(false)
     const { context } = toRefs(props)
@@ -78,25 +77,9 @@ export const ValueSelector = defineComponent({
     }
   },
   render() {
-    const arr = new Array(20).fill(0).map((_, idx) => idx)
-    const select: (e: MouseEvent, value: unknown) => void = (e, v) => {
-      e.stopPropagation()
-      this.$emit('select', v)
-    }
     return (
       <div ref="dom" style={{ visibility: this.visible ? 'visible' : 'hidden' }} class="bg-white w-[360px] border absolute left-0 top-0 p-2">
-        <div>未定义</div>
-        <input class="border" placeholder="请输入" />
-        <div class="overflow-auto h-[200px]">
-          {arr.map((x) => {
-            return (
-              <div onClick={(e) => select(e, x)} class="flex justify-around cursor-pointer hover:bg-blue-300">
-                <div class="flex-1">撒大声地</div>
-                <div class="flex-1">{x}</div>
-              </div>
-            )
-          })}
-        </div>
+        {this.$slots.default}
       </div>
     )
   }
