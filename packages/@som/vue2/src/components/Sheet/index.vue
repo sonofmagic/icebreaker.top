@@ -33,7 +33,7 @@
         </colgroup>
         <thead class=" bg-white z-10">
           <tr>
-            <th :key="i" v-for="(t, i) in cols" class="sticky top-0 left-0  h-[48px] text-center bg-white border">
+            <th :key="i" v-for="(t, i) in cols" class="sticky top-0 left-0  h-[48px] text-center bg-white border cursor-pointer">
               <!-- <div class="border w-full h-full"> -->
               {{ t.title }}
               <!-- </div> -->
@@ -477,7 +477,7 @@ function onMouseleave(e: MouseEvent, attrs: ICellAttrs) {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .has-note::after {
   // background-color: #3380FF;
   content: "";

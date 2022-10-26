@@ -11,6 +11,9 @@ const config = {
         }
       ]
     }
+  },
+  devServer: {
+    port: 8082
   }
 }
 
