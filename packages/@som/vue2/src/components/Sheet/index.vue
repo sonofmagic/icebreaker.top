@@ -308,9 +308,10 @@ function onMousedown(e: MouseEvent, attrs: ICellAttrs) {
         x.selected = true
       })
 
-    } else {
+    }else{
       resetDataSetSelected()
     }
+
     startEventTarget.value = target
     const rect = getBoundingClientRect(startEventTarget.value)
     // 设置开始拖动
