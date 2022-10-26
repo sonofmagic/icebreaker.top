@@ -39,7 +39,8 @@ export const Selection = defineComponent({
       flag
     }
   },
+  // bg-gray-900 bg-opacity-10
   render() {
-    return this.flag ? <div ref="dom" style={this.styleObject} class="absolute ring-2 ring-offset-0 ring-blue-600 pointer-events-none bg-gray-900 bg-opacity-10 left-0 top-0"></div> : undefined
+    return this.flag ? <div ref="dom" style={this.styleObject} class="absolute ring-2 ring-offset-0 ring-blue-600 pointer-events-none left-0 top-0"></div> : undefined
   }
 })

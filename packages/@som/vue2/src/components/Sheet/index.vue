@@ -344,7 +344,11 @@ function selectCellOver(attrs: ICellAttrs) {
   if (endCellAttrs.value && startCellAttrs.value) {
     const values = getCurrentSelectionValues(endCellAttrs.value, startCellAttrs.value)
     currentSelectionValues.value = values
+    // forEach(currentSelectionValues.value, x => {
+    //     x.selected = true
+    //   })
     forEach(values, x => {
+      x.selected = true
       selectedCellSet.value.add(x)
     })
 
