@@ -340,8 +340,8 @@ function selectCellOver(attrs: ICellAttrs) {
   startSelection.value = false
   startCellAttrs.value = attrs
   if (endCellAttrs.value && startCellAttrs.value) {
-    let d : ICellAttrs = startCellAttrs.value
-    if(!controlState.value){
+    let d: ICellAttrs = startCellAttrs.value
+    if (!controlState.value) {
       d = endCellAttrs.value
     }
     const values = getCurrentSelectionValues(endCellAttrs.value, d)
@@ -485,7 +485,7 @@ function resetDataSetSelected() {
   selectedCellSet.value.clear()
 }
 
-function doSetValue(value?:string) {
+function doSetValue(value?: string) {
   selectedCellSet.value.forEach(x => {
     x.value = value
   })
