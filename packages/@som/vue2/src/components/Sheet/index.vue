@@ -33,7 +33,7 @@
         </colgroup>
         <thead class=" bg-white z-10 sticky top-0 left-0">
           <tr>
-            <th :key="i" v-for="(t, i) in cols" class="p-0 h-[48px] text-center border cursor-pointer">
+            <th :key="i" v-for="(t, i) in cols" class="p-0 h-[48px] text-center border border-[#EEF0F4] cursor-pointer">
               <!-- <div class="border w-full h-full"> -->
               {{ t.title }}
               <!-- </div> -->
@@ -43,10 +43,13 @@
         </thead>
         <tbody>
           <tr :key="y" v-for="(row, y) in dataSet">
-            <td data-sheet-cell="1" class="p-0 border h-[48px] cursor-default select-none" :key="item.id"
-              @contextmenu.prevent="onContextmenu" @mousedown="onMousedown($event, {
-                rowIndex: y, colIndex: x, item
-              })" @mouseup="onMouseup($event, {
+            <td data-sheet-cell="1" class="p-0 border border-[#EEF0F4] h-[48px] cursor-default select-none relative"
+              :class="[
+
+                item.selected ? 'sheet-cell-selected' : ''
+              ]" :key="item.id" @contextmenu.prevent="onContextmenu" @mousedown="onMousedown($event, {
+  rowIndex: y, colIndex: x, item
+})" @mouseup="onMouseup($event, {
   rowIndex: y, colIndex: x, item
 })" @mousemove="onMousemove" v-for="(item, x) in row.cells" @dblclick="onDblclick($event, {
   rowIndex: y, colIndex: x, item
@@ -103,6 +106,12 @@
         <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="closeContextMenu">
           复制上一区间
         </div>
+        <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="doSetValue(1)">
+          set(1)
+        </div>
+        <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="doSetValue(2)">
+          set(2)
+        </div>
       </div>
 
     </ContextMenu>
@@ -135,7 +144,7 @@
 
 <script lang="ts" setup>
 import { MessageBox } from 'element-ui'
-import { computed, defineComponent, ref, onMounted, nextTick, reactive } from 'vue-demi'
+import { computed, defineComponent, ref, onMounted, nextTick, reactive, watch } from 'vue-demi'
 
 // @ts-ignore
 import ColumnResizer from 'column-resizer'
@@ -143,9 +152,7 @@ import ColumnResizer from 'column-resizer'
 import VirtualList from 'vue-virtual-scroll-list'
 import { pick, throttle } from 'lodash-es'
 import { onClickOutside, useWindowScroll, useScroll, unrefElement } from '@vueuse/core'
-import useContainer from './hooks/useContainer'
-
-import useKeyBoard from './hooks/useKeyBoard'
+import {useContainer,useDataSource,useKeyBoard} from './hooks'
 import { getDirection, getBoundingClientRect } from './utils'
 import type { IDataSourceItem, IDataSourceRow, ICellAttrs } from './types'
 import dayjs from 'dayjs'
@@ -163,7 +170,7 @@ const { context: showDetailContext } = usePopover()
 const { x: windowX, y: windowY } = useWindowScroll()
 const { shiftState, controlState } = useKeyBoard()
 const container = ref<HTMLDivElement>()
-const selectionValues = ref<IDataSourceItem[]>()
+const currentSelectionValues = ref<IDataSourceItem[]>()
 const { left: containerLeft, top: containerTop, scrollX: containerScrollX, scrollY: containerScrollY } = useContainer(container)
 
 const { resetSelectionPosition, selectionPosition, startCellAttrs, endCellAttrs, startEventTarget, assign: selectionAssign, reset: selectionReset, selectionStyle, context: selectionContext } = useSelection({
@@ -178,48 +185,14 @@ const { resetSelectionPosition, selectionPosition, startCellAttrs, endCellAttrs,
     scrollY: windowY
   }
 })
+const {cols,dataSource} = useDataSource()
 
-const dataSetSource: IDataSourceRow[] = []
-const cols = ref<{
-  key: string | number
-  title: string
-  width: number | string
-}[]>([])
-const firstDay = dayjs().startOf('M')
-for (let i = 0; i < 30; i++) {
-  cols.value.push({
-    width: 120,
-    title: firstDay.add(i, 'day').format('YYYY-MM-DD'),
-    key: i
-  })
-
-}
-for (let i = 0; i < 100; i++) {
-  const tr = []
-  for (let j = 0; j < 30; j++) {
-    const td: IDataSourceItem = {
-      value: undefined,// `${i}-${j}`,
-      id: `${i}-${j}`,
-      selected: false,
-      readonly: false,
-      disabled: false,
-      editing: false,
-      locked: false,
-      note: ''
-
-    }
-    tr.push(td)
-  }
-  dataSetSource.push({
-    cells: tr,
-    key: 'row' + i,
-  })
-}
-const dataSet = ref(dataSetSource)
+const dataSet = dataSource
 const startSelection = ref(false)
 
 const { context: menuContext } = useContextMenu()
 
+const selectedCellSet = ref(new Set<IDataSourceItem>())
 
 const closeContextMenu = () => {
   menuContext.close()
@@ -238,7 +211,7 @@ function onContextmenu(e: MouseEvent) {
   }
 
 }
-function getSelectionValues(start: ICellAttrs, end: ICellAttrs): IDataSourceItem[] {
+function getCurrentSelectionValues(start: ICellAttrs, end: ICellAttrs): IDataSourceItem[] {
   const { colIndex: startcolIndex, rowIndex: startrowIndex } = start
   const { colIndex: endcolIndex, rowIndex: endrowIndex } = end
   const rows = [Math.min(startrowIndex, endrowIndex), Math.max(startrowIndex, endrowIndex) + 1]
@@ -324,7 +297,16 @@ function getTdElement(e: MouseEvent) {
 function onMousedown(e: MouseEvent, attrs: ICellAttrs) {
   const target = getTdElement(e)
   console.log('onMousedown', e)
+
   if (e.buttons === 1 && e.button === 0 && target) {
+
+    if (!controlState.value) {
+    resetDataSetSelected()
+  } else {
+    currentSelectionValues.value?.forEach(x => {
+      x.selected = true
+    })
+  }
     startEventTarget.value = target
     const rect = getBoundingClientRect(startEventTarget.value)
     // 设置开始拖动
@@ -359,14 +341,18 @@ function onMouseup(e: MouseEvent, attrs: ICellAttrs) {
 
     startCellAttrs.value = attrs
     if (endCellAttrs.value && startCellAttrs.value) {
-      const values = getSelectionValues(endCellAttrs.value, startCellAttrs.value)
-      selectionValues.value = values
+      const values = getCurrentSelectionValues(endCellAttrs.value, startCellAttrs.value)
+      currentSelectionValues.value = values
+
+      values.forEach(x=>{
+        selectedCellSet.value.add(x)
+      })
     }
   }
 }
 
 function doLock() {
-  selectionValues.value?.forEach(x => {
+  selectedCellSet.value?.forEach(x => {
     if (x.value) {
       x.locked = true
     }
@@ -376,7 +362,7 @@ function doLock() {
 }
 
 function unlock() {
-  selectionValues.value?.forEach(x => {
+  selectedCellSet.value?.forEach(x => {
 
     x.locked = false
   })
@@ -449,16 +435,17 @@ function onMouseenter(e: MouseEvent, attrs: ICellAttrs) {
 }
 
 async function doNote() {
-  if (selectionValues.value) {
-    const single = selectionValues.value.length === 1
+  if (selectedCellSet.value) {
+    const single = selectedCellSet.value.size === 1
+    const defaultNote = single ? Array.from(selectedCellSet.value.values())[0].note : ''
     const res = await MessageBox.prompt('', '添加备注', {
       inputType: 'textArea',
-      inputValue: single ? selectionValues.value[0].note : '',
+      inputValue: defaultNote,
       inputPlaceholder: '请输入备注',
       closeOnClickModal: false,
       closeOnPressEscape: false
     })
-    selectionValues.value?.forEach(x => {
+    selectedCellSet.value?.forEach(x => {
       // @ts-ignore
       x.note = res.value
     })
@@ -475,6 +462,38 @@ function onMouseleave(e: MouseEvent, attrs: ICellAttrs) {
   //   showDetailContext.close()
   // }
 }
+
+function resetDataSetSelected() {
+  dataSet.value.forEach(x => {
+    x.cells.forEach(y => {
+      y.selected = false
+    })
+  })
+  selectedCellSet.value.clear()
+}
+
+function doSetValue(value = 1) {
+  selectedCellSet.value.forEach(x=>{
+    x.value = value
+  })
+  closeContextMenu()
+}
+
+
+// watch(() => {
+//   return controlState.value
+// }, (nv) => {
+//   if (nv) {
+
+//   } else {
+//     dataSet.value.forEach(x => {
+//       x.cells.forEach(y => {
+//         y.selected = false
+//       })
+//     })
+//   }
+
+// })
 </script>
 
 <style lang="scss">
@@ -488,5 +507,15 @@ function onMouseleave(e: MouseEvent, attrs: ICellAttrs) {
   width: 0;
   border-top: 11px solid #3380FF;
   border-left: 13px solid transparent;
+}
+
+.sheet-cell-selected::before {
+  position: absolute;
+  content: '';
+  left: 1px;
+  right: 1px;
+  top: 1px;
+  bottom: 1px;
+  @apply bg-gray-900 bg-opacity-10;
 }
 </style>
