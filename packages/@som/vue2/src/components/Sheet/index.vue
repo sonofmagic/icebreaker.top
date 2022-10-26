@@ -112,6 +112,9 @@
         <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="doSetValue(2)">
           set(2)
         </div>
+        <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="doSetValue()">
+          clear
+        </div>
       </div>
 
     </ContextMenu>
@@ -150,7 +153,7 @@ import { computed, defineComponent, ref, onMounted, nextTick, reactive, watch } 
 import ColumnResizer from 'column-resizer'
 // @ts-ignore
 import VirtualList from 'vue-virtual-scroll-list'
-import { pick, throttle,forEach } from 'lodash-es'
+import { pick, throttle, forEach } from 'lodash-es'
 import { onClickOutside, useWindowScroll, useScroll, unrefElement } from '@vueuse/core'
 import { useContainer, useDataSource, useKeyBoard } from './hooks'
 import { getDirection, getBoundingClientRect } from './utils'
@@ -291,13 +294,20 @@ function onMousedown(e: MouseEvent, attrs: ICellAttrs) {
   // console.log('onMousedown', e)
 
   if (e.buttons === 1 && e.button === 0 && target) {
-
-    if (!controlState.value) {
-      resetDataSetSelected()
-    } else {
-      forEach(currentSelectionValues.value,x => {
+    if (shiftState.value) {
+      if (startEventTarget.value) {
+        // const rect = getBoundingClientRect(target)
+        // setMoveStyle(rect)
+      }
+      return
+    }
+    if (controlState.value) {
+      forEach(currentSelectionValues.value, x => {
         x.selected = true
       })
+
+    } else {
+      resetDataSetSelected()
     }
     startEventTarget.value = target
     const rect = getBoundingClientRect(startEventTarget.value)
@@ -307,8 +317,7 @@ function onMousedown(e: MouseEvent, attrs: ICellAttrs) {
     }
 
 
-    // startEventTargetRect.value = rect
-    // + windowY.value
+
     const computedRect = {
       left: rect.left + containerScrollX.value - containerLeft.value,
       right: rect.right + containerScrollX.value - containerLeft.value,
@@ -325,21 +334,25 @@ function onMousedown(e: MouseEvent, attrs: ICellAttrs) {
   }
 }
 
+function selectCellOver(attrs: ICellAttrs) {
+  startSelection.value = false
+
+  startCellAttrs.value = attrs
+  if (endCellAttrs.value && startCellAttrs.value) {
+    const values = getCurrentSelectionValues(endCellAttrs.value, startCellAttrs.value)
+    currentSelectionValues.value = values
+    forEach(values, x => {
+      selectedCellSet.value.add(x)
+    })
+
+  }
+}
+
 function onMouseup(e: MouseEvent, attrs: ICellAttrs) {
 
   // console.log('onMouseup', e)
   if (e.buttons === 0 && e.button === 0) {
-    startSelection.value = false
-
-    startCellAttrs.value = attrs
-    if (endCellAttrs.value && startCellAttrs.value) {
-      const values = getCurrentSelectionValues(endCellAttrs.value, startCellAttrs.value)
-      currentSelectionValues.value = values
-      forEach(values,x => {
-        selectedCellSet.value.add(x)
-      })
-
-    }
+    selectCellOver(attrs)
   }
 }
 
@@ -381,13 +394,12 @@ function onDblclick(e: MouseEvent, attrs: ICellAttrs) {
 
 
 
+
 function _onMousemove(e: MouseEvent) {
   const target = getTdElement(e)
   if (target) {
-    const el = target
-
     if (startSelection.value) {
-      const rect = getBoundingClientRect(el)
+      const rect = getBoundingClientRect(target)
       setMoveStyle(rect)
     }
   }
@@ -456,15 +468,15 @@ function onMouseleave(e: MouseEvent, attrs: ICellAttrs) {
 }
 
 function resetDataSetSelected() {
-  dataSource.value.forEach(x => {
-    x.cells.forEach(y => {
+  forEach(dataSource.value, x => {
+    forEach(x.cells, y => {
       y.selected = false
     })
   })
   selectedCellSet.value.clear()
 }
 
-function doSetValue(value = 1) {
+function doSetValue(value?:string) {
   selectedCellSet.value.forEach(x => {
     x.value = value
   })
