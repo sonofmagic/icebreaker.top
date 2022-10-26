@@ -42,7 +42,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr :key="y" v-for="(row, y) in dataSet">
+          <tr :key="y" v-for="(row, y) in dataSource">
             <td data-sheet-cell="1" class="p-0 border border-[#EEF0F4] h-[48px] cursor-default select-none relative"
               :class="[
 
@@ -150,27 +150,22 @@ import { computed, defineComponent, ref, onMounted, nextTick, reactive, watch } 
 import ColumnResizer from 'column-resizer'
 // @ts-ignore
 import VirtualList from 'vue-virtual-scroll-list'
-import { pick, throttle } from 'lodash-es'
+import { pick, throttle,forEach } from 'lodash-es'
 import { onClickOutside, useWindowScroll, useScroll, unrefElement } from '@vueuse/core'
-import {useContainer,useDataSource,useKeyBoard} from './hooks'
+import { useContainer, useDataSource, useKeyBoard } from './hooks'
 import { getDirection, getBoundingClientRect } from './utils'
 import type { IDataSourceItem, IDataSourceRow, ICellAttrs } from './types'
-import dayjs from 'dayjs'
-
-
 import { useContextMenu, ContextMenu } from './components/ContextMenu'
 import { useSelection, Selection } from './components/Selection'
-// import { ValueSelector, useValueSelector } from './components/ValueSelector'
 import { Popover, usePopover } from './components/Popover'
-// import { OnClickOutside } from '@vueuse/components'
-// import SheetRow from './components/SheetRow.vue'
 
 const { context: valueSelectorContext } = usePopover()
 const { context: showDetailContext } = usePopover()
 const { x: windowX, y: windowY } = useWindowScroll()
 const { shiftState, controlState } = useKeyBoard()
+const { cols, dataSource } = useDataSource()
+const { context: menuContext } = useContextMenu()
 const container = ref<HTMLDivElement>()
-const currentSelectionValues = ref<IDataSourceItem[]>()
 const { left: containerLeft, top: containerTop, scrollX: containerScrollX, scrollY: containerScrollY } = useContainer(container)
 
 const { resetSelectionPosition, selectionPosition, startCellAttrs, endCellAttrs, startEventTarget, assign: selectionAssign, reset: selectionReset, selectionStyle, context: selectionContext } = useSelection({
@@ -185,14 +180,14 @@ const { resetSelectionPosition, selectionPosition, startCellAttrs, endCellAttrs,
     scrollY: windowY
   }
 })
-const {cols,dataSource} = useDataSource()
 
-const dataSet = dataSource
+
+
+const currentSelectionValues = ref<IDataSourceItem[]>()
 const startSelection = ref(false)
-
-const { context: menuContext } = useContextMenu()
-
 const selectedCellSet = ref(new Set<IDataSourceItem>())
+
+
 
 const closeContextMenu = () => {
   menuContext.close()
@@ -200,10 +195,7 @@ const closeContextMenu = () => {
 
 function onContextmenu(e: MouseEvent) {
   if (selectionContext.el) {
-    const rect = selectionContext.el.getBoundingClientRect()
-    // console.log(rect)
-    // e.clientX
-    // e.clientY
+    const rect = getBoundingClientRect(selectionContext.el)
     menuContext.show({
       x: rect.left + rect.width,
       y: rect.top + (rect.height / 2)
@@ -216,7 +208,7 @@ function getCurrentSelectionValues(start: ICellAttrs, end: ICellAttrs): IDataSou
   const { colIndex: endcolIndex, rowIndex: endrowIndex } = end
   const rows = [Math.min(startrowIndex, endrowIndex), Math.max(startrowIndex, endrowIndex) + 1]
   const cols = [Math.min(startcolIndex, endcolIndex), Math.max(startcolIndex, endcolIndex) + 1]
-  const values = dataSet.value.slice(...rows).map(x => {
+  const values = dataSource.value.slice(...rows).map(x => {
     return x.cells.slice(...cols)
   })
   return values.flat(1)
@@ -261,7 +253,7 @@ function setMoveStyle(rect: DOMRect) {
   } else {
     selectionReset('y')
   }
-  console.log(offsetX, offsetY, getDirection([offsetX, offsetY]))
+  // console.log(offsetX, offsetY, getDirection([offsetX, offsetY]))
 
 
 
@@ -296,17 +288,17 @@ function getTdElement(e: MouseEvent) {
 // https://developer.mozilla.org/zh-CN/docs/Web/API/MouseEvent/buttons
 function onMousedown(e: MouseEvent, attrs: ICellAttrs) {
   const target = getTdElement(e)
-  console.log('onMousedown', e)
+  // console.log('onMousedown', e)
 
   if (e.buttons === 1 && e.button === 0 && target) {
 
     if (!controlState.value) {
-    resetDataSetSelected()
-  } else {
-    currentSelectionValues.value?.forEach(x => {
-      x.selected = true
-    })
-  }
+      resetDataSetSelected()
+    } else {
+      forEach(currentSelectionValues.value,x => {
+        x.selected = true
+      })
+    }
     startEventTarget.value = target
     const rect = getBoundingClientRect(startEventTarget.value)
     // 设置开始拖动
@@ -335,7 +327,7 @@ function onMousedown(e: MouseEvent, attrs: ICellAttrs) {
 
 function onMouseup(e: MouseEvent, attrs: ICellAttrs) {
 
-  console.log('onMouseup', e)
+  // console.log('onMouseup', e)
   if (e.buttons === 0 && e.button === 0) {
     startSelection.value = false
 
@@ -343,10 +335,10 @@ function onMouseup(e: MouseEvent, attrs: ICellAttrs) {
     if (endCellAttrs.value && startCellAttrs.value) {
       const values = getCurrentSelectionValues(endCellAttrs.value, startCellAttrs.value)
       currentSelectionValues.value = values
-
-      values.forEach(x=>{
+      forEach(values,x => {
         selectedCellSet.value.add(x)
       })
+
     }
   }
 }
@@ -372,10 +364,10 @@ function unlock() {
 const dblclickCellAttrs = ref<ICellAttrs>()
 
 function onDblclick(e: MouseEvent, attrs: ICellAttrs) {
-  console.log('onDblclick', e)
+  // console.log('onDblclick', e)
   const target = getTdElement(e)
   if (target) {
-    const rect = target.getBoundingClientRect()
+    const rect = getBoundingClientRect(target)
 
     valueSelectorContext.show({
       x: rect.left,
@@ -395,7 +387,7 @@ function _onMousemove(e: MouseEvent) {
     const el = target
 
     if (startSelection.value) {
-      const rect = el.getBoundingClientRect()
+      const rect = getBoundingClientRect(el)
       setMoveStyle(rect)
     }
   }
@@ -421,7 +413,7 @@ function onMouseenter(e: MouseEvent, attrs: ICellAttrs) {
   if (target) {
     showDetailContext.close()
     if (attrs.item.value) {
-      const rect = target.getBoundingClientRect()
+      const rect = getBoundingClientRect(target)
       detailCellAttrs.value = attrs
       showDetailContext.show({
         x: rect.left,
@@ -464,7 +456,7 @@ function onMouseleave(e: MouseEvent, attrs: ICellAttrs) {
 }
 
 function resetDataSetSelected() {
-  dataSet.value.forEach(x => {
+  dataSource.value.forEach(x => {
     x.cells.forEach(y => {
       y.selected = false
     })
@@ -473,7 +465,7 @@ function resetDataSetSelected() {
 }
 
 function doSetValue(value = 1) {
-  selectedCellSet.value.forEach(x=>{
+  selectedCellSet.value.forEach(x => {
     x.value = value
   })
   closeContextMenu()

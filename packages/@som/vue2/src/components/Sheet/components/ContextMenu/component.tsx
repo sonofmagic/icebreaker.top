@@ -37,7 +37,7 @@ export const ContextMenu = defineComponent({
       }
       if (menuRef.value) {
         const rect = menuRef.value.getBoundingClientRect()
-        console.log(rect)
+        // console.log(rect)
         computePosition(virtualEl, menuRef.value, {
           placement: 'right',
           middleware: [
