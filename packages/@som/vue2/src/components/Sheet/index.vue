@@ -24,16 +24,16 @@
 
 
     <div>
-      <table ref="table" class="w-auto table-fixed border-collapse text-center bg-white">
+      <table ref="table" class="w-auto table-fixed border-collapse text-center bg-white relative">
         <colgroup>
           <col :key="col.key" :style="{
             'min-width': col.width + 'px'
           }" :width="col.width" v-for="col in cols">
           </col>
         </colgroup>
-        <thead class=" bg-white z-10">
+        <thead class=" bg-white z-10 sticky top-0 left-0">
           <tr>
-            <th :key="i" v-for="(t, i) in cols" class="sticky top-0 left-0  h-[48px] text-center bg-white border cursor-pointer">
+            <th :key="i" v-for="(t, i) in cols" class="p-0 h-[48px] text-center border cursor-pointer">
               <!-- <div class="border w-full h-full"> -->
               {{ t.title }}
               <!-- </div> -->
@@ -43,7 +43,7 @@
         </thead>
         <tbody>
           <tr :key="y" v-for="(row, y) in dataSet">
-            <td data-sheet-cell="1" class="border h-[48px] cursor-default select-none" :key="item.id"
+            <td data-sheet-cell="1" class="p-0 border h-[48px] cursor-default select-none" :key="item.id"
               @contextmenu.prevent="onContextmenu" @mousedown="onMousedown($event, {
                 rowIndex: y, colIndex: x, item
               })" @mouseup="onMouseup($event, {
@@ -161,7 +161,7 @@ import { Popover, usePopover } from './components/Popover'
 const { context: valueSelectorContext } = usePopover()
 const { context: showDetailContext } = usePopover()
 const { x: windowX, y: windowY } = useWindowScroll()
-const { shiftState } = useKeyBoard()
+const { shiftState, controlState } = useKeyBoard()
 const container = ref<HTMLDivElement>()
 const selectionValues = ref<IDataSourceItem[]>()
 const { left: containerLeft, top: containerTop, scrollX: containerScrollX, scrollY: containerScrollY } = useContainer(container)
@@ -328,7 +328,7 @@ function onMousedown(e: MouseEvent, attrs: ICellAttrs) {
     startEventTarget.value = target
     const rect = getBoundingClientRect(startEventTarget.value)
     // 设置开始拖动
-    if (shiftState.value) {
+    if (controlState.value) {
       startSelection.value = true
     }
 
