@@ -222,10 +222,10 @@ function getCurrentSelectionValues(start: ICellAttrs, end: ICellAttrs): IDataSou
 
 function setMoveStyle(rect: DOMRect) {
   // console.log(rect.left, selectionPosition.value.left)
-  const centerRect = getBoundingClientRect(startEventTarget.value)
-  // console.log(centerRect)
-  const offsetX = rect.left - centerRect.left  // containerLeft.value - selectionPosition.value.left
-  const offsetY = rect.top - centerRect.top // containerTop.value - selectionPosition.value.top
+  const originPointRect = getBoundingClientRect(startEventTarget.value)
+  // console.log(originPointRect)
+  const offsetX = rect.left - originPointRect.left  // containerLeft.value - selectionPosition.value.left
+  const offsetY = rect.top - originPointRect.top // containerTop.value - selectionPosition.value.top
 
   if (offsetX > 0) {
     // 右
@@ -256,7 +256,7 @@ function setMoveStyle(rect: DOMRect) {
   } else {
     selectionReset('y')
   }
-  // console.log(offsetX, offsetY, getDirection([offsetX, offsetY]))
+  console.log(offsetX, offsetY, getDirection([offsetX, offsetY]))
 
 
 
@@ -296,8 +296,10 @@ function onMousedown(e: MouseEvent, attrs: ICellAttrs) {
   if (e.buttons === 1 && e.button === 0 && target) {
     if (shiftState.value) {
       if (startEventTarget.value) {
-        // const rect = getBoundingClientRect(target)
-        // setMoveStyle(rect)
+        const rect = getBoundingClientRect(target)
+        selectionReset()
+        setMoveStyle(rect)
+        // console.log(startEventTarget.value,target)
       }
       return
     }
