@@ -303,13 +303,12 @@ function onMousedown(e: MouseEvent, attrs: ICellAttrs) {
       }
       return
     }
-    if (controlState.value) {
-      forEach(currentSelectionValues.value, x => {
-        x.selected = true
-      })
-
-    }else{
+    if (!controlState.value) {
       resetDataSetSelected()
+      // forEach(currentSelectionValues.value, x => {
+      //   x.selected = true
+      // })
+
     }
 
     startEventTarget.value = target
@@ -339,10 +338,13 @@ function onMousedown(e: MouseEvent, attrs: ICellAttrs) {
 
 function selectCellOver(attrs: ICellAttrs) {
   startSelection.value = false
-
   startCellAttrs.value = attrs
   if (endCellAttrs.value && startCellAttrs.value) {
-    const values = getCurrentSelectionValues(endCellAttrs.value, startCellAttrs.value)
+    let d : ICellAttrs = startCellAttrs.value
+    if(!controlState.value){
+      d = endCellAttrs.value
+    }
+    const values = getCurrentSelectionValues(endCellAttrs.value, d)
     currentSelectionValues.value = values
     // forEach(currentSelectionValues.value, x => {
     //     x.selected = true
