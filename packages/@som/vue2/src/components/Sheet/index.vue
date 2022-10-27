@@ -18,7 +18,7 @@
   class="w-auto table table-fixed border-collapse text-center bg-white h-[500px] overflow-y-auto" :data-key="'key'"
   :data-sources="dataSet" :data-component="SheetRow">
 </VirtualList> -->
-  <div ref="container" class="relative overflow-y-auto">
+  <div ref="container" class="relative overflow-y-auto" @scroll="onContainerScroll">
 
 
 
@@ -507,6 +507,10 @@ function doSetValue(value?: string) {
 //   }
 
 // })
+
+function onContainerScroll(payload: UIEvent){
+  console.log(payload)
+}
 </script>
 
 <style lang="scss">
