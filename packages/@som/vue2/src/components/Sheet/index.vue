@@ -28,12 +28,12 @@
         <colgroup>
           <col :key="col.key" :style="{
             'min-width': col.width + 'px'
-          }" :width="col.width" v-for="col in cols">
+          }" :width="col.width" v-for="col in columns">
           </col>
         </colgroup>
         <thead class=" bg-white z-10 sticky top-0 left-0">
           <tr>
-            <th :key="i" v-for="(t, i) in cols" class="p-0 h-[48px] text-center border border-[#EEF0F4] cursor-pointer">
+            <th :key="i" v-for="(t, i) in columns" class="p-0 h-[48px] text-center border border-[#EEF0F4] cursor-pointer">
               <!-- <div class="border w-full h-full"> -->
               {{ t.title }}
               <!-- </div> -->
@@ -147,7 +147,7 @@
 
 <script lang="ts" setup>
 import { MessageBox } from 'element-ui'
-import { computed, defineComponent, ref, onMounted, nextTick, reactive, watch } from 'vue-demi'
+import { computed, defineComponent, ref, onMounted, nextTick, reactive, watch,toRefs } from 'vue-demi'
 
 // @ts-ignore
 import ColumnResizer from 'column-resizer'
@@ -157,7 +157,7 @@ import { pick, throttle, forEach } from 'lodash-es'
 import { onClickOutside, useWindowScroll, useScroll, unrefElement } from '@vueuse/core'
 import { useContainer, useDataSource, useKeyBoard } from './hooks'
 import { getDirection, getBoundingClientRect } from './utils'
-import type { IDataSourceItem, IDataSourceRow, ICellAttrs,IScrollOffset } from './types'
+import type { IDataSourceItem, IDataSourceRow, ICellAttrs,IScrollOffset,IColumn } from './types'
 import { useContextMenu, ContextMenu } from './components/ContextMenu'
 import { useSelection, Selection } from './components/Selection'
 import { Popover, usePopover } from './components/Popover'
@@ -166,7 +166,7 @@ const { context: valueSelectorContext } = usePopover()
 const { context: showDetailContext } = usePopover()
 const { x: windowX, y: windowY } = useWindowScroll()
 const { shiftState, controlState } = useKeyBoard()
-const { cols, dataSource } = useDataSource()
+
 const { context: menuContext } = useContextMenu()
 const container = ref<HTMLDivElement>()
 const { left: containerLeft, top: containerTop, scrollX: containerScrollX, scrollY: containerScrollY } = useContainer(container)
@@ -187,6 +187,12 @@ const { resetSelectionPosition, selectionPosition, startCellAttrs, endCellAttrs,
 const emit = defineEmits<{
   (e:'scroll',payload:IScrollOffset):void
 }>()
+
+const props = defineProps<{
+  dataSource:IDataSourceRow[],
+  columns:IColumn[]
+}>()
+const {columns,dataSource} = toRefs(props)
 
 const currentSelectionValues = ref<IDataSourceItem[]>()
 const startSelection = ref(false)

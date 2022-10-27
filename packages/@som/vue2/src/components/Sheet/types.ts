@@ -33,3 +33,9 @@ export interface IScrollOffset {
   scrollLeft: number
   scrollTop: number
 }
+
+export interface IColumn {
+  key: string | number
+  title: string
+  width: number | string
+}

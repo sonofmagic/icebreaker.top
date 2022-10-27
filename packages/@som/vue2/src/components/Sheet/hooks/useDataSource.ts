@@ -4,7 +4,7 @@ import dayjs from 'dayjs'
 
 export default function useDataSource() {
   const dataSetSource: IDataSourceRow[] = []
-  const cols = ref<
+  const columns = ref<
     {
       key: string | number
       title: string
@@ -13,7 +13,7 @@ export default function useDataSource() {
   >([])
   const firstDay = dayjs().startOf('M')
   for (let i = 0; i < 30; i++) {
-    cols.value.push({
+    columns.value.push({
       width: 120,
       title: firstDay.add(i, 'day').format('YYYY-MM-DD'),
       key: i
@@ -41,7 +41,7 @@ export default function useDataSource() {
   }
   const dataSource = ref(dataSetSource)
   return {
-    cols,
+    columns,
     dataSource
   }
 }
