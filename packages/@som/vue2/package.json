@@ -14,6 +14,7 @@
     "@formily/element": "^2.2.8",
     "@formily/vue": "^2.2.8",
     "@popperjs/core": "^2.11.6",
+    "@virtual-list/vue": "^1.1.5",
     "@vue/composition-api": "^1.7.1",
     "@vueuse/components": "^9.3.0",
     "ant-design-vue": "1.7.8",

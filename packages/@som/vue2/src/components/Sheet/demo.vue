@@ -1,5 +1,21 @@
 <template>
   <div class="max-w-[100vw] max-h-[100vh]">
+    <VirtualList :items="items" table class="list-table" style="height: 100px">
+      <template #prepend>
+        <thead>
+          <tr>
+            <th>Text</th>
+            <th>Index</th>
+          </tr>
+        </thead>
+      </template>
+      <template #default="{ item, index }">
+        <tr>
+          <td>{{ index }}</td>
+          <td>ITEM: {{ index }} - {{ item['text'] }}</td>
+        </tr>
+      </template>
+    </VirtualList>
     <!-- <TwoBall></TwoBall> -->
     <div class="flex relative p-16 h-screen">
       <div class="mr-2 flex-shrink-0 w-[200px] flex flex-col">
@@ -24,11 +40,20 @@
 </template>
 
 <script lang="ts" setup>
+//
+// import VirtualList from './components/VirtualList'
+import VirtualList from '@virtual-list/vue/vue2'
 // import TwoBall from '@/components/TwoBalls/index.vue'
 import { ref } from 'vue-demi'
 import Sheet from '@/components/Sheet/index.vue'
 import type { IScrollOffset } from './types'
 import { useDataSource } from './hooks'
+
+const items = new Array(1000).fill(1).map((v, i) => ({
+  text: 'Item ' + i,
+  lineHeight: 20 + (i % 20) + 'px',
+  width: 100 + (i % 30) + 'px'
+}))
 const { columns, dataSource } = useDataSource()
 const dom = ref<HTMLDivElement>()
 const syncScroll = ({ scrollLeft, scrollTop }: IScrollOffset) => {

@@ -153,7 +153,7 @@ import { computed, defineComponent, ref, onMounted, nextTick, reactive, watch, t
 // @ts-ignore
 // import ColumnResizer from 'column-resizer'
 // @ts-ignore
-import VirtualList from 'vue-virtual-scroll-list'
+// import VirtualList from 'vue-virtual-scroll-list'
 import { pick, throttle, forEach } from 'lodash-es'
 import { onClickOutside, useWindowScroll, useScroll, unrefElement } from '@vueuse/core'
 import { useContainer, useDataSource, useKeyBoard } from './hooks'
