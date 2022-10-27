@@ -157,7 +157,7 @@ import { pick, throttle, forEach } from 'lodash-es'
 import { onClickOutside, useWindowScroll, useScroll, unrefElement } from '@vueuse/core'
 import { useContainer, useDataSource, useKeyBoard } from './hooks'
 import { getDirection, getBoundingClientRect } from './utils'
-import type { IDataSourceItem, IDataSourceRow, ICellAttrs } from './types'
+import type { IDataSourceItem, IDataSourceRow, ICellAttrs,IScrollOffset } from './types'
 import { useContextMenu, ContextMenu } from './components/ContextMenu'
 import { useSelection, Selection } from './components/Selection'
 import { Popover, usePopover } from './components/Popover'
@@ -184,7 +184,9 @@ const { resetSelectionPosition, selectionPosition, startCellAttrs, endCellAttrs,
   }
 })
 
-
+const emit = defineEmits<{
+  (e:'scroll',payload:IScrollOffset):void
+}>()
 
 const currentSelectionValues = ref<IDataSourceItem[]>()
 const startSelection = ref(false)
@@ -341,9 +343,16 @@ function selectCellOver(attrs: ICellAttrs) {
   startCellAttrs.value = attrs
   if (endCellAttrs.value && startCellAttrs.value) {
     let d: ICellAttrs = startCellAttrs.value
-    if (!controlState.value) {
+    // console.log(controlState.value,shiftState.value)
+    // 避免不按ctrl时拖动选中多个cell
+    if (!controlState.value ) {
       d = endCellAttrs.value
     }
+    // shfit 时点击其他选择多个
+    if(shiftState.value){
+      d = startCellAttrs.value
+    }
+
     const values = getCurrentSelectionValues(endCellAttrs.value, d)
     currentSelectionValues.value = values
     // forEach(currentSelectionValues.value, x => {
@@ -485,7 +494,7 @@ function resetDataSetSelected() {
   selectedCellSet.value.clear()
 }
 
-function doSetValue(value?: string) {
+function doSetValue(value?: number) {
   selectedCellSet.value.forEach(x => {
     x.value = value
   })
@@ -508,8 +517,15 @@ function doSetValue(value?: string) {
 
 // })
 
+
+
 function onContainerScroll(payload: UIEvent){
-  console.log(payload)
+  // console.log(payload)
+  // console.log(container.value?.scrollLeft,container.value?.scrollTop)
+  emit('scroll',{
+    scrollLeft:container.value?.scrollLeft??0,
+    scrollTop:container.value?.scrollTop??0
+  })
 }
 </script>
 

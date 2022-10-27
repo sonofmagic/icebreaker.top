@@ -28,3 +28,8 @@ export interface IPosition {
   x: number
   y: number
 }
+
+export interface IScrollOffset {
+  scrollLeft: number
+  scrollTop: number
+}
