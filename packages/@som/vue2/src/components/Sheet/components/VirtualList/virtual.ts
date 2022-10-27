@@ -1,7 +1,7 @@
 /**
  * virtual list core calculating center
  */
-
+// @ts-nocheck
 const DIRECTION_TYPE = {
   FRONT: 'FRONT', // scroll up or left
   BEHIND: 'BEHIND' // scroll down or right

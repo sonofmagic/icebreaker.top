@@ -33,7 +33,8 @@
         </colgroup>
         <thead class=" bg-white z-10 sticky top-0 left-0">
           <tr>
-            <th :key="i" v-for="(t, i) in columns" class="p-0 h-[48px] text-center border border-[#EEF0F4] cursor-pointer">
+            <th :key="i" v-for="(t, i) in columns"
+              class="p-0 h-[48px] text-center border border-[#EEF0F4] cursor-pointer">
               <!-- <div class="border w-full h-full"> -->
               {{ t.title }}
               <!-- </div> -->
@@ -47,11 +48,11 @@
               :class="[
 
                 item.selected ? 'sheet-cell-selected' : ''
-              ]" :key="item.id" @contextmenu.prevent="onContextmenu" @mousedown="onMousedown($event, {
+              ]" v-for="(item, x) in row.cells" :key="item.id" @contextmenu.prevent="onContextmenu" @mousedown="onMousedown($event, {
   rowIndex: y, colIndex: x, item
 })" @mouseup="onMouseup($event, {
   rowIndex: y, colIndex: x, item
-})" @mousemove="onMousemove" v-for="(item, x) in row.cells" @dblclick="onDblclick($event, {
+})" @mousemove="onMousemove" @dblclick="onDblclick($event, {
   rowIndex: y, colIndex: x, item
 })" @mouseleave="onMouseleave($event, {
   rowIndex: y, colIndex: x, item
@@ -147,17 +148,17 @@
 
 <script lang="ts" setup>
 import { MessageBox } from 'element-ui'
-import { computed, defineComponent, ref, onMounted, nextTick, reactive, watch,toRefs } from 'vue-demi'
+import { computed, defineComponent, ref, onMounted, nextTick, reactive, watch, toRefs } from 'vue-demi'
 
 // @ts-ignore
-import ColumnResizer from 'column-resizer'
+// import ColumnResizer from 'column-resizer'
 // @ts-ignore
 import VirtualList from 'vue-virtual-scroll-list'
 import { pick, throttle, forEach } from 'lodash-es'
 import { onClickOutside, useWindowScroll, useScroll, unrefElement } from '@vueuse/core'
 import { useContainer, useDataSource, useKeyBoard } from './hooks'
 import { getDirection, getBoundingClientRect } from './utils'
-import type { IDataSourceItem, IDataSourceRow, ICellAttrs,IScrollOffset,IColumn } from './types'
+import type { IDataSourceItem, IDataSourceRow, ICellAttrs, IScrollOffset, IColumn } from './types'
 import { useContextMenu, ContextMenu } from './components/ContextMenu'
 import { useSelection, Selection } from './components/Selection'
 import { Popover, usePopover } from './components/Popover'
@@ -185,14 +186,14 @@ const { resetSelectionPosition, selectionPosition, startCellAttrs, endCellAttrs,
 })
 
 const emit = defineEmits<{
-  (e:'scroll',payload:IScrollOffset):void
+  (e: 'scroll', payload: IScrollOffset): void
 }>()
 
 const props = defineProps<{
-  dataSource:IDataSourceRow[],
-  columns:IColumn[]
+  dataSource: IDataSourceRow[],
+  columns: IColumn[]
 }>()
-const {columns,dataSource} = toRefs(props)
+const { columns, dataSource } = toRefs(props)
 
 const currentSelectionValues = ref<IDataSourceItem[]>()
 const startSelection = ref(false)
@@ -351,11 +352,11 @@ function selectCellOver(attrs: ICellAttrs) {
     let d: ICellAttrs = startCellAttrs.value
     // console.log(controlState.value,shiftState.value)
     // 避免不按ctrl时拖动选中多个cell
-    if (!controlState.value ) {
+    if (!controlState.value) {
       d = endCellAttrs.value
     }
     // shfit 时点击其他选择多个
-    if(shiftState.value){
+    if (shiftState.value) {
       d = startCellAttrs.value
     }
 
@@ -525,12 +526,12 @@ function doSetValue(value?: number) {
 
 
 
-function onContainerScroll(payload: UIEvent){
+function onContainerScroll(payload: UIEvent) {
   // console.log(payload)
   // console.log(container.value?.scrollLeft,container.value?.scrollTop)
-  emit('scroll',{
-    scrollLeft:container.value?.scrollLeft??0,
-    scrollTop:container.value?.scrollTop??0
+  emit('scroll', {
+    scrollLeft: container.value?.scrollLeft ?? 0,
+    scrollTop: container.value?.scrollTop ?? 0
   })
 }
 </script>

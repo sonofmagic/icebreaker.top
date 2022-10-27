@@ -1,7 +1,7 @@
 /**
  * virtual list default component
  */
-
+// @ts-nocheck
 import { defineComponent } from 'vue-demi'
 import Virtual from './virtual'
 import { Item, Slot } from './item'

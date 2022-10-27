@@ -2,7 +2,7 @@
  * item and slot component both use similar wrapper
  * we need to know their size change at any time
  */
-
+// @ts-nocheck
 import { defineComponent } from 'vue-demi'
 import { ItemProps, SlotProps } from './props'
 
