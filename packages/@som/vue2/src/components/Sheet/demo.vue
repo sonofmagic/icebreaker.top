@@ -1,6 +1,26 @@
 <template>
   <div class="max-w-[100vw] max-h-[100vh]">
-    <!-- <VirtualList table style="height: 200px; overflow-y: auto" :data-key="'key'" :data-sources="dataSource" :data-component="itemComponent"></VirtualList> -->
+    <VirtualList table style="height: 200px; overflow-y: auto" :data-key="'key'" :data-sources="dataSource"
+      :data-component="itemComponent">
+
+      <template #colgroup>
+
+        <col :key="col.key" :style="{
+          'min-width': col.width + 'px'
+        }" :width="col.width" v-for="col in columns">
+        </col>
+
+      </template>
+
+      <template #header>
+        <!-- <colgroup>
+          <col :key="col.key" :style="{
+            'min-width': col.width + 'px'
+          }" :width="col.width" v-for="col in columns">
+          </col>
+        </colgroup> -->
+      </template>
+    </VirtualList>
     <!-- <VirtualList :items="items" table class="list-table" style="height: 100px">
       <template #prepend>
         <thead>
@@ -60,4 +80,6 @@ const syncScroll = ({ scrollLeft, scrollTop }: IScrollOffset) => {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+
+</style>

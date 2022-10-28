@@ -58,7 +58,7 @@ export const VirtualProps = {
   },
   wrapTag: {
     type: String,
-    default: 'table'
+    default: 'tbody'
   },
   wrapClass: {
     type: String,
@@ -83,7 +83,7 @@ export const VirtualProps = {
   },
   headerTag: {
     type: String,
-    default: 'div'
+    default: 'thead'
   },
   headerClass: {
     type: String,
@@ -94,7 +94,7 @@ export const VirtualProps = {
   },
   footerTag: {
     type: String,
-    default: 'div'
+    default: 'tfoot'
   },
   footerClass: {
     type: String,
@@ -103,11 +103,15 @@ export const VirtualProps = {
   footerStyle: {
     type: Object
   },
-  itemScopedSlots: {
+  colgroupClass: {
+    type: String,
+    default: ''
+  },
+  colgroupStyle: {
     type: Object
   },
-  table: {
-    type: Boolean
+  itemScopedSlots: {
+    type: Object
   }
 }
 
