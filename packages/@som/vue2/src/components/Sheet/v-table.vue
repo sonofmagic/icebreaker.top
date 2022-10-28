@@ -1,8 +1,8 @@
 <template>
   <div class="relative flex overflow-x-auto">
-    <VirtualList ref="containerRef" @scroll="onContainerScroll" header-class="bg-white z-10 sticky top-0 left-0" table-class="w-auto table-fixed border-collapse text-center bg-white" class="relative overflow-y-auto" :data-key="'key'" :data-sources="dataSource" :data-component="itemComponent">
+    <VirtualList ref="containerRef" @scroll="onContainerScroll" table-class="w-auto table-fixed border-collapse text-center bg-white" class="relative overflow-y-auto" :data-key="'key'" :data-sources="dataSource" :data-component="itemComponent">
       <template #thead>
-        <thead>
+        <thead class="bg-white z-10 sticky top-0 left-0">
           <tr>
             <th :key="i" v-for="(t, i) in columns" class="p-0 h-[48px] text-center border border-[#EEF0F4] cursor-pointer">
               {{ t.title }}
@@ -56,14 +56,6 @@
           </div>
         </Popover>
       </template>
-
-      <!-- <template #header>
-        <tr>
-          <th :key="i" v-for="(t, i) in columns" class="p-0 h-[48px] text-center border border-[#EEF0F4] cursor-pointer">
-            {{ t.title }}
-          </th>
-        </tr>
-      </template> -->
     </VirtualList>
   </div>
 </template>
@@ -444,26 +436,4 @@ provide(
 )
 </script>
 
-<style lang="scss">
-.has-note::after {
-  // background-color: #3380FF;
-  content: '';
-  position: absolute;
-  right: 0;
-  top: 0;
-  height: 0;
-  width: 0;
-  border-top: 11px solid #3380ff;
-  border-left: 13px solid transparent;
-}
-
-.sheet-cell-selected::before {
-  position: absolute;
-  content: '';
-  left: 1px;
-  right: 1px;
-  top: 1px;
-  bottom: 1px;
-  @apply bg-gray-900 bg-opacity-10;
-}
-</style>
+<style lang="scss"></style>

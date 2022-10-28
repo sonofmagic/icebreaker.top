@@ -4,8 +4,8 @@
       :key="item.id"
       v-for="(item, colIndex) in source.cells"
       data-sheet-cell="1"
-      class="p-0 border border-[#EEF0F4] h-[48px] cursor-default select-none relative"
-      :class="[item.selected ? 'sheet-cell-selected' : '']"
+      class="vue-dom-sheet-cell p-0 border border-[#EEF0F4] h-[48px] cursor-default select-none relative"
+      :class="[item.selected ? 'selected' : '']"
       @contextmenu.prevent="
         contextmenu($event, {
           rowIndex,
@@ -93,3 +93,28 @@ const { contextmenu, dblclick, mousedown, mouseenter, mouseleave, mousemove, mou
 
 const { index: rowIndex, source } = toRefs(props)
 </script>
+<style lang="scss">
+.vue-dom-sheet-cell {
+  &.selected::before {
+    position: absolute;
+    content: '';
+    left: 1px;
+    right: 1px;
+    top: 1px;
+    bottom: 1px;
+    @apply bg-gray-900 bg-opacity-10;
+  }
+
+  .has-note::after {
+    // background-color: #3380FF;
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 0;
+    width: 0;
+    border-top: 11px solid #3380ff;
+    border-left: 13px solid transparent;
+  }
+}
+</style>

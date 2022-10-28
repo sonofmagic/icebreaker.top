@@ -74,7 +74,7 @@ export default {
       default: false
     }
   },
-  data () {
+  data() {
     return {
       // 结果数组
       resArr: []
@@ -82,7 +82,7 @@ export default {
   },
   methods: {
     // 添加格子
-    addCell () {
+    addCell() {
       const AxisX = this.AxisX // 时效
       const AxisY = this.AxisY // 高度
       const usableBox = this.usableBox // 可选值
@@ -123,7 +123,7 @@ export default {
       this.setBoxSize()
     },
     // 更改盒子大小
-    setBoxSize () {
+    setBoxSize() {
       const box = this.$refs.cellBox
       const prescriptionList = this.$refs.prescriptionList
       const bigBox = this.$refs.bigBox
@@ -143,7 +143,7 @@ export default {
       prescriptionList.style.cssText = `width:${width};height:${cellHeight};`
     },
     // 添加格子的事件监听
-    addBoxSelect () {
+    addBoxSelect() {
       const that = this
       this.$nextTick(() => {
         const ele = this.$refs.cellBox
@@ -196,7 +196,7 @@ export default {
           isMouseDown = false
         })
         // 移动处理函数
-        function moveHander (e) {
+        function moveHander(e) {
           const X = e.layerX
           const Y = e.layerY
           // if (X % 5 == 0 || Y % 5 == 0) {
@@ -266,7 +266,7 @@ export default {
       })
     },
     // 框选 抛出数据
-    handleSelect () {
+    handleSelect() {
       this.resArr = []
       const arr = []
       const arrChild = this.$refs.cellBox.childNodes
@@ -284,7 +284,7 @@ export default {
       this.$emit('selectCell', arr)
     },
     // 点击 抛出数据
-    selectBox (e) {
+    selectBox(e) {
       // 如果点击是空div 和空text 就跳过
       if (e.target.nodeName === 'DIV') return
       let flg = true
@@ -314,7 +314,7 @@ export default {
       this.$emit('selectCell', resArr)
     },
     // 设置默认 可选中的盒子
-    defaultBox (value) {
+    defaultBox(value) {
       const deCell = value
       this.$nextTick(() => {
         // 所有的数据格子
@@ -338,7 +338,7 @@ export default {
       })
     },
     // 设置默认 已选择的格子
-    defaultActive (value) {
+    defaultActive(value) {
       // 传来默认显示的格子数据
       const deCell = value
       this.$nextTick(() => {
@@ -358,17 +358,17 @@ export default {
       this.resArr = deCell
     }
   },
-  mounted () {
+  mounted() {
     // 新建格子
     this.addCell()
   },
   watch: {
     // 如果有默认数据 进行绘制
-    defaultSelectCellBox (value) {
+    defaultSelectCellBox(value) {
       this.defaultActive(value)
     },
     // 添加可选中状态
-    usableBox (value) {
+    usableBox(value) {
       this.defaultBox(value)
     }
   }
