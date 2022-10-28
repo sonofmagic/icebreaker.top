@@ -1,6 +1,7 @@
 <template>
   <div class="max-w-[100vw] max-h-[100vh]">
-    <VirtualList table style="height: 200px; overflow-y: auto" :data-key="'key'" :data-sources="dataSource"
+    <VirtualList header-class="bg-white z-10 sticky top-0 left-0" table-class="w-auto table-fixed border-collapse text-center bg-white relative"
+      style="height: 200px; overflow-y: auto" :data-key="'key'" :data-sources="dataSource"
       :data-component="itemComponent">
 
       <template #colgroup>
@@ -13,12 +14,12 @@
       </template>
 
       <template #header>
-        <!-- <colgroup>
-          <col :key="col.key" :style="{
-            'min-width': col.width + 'px'
-          }" :width="col.width" v-for="col in columns">
-          </col>
-        </colgroup> -->
+        <tr>
+          <th :key="i" v-for="(t, i) in columns"
+            class="p-0 h-[48px] text-center border border-[#EEF0F4] cursor-pointer">
+            {{ t.title }}
+          </th>
+        </tr>
       </template>
     </VirtualList>
     <!-- <VirtualList :items="items" table class="list-table" style="height: 100px">

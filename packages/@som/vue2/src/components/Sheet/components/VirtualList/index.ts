@@ -328,7 +328,7 @@ const VirtualList = defineComponent({
   render(h) {
     const { header, footer, colgroup } = this.$slots
     const { padFront, padBehind } = this.range
-    const { isHorizontal, pageMode, rootTag, wrapTag, wrapClass, wrapStyle, headerTag, headerClass, headerStyle, footerTag, footerClass, footerStyle, colgroupClass, colgroupStyle } = this
+    const { isHorizontal, pageMode, rootTag, wrapTag, wrapClass, wrapStyle, headerTag, headerClass, headerStyle, footerTag, footerClass, footerStyle, colgroupClass, colgroupStyle, tableClass, tableStyle } = this
     const paddingStyle = { padding: isHorizontal ? `0px ${padBehind}px 0px ${padFront}px` : `${padFront}px 0px ${padBehind}px` }
     const wrapperStyle = wrapStyle ? Object.assign({}, wrapStyle, paddingStyle) : paddingStyle
 
@@ -341,80 +341,87 @@ const VirtualList = defineComponent({
         }
       },
       [
-        h('table', {}, [
-          // header slot
-          colgroup
-            ? h(
-                Slot,
-                {
-                  class: colgroupClass,
-                  style: colgroupStyle,
-                  props: {
-                    tag: 'colgroup',
-                    // event: EVENT_TYPE.SLOT,
-                    uniqueKey: SLOT_TYPE.COLGROUP
-                  }
-                },
-                colgroup
-              )
-            : null,
+        h(
+          'table',
+          {
+            class: tableClass,
+            style: tableStyle
+          },
+          [
+            // header slot
+            colgroup
+              ? h(
+                  Slot,
+                  {
+                    class: colgroupClass,
+                    style: colgroupStyle,
+                    props: {
+                      tag: 'colgroup',
+                      // event: EVENT_TYPE.SLOT,
+                      uniqueKey: SLOT_TYPE.COLGROUP
+                    }
+                  },
+                  colgroup
+                )
+              : null,
 
-          // header slot
-          header
-            ? h(
-                Slot,
-                {
-                  class: headerClass,
-                  style: headerStyle,
-                  props: {
-                    tag: headerTag,
-                    event: EVENT_TYPE.SLOT,
-                    uniqueKey: SLOT_TYPE.HEADER
-                  }
-                },
-                header
-              )
-            : null,
+            // header slot
+            header
+              ? h(
+                  Slot,
+                  {
+                    class: headerClass,
+                    style: headerStyle,
+                    props: {
+                      tag: headerTag,
+                      event: EVENT_TYPE.SLOT,
+                      uniqueKey: SLOT_TYPE.HEADER
+                    }
+                  },
+                  header
+                )
+              : null,
 
-          // main list
-          h(
-            wrapTag,
-            {
-              class: wrapClass,
-              attrs: {
-                role: 'group'
+            // main list
+            h(
+              wrapTag,
+              {
+                class: wrapClass,
+                attrs: {
+                  role: 'group'
+                },
+                style: wrapperStyle
               },
-              style: wrapperStyle
-            },
-            this.getRenderSlots(h)
-          ),
+              this.getRenderSlots(h)
+            ),
 
-          // footer slot
-          footer
-            ? h(
-                Slot,
-                {
-                  class: footerClass,
-                  style: footerStyle,
-                  props: {
-                    tag: footerTag,
-                    event: EVENT_TYPE.SLOT,
-                    uniqueKey: SLOT_TYPE.FOOTER
-                  }
-                },
-                footer
-              )
-            : null,
+            // footer slot
+            footer
+              ? h(
+                  Slot,
+                  {
+                    class: footerClass,
+                    style: footerStyle,
+                    props: {
+                      tag: footerTag,
+                      event: EVENT_TYPE.SLOT,
+                      uniqueKey: SLOT_TYPE.FOOTER
+                    }
+                  },
+                  footer
+                )
+              : null,
 
-          // an empty element use to scroll to bottom
-          h('div', {
-            ref: 'shepherd',
-            style: {
-              width: isHorizontal ? '0px' : '100%',
-              height: isHorizontal ? '100%' : '0px'
-            }
-          })
-        ])
+            // an empty element use to scroll to bottom
+            h('div', {
+              ref: 'shepherd',
+              style: {
+                width: isHorizontal ? '0px' : '100%',
+                height: isHorizontal ? '100%' : '0px'
+              }
+            })
+          ]
+        )
       ]
     )
   }

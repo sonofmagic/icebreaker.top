@@ -24,7 +24,7 @@
 
 
     <div>
-      <table ref="table" class="w-auto table-fixed border-collapse text-center bg-white relative">
+      <table class="w-auto table-fixed border-collapse text-center bg-white relative">
         <colgroup>
           <col :key="col.key" :style="{
             'min-width': col.width + 'px'
@@ -40,12 +40,12 @@
           </tr>
         </thead> -->
         <!-- <tbody> -->
-          <tr :key="y" v-for="(row, y) in dataSource">
-            <td data-sheet-cell="1" class="p-0 border border-[#EEF0F4] h-[48px] cursor-default select-none relative"
-              :class="[
+        <tr :key="y" v-for="(row, y) in dataSource">
+          <td data-sheet-cell="1" class="p-0 border border-[#EEF0F4] h-[48px] cursor-default select-none relative"
+            :class="[
 
-                item.selected ? 'sheet-cell-selected' : ''
-              ]" v-for="(item, x) in row.cells" :key="item.id" @contextmenu.prevent="onContextmenu" @mousedown="onMousedown($event, {
+              item.selected ? 'sheet-cell-selected' : ''
+            ]" v-for="(item, x) in row.cells" :key="item.id" @contextmenu.prevent="onContextmenu" @mousedown="onMousedown($event, {
   rowIndex: y, colIndex: x, item
 })" @mouseup="onMouseup($event, {
   rowIndex: y, colIndex: x, item
@@ -58,23 +58,23 @@
 })">
 
 
-              <div v-if="item.value" :class="{
-                'cursor-pointer': Boolean(item.value),
-                'has-note': Boolean(item.note)
-              }"
-                class="sheet-cell-inner select-none pointer-events-auto relative w-full h-full flex justify-between border-l-[2px] border-blue-600">
+            <div v-if="item.value" :class="{
+              'cursor-pointer': Boolean(item.value),
+              'has-note': Boolean(item.note)
+            }"
+              class="sheet-cell-inner select-none pointer-events-auto relative w-full h-full flex justify-between border-l-[2px] border-blue-600">
 
-                <div class="text-left flex flex-col justify-evenly pl-1.5">
-                  <div class="text-[13px] text-[#333333]">加科技看看{{ item.value }}</div>
-                  <div class="text-xs text-[#B1B9CC]">15:30-18:00</div>
-                </div>
-                <div class="text-xs flex items-center pr-1.5">{{ item.locked ? '锁' : '' }}</div>
-
-
+              <div class="text-left flex flex-col justify-evenly pl-1.5">
+                <div class="text-[13px] text-[#333333]">加科技看看{{ item.value }}</div>
+                <div class="text-xs text-[#B1B9CC]">15:30-18:00</div>
               </div>
+              <div class="text-xs flex items-center pr-1.5">{{ item.locked ? '锁' : '' }}</div>
 
-            </td>
-          </tr>
+
+            </div>
+
+          </td>
+        </tr>
 
         <!-- </tbody> -->
       </table>

@@ -110,6 +110,13 @@ export const VirtualProps = {
   colgroupStyle: {
     type: Object
   },
+  tableClass: {
+    type: String,
+    default: ''
+  },
+  tableStyle: {
+    type: Object
+  },
   itemScopedSlots: {
     type: Object
   }
