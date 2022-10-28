@@ -1,6 +1,6 @@
 <template>
   <div class="max-w-[100vw] max-h-[100vh]">
-    <VirtualList header-class="bg-white z-10 sticky top-0 left-0" table-class="w-auto table-fixed border-collapse text-center bg-white relative"
+    <!-- <VirtualList header-class="bg-white z-10 sticky top-0 left-0" table-class="w-auto table-fixed border-collapse text-center bg-white relative"
       style="height: 200px; overflow-y: auto" :data-key="'key'" :data-sources="dataSource"
       :data-component="itemComponent">
 
@@ -21,7 +21,7 @@
           </th>
         </tr>
       </template>
-    </VirtualList>
+    </VirtualList> -->
     <!-- <VirtualList :items="items" table class="list-table" style="height: 100px">
       <template #prepend>
         <thead>
@@ -81,6 +81,4 @@ const syncScroll = ({ scrollLeft, scrollTop }: IScrollOffset) => {
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

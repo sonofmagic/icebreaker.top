@@ -1,28 +1,28 @@
 
 <template>
-  <!-- <table class="border-collapse sticky top-0 left-0 z-10 w-auto table-fixed">
-      <colgroup>
-        <col :style="{
-          'min-width': col.width + 'px'
-        }" :key="col.key" :width="col.width" v-for="col in cols">
-        </col>
-      </colgroup>
-      <thead class=" bg-white z-10">
-        <tr>
-          <th :key="i" v-for="(t, i) in cols" class="border h-[50px] text-center">{{ t.title }}</th>
-        </tr>
-      </thead>
-
-    </table> -->
-  <!-- <VirtualList ref="table"
-  class="w-auto table table-fixed border-collapse text-center bg-white h-[500px] overflow-y-auto" :data-key="'key'"
-  :data-sources="dataSet" :data-component="SheetRow">
-</VirtualList> -->
   <div ref="container" class="relative overflow-y-auto" @scroll="onContainerScroll">
+    <!-- <VirtualList header-class="bg-white z-10 sticky top-0 left-0" table-class="w-auto table-fixed border-collapse text-center bg-white relative"
+      style="height: 200px; overflow-y: auto" :data-key="'key'" :data-sources="dataSource"
+      :data-component="itemComponent">
 
+      <template #colgroup>
 
+        <col :key="col.key" :style="{
+          'min-width': col.width + 'px'
+        }" :width="col.width" v-for="col in columns">
+        </col>
 
+      </template>
 
+      <template #header>
+        <tr>
+          <th :key="i" v-for="(t, i) in columns"
+            class="p-0 h-[48px] text-center border border-[#EEF0F4] cursor-pointer">
+            {{ t.title }}
+          </th>
+        </tr>
+      </template>
+    </VirtualList> -->
     <div>
       <table class="w-auto table-fixed border-collapse text-center bg-white relative">
         <colgroup>
@@ -31,21 +31,21 @@
           }" :width="col.width" v-for="col in columns">
           </col>
         </colgroup>
-        <!-- <thead class=" bg-white z-10 sticky top-0 left-0">
+        <thead class=" bg-white z-10 sticky top-0 left-0">
           <tr>
             <th :key="i" v-for="(t, i) in columns"
               class="p-0 h-[48px] text-center border border-[#EEF0F4] cursor-pointer">
               {{ t.title }}
             </th>
           </tr>
-        </thead> -->
-        <!-- <tbody> -->
-        <tr :key="y" v-for="(row, y) in dataSource">
-          <td data-sheet-cell="1" class="p-0 border border-[#EEF0F4] h-[48px] cursor-default select-none relative"
-            :class="[
+        </thead>
+        <tbody>
+          <tr :key="y" v-for="(row, y) in dataSource">
+            <td data-sheet-cell="1" class="p-0 border border-[#EEF0F4] h-[48px] cursor-default select-none relative"
+              :class="[
 
-              item.selected ? 'sheet-cell-selected' : ''
-            ]" v-for="(item, x) in row.cells" :key="item.id" @contextmenu.prevent="onContextmenu" @mousedown="onMousedown($event, {
+                item.selected ? 'sheet-cell-selected' : ''
+              ]" v-for="(item, x) in row.cells" :key="item.id" @contextmenu.prevent="onContextmenu" @mousedown="onMousedown($event, {
   rowIndex: y, colIndex: x, item
 })" @mouseup="onMouseup($event, {
   rowIndex: y, colIndex: x, item
@@ -58,25 +58,25 @@
 })">
 
 
-            <div v-if="item.value" :class="{
-              'cursor-pointer': Boolean(item.value),
-              'has-note': Boolean(item.note)
-            }"
-              class="sheet-cell-inner select-none pointer-events-auto relative w-full h-full flex justify-between border-l-[2px] border-blue-600">
+              <div v-if="item.value" :class="{
+                'cursor-pointer': Boolean(item.value),
+                'has-note': Boolean(item.note)
+              }"
+                class="sheet-cell-inner select-none pointer-events-auto relative w-full h-full flex justify-between border-l-[2px] border-blue-600">
 
-              <div class="text-left flex flex-col justify-evenly pl-1.5">
-                <div class="text-[13px] text-[#333333]">加科技看看{{ item.value }}</div>
-                <div class="text-xs text-[#B1B9CC]">15:30-18:00</div>
+                <div class="text-left flex flex-col justify-evenly pl-1.5">
+                  <div class="text-[13px] text-[#333333]">加科技看看{{ item.value }}</div>
+                  <div class="text-xs text-[#B1B9CC]">15:30-18:00</div>
+                </div>
+                <div class="text-xs flex items-center pr-1.5">{{ item.locked ? '锁' : '' }}</div>
+
+
               </div>
-              <div class="text-xs flex items-center pr-1.5">{{ item.locked ? '锁' : '' }}</div>
 
+            </td>
+          </tr>
 
-            </div>
-
-          </td>
-        </tr>
-
-        <!-- </tbody> -->
+        </tbody>
       </table>
     </div>
 
