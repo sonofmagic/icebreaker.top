@@ -1,23 +1,20 @@
-
 <template>
   <div ref="container" class="relative overflow-auto flex">
-    <VirtualList @scroll="onContainerScroll" header-class="bg-white z-10 sticky top-0 left-0"
-      table-class="w-auto table-fixed border-collapse text-center bg-white relative" class="block relative overflow-y-auto"
-      :data-key="'key'" :data-sources="dataSource" :data-component="itemComponent">
-
+    <VirtualList @scroll="onContainerScroll" header-class="bg-white z-10 sticky top-0 left-0" table-class="w-auto table-fixed border-collapse text-center bg-white" class="relative overflow-y-auto" :data-key="'key'" :data-sources="dataSource" :data-component="itemComponent">
       <template #colgroup>
-
-        <col :key="col.key" :style="{
-          'min-width': col.width + 'px'
-        }" :width="col.width" v-for="col in columns">
-        </col>
-
+        <col
+          :key="col.key"
+          :style="{
+            'min-width': col.width + 'px'
+          }"
+          :width="col.width"
+          v-for="col in columns"
+        />
       </template>
 
       <template #header>
         <tr>
-          <th :key="i" v-for="(t, i) in columns"
-            class="p-0 h-[48px] text-center border border-[#EEF0F4] cursor-pointer">
+          <th :key="i" v-for="(t, i) in columns" class="p-0 h-[48px] text-center border border-[#EEF0F4] cursor-pointer">
             {{ t.title }}
           </th>
         </tr>
@@ -78,50 +75,27 @@
       </tbody>
     </table> -->
 
-
     <Selection :context="selectionContext" :style-object="selectionStyle"></Selection>
     <ContextMenu :context="menuContext">
       <div class="w-32 text-center">
-        <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="closeContextMenu">
-          复制
-        </div>
-        <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="closeContextMenu">
-          粘贴
-        </div>
-        <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="doLock">
-          锁定
-        </div>
-        <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="unlock">
-          解锁
-        </div>
-        <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="doNote">
-          备注
-        </div>
-        <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="closeContextMenu">
-          行/列复制
-        </div>
-        <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="closeContextMenu">
-          复制上一区间
-        </div>
-        <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="doSetValue(1)">
-          set(1)
-        </div>
-        <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="doSetValue(2)">
-          set(2)
-        </div>
-        <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="doSetValue()">
-          clear
-        </div>
+        <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="closeContextMenu">复制</div>
+        <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="closeContextMenu">粘贴</div>
+        <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="doLock">锁定</div>
+        <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="unlock">解锁</div>
+        <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="doNote">备注</div>
+        <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="closeContextMenu">行/列复制</div>
+        <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="closeContextMenu">复制上一区间</div>
+        <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="doSetValue(1)">set(1)</div>
+        <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="doSetValue(2)">set(2)</div>
+        <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="doSetValue()">clear</div>
       </div>
-
     </ContextMenu>
     <Popover :context="valueSelectorContext" placement="bottom-start">
-      <div class="bg-white w-[360px]  p-2 border ">
+      <div class="bg-white w-[360px] p-2 border">
         <div>未定义</div>
         <input class="border" placeholder="请输入" />
         <div class="overflow-auto h-[200px]">
-          <div :key="i" v-for="i in 30" @click="selectValue($event, i)"
-            class="flex justify-around cursor-pointer hover:bg-blue-300">
+          <div :key="i" v-for="i in 30" @click="selectValue($event, i)" class="flex justify-around cursor-pointer hover:bg-blue-300">
             <div class="flex-1">撒大声地</div>
             <div class="flex-1">{{ i }}</div>
           </div>
@@ -135,18 +109,14 @@
         <div class="text-[#B1B9CC]" v-if="detailCellAttrs?.item.note">备注:{{ detailCellAttrs?.item.note }}</div>
       </div>
     </Popover>
-
   </div>
-
-
-
 </template>
 
 <script lang="ts" setup>
 import itemComponent from './Item.vue'
 import VirtualList from './components/VirtualList'
 import { MessageBox } from 'element-ui'
-import { computed, defineComponent, ref, onMounted, nextTick, reactive, watch, toRefs, } from 'vue-demi'
+import { computed, defineComponent, ref, onMounted, nextTick, reactive, watch, toRefs, provide } from 'vue-demi'
 import { pick, throttle, forEach } from 'lodash-es'
 import { onClickOutside, useWindowScroll, useScroll, unrefElement } from '@vueuse/core'
 import { useContainer, useDataSource, useKeyBoard } from './hooks'
@@ -155,7 +125,7 @@ import type { IDataSourceItem, IDataSourceRow, ICellAttrs, IScrollOffset, IColum
 import { useContextMenu, ContextMenu } from './components/ContextMenu'
 import { useSelection, Selection } from './components/Selection'
 import { Popover, usePopover } from './components/Popover'
-
+import { CellEventsSymbol } from './contexts/CellEvents'
 const { context: valueSelectorContext } = usePopover()
 const { context: showDetailContext } = usePopover()
 const { x: windowX, y: windowY } = useWindowScroll()
@@ -165,7 +135,17 @@ const { context: menuContext } = useContextMenu()
 const container = ref<HTMLDivElement>()
 const { left: containerLeft, top: containerTop, scrollX: containerScrollX, scrollY: containerScrollY } = useContainer(container)
 
-const { resetSelectionPosition, selectionPosition, startCellAttrs, endCellAttrs, startEventTarget, assign: selectionAssign, reset: selectionReset, selectionStyle, context: selectionContext } = useSelection({
+const {
+  resetSelectionPosition,
+  selectionPosition,
+  startCellAttrs,
+  endCellAttrs,
+  startEventTarget,
+  assign: selectionAssign,
+  reset: selectionReset,
+  selectionStyle,
+  context: selectionContext
+} = useSelection({
   container: {
     left: containerLeft,
     scrollX: containerScrollX,
@@ -183,7 +163,7 @@ const emit = defineEmits<{
 }>()
 
 const props = defineProps<{
-  dataSource: IDataSourceRow[],
+  dataSource: IDataSourceRow[]
   columns: IColumn[]
 }>()
 const { columns, dataSource } = toRefs(props)
@@ -192,55 +172,48 @@ const currentSelectionValues = ref<IDataSourceItem[]>()
 const startSelection = ref(false)
 const selectedCellSet = ref(new Set<IDataSourceItem>())
 
-
-
 const closeContextMenu = () => {
   menuContext.close()
 }
 
-function onContextmenu(e: MouseEvent) {
+function onContextmenu(e: MouseEvent, attrs: ICellAttrs) {
+  e.preventDefault()
   if (selectionContext.el) {
     const rect = getBoundingClientRect(selectionContext.el)
     menuContext.show({
       x: rect.left + rect.width,
-      y: rect.top + (rect.height / 2)
+      y: rect.top + rect.height / 2
     })
   }
-
 }
 function getCurrentSelectionValues(start: ICellAttrs, end: ICellAttrs): IDataSourceItem[] {
   const { colIndex: startcolIndex, rowIndex: startrowIndex } = start
   const { colIndex: endcolIndex, rowIndex: endrowIndex } = end
   const rows = [Math.min(startrowIndex, endrowIndex), Math.max(startrowIndex, endrowIndex) + 1]
   const cols = [Math.min(startcolIndex, endcolIndex), Math.max(startcolIndex, endcolIndex) + 1]
-  const values = dataSource.value.slice(...rows).map(x => {
+  const values = dataSource.value.slice(...rows).map((x) => {
     return x.cells.slice(...cols)
   })
   return values.flat(1)
-
 }
-
-
 
 function setMoveStyle(rect: DOMRect) {
   // console.log(rect.left, selectionPosition.value.left)
   const originPointRect = getBoundingClientRect(startEventTarget.value)
   // console.log(originPointRect)
-  const offsetX = rect.left - originPointRect.left  // containerLeft.value - selectionPosition.value.left
+  const offsetX = rect.left - originPointRect.left // containerLeft.value - selectionPosition.value.left
   const offsetY = rect.top - originPointRect.top // containerTop.value - selectionPosition.value.top
 
   if (offsetX > 0) {
     // 右
     selectionPosition.value.right = rect.right + containerScrollX.value + windowX.value // - containerLeft.value
     selectionPosition.value.width = Math.abs(offsetX) + rect.width
-
   } else if (offsetX < 0) {
     // 左
     selectionPosition.value.left = rect.left + containerScrollX.value - containerLeft.value
     selectionPosition.value.width = Math.abs(offsetX) + rect.width
   } else {
     selectionReset('x')
-
   }
 
   // console.log(rect.top, selectionPosition.value.top)
@@ -254,14 +227,10 @@ function setMoveStyle(rect: DOMRect) {
     // console.log(containerTop.value, windowY.value)
     selectionPosition.value.top = rect.top + containerScrollY.value - containerTop.value
     selectionPosition.value.height = Math.abs(offsetY) + rect.height
-
   } else {
     selectionReset('y')
   }
   console.log(offsetX, offsetY, getDirection([offsetX, offsetY]))
-
-
-
 }
 
 // function checkValid(e: MouseEvent) {
@@ -276,9 +245,8 @@ function getTdElement(e: MouseEvent) {
   // @ts-ignore
   const path = e.path as Element[]
   if (Array.isArray(path)) {
-
     for (let i = 0; i < path.length; i++) {
-      const element = path[i];
+      const element = path[i]
       // @ts-ignore
       if (element.tagName === 'TD' && element.dataset.sheetCell === '1') {
         return element
@@ -288,7 +256,6 @@ function getTdElement(e: MouseEvent) {
   } else {
     return null
   }
-
 }
 // https://developer.mozilla.org/zh-CN/docs/Web/API/MouseEvent/buttons
 function onMousedown(e: MouseEvent, attrs: ICellAttrs) {
@@ -310,7 +277,6 @@ function onMousedown(e: MouseEvent, attrs: ICellAttrs) {
       // forEach(currentSelectionValues.value, x => {
       //   x.selected = true
       // })
-
     }
 
     startEventTarget.value = target
@@ -319,8 +285,6 @@ function onMousedown(e: MouseEvent, attrs: ICellAttrs) {
     if (controlState.value) {
       startSelection.value = true
     }
-
-
 
     const computedRect = {
       left: rect.left + containerScrollX.value - containerLeft.value,
@@ -358,16 +322,14 @@ function selectCellOver(attrs: ICellAttrs) {
     // forEach(currentSelectionValues.value, x => {
     //     x.selected = true
     //   })
-    forEach(values, x => {
+    forEach(values, (x) => {
       x.selected = true
       selectedCellSet.value.add(x)
     })
-
   }
 }
 
 function onMouseup(e: MouseEvent, attrs: ICellAttrs) {
-
   // console.log('onMouseup', e)
   if (e.buttons === 0 && e.button === 0) {
     selectCellOver(attrs)
@@ -375,18 +337,16 @@ function onMouseup(e: MouseEvent, attrs: ICellAttrs) {
 }
 
 function doLock() {
-  selectedCellSet.value?.forEach(x => {
+  selectedCellSet.value?.forEach((x) => {
     if (x.value) {
       x.locked = true
     }
-
   })
   closeContextMenu()
 }
 
 function unlock() {
-  selectedCellSet.value?.forEach(x => {
-
+  selectedCellSet.value?.forEach((x) => {
     x.locked = false
   })
   closeContextMenu()
@@ -405,13 +365,8 @@ function onDblclick(e: MouseEvent, attrs: ICellAttrs) {
       y: rect.bottom
     })
     dblclickCellAttrs.value = attrs
-
   }
-
 }
-
-
-
 
 function _onMousemove(e: MouseEvent) {
   const target = getTdElement(e)
@@ -421,7 +376,6 @@ function _onMousemove(e: MouseEvent) {
       setMoveStyle(rect)
     }
   }
-
 }
 
 const onMousemove = throttle(_onMousemove, 20)
@@ -432,7 +386,6 @@ const selectValue: (e: MouseEvent, value: unknown) => void = (e, value) => {
     dblclickCellAttrs.value.item.value = value
   }
 }
-
 
 const detailCellAttrs = ref<ICellAttrs>()
 
@@ -450,10 +403,7 @@ function onMouseenter(e: MouseEvent, attrs: ICellAttrs) {
         y: rect.bottom
       })
     }
-
-
   }
-
 }
 
 async function doNote() {
@@ -467,14 +417,11 @@ async function doNote() {
       closeOnClickModal: false,
       closeOnPressEscape: false
     })
-    selectedCellSet.value?.forEach(x => {
+    selectedCellSet.value?.forEach((x) => {
       // @ts-ignore
       x.note = res.value
     })
-
   }
-
-
 }
 
 function onMouseleave(e: MouseEvent, attrs: ICellAttrs) {
@@ -486,8 +433,8 @@ function onMouseleave(e: MouseEvent, attrs: ICellAttrs) {
 }
 
 function resetDataSetSelected() {
-  forEach(dataSource.value, x => {
-    forEach(x.cells, y => {
+  forEach(dataSource.value, (x) => {
+    forEach(x.cells, (y) => {
       y.selected = false
     })
   })
@@ -495,12 +442,11 @@ function resetDataSetSelected() {
 }
 
 function doSetValue(value?: number) {
-  selectedCellSet.value.forEach(x => {
+  selectedCellSet.value.forEach((x) => {
     x.value = value
   })
   closeContextMenu()
 }
-
 
 // watch(() => {
 //   return controlState.value
@@ -517,8 +463,6 @@ function doSetValue(value?: number) {
 
 // })
 
-
-
 function onContainerScroll(payload: UIEvent) {
   console.log(payload)
   // console.log(payload)
@@ -528,18 +472,30 @@ function onContainerScroll(payload: UIEvent) {
     scrollTop: container.value?.scrollTop ?? 0
   })
 }
+provide(
+  CellEventsSymbol,
+  reactive({
+    contextmenu: onContextmenu,
+    dblclick: onDblclick,
+    mousedown: onMousedown,
+    mouseenter: onMouseenter,
+    mouseleave: onMouseleave,
+    mousemove: onMousemove,
+    mouseup: onMouseup
+  })
+)
 </script>
 
 <style lang="scss">
 .has-note::after {
   // background-color: #3380FF;
-  content: "";
+  content: '';
   position: absolute;
   right: 0;
   top: 0;
   height: 0;
   width: 0;
-  border-top: 11px solid #3380FF;
+  border-top: 11px solid #3380ff;
   border-left: 13px solid transparent;
 }
 
