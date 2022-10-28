@@ -20,7 +20,7 @@ export default defineConfig({
   },
   build: {
     lib: {
-      entry: resolve(__dirname, 'src/components/Sheet/v-table.vue'),
+      entry: resolve(__dirname, 'src/components/Sheet/exports.ts'),
       name: 'vue-dom-sheet',
       // the proper extensions will be added
       fileName: 'vue-dom-sheet'

@@ -18,7 +18,7 @@
       </div>
 
       <!-- <Sheet :columns="columns" :dataSource="dataSource" @scroll="syncScroll"></Sheet> -->
-      <vTable :columns="columns" :dataSource="dataSource" @scroll="syncScroll"></vTable>
+      <vTable :columns="columns" :dataSource="dataSource" :itemComponent="item" @scroll="syncScroll"></vTable>
     </div>
   </div>
 </template>
@@ -29,7 +29,7 @@ import Sheet from '@/components/Sheet/index.vue'
 import vTable from './v-table.vue'
 import type { IScrollOffset } from './types'
 import { useDataSource } from './hooks'
-
+import item from './Item.vue'
 const { columns, dataSource } = useDataSource()
 const dom = ref<HTMLDivElement>()
 const syncScroll = ({ scrollLeft, scrollTop }: IScrollOffset) => {

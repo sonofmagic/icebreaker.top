@@ -61,19 +61,19 @@
 </template>
 
 <script lang="ts" setup>
-import itemComponent from './Item.vue'
 import VirtualList from './components/VirtualList'
 import { MessageBox } from 'element-ui'
-import { computed, defineComponent, ref, onMounted, nextTick, reactive, watch, toRefs, provide } from 'vue-demi'
-import { pick, throttle, forEach } from 'lodash-es'
-import { onClickOutside, useWindowScroll, useScroll, unrefElement } from '@vueuse/core'
-import { useContainer, useDataSource, useKeyBoard } from './hooks'
+import { ref, reactive, toRefs, provide, VueConstructor } from 'vue-demi'
+import { throttle, forEach } from 'lodash-es'
+import { useWindowScroll } from '@vueuse/core'
+import { useContainer, useKeyBoard } from './hooks'
 import { getDirection, getBoundingClientRect } from './utils'
 import type { IDataSourceItem, IDataSourceRow, ICellAttrs, IScrollOffset, IColumn } from './types'
 import { useContextMenu, ContextMenu } from './components/ContextMenu'
 import { useSelection, Selection } from './components/Selection'
 import { Popover, usePopover } from './components/Popover'
 import { CellEventsSymbol } from './contexts/CellEvents'
+
 const { context: valueSelectorContext } = usePopover()
 const { context: showDetailContext } = usePopover()
 const { x: windowX, y: windowY } = useWindowScroll()
@@ -113,8 +113,9 @@ const emit = defineEmits<{
 const props = defineProps<{
   dataSource: IDataSourceRow[]
   columns: IColumn[]
+  itemComponent: unknown
 }>()
-const { columns, dataSource } = toRefs(props)
+const { columns, dataSource, itemComponent } = toRefs(props)
 
 const currentSelectionValues = ref<IDataSourceItem[]>()
 const startSelection = ref(false)
@@ -180,14 +181,6 @@ function setMoveStyle(rect: DOMRect) {
   }
   console.log(offsetX, offsetY, getDirection([offsetX, offsetY]))
 }
-
-// function checkValid(e: MouseEvent) {
-//   const el = e.target as HTMLElement
-//   if (el.tagName !== 'TD') {
-//     return false
-//   }
-//   return true
-// }
 
 function getTdElement(e: MouseEvent) {
   // @ts-ignore
@@ -395,21 +388,6 @@ function doSetValue(value?: number) {
   })
   closeContextMenu()
 }
-
-// watch(() => {
-//   return controlState.value
-// }, (nv) => {
-//   if (nv) {
-
-//   } else {
-//     dataSet.value.forEach(x => {
-//       x.cells.forEach(y => {
-//         y.selected = false
-//       })
-//     })
-//   }
-
-// })
 
 function onContainerScroll(payload: UIEvent) {
   // @ts-ignore

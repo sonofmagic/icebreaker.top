@@ -1,6 +1,6 @@
 {
   "name": "vue-dom-sheet",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "",
   "type": "module",
   "files": [
@@ -28,6 +28,10 @@
     "@vue/composition-api": {
       "optional": true
     }
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
   },
   "devDependencies": {
     "vue-fragment": "^1.6.0",
