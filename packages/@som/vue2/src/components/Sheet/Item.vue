@@ -1,12 +1,13 @@
 <template>
-  <tr>
-    <td :key="cell.id" v-for="cell in source.cells">
-      <slot :index="index" :source="source" :item="cell"></slot>
+  <Fragment>
+    <td :key="cell.id" v-for="cell in source.cells" class="border" style="min-width: 120px; height: 48px">
+      <slot :index="index" :source="source" :item="cell">{{ cell.id }}</slot>
     </td>
-  </tr>
+  </Fragment>
 </template>
 
 <script lang="ts" setup>
+import { Fragment } from 'vue-fragment'
 import { IDataSourceRow } from './types'
 import { toRefs } from 'vue-demi'
 const props = defineProps<{

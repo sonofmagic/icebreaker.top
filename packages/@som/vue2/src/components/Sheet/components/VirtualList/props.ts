@@ -58,7 +58,7 @@ export const VirtualProps = {
   },
   wrapTag: {
     type: String,
-    default: 'div'
+    default: 'table'
   },
   wrapClass: {
     type: String,
@@ -69,7 +69,7 @@ export const VirtualProps = {
   },
   itemTag: {
     type: String,
-    default: 'div'
+    default: 'tr'
   },
   itemClass: {
     type: String,
@@ -105,6 +105,9 @@ export const VirtualProps = {
   },
   itemScopedSlots: {
     type: Object
+  },
+  table: {
+    type: Boolean
   }
 }
 

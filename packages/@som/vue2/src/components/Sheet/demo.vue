@@ -1,6 +1,6 @@
 <template>
   <div class="max-w-[100vw] max-h-[100vh]">
-    <VirtualList style="height: 200px; overflow-y: auto" :data-key="'key'" :data-sources="dataSource" :data-component="itemComponent"></VirtualList>
+    <VirtualList table style="height: 200px; overflow-y: auto" :data-key="'key'" :data-sources="dataSource" :data-component="itemComponent"></VirtualList>
     <!-- <VirtualList :items="items" table class="list-table" style="height: 100px">
       <template #prepend>
         <thead>

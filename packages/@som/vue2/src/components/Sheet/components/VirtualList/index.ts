@@ -286,7 +286,7 @@ const VirtualList = defineComponent({
     getRenderSlots(h) {
       const slots = []
       const { start, end } = this.range
-      const { dataSources, dataKey, itemClass, itemTag, itemStyle, isHorizontal, extraProps, dataComponent, itemScopedSlots } = this
+      const { dataSources, dataKey, itemClass, itemTag, itemStyle, isHorizontal, extraProps, dataComponent, itemScopedSlots, table } = this
       const slotComponent = this.$scopedSlots && this.$scopedSlots.item
       for (let index = start; index <= end; index++) {
         const dataSource = dataSources[index]
