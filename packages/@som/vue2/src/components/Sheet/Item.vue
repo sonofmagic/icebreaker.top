@@ -88,8 +88,8 @@ const props = defineProps<{
   source: IDataSourceRow
 }>()
 
-const events = inject(CellEventsSymbol)
-const { contextmenu, dblclick, mousedown, mouseenter, mouseleave, mousemove, mouseup } = events as Required<ICellEvents>
+const events = inject(CellEventsSymbol, {})
+const { contextmenu, dblclick, mousedown, mouseenter, mouseleave, mousemove, mouseup } = (events ?? {}) as Required<ICellEvents>
 
 const { index: rowIndex, source } = toRefs(props)
 </script>

@@ -19,7 +19,7 @@ export default function useDataSource() {
       key: i
     })
   }
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 1000; i++) {
     const tr = []
     for (let j = 0; j < 30; j++) {
       const td: IDataSourceItem = {
