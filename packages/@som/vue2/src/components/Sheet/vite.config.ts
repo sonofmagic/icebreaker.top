@@ -1,6 +1,7 @@
 import { resolve } from 'path'
 import { defineConfig } from 'vite'
-import dts from 'vite-plugin-dts'
+import { isVue2, isVue3 } from 'vue-demi'
+// import dts from 'vite-plugin-dts'
 // import vue from '@vitejs/plugin-vue'
 // import vueJsx from '@vitejs/plugin-vue-jsx'
 import { createVuePlugin } from 'vite-plugin-vue2'
@@ -9,13 +10,13 @@ export default defineConfig({
   plugins: [
     createVuePlugin({
       jsx: true
-    }),
-    dts({
-      outputDir: 'types',
-      staticImport: true,
-      insertTypesEntry: true,
-      logDiagnostics: true
     })
+    // dts({
+    //   outputDir: 'types',
+    //   staticImport: true,
+    //   insertTypesEntry: true,
+    //   logDiagnostics: true
+    // })
   ],
   optimizeDeps: {
     exclude: ['vue-demi']
@@ -26,6 +27,7 @@ export default defineConfig({
   //   }
   // },
   build: {
+    outDir: 'dist/v' + (isVue3 ? '3' : '2'),
     lib: {
       entry: resolve(__dirname, './exports.ts'),
       name: 'vue-dom-sheet',

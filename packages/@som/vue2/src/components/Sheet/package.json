@@ -1,6 +1,6 @@
 {
   "name": "vue-dom-sheet",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "",
   "type": "module",
   "files": [
@@ -10,7 +10,9 @@
   "module": "./dist/vue-dom-sheet.js",
   "scripts": {
     "dev": "vite",
+    "build": "npm run build3 && npm run build2",
     "build2": "npx vue-demi-switch 2 && vue-tsc --noEmit && vite build",
+    "build3": "npx vue-demi-switch 3 && vue-tsc --noEmit && vite build",
     "build:types": "tsc --emitDeclarationOnly",
     "preview": "vite preview"
   },
