@@ -31,18 +31,15 @@
           }" :width="col.width" v-for="col in columns">
           </col>
         </colgroup>
-        <thead class=" bg-white z-10 sticky top-0 left-0">
+        <!-- <thead class=" bg-white z-10 sticky top-0 left-0">
           <tr>
             <th :key="i" v-for="(t, i) in columns"
               class="p-0 h-[48px] text-center border border-[#EEF0F4] cursor-pointer">
-              <!-- <div class="border w-full h-full"> -->
               {{ t.title }}
-              <!-- </div> -->
-
             </th>
           </tr>
-        </thead>
-        <tbody>
+        </thead> -->
+        <!-- <tbody> -->
           <tr :key="y" v-for="(row, y) in dataSource">
             <td data-sheet-cell="1" class="p-0 border border-[#EEF0F4] h-[48px] cursor-default select-none relative"
               :class="[
@@ -79,7 +76,7 @@
             </td>
           </tr>
 
-        </tbody>
+        <!-- </tbody> -->
       </table>
     </div>
 
@@ -149,11 +146,6 @@
 <script lang="ts" setup>
 import { MessageBox } from 'element-ui'
 import { computed, defineComponent, ref, onMounted, nextTick, reactive, watch, toRefs } from 'vue-demi'
-
-// @ts-ignore
-// import ColumnResizer from 'column-resizer'
-// @ts-ignore
-// import VirtualList from 'vue-virtual-scroll-list'
 import { pick, throttle, forEach } from 'lodash-es'
 import { onClickOutside, useWindowScroll, useScroll, unrefElement } from '@vueuse/core'
 import { useContainer, useDataSource, useKeyBoard } from './hooks'

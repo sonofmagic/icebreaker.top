@@ -1,7 +1,7 @@
 <template>
   <Fragment>
-    <td :key="cell.id" v-for="cell in source.cells" class="border" style="min-width: 120px; height: 48px">
-      <slot :index="index" :source="source" :item="cell">{{ cell.id }}</slot>
+    <td :key="cell.id" v-for="(cell, colIndex) in source.cells" class="border" style="min-width: 120px; height: 48px">
+      <slot :rowIndex="index" :colIndex="colIndex" :source="source" :item="cell">{{ cell.id }}</slot>
     </td>
   </Fragment>
 </template>
