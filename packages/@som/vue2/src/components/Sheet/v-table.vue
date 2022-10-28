@@ -12,13 +12,13 @@
         />
       </template>
 
-      <template #header>
+      <!-- <template #header>
         <tr>
           <th :key="i" v-for="(t, i) in columns" class="p-0 h-[48px] text-center border border-[#EEF0F4] cursor-pointer">
             {{ t.title }}
           </th>
         </tr>
-      </template>
+      </template> -->
     </VirtualList>
 
     <Selection :context="selectionContext" :style-object="selectionStyle"></Selection>

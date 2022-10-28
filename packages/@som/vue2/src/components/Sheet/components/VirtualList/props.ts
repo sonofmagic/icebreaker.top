@@ -58,7 +58,7 @@ export const VirtualProps = {
   },
   wrapTag: {
     type: String,
-    default: 'tbody'
+    default: 'div'
   },
   wrapClass: {
     type: String,

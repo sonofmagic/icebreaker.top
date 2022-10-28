@@ -342,87 +342,99 @@ const VirtualList = defineComponent({
         }
       },
       [
+        // header slot
+        header
+          ? h(
+              Slot,
+              {
+                class: headerClass,
+                style: headerStyle,
+                props: {
+                  tag: headerTag,
+                  event: EVENT_TYPE.SLOT,
+                  uniqueKey: SLOT_TYPE.HEADER
+                }
+              },
+              header
+            )
+          : null,
+
+        // main list
         h(
-          'table',
+          wrapTag,
           {
-            class: tableClass,
-            style: tableStyle
+            class: wrapClass,
+            attrs: {
+              role: 'group'
+            },
+            style: wrapperStyle
           },
           [
-            // header slot
-            colgroup
-              ? h(
-                  Slot,
-                  {
-                    class: colgroupClass,
-                    style: colgroupStyle,
-                    props: {
-                      tag: 'colgroup',
-                      event: EVENT_TYPE.SLOT,
-                      uniqueKey: SLOT_TYPE.COLGROUP
-                    }
-                  },
-                  colgroup
-                )
-              : null,
-
-            // header slot
-            header
-              ? h(
-                  Slot,
-                  {
-                    class: headerClass,
-                    style: headerStyle,
-                    props: {
-                      tag: headerTag,
-                      event: EVENT_TYPE.SLOT,
-                      uniqueKey: SLOT_TYPE.HEADER
-                    }
-                  },
-                  header
-                )
-              : null,
-
-            // main list
             h(
-              wrapTag,
+              'table',
+
               {
-                class: wrapClass,
-                attrs: {
-                  role: 'group'
-                },
-                style: wrapperStyle
+                class: tableClass,
+                style: tableStyle
               },
-              this.getRenderSlots(h)
-            ),
-
-            // footer slot
-            footer
-              ? h(
-                  Slot,
-                  {
-                    class: footerClass,
-                    style: footerStyle,
-                    props: {
-                      tag: footerTag,
-                      event: EVENT_TYPE.SLOT,
-                      uniqueKey: SLOT_TYPE.FOOTER
-                    }
-                  },
-                  footer
-                )
-              : null,
-
-            // an empty element use to scroll to bottom
-            h('div', {
-              ref: 'shepherd',
-              style: {
-                width: isHorizontal ? '0px' : '100%',
-                height: isHorizontal ? '100%' : '0px'
-              }
-            })
+              [
+                colgroup
+                  ? h(
+                      Slot,
+                      {
+                        class: colgroupClass,
+                        style: colgroupStyle,
+                        props: {
+                          tag: 'colgroup',
+                          event: EVENT_TYPE.SLOT,
+                          uniqueKey: SLOT_TYPE.COLGROUP
+                        }
+                      },
+                      colgroup
+                    )
+                  : null,
+                h('tbody', {}, this.getRenderSlots(h))
+              ]
+            )
           ]
-        )
+        ),
+
+        // footer slot
+        footer
+          ? h(
+              Slot,
+              {
+                class: footerClass,
+                style: footerStyle,
+                props: {
+                  tag: footerTag,
+                  event: EVENT_TYPE.SLOT,
+                  uniqueKey: SLOT_TYPE.FOOTER
+                }
+              },
+              footer
+            )
+          : null,
+
+        // an empty element use to scroll to bottom
+        h('div', {
+          ref: 'shepherd',
+          style: {
+            width: isHorizontal ? '0px' : '100%',
+            height: isHorizontal ? '100%' : '0px'
+          }
+        })
+        // h(
+        //   'table',
+        //   {
+        //     class: tableClass,
+        //     style: tableStyle
+        //   },
+        //   [
+        //     // header slot
+
+        //   ]
+        // )
       ]
     )
   }
