@@ -56,7 +56,8 @@
         </div>
       </div>
 
-      <Sheet :columns="columns" :dataSource="dataSource" @scroll="syncScroll"></Sheet>
+      <!-- <Sheet :columns="columns" :dataSource="dataSource" @scroll="syncScroll"></Sheet> -->
+      <vTable :columns="columns" :dataSource="dataSource" @scroll="syncScroll"></vTable>
     </div>
   </div>
 </template>
@@ -68,6 +69,7 @@ import VirtualList from './components/VirtualList'
 // import TwoBall from '@/components/TwoBalls/index.vue'
 import { ref } from 'vue-demi'
 import Sheet from '@/components/Sheet/index.vue'
+import vTable from './v-table.vue'
 import type { IScrollOffset } from './types'
 import { useDataSource } from './hooks'
 
