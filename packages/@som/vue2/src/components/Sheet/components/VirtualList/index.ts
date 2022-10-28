@@ -327,7 +327,7 @@ const VirtualList = defineComponent({
   // render function, a closer-to-the-compiler alternative to templates
   // https://vuejs.org/v2/guide/render-function.html#The-Data-Object-In-Depth
   render(h) {
-    const { header, footer, colgroup, append } = this.$slots
+    const { header, footer, colgroup, append, thead, tfoot } = this.$slots
     const { padFront, padBehind } = this.range
     const { isHorizontal, pageMode, rootTag, wrapTag, wrapClass, wrapStyle, headerTag, headerClass, headerStyle, footerTag, footerClass, footerStyle, colgroupClass, colgroupStyle, tableClass, tableStyle } = this
     const paddingStyle = { padding: isHorizontal ? `0px ${padBehind}px 0px ${padFront}px` : `${padFront}px 0px ${padBehind}px` }
@@ -372,7 +372,6 @@ const VirtualList = defineComponent({
           [
             h(
               'table',
-
               {
                 class: tableClass,
                 style: tableStyle
@@ -393,7 +392,9 @@ const VirtualList = defineComponent({
                       colgroup
                     )
                   : null,
-                h('tbody', {}, this.getRenderSlots(h))
+                thead,
+                h('tbody', {}, this.getRenderSlots(h)),
+                tfoot
               ]
             )
           ]
