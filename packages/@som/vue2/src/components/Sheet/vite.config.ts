@@ -1,5 +1,6 @@
 import { resolve } from 'path'
 import { defineConfig } from 'vite'
+import dts from 'vite-plugin-dts'
 // import vue from '@vitejs/plugin-vue'
 // import vueJsx from '@vitejs/plugin-vue-jsx'
 import { createVuePlugin } from 'vite-plugin-vue2'
@@ -8,6 +9,12 @@ export default defineConfig({
   plugins: [
     createVuePlugin({
       jsx: true
+    }),
+    dts({
+      outputDir: 'types',
+      staticImport: true,
+      insertTypesEntry: true,
+      logDiagnostics: true
     })
   ],
   optimizeDeps: {
