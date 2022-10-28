@@ -45,7 +45,9 @@
               :class="[
 
                 item.selected ? 'sheet-cell-selected' : ''
-              ]" v-for="(item, x) in row.cells" :key="item.id" @contextmenu.prevent="onContextmenu" @mousedown="onMousedown($event, {
+              ]" v-for="(item, x) in row.cells" :key="item.id" @contextmenu="onContextmenu($event, {
+  rowIndex: y, colIndex: x, item
+})" @mousedown="onMousedown($event, {
   rowIndex: y, colIndex: x, item
 })" @mouseup="onMouseup($event, {
   rowIndex: y, colIndex: x, item
@@ -197,7 +199,8 @@ const closeContextMenu = () => {
   menuContext.close()
 }
 
-function onContextmenu(e: MouseEvent) {
+function onContextmenu(e: MouseEvent,attrs:ICellAttrs) {
+  e.preventDefault()
   if (selectionContext.el) {
     const rect = getBoundingClientRect(selectionContext.el)
     menuContext.show({

@@ -1,9 +1,9 @@
 
 <template>
-  <div ref="container" class="relative overflow-y-auto" @scroll="onContainerScroll">
-     <VirtualList header-class="bg-white z-10 sticky top-0 left-0" table-class="w-auto table-fixed border-collapse text-center bg-white relative"
-      style="height: 100%; overflow-y: auto" :data-key="'key'" :data-sources="dataSource"
-      :data-component="itemComponent">
+  <div ref="container" class="relative overflow-auto flex">
+    <VirtualList @scroll="onContainerScroll" header-class="bg-white z-10 sticky top-0 left-0"
+      table-class="w-auto table-fixed border-collapse text-center bg-white relative" class="block relative overflow-y-auto"
+      :data-key="'key'" :data-sources="dataSource" :data-component="itemComponent">
 
       <template #colgroup>
 
@@ -146,7 +146,7 @@
 import itemComponent from './Item.vue'
 import VirtualList from './components/VirtualList'
 import { MessageBox } from 'element-ui'
-import { computed, defineComponent, ref, onMounted, nextTick, reactive, watch, toRefs } from 'vue-demi'
+import { computed, defineComponent, ref, onMounted, nextTick, reactive, watch, toRefs, } from 'vue-demi'
 import { pick, throttle, forEach } from 'lodash-es'
 import { onClickOutside, useWindowScroll, useScroll, unrefElement } from '@vueuse/core'
 import { useContainer, useDataSource, useKeyBoard } from './hooks'
@@ -520,6 +520,7 @@ function doSetValue(value?: number) {
 
 
 function onContainerScroll(payload: UIEvent) {
+  console.log(payload)
   // console.log(payload)
   // console.log(container.value?.scrollLeft,container.value?.scrollTop)
   emit('scroll', {

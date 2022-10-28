@@ -267,6 +267,7 @@ const VirtualList = defineComponent({
       }
 
       this.virtual.handleScroll(offset)
+
       this.emitEvent(offset, clientSize, scrollSize, evt)
     },
 
@@ -357,7 +358,7 @@ const VirtualList = defineComponent({
                     style: colgroupStyle,
                     props: {
                       tag: 'colgroup',
-                      // event: EVENT_TYPE.SLOT,
+                      event: EVENT_TYPE.SLOT,
                       uniqueKey: SLOT_TYPE.COLGROUP
                     }
                   },
