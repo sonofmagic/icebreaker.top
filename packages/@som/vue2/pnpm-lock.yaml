@@ -56,6 +56,7 @@ specifiers:
   vue: ^2.7.13
   vue-d3-org-chart: ^0.0.2
   vue-demi: ^0.13.11
+  vue-dom-sheet: ^0.0.3
   vue-fragment: ^1.6.0
   vue-router: ^3.2.0
   vue-template-compiler: ^2.7.13
@@ -87,6 +88,7 @@ dependencies:
   vue: 2.7.13
   vue-d3-org-chart: 0.0.2_ugk432boennyisqo4tgx5zxzca
   vue-demi: 0.13.11_ugk432boennyisqo4tgx5zxzca
+  vue-dom-sheet: 0.0.3_ugk432boennyisqo4tgx5zxzca
   vue-fragment: 1.6.0_vue@2.7.13
   vue-router: 3.6.5_vue@2.7.13
   vue-virtual-scroll-list: 2.3.4
@@ -9373,6 +9375,21 @@ packages:
     dependencies:
       '@vue/composition-api': 1.7.1_vue@2.7.13
       vue: 2.7.13
+    dev: false
+
+  /vue-dom-sheet/0.0.3_ugk432boennyisqo4tgx5zxzca:
+    resolution: {integrity: sha512-4JNRJP/Et+gv7YPoRINDY2x/8RKVS8SyQiD42YFgG4wY4lMkSPF7yXPACorZ3oMNZBmOI9G2oN8KXke4Crazdw==}
+    peerDependencies:
+      '@vue/composition-api': ^1.0.0
+      vue: ^2.0.0 || >=3.0.0
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+    dependencies:
+      '@floating-ui/dom': 1.0.3
+      '@vue/composition-api': 1.7.1_vue@2.7.13
+      vue: 2.7.13
+      vue-demi: 0.13.11_ugk432boennyisqo4tgx5zxzca
     dev: false
 
   /vue-eslint-parser/7.11.0_eslint@7.32.0:

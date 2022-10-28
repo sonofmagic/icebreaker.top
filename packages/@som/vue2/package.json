@@ -32,6 +32,7 @@
     "vue": "^2.7.13",
     "vue-d3-org-chart": "^0.0.2",
     "vue-demi": "^0.13.11",
+    "vue-dom-sheet": "^0.0.3",
     "vue-fragment": "^1.6.0",
     "vue-router": "^3.2.0",
     "vue-virtual-scroll-list": "^2.3.4",
