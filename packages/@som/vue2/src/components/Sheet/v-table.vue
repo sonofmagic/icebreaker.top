@@ -11,6 +11,42 @@
           v-for="col in columns"
         />
       </template>
+      <template #append>
+        <Selection :context="selectionContext" :style-object="selectionStyle"></Selection>
+        <ContextMenu :context="menuContext">
+          <div class="w-32 text-center">
+            <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="closeContextMenu">复制</div>
+            <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="closeContextMenu">粘贴</div>
+            <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="doLock">锁定</div>
+            <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="unlock">解锁</div>
+            <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="doNote">备注</div>
+            <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="closeContextMenu">行/列复制</div>
+            <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="closeContextMenu">复制上一区间</div>
+            <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="doSetValue(1)">set(1)</div>
+            <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="doSetValue(2)">set(2)</div>
+            <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="doSetValue()">clear</div>
+          </div>
+        </ContextMenu>
+        <Popover :context="valueSelectorContext" placement="bottom-start">
+          <div class="bg-white w-[360px] p-2 border">
+            <div>未定义</div>
+            <input class="border" placeholder="请输入" />
+            <div class="overflow-auto h-[200px]">
+              <div :key="i" v-for="i in 30" @click="selectValue($event, i)" class="flex justify-around cursor-pointer hover:bg-blue-300">
+                <div class="flex-1">撒大声地</div>
+                <div class="flex-1">{{ i }}</div>
+              </div>
+            </div>
+          </div>
+        </Popover>
+        <Popover :context="showDetailContext" :placement="'bottom-start'">
+          <div class="bg-white w-[160px] text-xs border px-2 py-1 space-y-1">
+            <div class="text-[13px] text-[#333333]">{{ detailCellAttrs?.item.value }}的值啊啊</div>
+            <div class="text-[#333333]">11:11-33:22 24.00h</div>
+            <div class="text-[#B1B9CC]" v-if="detailCellAttrs?.item.note">备注:{{ detailCellAttrs?.item.note }}</div>
+          </div>
+        </Popover>
+      </template>
 
       <!-- <template #header>
         <tr>
@@ -20,41 +56,6 @@
         </tr>
       </template> -->
     </VirtualList>
-
-    <Selection :context="selectionContext" :style-object="selectionStyle"></Selection>
-    <ContextMenu :context="menuContext">
-      <div class="w-32 text-center">
-        <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="closeContextMenu">复制</div>
-        <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="closeContextMenu">粘贴</div>
-        <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="doLock">锁定</div>
-        <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="unlock">解锁</div>
-        <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="doNote">备注</div>
-        <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="closeContextMenu">行/列复制</div>
-        <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="closeContextMenu">复制上一区间</div>
-        <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="doSetValue(1)">set(1)</div>
-        <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="doSetValue(2)">set(2)</div>
-        <div class="hover:bg-blue-200 hover:text-blue-600 px-4 py-1 cursor-pointer" @click="doSetValue()">clear</div>
-      </div>
-    </ContextMenu>
-    <Popover :context="valueSelectorContext" placement="bottom-start">
-      <div class="bg-white w-[360px] p-2 border">
-        <div>未定义</div>
-        <input class="border" placeholder="请输入" />
-        <div class="overflow-auto h-[200px]">
-          <div :key="i" v-for="i in 30" @click="selectValue($event, i)" class="flex justify-around cursor-pointer hover:bg-blue-300">
-            <div class="flex-1">撒大声地</div>
-            <div class="flex-1">{{ i }}</div>
-          </div>
-        </div>
-      </div>
-    </Popover>
-    <Popover :context="showDetailContext" :placement="'bottom-start'">
-      <div class="bg-white w-[160px] text-xs border px-2 py-1 space-y-1">
-        <div class="text-[13px] text-[#333333]">{{ detailCellAttrs?.item.value }}的值啊啊</div>
-        <div class="text-[#333333]">11:11-33:22 24.00h</div>
-        <div class="text-[#B1B9CC]" v-if="detailCellAttrs?.item.note">备注:{{ detailCellAttrs?.item.note }}</div>
-      </div>
-    </Popover>
   </div>
 </template>
 
