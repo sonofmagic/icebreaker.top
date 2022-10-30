@@ -11,10 +11,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Set Beijing Timezone
-        uses: szenius/set-timezone@v1.0
-        with:
-          timezoneLinux: Asia/Shanghai
+      # - name: Set Beijing Timezone
+      #   uses: szenius/set-timezone@v1.0
+      #   with:
+      #     timezoneLinux: Asia/Shanghai
       # - name: Get submoudle private repo
       #   uses: actions/checkout@v2
       #   with:
