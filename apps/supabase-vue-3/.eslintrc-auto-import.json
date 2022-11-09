@@ -1,7 +1,6 @@
 {
   "globals": {
     "EffectScope": true,
-    "ElMessage": true,
     "computed": true,
     "createApp": true,
     "customRef": true,
@@ -21,6 +20,8 @@
     "nextTick": true,
     "onActivated": true,
     "onBeforeMount": true,
+    "onBeforeRouteLeave": true,
+    "onBeforeRouteUpdate": true,
     "onBeforeUnmount": true,
     "onBeforeUpdate": true,
     "onDeactivated": true,
@@ -37,6 +38,7 @@
     "readonly": true,
     "ref": true,
     "resolveComponent": true,
+    "resolveDirective": true,
     "shallowReactive": true,
     "shallowReadonly": true,
     "shallowRef": true,
@@ -48,6 +50,7 @@
     "useAttrs": true,
     "useCssModule": true,
     "useCssVars": true,
+    "useLink": true,
     "useRoute": true,
     "useRouter": true,
     "useSlots": true,
