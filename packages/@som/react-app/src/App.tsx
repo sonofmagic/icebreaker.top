@@ -1,46 +1,45 @@
+import React from 'react'
+import 'antd/dist/antd.css'
 
-import './App.scss'
-import { createForm } from '@formily/core'
-import { FormProvider, FormConsumer, Field } from '@formily/react'
-import {
-  FormItem,
-  FormLayout,
-  Input,
-  FormButtonGroup,
-  Submit
-} from '@formily/antd'
+import moment from 'moment'
 
-const form = createForm()
-function App () {
+import { Button, Form, DatePicker } from 'antd'
+
+const App: React.FC = () => {
+  const [form] = Form.useForm<{ a: any }>()
+
+  const huixian = () => {
+    console.log(111)
+    form.setFieldsValue({
+      a: moment('2020-12-11')
+    })
+  }
+
+  const ok = async () => {
+    const formData = await form.validateFields()
+    console.log(formData)
+    const time = moment(formData.a)
+    console.log(time, 'time')
+  }
   return (
-    <FormProvider form={form}>
-      <FormLayout layout="vertical">
-        <Field
-          name="input"
-          title="输入框"
-          required
-          initialValue="Hello world"
-          decorator={[FormItem]}
-          component={[Input]}
-        />
-      </FormLayout>
-      <FormConsumer>
-        {() => (
-          <div
-            style={{
-              marginBottom: 20,
-              padding: 5,
-              border: '1px dashed #666'
-            }}
-          >
-            实时响应：{form.values.input}
-          </div>
-        )}
-      </FormConsumer>
-      <FormButtonGroup>
-        <Submit onSubmit={() => console.log(form)}>提交</Submit>
-      </FormButtonGroup>
-    </FormProvider>
+    <Form
+      name="basic"
+      form={form}
+      labelCol={{ span: 8 }}
+      wrapperCol={{ span: 16 }}
+      initialValues={{ remember: true }}
+      autoComplete="off"
+    >
+      <Form.Item
+        label="a"
+        name="a"
+        rules={[{ required: true, message: 'Please input your password!' }]}
+      >
+        <DatePicker></DatePicker>
+      </Form.Item>
+      <Button onClick={ok}>Submit</Button>
+      <Button onClick={huixian}>回显</Button>
+    </Form>
   )
 }
 
