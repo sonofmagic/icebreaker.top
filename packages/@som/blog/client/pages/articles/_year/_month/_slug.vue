@@ -51,7 +51,7 @@
                 共{{ article.readingWords }}个字，阅读时间
                 {{ article.readingMinutes }} 分钟
               </div>
-              <ReadCount v-if="isProd" :ref-id="article.id"></ReadCount>
+              <ReadCount :ref-id="article.id"></ReadCount>
             </div>
           </div>
         </div>

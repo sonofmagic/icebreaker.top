@@ -49,5 +49,5 @@ export function createAxiosInstance(baseURL) {
   return request
 }
 
-const url = isProd ? process.env.BASE_URL : 'http://127.0.0.1:9000'
+const url = isProd ? process.env.BASE_URL : process.env.BASE_URL // 'http://127.0.0.1:9000'
 export default createAxiosInstance(url)

@@ -1,10 +1,11 @@
 <template>
-  <span class="text-xs text-fg-default whitespace-no-wrap"
+  <span class="whitespace-no-wrap text-xs text-fg-default"
     >阅读&nbsp;{{ readCount }}</span
   >
 </template>
 
 <script>
+import { incReadCountById } from '@/api/article'
 export default {
   name: 'ArticleReadCount',
   props: {
@@ -23,13 +24,8 @@ export default {
     try {
       this.loading = true
       const id = this.refId || this.$route.path
-      const readCount = await this.$store.dispatch(
-        'fetch/getArticleReadCount',
-        {
-          id,
-        }
-      )
-      this.readCount = readCount
+      const { data } = await incReadCountById(id)
+      this.readCount = data.readcount
     } catch (err) {
       console.error(err)
     } finally {
