@@ -6,24 +6,27 @@ import NodeVue from './Node.vue'
 // import type {  } from 'd3-org-chart'
 import Vue from 'vue'
 interface IDataType {
-  a:string
+  a: string
 }
 export default Vue.extend({
   name: 'D3OrgChart',
   props: ['dataSource'],
-  data (): {
+  data(): {
     chartReference?: IOrgChart<IDataType>
-    } {
+  } {
     return {
       chartReference: undefined
     }
   },
-  render (h) {
-    return <div onClick={this.tokenDetail} ref="svgElementContainer"></div>
+  render(h) {
+    // @ts-ignore
+    return <></>
+
+    // </></><div onClick={(e: MouseEvent) => this.tokenDetail(e)} ref="svgElementContainer"></div>
   },
 
   watch: {
-    dataSource (value) {
+    dataSource(value) {
       this.renderChart(value)
     }
   },
@@ -32,16 +35,16 @@ export default Vue.extend({
   //     return this.chartReference
   //   }
   // },
-  mounted () {
+  mounted() {
     console.log(this.$scopedSlots)
   },
   methods: {
-    tokenDetail (e: MouseEvent) : void {
+    tokenDetail(e: MouseEvent): void {
       // console.log(e.target,this)
       // @ts-ignore
       // console.log(e.target?.getAttribute('data-func-key'))
     },
-    renderChart (data: IDataType[] | null) {
+    renderChart(data: IDataType[] | null) {
       if (!this.chartReference) {
         // @ts-ignore
         this.chartReference = new OrgChart()

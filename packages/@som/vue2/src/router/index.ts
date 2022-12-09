@@ -48,6 +48,11 @@ const routes: Array<RouteConfig> = [
     path: '/event',
     name: 'Event',
     component: () => import('@/views/Event.vue')
+  },
+  {
+    path: '/date',
+    name: 'Date',
+    component: () => import('@/views/Date.vue')
   }
   // {
   //   path: '/about',

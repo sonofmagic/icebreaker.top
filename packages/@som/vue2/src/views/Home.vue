@@ -40,7 +40,7 @@ export default Vue.extend({
     // Demo,
     // TestInput
   },
-  data () {
+  data() {
     return {
       options: {
         v: 1,
