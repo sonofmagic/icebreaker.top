@@ -104,6 +104,9 @@ const config = {
     '@/assets/scss/global.scss',
     'github-markdown-css/github-markdown.css',
   ],
+  server: {
+    port: 9000,
+  },
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [

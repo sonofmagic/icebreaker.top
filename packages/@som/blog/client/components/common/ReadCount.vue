@@ -1,7 +1,7 @@
 <template>
-  <span class="whitespace-no-wrap text-xs text-fg-default"
-    >阅读&nbsp;{{ readCount }}</span
-  >
+  <span class="whitespace-no-wrap text-xs text-fg-default">
+    <!-- 阅读&nbsp;{{ readCount }} -->
+  </span>
 </template>
 
 <script>
@@ -24,8 +24,9 @@ export default {
     try {
       this.loading = true
       const id = this.refId || this.$route.path
-      const { data } = await incReadCountById(id)
-      this.readCount = data.readcount
+      await incReadCountById(id)
+      // const { data } =
+      // this.readCount = data.readcount
     } catch (err) {
       console.error(err)
     } finally {

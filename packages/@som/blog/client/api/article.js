@@ -42,7 +42,7 @@ export async function getPageList(content, query) {
  * @param {String} id
  */
 export function incReadCountById(id) {
-  return request.post('/blog/article/readcount/inc/' + id)
+  return request.post('/blog/article/readcount/date-id-inc/' + id)
 }
 
 // export function getBlogLoginQrcode(scene = '') {
