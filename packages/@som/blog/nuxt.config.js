@@ -3,7 +3,7 @@
 // fibers
 import fs from 'fs'
 import dotenv from 'dotenv'
-import SpeedMeasurePlugin from 'speed-measure-webpack-plugin'
+// import SpeedMeasurePlugin from 'speed-measure-webpack-plugin'
 import { sitemap } from './nuxt.config/index'
 import { isProd, isRelease } from './constants.js'
 
@@ -36,7 +36,7 @@ const script =
       ]
     : []
 
-const smp = new SpeedMeasurePlugin()
+// const smp = new SpeedMeasurePlugin()
 
 /**
  * @type {import('@nuxt/types').NuxtConfig}
@@ -370,9 +370,9 @@ const config = {
           ],
         })
       }
-      if (isDev) {
-        return smp.wrap(config)
-      }
+      // if (isDev) {
+      //   return smp.wrap(config)
+      // }
       // if (isClient && isLoadMonaco) {
       //   config.plugins.push(new MonacoWebpackPlugin())
       // }

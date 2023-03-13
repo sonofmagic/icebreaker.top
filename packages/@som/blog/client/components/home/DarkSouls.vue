@@ -15,7 +15,7 @@
             >GitHub Actions</OutSideLink
           >
         </div>
-        <div>
+        <div class="line-through">
           Powered by
           <OutSideLink href="https://docs.cloudbase.net/">
             CloudBase
@@ -24,6 +24,14 @@
           <OutSideLink href="https://www.serverless.com/">
             Serverless
           </OutSideLink>
+        </div>
+        <div>
+          Powered by
+          <OutSideLink href="https://github.com/supabase/supabase">
+            Supabase
+          </OutSideLink>
+          <span class="mx-0.5">&</span>
+          <OutSideLink href="https://www.docker.com/"> Docker </OutSideLink>
         </div>
         <div>
           <OutSideLink
@@ -58,12 +66,12 @@
         <div>擅长扯淡,吹牛,撕x</div> -->
         <!-- <OutSideLink href="https://www.shareplus.cn/"></OutSideLink> -->
         <div class="mt-2 flex">
-          <div class="npx-command" @click="copyText('npx yangqiming@latest')">
+          <div class="npx-command" @click="copyText('npx sonofmagic@latest')">
             <span>
               <FontAwesomeIcon :icon="['fas', 'chevron-right']" />
             </span>
 
-            <pre class="ml-2">npx yangqiming@latest</pre>
+            <pre class="ml-2">npx sonofmagic@latest</pre>
             <span class="copy-icon">
               <FontAwesomeIcon :icon="['far', 'copy']" />
             </span>
@@ -110,7 +118,7 @@
         <div class="text-gray-900 text-opacity-75">
           打开微信扫一扫以下二维码
         </div>
-        <SomImage class="h-64 w-64" :src="icebreakerQrcodeUrl"></SomImage>
+        <SomImage class="w-64" :src="icebreakerQrcodeUrl"></SomImage>
         <div class="mb-2 text-gray-900 text-opacity-75">
           或者手动添加微信号：
         </div>
@@ -133,7 +141,8 @@
 
 <script>
 import MiniPrograms from './MiniPrograms'
-import { wechat } from '@/assets/img/cloud'
+// import { wechat } from '@/assets/img/cloud'
+import wechatMyQrcode from '@/assets/img/wechat.jpg'
 import copyTextMixin from '@/mixins/copyTextMixin'
 export default {
   name: 'MySelf',
@@ -147,7 +156,7 @@ export default {
       rofl: '🤣', // nameToEmoji.rofl,
       smirk: '😏', // nameToEmoji.smirk,
       icebreakerQrcodeVisible: false,
-      icebreakerQrcodeUrl: wechat.myQrcode2,
+      icebreakerQrcodeUrl: wechatMyQrcode, // wechat.myQrcode2,
     }
 
     return refs
