@@ -107,10 +107,10 @@ export default {
       SignInVisible: false,
 
       outSideLinks: [
-        {
-          href: 'https://cloudbase.icebreaker.top',
-          title: 'SimpleCloudbase',
-        },
+        // {
+        //   href: 'https://cloudbase.icebreaker.top',
+        //   title: 'SimpleCloudbase',
+        // },
         // {
         //   href: 'https://github.com/sonofmagic/icebreaker.top/pulls',
         //   title: 'Pull requests',
@@ -123,10 +123,10 @@ export default {
           href: 'https://www.npmjs.com/~icebreaker',
           title: 'Packages',
         },
-        {
-          href: 'https://rendertron.icebreaker.top/',
-          title: 'Rendertron',
-        },
+        // {
+        //   href: 'https://rendertron.icebreaker.top/',
+        //   title: 'Rendertron',
+        // },
         // {
         //   href: 'https://www.shareplus.cn/',
         //   title: 'Shareplus',
@@ -180,7 +180,7 @@ export default {
 
 <style lang="scss" scoped>
 .site-header {
-  height: 62px;
+  height: 64px;
   @apply sticky top-0 z-50 flex items-center bg-header-bg px-4 py-4 text-sm text-header-text/70 md:px-6 lg:px-8;
   .header-middle-area {
     .nav {
