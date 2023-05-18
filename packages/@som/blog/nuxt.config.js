@@ -208,10 +208,7 @@ const config = {
         language: 'zh-cn',
         copyright: `Copyright ${new Date().getFullYear()} icebreaker.The contents of this feed are available for non-commercial use only.`,
         generator: 'icebreaker.top',
-        author: {
-          name: 'icebreaker',
-          email: '1324318532@qq.com',
-        },
+        author: 'icebreaker<1324318532@qq.com>',
         // image:''
       }
       const articles = await $content('articles', {
