@@ -9,18 +9,18 @@
     "cp-pdf": "node scripts/pdf.js"
   },
   "dependencies": {
-    "next": "13.0.2",
+    "next": "13.4.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-pdf": "^5.7.2"
+    "react-pdf": "^7.0.1"
   },
   "devDependencies": {
-    "@types/node": "18.11.9",
-    "@types/react": "18.0.25",
-    "@types/react-pdf": "^5.7.4",
-    "eslint": "8.27.0",
-    "eslint-config-next": "13.0.2",
-    "sass": "^1.49.7",
-    "typescript": "4.8.4"
+    "@types/node": "20.2.3",
+    "@types/react": "18.2.7",
+    "@types/react-pdf": "^6.2.0",
+    "eslint": "8.41.0",
+    "eslint-config-next": "13.4.3",
+    "sass": "^1.62.1",
+    "typescript": "5.0.4"
   }
 }

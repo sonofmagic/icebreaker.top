@@ -1,10 +1,9 @@
 <template>
-  <SheetDemo></SheetDemo>
+  <TwoBall></TwoBall>
 </template>
 
 <script lang="ts" setup>
-// import TwoBall from '@/components/TwoBalls/index.vue'
-import SheetDemo from '@/components/Sheet/demo.vue'
+import TwoBall from '@/components/TwoBalls/index.vue'
 </script>
 
 <style scoped></style>
