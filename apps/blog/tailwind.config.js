@@ -8,15 +8,15 @@ module.exports = {
     './layouts/**/*.vue',
     './pages/**/*.vue',
     './plugins/**/*.{js,ts}',
-    './app.vue',
+    './app.vue'
   ],
   theme: {
-    extend: {},
+    extend: {}
   },
   plugins: [
     require('@tailwindcss/typography'),
     createPlugin({
-      entryPoint: path.resolve(__dirname, './assets/scss/expose.scss'),
-    }),
-  ],
+      entryPoint: path.resolve(__dirname, './assets/scss/expose.scss')
+    })
+  ]
 }
