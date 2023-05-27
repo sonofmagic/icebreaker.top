@@ -10,9 +10,11 @@
   },
   "devDependencies": {
     "@nuxt/content": "^2.6.0",
+    "@nuxt/eslint-config": "^0.1.1",
     "@nuxtjs/eslint-module": "^4.1.0",
     "@nuxtjs/tailwindcss": "^6.7.0",
     "@pinia/nuxt": "^0.4.11",
+    "content-wind": "latest",
     "eslint": "^8.41.0",
     "nuxt": "3.5.1"
   },
