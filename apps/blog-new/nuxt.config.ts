@@ -11,6 +11,7 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@nuxt/content',
   ],
+  content: {},
   // devServer: {
   //   host: '',
   //   port: 3000,
