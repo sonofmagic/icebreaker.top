@@ -1,13 +1,12 @@
 export default defineAppConfig({
-  // Configure Content Wind here
-  cover: '/cover.jpg',
   socials: {
-    twitter: 'Atinux',
-    github: 'Atinux/content-wind'
+    twitter: '',
+    github: ''
   },
-  prose: {
-    h1: {
-      icon: 'carbon:sailboat-coastal'
+  nuxtIcon: {
+    aliases: {
+      'dark-mode': 'ph:moon-bold',
+      'light-mode': 'ph:sun-bold'
     }
   }
 })

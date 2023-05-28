@@ -1,10 +1,12 @@
-import type { Config } from 'tailwindcss'
-// import defaultTheme from 'tailwindcss/defaultTheme'
+import colors from 'tailwindcss/colors'
 
-export default <Partial<Config>>{
+export default {
+  darkMode: 'class',
   theme: {
     extend: {
-      colors: {},
-    },
-  },
+      colors: {
+        primary: colors.gray
+      }
+    }
+  }
 }
