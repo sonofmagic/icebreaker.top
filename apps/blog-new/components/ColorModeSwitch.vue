@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const colorMode = useColorMode()
+// data-theme
 const onClick = () => (colorMode.value === 'light' ? (colorMode.preference = 'dark') : (colorMode.preference = 'light'))
 </script>
 
