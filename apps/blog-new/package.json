@@ -12,7 +12,8 @@
     "postinstall": "nuxt prepare",
     "lint": "eslint .",
     "prepublishOnly": "pnpm lint",
-    "release": "release-it"
+    "release": "release-it",
+    "sync:content": "node scripts/syncContent.js"
   },
   "dependencies": {
     "@nuxt-themes/elements": "^0.9.4",
