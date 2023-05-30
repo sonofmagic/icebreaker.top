@@ -2,6 +2,7 @@
 // import theme from '@nuxt/content-theme-docs'
 // fibers
 import fs from 'fs'
+import path from 'path'
 import dotenv from 'dotenv'
 // import SpeedMeasurePlugin from 'speed-measure-webpack-plugin'
 import { sitemap } from './nuxt.config/index'
@@ -89,9 +90,25 @@ const config = {
       },
     ],
   },
-  // router: {
-  //   middleware: ['theme'],
-  // },
+  router: {
+    // middleware: ['theme'],
+    extendRoutes(routes, resolve) {
+      fs.writeFileSync(
+        path.resolve(__dirname, '../../../apps/blog-new/routes-v1.json'),
+        JSON.stringify(
+          routes.map((x) => {
+            return {
+              name: x.name,
+              path: x.path,
+            }
+          }),
+          null,
+          2
+        ),
+        'utf8'
+      )
+    },
+  },
   loading: {
     color: 'rgb(121, 184, 255)',
   },

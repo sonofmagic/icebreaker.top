@@ -1,0 +1,125 @@
+[
+  {
+    "name": "articles",
+    "path": "/articles"
+  },
+  {
+    "name": "chart",
+    "path": "/chart"
+  },
+  {
+    "name": "demos",
+    "path": "/demos"
+  },
+  {
+    "path": "/perf"
+  },
+  {
+    "name": "profile",
+    "path": "/profile"
+  },
+  {
+    "name": "sitemap",
+    "path": "/sitemap"
+  },
+  {
+    "name": "test",
+    "path": "/test"
+  },
+  {
+    "name": "utils",
+    "path": "/utils"
+  },
+  {
+    "name": "ws-login-success",
+    "path": "/ws-login-success"
+  },
+  {
+    "name": "ws-login-trigger",
+    "path": "/ws-login-trigger"
+  },
+  {
+    "name": "batch-qrcode",
+    "path": "/batch/qrcode"
+  },
+  {
+    "name": "batch-worker",
+    "path": "/batch/worker"
+  },
+  {
+    "name": "batch-zip",
+    "path": "/batch/zip"
+  },
+  {
+    "name": "chart-scf-event-vs-web-vs-custom-image",
+    "path": "/chart/scf-event-vs-web-vs-custom-image"
+  },
+  {
+    "name": "demos-ascii",
+    "path": "/demos/ascii"
+  },
+  {
+    "name": "demos-serverless-canvas",
+    "path": "/demos/serverless-canvas"
+  },
+  {
+    "name": "demos-vue-frame-selection",
+    "path": "/demos/vue-frame-selection"
+  },
+  {
+    "name": "packages-snow",
+    "path": "/packages/snow"
+  },
+  {
+    "name": "test-css-var",
+    "path": "/test/css-var"
+  },
+  {
+    "name": "test-error",
+    "path": "/test/error"
+  },
+  {
+    "name": "test-generator",
+    "path": "/test/generator"
+  },
+  {
+    "name": "test-relation-graph",
+    "path": "/test/relation-graph"
+  },
+  {
+    "name": "test-sentry",
+    "path": "/test/sentry"
+  },
+  {
+    "name": "test-toggle",
+    "path": "/test/toggle"
+  },
+  {
+    "name": "test-wait",
+    "path": "/test/wait"
+  },
+  {
+    "name": "utils-md2cwm",
+    "path": "/utils/md2cwm"
+  },
+  {
+    "name": "demos-vue-frame-selection-Calendar",
+    "path": "/demos/vue-frame-selection/Calendar"
+  },
+  {
+    "name": "articles-slug",
+    "path": "/articles/:slug"
+  },
+  {
+    "name": "articles-year-month",
+    "path": "/articles/:year/:month"
+  },
+  {
+    "name": "articles-year-month-slug",
+    "path": "/articles/:year/:month?/:slug"
+  },
+  {
+    "name": "index",
+    "path": "/"
+  }
+]
