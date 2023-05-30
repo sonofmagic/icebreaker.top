@@ -167,7 +167,8 @@ const config = {
     // https://tailwindcss.nuxtjs.org/setup/
     '@nuxtjs/tailwindcss',
     '@nuxtjs/google-analytics',
-    '@nuxt/postcss8',
+    // 2.16 internal
+    // '@nuxt/postcss8',
     '@nuxtjs/composition-api/module',
     // '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt-community/color-mode-module
@@ -342,8 +343,10 @@ const config = {
       },
     },
     postcss: {
-      plugins: {
-        'postcss-custom-properties': false,
+      postcssOptions: {
+        plugins: {
+          'postcss-custom-properties': false,
+        },
       },
     },
     // optimization: {
