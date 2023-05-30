@@ -35,12 +35,15 @@ jobs:
           cache-dependency-path: 'packages/@som/blog/yarn.lock'
           # registry-url: 'https://registry.npmjs.org'
 
-      - name: Install Dependencies
-        run: yarn install:blog
+      - name: Install Dependencies        
+        working-directory: packages/@som/blog
+        run: yarn
       - name: Sync Articles
-        run: yarn sync:article
+        working-directory: packages/@som/blog
+        run: yarn sync
       - name: Deploy Blog Site
         shell: bash
+        working-directory: packages/@som/blog
         env:
           TENCENT_SECRET_ID: ${{ secrets.TENCENT_SECRET_ID }}
           TENCENT_SECRET_KEY: ${{ secrets.TENCENT_SECRET_KEY }}
@@ -49,4 +52,4 @@ jobs:
           # TENCENT_CLOUDBASE_ENVID: ${{ secrets.TENCENT_CLOUDBASE_ENVID }}
           # BASE_URL: ${{ secrets.BASE_URL }}
           # SERVERLESS_PLATFORM_VENDOR: tencent
-        run: yarn deploy:blog
+        run: yarn deploy:cos
