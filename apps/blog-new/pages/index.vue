@@ -1,17 +1,17 @@
 <template>
   <div>
-    <ContentList
-      v-slot="{ list }" path="/articles" :query="{
-        sort: {
-          id: -1
-        },
-        where: {
-          id: { $exists: true }
-        },
-        limit: 10,
-        without: ['body']
-      }"
-    >
+    <!-- <nav>
+      <ContentNavigation v-slot="{ navigation }" :query="query">
+        <ul>
+          <li v-for="link of navigation" :key="link._path">
+            <NuxtLink :to="link._path">
+              {{ link.title }}
+            </NuxtLink>
+          </li>
+        </ul>
+      </ContentNavigation>
+    </nav> -->
+    <ContentList v-slot="{ list }" path="/articles" :query="query">
       <div class="space-y-8">
         <BaseCard v-for="article in list" :key="article._path">
           <div class="relative">
@@ -38,7 +38,7 @@
         </BaseCard>
       </div>
     </ContentList>
-    <button class="btn btn-block mt-4">
+    <button class="btn btn-block mt-4" @click="loadMore">
       More
     </button>
   </div>
@@ -46,7 +46,29 @@
 
 <script setup lang="ts">
 import dayjs from 'dayjs'
+import { reactive, computed } from 'vue'
+// import type { QueryBuilderParams } from '@nuxt/content'
+const perPage =5
+const pagedParams = reactive({
+  limit: perPage
+})
 
+function loadMore() {
+  pagedParams.limit += perPage
+}
+const query = computed(() => {
+  return {
+    sort: {
+      id: -1
+    },
+    where: {
+      id: { $exists: true }
+    },
+    skip: 0,
+    limit: pagedParams.limit,
+    without: ['body']
+  }
+})
 function format(v: string) {
   if (!v) {
     return v
