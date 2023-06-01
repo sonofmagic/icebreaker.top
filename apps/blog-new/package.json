@@ -26,7 +26,8 @@
     "daisyui": "^2.52.0",
     "dayjs": "^1.11.7",
     "nuxt-config-schema": "^0.4.6",
-    "nuxt-icon": "^0.4.1"
+    "nuxt-icon": "^0.4.1",
+    "vanilla-tilt": "^1.8.0"
   },
   "devDependencies": {
     "@nuxt/eslint-config": "^0.1.1",
