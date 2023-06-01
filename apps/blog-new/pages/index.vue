@@ -46,7 +46,7 @@
 
 <script setup lang="ts">
 import dayjs from 'dayjs'
-import { reactive, computed } from 'vue'
+
 // import type { QueryBuilderParams } from '@nuxt/content'
 const perPage =5
 const pagedParams = reactive({
