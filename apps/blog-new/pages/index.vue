@@ -22,7 +22,7 @@
             </NuxtLink>
 
             <!-- <h3>{{ article.id }}</h3> -->
-            <div class="text-base text-gray-400">
+            <div class="text-base text-gray-400 mb-2">
               {{ article.description }}
             </div>
             <div class="flex justify-between items-center">
@@ -46,6 +46,7 @@
 
 <script setup lang="ts">
 import dayjs from 'dayjs'
+
 
 // import type { QueryBuilderParams } from '@nuxt/content'
 const perPage =5

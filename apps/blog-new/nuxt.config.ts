@@ -14,7 +14,9 @@ export default defineNuxtConfig({
   // https://color-mode.nuxtjs.org
   colorMode: {
     classSuffix: '',
-    dataValue: 'theme'
+    dataValue: 'theme',
+    preference: 'dark'
+
   },
   // https://content.nuxtjs.org
   content: {
