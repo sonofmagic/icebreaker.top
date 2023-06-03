@@ -6,7 +6,7 @@ const card = ref<HTMLDivElement>();
 const { elementX, elementY } = useMouseInElement(card);
 onMounted(() => {
   card.value && VanillaTilt.init(card.value, {
-    max: 3
+    max: 7.5
   })
 })
 </script>
@@ -17,15 +17,15 @@ onMounted(() => {
       '--x': `${elementX}px`,
       '--y': `${elementY}px`,
     }"
-    class="border-gradient group relative rounded-xl bg-gray-700 p-8 before:absolute before:-inset-px before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:rounded-xl"
+    class="border-gradient group relative rounded-xl bg-gray-200 dark:bg-gray-700 p-8 before:absolute before:-inset-px before:h-[calc(100%+2px)] before:w-[calc(100%+2px)] before:rounded-xl"
   >
-    <div class="absolute inset-0 rounded-[11px] bg-[#202023] transition-colors duration-300 group-hover:bg-[#27272a]" />
+    <div class="absolute inset-0 rounded-[11px] bg-gray-50 dark:bg-[#202023] transition-colors duration-300 dark:group-hover:bg-[#27272a]" />
 
     <slot />
   </div>
 </template>
 
-<style>
+<style lang="scss">
 .border-gradient::before {
   background: radial-gradient(300px circle at var(--x) var(--y),
       #1cd1c6 0,

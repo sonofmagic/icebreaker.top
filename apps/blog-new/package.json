@@ -25,16 +25,17 @@
     "@vueuse/core": "^10.1.2",
     "daisyui": "^3.0.1",
     "dayjs": "^1.11.8",
+    "lodash-es": "^4.17.21",
     "nuxt-config-schema": "^0.4.6",
     "nuxt-icon": "^0.4.1",
     "vanilla-tilt": "^1.8.0"
   },
   "devDependencies": {
     "@nuxt/eslint-config": "^0.1.1",
+    "@types/lodash-es": "^4.17.7",
     "@types/node": "^20.2.5",
     "eslint": "^8.42.0",
     "nuxt": "^3.5.2",
-    "release-it": "^15.10.5",
     "sitemap": "^7.1.1",
     "typescript": "^5.1.3"
   },
