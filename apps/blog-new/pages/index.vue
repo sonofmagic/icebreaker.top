@@ -15,7 +15,7 @@
 
       </div>
     </template>
-    <div class="h-[calc(100vh-80px)] relative px-4 py-8" ref="scrollContentRef">
+    <div class="h-[calc(100vh-108px)] relative px-4 py-8" ref="scrollContentRef">
       <!-- <ContentList v-slot="{ list }" path="/articles" :query="query"> -->
       <div class="space-y-8">
         <BaseCard v-for="article in currentArticles" :key="article._path">

@@ -1,7 +1,7 @@
 {
   "name": "icebreaker-blog-nuxt3",
   "private": false,
-  "version": "0.6.5",
+  "version": "0.0.1",
   "main": "nuxt.config.ts",
   "license": "MIT",
   "scripts": {
