@@ -28,6 +28,7 @@
     "lodash-es": "^4.17.21",
     "nuxt-config-schema": "^0.4.6",
     "nuxt-icon": "^0.4.1",
+    "perfect-scrollbar": "^1.5.5",
     "vanilla-tilt": "^1.8.0"
   },
   "devDependencies": {

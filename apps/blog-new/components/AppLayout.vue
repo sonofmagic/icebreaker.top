@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <div class="sm:pt-6 sm:pb-10">
+  <div>
     <Html lang="en" />
     <!-- <Meta property="og:image" :content="cover" /> -->
     <Meta name="twitter:card" content="summary_large_image" />
@@ -13,8 +13,8 @@
   </div>
 </template>
 
-<style lang="postcss">
+<style lang="scss">
 body {
-  @apply bg-primary-50 text-black dark:bg-primary-900 dark:text-white;
+  @apply bg-primary-50 text-black dark:bg-primary-900 dark:text-white min-h-screen;
 }
 </style>

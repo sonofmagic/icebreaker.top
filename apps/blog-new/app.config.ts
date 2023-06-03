@@ -2,6 +2,7 @@ export default defineAppConfig({
   socials: {
     // twitter: 'sadnessgun',
     github: 'sonofmagic/icebreaker.top',
+    npm:'icebreaker'
   },
   nuxtIcon: {
     aliases: {
