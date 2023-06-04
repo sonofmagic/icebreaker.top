@@ -6,7 +6,7 @@
   "description": "a serverless nuxt website",
   "author": "icebreaker99 <qq1324318532@gmail.com>",
   "homepage": "http://www.icebreaker.top/",
-  "workspaces": {
+  "_workspaces": {
     "nohoist": [],
     "packages": [
       "packages/*",
