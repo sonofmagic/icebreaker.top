@@ -12,6 +12,7 @@
     "path": "/demos"
   },
   {
+    "name": "perf",
     "path": "/perf"
   },
   {
@@ -29,14 +30,6 @@
   {
     "name": "utils",
     "path": "/utils"
-  },
-  {
-    "name": "ws-login-success",
-    "path": "/ws-login-success"
-  },
-  {
-    "name": "ws-login-trigger",
-    "path": "/ws-login-trigger"
   },
   {
     "name": "batch-qrcode",
@@ -69,6 +62,22 @@
   {
     "name": "packages-snow",
     "path": "/packages/snow"
+  },
+  {
+    "name": "perf-child-component-splitting",
+    "path": "/perf/child-component-splitting"
+  },
+  {
+    "name": "perf-functional",
+    "path": "/perf/functional"
+  },
+  {
+    "name": "perf-local-variables",
+    "path": "/perf/local-variables"
+  },
+  {
+    "name": "perf-reuse-dom-with-v-show",
+    "path": "/perf/reuse-dom-with-v-show"
   },
   {
     "name": "test-css-var",
@@ -105,6 +114,38 @@
   {
     "name": "demos-vue-frame-selection-Calendar",
     "path": "/demos/vue-frame-selection/Calendar"
+  },
+  {
+    "name": "perf-child-component-splitting-after",
+    "path": "/perf/child-component-splitting/after"
+  },
+  {
+    "name": "perf-child-component-splitting-before",
+    "path": "/perf/child-component-splitting/before"
+  },
+  {
+    "name": "perf-functional-after",
+    "path": "/perf/functional/after"
+  },
+  {
+    "name": "perf-functional-before",
+    "path": "/perf/functional/before"
+  },
+  {
+    "name": "perf-local-variables-after",
+    "path": "/perf/local-variables/after"
+  },
+  {
+    "name": "perf-local-variables-before",
+    "path": "/perf/local-variables/before"
+  },
+  {
+    "name": "perf-reuse-dom-with-v-show-after",
+    "path": "/perf/reuse-dom-with-v-show/after"
+  },
+  {
+    "name": "perf-reuse-dom-with-v-show-before",
+    "path": "/perf/reuse-dom-with-v-show/before"
   },
   {
     "name": "articles-slug",

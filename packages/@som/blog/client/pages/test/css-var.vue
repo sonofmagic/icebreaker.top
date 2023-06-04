@@ -1,15 +1,6 @@
 <template>
   <div
-    class="
-      container
-      mx-auto
-      pt-10
-      h-screen
-      custom-bg
-      flex
-      items-center
-      justify-center
-    "
+    class="custom-bg container mx-auto flex h-screen items-center justify-center pt-10"
   >
     <!-- <div
       class="h-32 w-32 flex justify-center items-center test-button"
@@ -18,12 +9,12 @@
       测试
     </div> -->
     <div
-      class="bg-white w-32 h-32 rounded-full flex items-center justify-center"
+      class="flex h-32 w-32 items-center justify-center rounded-full bg-white"
     >
       <div class="text-center">
         <div class="text-primary-var">Primary</div>
         <div
-          class="text-sm mb-2"
+          class="mb-2 text-sm"
           :style="{
             color: primaryBgColor,
           }"
