@@ -148,6 +148,23 @@ const config = {
     },
     // { src: '@/plugins/persistedState.js' },
   ],
+  serverMiddleware: [
+    {
+      handler(req, res, next) {
+        Object.entries({
+          'Access-Control-Allow-Credentials': true,
+          'Access-Control-Allow-Origin': req.headers.origin || '*',
+          'Access-Control-Allow-Headers': 'X-Requested-With,Content-Type',
+          'Access-Control-Allow-Methods': 'PUT,POST,GET,DELETE,OPTIONS',
+          'Content-Type': 'application/json; charset=utf-8',
+        }).forEach(([name, value]) => {
+          res.setHeader(name, value)
+        })
+
+        next()
+      },
+    },
+  ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
   components: [
