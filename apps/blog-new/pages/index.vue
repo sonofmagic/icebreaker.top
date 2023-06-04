@@ -60,7 +60,6 @@ import 'perfect-scrollbar/css/perfect-scrollbar.css'
 
 definePageMeta({
   layout: false,
-  // keepalive: true
 })
 const { data: groupedArticles } = await useAsyncData('all-articles', async () => {
   const articles = await queryContent('articles').sort({
@@ -108,10 +107,14 @@ onMounted(() => {
     ps.value.element.addEventListener('scroll', onPsScroll, {
       passive: true
     })
+    if (scrollYState.value > -1) {
+      ps.value.element.scrollTop = scrollYState.value
+    }
+
   }
 
-  if(scrollContentRef.value){
-    new PerfectScrollbar(scrollContentRef.value,{
+  if (scrollContentRef.value) {
+    new PerfectScrollbar(scrollContentRef.value, {
       suppressScrollX: true
     })
   }
