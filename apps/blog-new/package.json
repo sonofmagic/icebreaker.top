@@ -29,7 +29,8 @@
     "nuxt-config-schema": "^0.4.6",
     "nuxt-icon": "^0.4.1",
     "perfect-scrollbar": "^1.5.5",
-    "vanilla-tilt": "^1.8.0"
+    "vanilla-tilt": "^1.8.0",
+    "wujie-vue3": "^1.0.17"
   },
   "devDependencies": {
     "@nuxt/eslint-config": "^0.1.1",
