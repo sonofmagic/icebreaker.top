@@ -1,9 +1,9 @@
 import colors from 'tailwindcss/colors'
-import type { Config } from 'tailwindcss';
+import type { Config } from 'tailwindcss'
 import daisyui from 'daisyui'
 import daisyuiThemes from 'daisyui/src/theming/themes'
 export default <Partial<Config>>{
-  darkMode: ["class", '[data-theme="dark"]'],
+  darkMode: ['class', '[data-theme="dark"]'],
   theme: {
     extend: {
       colors: {
@@ -15,18 +15,17 @@ export default <Partial<Config>>{
   daisyui: {
     themes: [
       {
-        "light": {
-          ...daisyuiThemes["[data-theme=light]"],
-          primary: "#0969da"
-
+        light: {
+          ...daisyuiThemes['[data-theme=light]'],
+          primary: '#0969da'
         }
       },
       {
-        "dark": {
-          ...daisyuiThemes["[data-theme=dark]"],
-          primary: "#539bf5",
+        dark: {
+          ...daisyuiThemes['[data-theme=dark]'],
+          primary: '#539bf5'
         }
       }
     ]
-  },
+  }
 }

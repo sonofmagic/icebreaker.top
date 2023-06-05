@@ -2,10 +2,16 @@
   <NuxtLayout name="index">
     <template #prepend>
       <div class="absolute bottom-0 left-[-7rem] top-0 hidden lg:block">
-        <div :ref="registerPcScrollRef" class="relative flex h-full overflow-hidden">
+        <div
+          :ref="registerPcScrollRef"
+          class="relative flex h-full overflow-hidden">
           <div class="space-y-4 pr-4">
-            <button v-for="d in dates" :key="d" class="btn block w-24"
-              :class="activeDate === d ? 'btn-primary' : undefined" @click="changeDate(d)">
+            <button
+              v-for="d in dates"
+              :key="d"
+              class="btn block w-24"
+              :class="activeDate === d ? 'btn-primary' : undefined"
+              @click="changeDate(d)">
               {{ d }}
             </button>
           </div>
@@ -20,7 +26,9 @@
         </button>
       </div>
     </div> -->
-    <div :ref="registerScrollContentRef" class="relative px-4 py-4 lg:h-[calc(100vh-108px)] lg:py-8 overflow-hidden">
+    <div
+      :ref="registerScrollContentRef"
+      class="relative overflow-hidden px-4 py-4 lg:h-[calc(100vh-108px)] lg:py-8">
       <!-- <ContentList v-slot="{ list }" path="/articles" :query="query"> -->
       <div class="space-y-8">
         <BaseCard v-for="article in currentArticles" :key="article._path">
@@ -37,7 +45,10 @@
             </div>
             <div class="flex items-center justify-between">
               <div class="">
-                <span v-for="tag in article.tags" :key="tag" class="badge badge-primary badge-outline mr-1.5">
+                <span
+                  v-for="tag in article.tags"
+                  :key="tag"
+                  class="badge badge-primary badge-outline mr-1.5">
                   {{ tag }}
                 </span>
               </div>
@@ -107,15 +118,21 @@ const scrollXState = useState('scrollXState', () => {
   return 0
 })
 
-
-
 const { registerRef: registerScrollContentRef } = usePerfectScrollbar({
   suppressScrollX: true
 })
-const { registerRef: registerPcScrollRef, scrollbarRef: pcScrollbarRef, elRef: pcElRef } = usePerfectScrollbar({
+const {
+  registerRef: registerPcScrollRef,
+  scrollbarRef: pcScrollbarRef,
+  elRef: pcElRef
+} = usePerfectScrollbar({
   suppressScrollX: true
 })
-const { registerRef: registerMScrollRef, scrollbarRef: mScrollbarRef, elRef: mElRef } = usePerfectScrollbar({
+const {
+  registerRef: registerMScrollRef,
+  scrollbarRef: mScrollbarRef,
+  elRef: mElRef
+} = usePerfectScrollbar({
   suppressScrollY: true
 })
 const onPcDebounceScroll = debounce(() => {
@@ -153,7 +170,6 @@ onMounted(() => {
 
     // mScrollbarRef.value.update()
   }
-
 })
 
 onBeforeUnmount(() => {
@@ -164,7 +180,6 @@ onBeforeUnmount(() => {
     mScrollbarRef.value.element.removeEventListener('scroll', onMScroll, {})
   }
 })
-
 </script>
 
 <style lang="scss"></style>

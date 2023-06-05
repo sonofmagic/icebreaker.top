@@ -10,9 +10,7 @@ export default defineNuxtConfig({
   app: {
     // keepalive: true
   },
-  css: [
-    '@/assets/css/main.scss',
-  ],
+  css: ['@/assets/css/main.scss'],
   modules: [
     '@nuxt/content',
     '@nuxtjs/tailwindcss',

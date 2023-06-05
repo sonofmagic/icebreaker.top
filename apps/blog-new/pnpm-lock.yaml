@@ -84,9 +84,6 @@ devDependencies:
   sitemap:
     specifier: ^7.1.1
     version: 7.1.1
-  typescript:
-    specifier: ^5.1.3
-    version: 5.1.3
 
 packages:
 
