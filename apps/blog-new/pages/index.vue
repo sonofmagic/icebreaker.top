@@ -2,36 +2,25 @@
   <NuxtLayout name="index">
     <template #prepend>
       <div class="absolute bottom-0 left-[-7rem] top-0 hidden lg:block">
-        <div ref="scrollRef" class="relative flex h-full">
+        <div :ref="registerPcScrollRef" class="relative flex h-full overflow-hidden">
           <div class="space-y-4 pr-4">
-            <button
-              v-for="d in dates"
-              :key="d"
-              class="btn block"
-              :class="activeDate === d ? 'btn-primary' : undefined"
-              @click="changeDate(d)">
+            <button v-for="d in dates" :key="d" class="btn block w-24"
+              :class="activeDate === d ? 'btn-primary' : undefined" @click="changeDate(d)">
               {{ d }}
             </button>
           </div>
         </div>
       </div>
     </template>
-    <div class="relative block lg:hidden">
-      <div
-        class="flex h-full w-full max-w-full space-x-2 overflow-auto px-2 py-2">
-        <button
-          v-for="d in dates"
-          :key="d"
-          class="btn-sm btn block"
-          :class="activeDate === d ? 'btn-primary' : undefined"
-          @click="changeDate(d)">
+    <!-- <div class="relative block lg:hidden ">
+      <div :ref="registerMScrollRef" class="flex overflow-hidden px-2 py-2 space-x-2 w-[200px]">
+        <button v-for="d in dates" :key="d" class="btn-sm btn inline-block"
+          :class="activeDate === d ? 'btn-primary' : undefined" @click="changeDate(d)">
           {{ d }}
         </button>
       </div>
-    </div>
-    <div
-      ref="scrollContentRef"
-      class="relative px-4 py-4 lg:h-[calc(100vh-108px)] lg:py-8">
+    </div> -->
+    <div :ref="registerScrollContentRef" class="relative px-4 py-4 lg:h-[calc(100vh-108px)] lg:py-8 overflow-hidden">
       <!-- <ContentList v-slot="{ list }" path="/articles" :query="query"> -->
       <div class="space-y-8">
         <BaseCard v-for="article in currentArticles" :key="article._path">
@@ -48,15 +37,12 @@
             </div>
             <div class="flex items-center justify-between">
               <div class="">
-                <span
-                  v-for="tag in article.tags"
-                  :key="tag"
-                  class="badge badge-primary badge-outline mr-1.5">
+                <span v-for="tag in article.tags" :key="tag" class="badge badge-primary badge-outline mr-1.5">
                   {{ tag }}
                 </span>
               </div>
               <div class="flex-shrink-0 text-xs text-white">
-                {{ format(article.date) }}
+                {{ fromNowFilter(article.date) }}
               </div>
             </div>
           </div>
@@ -73,9 +59,6 @@
 <script setup lang="ts">
 import dayjs from 'dayjs'
 import { groupBy, debounce } from 'lodash-es'
-import PerfectScrollbar from 'perfect-scrollbar'
-
-// import type { QueryBuilderParams } from '@nuxt/content'
 
 definePageMeta({
   layout: false
@@ -115,70 +98,73 @@ const currentArticles = computed(() => {
 function changeDate(v: string) {
   activeDate.value = v
 }
-const scrollRef = ref<Element>()
-const scrollContentRef = ref<Element>()
+
 const scrollYState = useState('scrollYState', () => {
   return 0
 })
-const onDebounceScroll = debounce(() => {
-  scrollYState.value = scrollRef.value!.scrollTop
+
+const scrollXState = useState('scrollXState', () => {
+  return 0
+})
+
+
+
+const { registerRef: registerScrollContentRef } = usePerfectScrollbar({
+  suppressScrollX: true
+})
+const { registerRef: registerPcScrollRef, scrollbarRef: pcScrollbarRef, elRef: pcElRef } = usePerfectScrollbar({
+  suppressScrollX: true
+})
+const { registerRef: registerMScrollRef, scrollbarRef: mScrollbarRef, elRef: mElRef } = usePerfectScrollbar({
+  suppressScrollY: true
+})
+const onPcDebounceScroll = debounce(() => {
+  scrollYState.value = pcElRef.value!.scrollTop
+}, 200)
+
+const onMDebounceScroll = debounce(() => {
+  scrollXState.value = mElRef.value!.scrollLeft
 }, 200)
 function onPsScroll(e: Event) {
-  onDebounceScroll()
+  onPcDebounceScroll()
 }
-const ps = ref<PerfectScrollbar>()
+
+function onMScroll(e: Event) {
+  onMDebounceScroll()
+}
+
 onMounted(() => {
-  if (scrollRef.value) {
-    ps.value = new PerfectScrollbar(scrollRef.value)
-    ps.value.element.addEventListener('scroll', onPsScroll, {
+  if (pcElRef.value && pcScrollbarRef.value) {
+    pcScrollbarRef.value.element.addEventListener('scroll', onPsScroll, {
       passive: true
     })
     if (scrollYState.value > -1) {
-      ps.value.element.scrollTop = scrollYState.value
+      pcScrollbarRef.value.element.scrollTop = scrollYState.value
     }
   }
 
-  if (scrollContentRef.value) {
-    new PerfectScrollbar(scrollContentRef.value, {
-      suppressScrollX: true
+  if (mElRef.value && mScrollbarRef.value) {
+    mScrollbarRef.value.element.addEventListener('scroll', onMScroll, {
+      passive: true
     })
+    if (scrollXState.value > -1) {
+      mScrollbarRef.value.element.scrollLeft = scrollXState.value
+    }
+
+    // mScrollbarRef.value.update()
   }
+
 })
 
 onBeforeUnmount(() => {
-  if (ps.value) {
-    ps.value.element.removeEventListener('scroll', onPsScroll, {})
-    ps.value.destroy()
-    ps.value = undefined
+  if (pcScrollbarRef.value) {
+    pcScrollbarRef.value.element.removeEventListener('scroll', onPsScroll, {})
+  }
+  if (mScrollbarRef.value) {
+    mScrollbarRef.value.element.removeEventListener('scroll', onMScroll, {})
   }
 })
 
-// function loadMore() {
-//   pagedParams.limit += perPage
-// }
-// const query = computed(() => {
-//   return {
-//     sort: {
-//       id: -1
-//     },
-//     where: {
-//       id: { $exists: true }
-//     },
-//     skip: 0,
-//     limit: pagedParams.limit,
-//     without: ['body']
-//   }
-// })
-
-function format(v: string) {
-  if (!v) {
-    return v
-  }
-  return dayjs(v).local().fromNow()
-}
-// .utc(v)
 </script>
 
-<style lang="scss">
-
-</style>
+<style lang="scss"></style>

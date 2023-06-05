@@ -1,6 +1,8 @@
-import { ObjectDirective } from 'vue'
+import type { ObjectDirective } from 'vue'
 
 export const vScroll: ObjectDirective = {
-  mounted() {},
-  unmounted() {}
+  mounted(el, binding, vnode, prevNode) {
+    console.log(el, binding, vnode, prevNode)
+  },
+  unmounted() { }
 }
