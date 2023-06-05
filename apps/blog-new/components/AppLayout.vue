@@ -16,6 +16,6 @@
 
 <style lang="scss">
 body {
-  @apply bg-primary-50 text-black dark:bg-primary-900 dark:text-white min-h-screen;
+  @apply min-h-screen bg-primary-50 text-black dark:bg-primary-900 dark:text-white;
 }
 </style>

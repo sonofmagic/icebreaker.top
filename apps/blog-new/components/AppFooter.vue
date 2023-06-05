@@ -1,9 +1,12 @@
 <template>
   <section class="container mx-auto py-4">
-    <div class="flex flex-col sm:flex-row justify-between items-center px-4 text-gray-600 text-xs dark:text-primary-600">
+    <div
+      class="flex flex-col items-center justify-between px-4 text-xs text-gray-600 dark:text-primary-600 sm:flex-row">
       <div>
         <span class="mr-4">© {{ fullYear }} ice breaker</span>
-        <a target="_blank" rel="nofollow" href="http://beian.miit.gov.cn">苏ICP备19002675号-2</a>
+        <a target="_blank" rel="nofollow" href="http://beian.miit.gov.cn">
+          苏ICP备19002675号-2
+        </a>
       </div>
       <div>version:{{ version }}</div>
       <!-- <div> -->
@@ -28,5 +31,4 @@
 import { version } from '~~/package.json'
 
 const fullYear = new Date().getFullYear()
-
 </script>

@@ -1,5 +1,5 @@
-import path from 'path'
-import routesV1 from './routes-v1.json'
+// import path from 'path'
+// import routesV1 from './routes-v1.json'
 
 // https://v3.nuxtjs.org/docs/directory-structure/nuxt.config
 export default defineNuxtConfig({
@@ -12,21 +12,18 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
     '@nuxtjs/color-mode',
     'nuxt-icon',
-    'nuxt-config-schema',
+    'nuxt-config-schema'
   ],
   // https://color-mode.nuxtjs.org
   colorMode: {
     classSuffix: '',
     dataValue: 'theme',
     preference: 'dark'
-
   },
   // https://content.nuxtjs.org
   content: {
-
     // documentDriven: true,
     highlight: {
-
       // See the available themes on https://github.com/shikijs/shiki/blob/main/docs/themes.md#all-theme
       theme: {
         dark: 'github-dark',
@@ -38,8 +35,8 @@ export default defineNuxtConfig({
     inlineSSRStyles: false,
     watcher: 'chokidar'
   },
-  hooks:{
-    'pages:extend' (routes) {
+  hooks: {
+    'pages:extend'(routes) {
       // console.log(routes)
       // for (let i = 0; i < routesV1.length; i++) {
       //   const r = routesV1[i];
@@ -59,8 +56,7 @@ export default defineNuxtConfig({
       //     // file: path.resolve(__dirname,'./pages/v1/[...slug].vue')
       //   })
       // }
-     // console.log(routes)
-
+      // console.log(routes)
       //
     }
   }

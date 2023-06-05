@@ -8,7 +8,7 @@ export default defineNuxtSchema({
     socials: {
       /**
        * Twitter handle
-       * 
+       *
        * @example 'Atinux'
        * @studioIcon simple-icons:twitter
        * */
