@@ -1,7 +1,10 @@
 <template>
   <div class="typing-effect-wrapper">
-    <p>ice breaker is <span ref="typedTextSpanRef" class="typed-text text-sky-600 dark:text-sky-400"></span><span
-        ref="cursorSpanRef" class="cursor">&nbsp;</span></p>
+    <p>
+      ice breaker is <span ref="typedTextSpanRef" class="typed-text text-sky-600 dark:text-sky-400" /><span
+        ref="cursorSpanRef" class="cursor"
+      >&nbsp;</span>
+    </p>
   </div>
 </template>
 

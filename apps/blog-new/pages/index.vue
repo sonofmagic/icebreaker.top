@@ -1,21 +1,20 @@
 <template>
   <NuxtLayout name="index">
     <template #prepend>
-      <div class="absolute left-[-7rem] top-0 bottom-0">
+      <div class="hidden lg:block absolute left-[-7rem] top-0 bottom-0">
         <div ref="scrollRef" class="flex relative h-full">
           <div class="space-y-4 pr-4">
             <button
               v-for="d in dates" :key="d" class="block btn" :class="activeDate === d ? 'btn-primary' : undefined"
               @click="changeDate(d)"
             >
-              {{ d
-              }}
+              {{ d }}
             </button>
           </div>
         </div>
       </div>
     </template>
-    <div ref="scrollContentRef" class="h-[calc(100vh-108px)] relative px-4 py-8">
+    <div ref="scrollContentRef" class="md:h-[calc(100vh-108px)] relative px-4 py-8">
       <!-- <ContentList v-slot="{ list }" path="/articles" :query="query"> -->
       <div class="space-y-8">
         <BaseCard v-for="article in currentArticles" :key="article._path">

@@ -10,8 +10,7 @@
     <AppLoadingBar />
     <AppNavbar />
     <slot />
-
-    <AppFooter></AppFooter>
+    <AppFooter />
   </div>
 </template>
 
