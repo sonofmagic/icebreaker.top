@@ -7,6 +7,9 @@ export default defineNuxtConfig({
     process.env.THEME_ELEMENTS || '@nuxt-themes/elements',
     process.env.THEME_TYPOGRAPHY || '@nuxt-themes/typography'
   ],
+  css: [
+    '@/assets/css/main.scss',
+  ],
   modules: [
     '@nuxt/content',
     '@nuxtjs/tailwindcss',
@@ -19,6 +22,9 @@ export default defineNuxtConfig({
     classSuffix: '',
     dataValue: 'theme',
     preference: 'dark'
+  },
+  tailwindcss: {
+    cssPath: '~/assets/css/tailwind.scss'
   },
   // https://content.nuxtjs.org
   content: {

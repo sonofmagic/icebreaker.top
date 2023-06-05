@@ -74,7 +74,7 @@
 import dayjs from 'dayjs'
 import { groupBy, debounce } from 'lodash-es'
 import PerfectScrollbar from 'perfect-scrollbar'
-import 'perfect-scrollbar/css/perfect-scrollbar.css'
+
 // import type { QueryBuilderParams } from '@nuxt/content'
 
 definePageMeta({
@@ -180,13 +180,5 @@ function format(v: string) {
 </script>
 
 <style lang="scss">
-.ps .ps__rail-x:hover,
-.ps .ps__rail-y:hover,
-.ps .ps__rail-x:focus,
-.ps .ps__rail-y:focus,
-.ps .ps__rail-x.ps--clicking,
-.ps .ps__rail-y.ps--clicking {
-  background-color: transparent;
-  opacity: 0.9;
-}
+
 </style>
