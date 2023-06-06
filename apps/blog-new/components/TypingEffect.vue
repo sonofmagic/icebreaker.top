@@ -51,18 +51,26 @@ const erasingDelay = 100
 const newTextDelay = 2000
 let textArrayIndex = 0
 let charIndex = 0
+const ptr = ref()
+function setTO(callback: () => void, ms?: number) {
+  ptr.value = setTimeout(callback, ms)
+}
+function clearOT() {
+  clearTimeout(ptr.value)
+  ptr.value = undefined
+}
 
-function type() {
+function doTyping() {
   if (charIndex < textArray[textArrayIndex].length) {
     if (!cursorSpanRef.value.classList.contains('typing'))
       cursorSpanRef.value.classList.add('typing')
     typedTextSpanRef.value.textContent +=
       textArray[textArrayIndex].charAt(charIndex)
     charIndex++
-    setTimeout(type, typingDelay)
+    setTO(doTyping, typingDelay)
   } else {
     cursorSpanRef.value.classList.remove('typing')
-    setTimeout(erase, newTextDelay)
+    setTO(erase, newTextDelay)
   }
 }
 
@@ -75,16 +83,22 @@ function erase() {
       charIndex - 1
     )
     charIndex--
-    setTimeout(erase, erasingDelay)
+    setTO(erase, erasingDelay)
   } else {
     cursorSpanRef.value.classList.remove('typing')
     textArrayIndex++
     if (textArrayIndex >= textArray.length) textArrayIndex = 0
-    setTimeout(type, typingDelay + 1100)
+    setTO(doTyping, typingDelay + 1100)
   }
 }
 onMounted(() => {
-  if (textArray.length) setTimeout(type, newTextDelay + 250)
+  if (textArray.length) {
+    setTO(doTyping, newTextDelay + 250)
+  }
+})
+
+onBeforeUnmount(() => {
+  clearOT()
 })
 </script>
 

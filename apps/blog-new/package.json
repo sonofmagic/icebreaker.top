@@ -44,6 +44,7 @@
     "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.3.0",
     "sass": "^1.62.1",
-    "sitemap": "^7.1.1"
+    "sitemap": "^7.1.1",
+    "swiper": "^9.3.2"
   }
 }
