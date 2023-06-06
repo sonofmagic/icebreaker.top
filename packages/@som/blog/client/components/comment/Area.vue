@@ -10,7 +10,7 @@
       reactionsenabled="1"
       emitmetadata="0"
       inputposition="bottom"
-      theme="dark_dimmed"
+      :theme="theme"
       lang="zh-CN"
       crossorigin="anonymous"
       loading="lazy"
@@ -19,7 +19,28 @@
 </template>
 
 <script>
-export default {}
+export default {
+  computed: {
+    mode() {
+      return this.$store.state.theme
+    },
+    theme({ mode }) {
+      return mode === 'light' ? 'light' : 'dark_dimmed'
+    },
+  },
+}
+// import { useColorMode } from '@vueuse/core'
+// import { computed } from 'vue'
+// import { useStore } from '@/store'
+// const store = useStore()
+// const theme = computed(() => {
+//   return store.state.theme
+// })
+
+// const colorMode = useColorMode()
+// const theme = computed(() => {
+//   return colorMode.value === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon'
+// })
 </script>
 
 <style lang="scss" scoped></style>
