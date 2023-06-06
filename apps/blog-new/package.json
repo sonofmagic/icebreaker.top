@@ -13,7 +13,8 @@
     "lint": "eslint .",
     "prepublishOnly": "pnpm lint",
     "release": "release-it",
-    "sync:content": "node scripts/syncContent.js"
+    "sync:content": "node scripts/syncContent.js",
+    "prepare": "tw-patch"
   },
   "dependencies": {
     "@nuxt-themes/elements": "^0.9.4",
@@ -33,6 +34,7 @@
     "wujie-vue3": "^1.0.17"
   },
   "devDependencies": {
+    "@icebreakers/deploy": "^0.1.4",
     "@nuxt/eslint-config": "^0.1.1",
     "@types/lodash-es": "^4.17.7",
     "@types/node": "^20.2.5",
@@ -45,6 +47,8 @@
     "prettier-plugin-tailwindcss": "^0.3.0",
     "sass": "^1.62.1",
     "sitemap": "^7.1.1",
-    "swiper": "^9.3.2"
+    "swiper": "^9.3.2",
+    "tailwindcss-patch": "^1.2.1",
+    "unplugin-tailwindcss-mangle": "^1.2.1"
   }
 }

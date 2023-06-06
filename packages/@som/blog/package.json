@@ -18,7 +18,8 @@
     "check:upgrade": "yarn upgradeInteractive --latest",
     "sls:info": "components info",
     "gen:theme": "node scripts/theme.js",
-    "format": "prettier client/**/*.vue"
+    "format": "prettier client/**/*.vue",
+    "prepare": "tw-patch"
   },
   "dependencies": {
     "@babel/runtime": "^7.22.3",
@@ -118,7 +119,9 @@
     "tailwind-config-viewer": "^1.7.2",
     "tailwind-css-variables-theme-generator": "^0.3.8",
     "tailwindcss": "^3.3.2",
+    "tailwindcss-patch": "^1.2.1",
     "tencentcloud-sdk-nodejs": "^4.0.610",
+    "unplugin-tailwindcss-mangle": "^1.2.1",
     "worker-loader": "^3.0.8"
   },
   "resolutions": {
