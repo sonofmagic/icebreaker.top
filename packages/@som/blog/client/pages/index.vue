@@ -33,8 +33,7 @@
           </div>
         </div>
         <div class="team-right-column mt-8 md:w-4/12 md:px-6">
-          其实这里原先有一块东西的，然而因为某些不可控原因去除了。
-          评论系统不接入内容安全，纯粹是给自己找罪受。
+          <CommentArea />
           <!-- <DarkParadise /> -->
         </div>
       </div>
@@ -47,6 +46,7 @@ import DarkSouls from '@/components/home/DarkSouls.vue'
 import { getPageList } from '@/api/article'
 import DarkArticleCard from '@/components/article/DarkArticleCard.vue'
 import SidebarFooter from '@/components/layout/SidebarFooter'
+import CommentArea from '@/components/comment/Area.vue'
 // import DarkParadise from '@/components/common/Comments/dark/DarkParadise.vue'
 
 export default {
@@ -54,6 +54,7 @@ export default {
     DarkSouls,
     DarkArticleCard,
     SidebarFooter,
+    CommentArea,
     // DarkParadise,
   },
   layout: 'noFooter',

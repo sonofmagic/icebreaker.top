@@ -49,6 +49,7 @@
     "eruda": "^3.0.0",
     "file-saver": "^2.0.5",
     "gemoji": "^8.1.0",
+    "giscus": "^1.2.8",
     "github-markdown-css": "^5.2.0",
     "github-repository-distributor": "^1.1.1",
     "gsap": "^3.11.5",
