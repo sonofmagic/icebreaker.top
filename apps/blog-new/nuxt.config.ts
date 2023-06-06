@@ -3,6 +3,7 @@
 
 // https://v3.nuxtjs.org/docs/directory-structure/nuxt.config
 export default defineNuxtConfig({
+  app: {},
   extends: [
     process.env.THEME_ELEMENTS || '@nuxt-themes/elements',
     process.env.THEME_TYPOGRAPHY || '@nuxt-themes/typography'

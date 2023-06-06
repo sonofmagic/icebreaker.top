@@ -36,7 +36,9 @@
         <!-- </Sticky> -->
       </div>
       <!-- lg: -->
-      <div class="content-max-width mb-4 mr-4 w-full p-8 shadow lg:mb-0">
+      <div
+        class="relative m-auto mb-4 w-full max-w-2xl p-8 px-4 pb-4 pt-4 shadow ring-1 ring-gray-200 dark:ring-gray-700 sm:rounded-lg sm:px-8 sm:shadow lg:mb-0"
+      >
         <div class="mb-4 pb-4">
           <h1 class="mb-2 text-3xl">{{ article.title }}</h1>
           <div
@@ -61,9 +63,9 @@
         <!-- </ClientOnly> -->
         <!-- END -->
       </div>
-      <div class="w-full flex-grow self-start p-4 shadow sm:w-auto">
-        <!-- <Comments /> -->
-      </div>
+      <!-- <div class="w-full flex-grow self-start p-4 shadow sm:w-auto"> -->
+      <!-- <Comments /> -->
+      <!-- </div> -->
     </div>
   </div>
 </template>
@@ -157,11 +159,11 @@ export default {
 // @responsive直接把类包裹成响应式单位
 
 //@screen相当于 @media(min-width:)的封装
-@screen lg {
-  .content-max-width {
-    max-width: 44.5rem;
-  }
-}
+// @screen lg {
+//   .content-max-width {
+//     max-width: 44.5rem;
+//   }
+// }
 </style>
 <style lang="scss">
 .compose-nuxt-content {

@@ -127,6 +127,10 @@ export default {
           href: 'https://www.npmjs.com/~icebreaker',
           title: 'Packages',
         },
+        {
+          href: 'https://blog.icebreaker.top/',
+          title: 'Blog-v2 (Beta)',
+        },
         // {
         //   href: 'https://rendertron.icebreaker.top/',
         //   title: 'Rendertron',

@@ -33,6 +33,8 @@
           </div>
         </div>
         <div class="team-right-column mt-8 md:w-4/12 md:px-6">
+          其实这里原先有一块东西的，然而因为某些不可控原因去除了。
+          评论系统不接入内容安全，纯粹是给自己找罪受。
           <!-- <DarkParadise /> -->
         </div>
       </div>
@@ -120,7 +122,7 @@ export default {
 .application-main {
   @apply bg-canvas-inset;
   .team-left-column {
-    @apply order-2 max-w-full border-r  border-b border-solid border-border-muted bg-canvas-default md:order-1 md:w-4/12;
+    @apply order-2 max-w-full border-b  border-r border-solid border-border-muted bg-canvas-default md:order-1 md:w-4/12;
     .sticky-column {
       // $navbar-height: 62px;
       @apply md:sticky md:top-[62px];

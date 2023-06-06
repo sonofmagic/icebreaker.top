@@ -14,7 +14,8 @@
     "prepublishOnly": "pnpm lint",
     "release": "release-it",
     "sync:content": "node scripts/syncContent.js",
-    "prepare": "tw-patch"
+    "prepare": "tw-patch",
+    "deploy:cos": "ice-deploy -c --dir .output/public"
   },
   "dependencies": {
     "@nuxt-themes/elements": "^0.9.4",
