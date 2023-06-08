@@ -1,7 +1,7 @@
 <template>
-  <section class="container mx-auto py-4">
+  <section class="mx-auto max-w-2xl py-4">
     <div
-      class="flex flex-col items-center justify-between px-4 text-xs text-gray-600 dark:text-primary-600 sm:flex-row">
+      class="flex flex-col items-center justify-between text-xs text-gray-600 dark:text-primary-600 sm:flex-row">
       <div>
         <span class="mr-4">© {{ fullYear }} ice breaker</span>
         <a target="_blank" rel="nofollow" href="http://beian.miit.gov.cn">

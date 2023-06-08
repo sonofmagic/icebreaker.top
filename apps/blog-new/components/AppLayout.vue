@@ -5,6 +5,9 @@
 <template>
   <div>
     <Html lang="en" />
+    <Title>
+      对酒当歌_人生几何_icebreaker_sonofmagic_人生而自由却无往不在枷锁之中
+    </Title>
     <!-- <Meta property="og:image" :content="cover" /> -->
     <Meta name="twitter:card" content="summary_large_image" />
     <AppLoadingBar />
