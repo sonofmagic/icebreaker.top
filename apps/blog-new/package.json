@@ -12,7 +12,6 @@
     "postinstall": "nuxt prepare",
     "lint": "eslint .",
     "prepublishOnly": "pnpm lint",
-    "release": "release-it",
     "sync:content": "node scripts/syncContent.js",
     "prepare": "tw-patch",
     "deploy:cos": "ice-deploy -c --dir .output/public"
