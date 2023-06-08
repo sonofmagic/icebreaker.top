@@ -15,19 +15,29 @@
       <WujieVue width="100%" height="100%" name="old-blog" :url="'http://localhost:9000/'" :sync="true" />
     </ClientOnly> -->
 
-    <div
+    <!-- <div
       ref="imgRef"
       class="h-[100px] w-[100px] bg-[url('https://xxx.com/xx.jpg')]"
       @error="onError($event, '1')">
       1
-    </div>
+    </div> -->
 
-    <div
+    <!-- <div
       ref="imgRef"
       class="h-[100px] w-[100px] bg-[url('https://xxx.com/xx.jpg'),url('/api/hello?code=where-i-am')]"
       @error="onError($event, '2')">
       2
-    </div>
+    </div> -->
+    <!-- https://picx.zhimg.com/80/v2-8423493676f9ccce56d18159e8e26187_1440w.webp?source=1940ef5c -->
+
+    <!-- <div
+      ref="imgRef"
+      class="h-[100px] w-[100px] bg-[url('https://picx.zhimg.com/80/v2-8423493676f9ccce56d18159e8e26187_1440w.webp'),url('/api/hello?code=where-i-am')]"
+      @error="onError($event, '2')">
+      3
+    </div> -->
+
+    <!-- <div class="xxxx"></div> -->
     <button class="btn" @click="count++">add class</button>
   </main>
 </template>
@@ -40,11 +50,11 @@ function onError(err, name) {
 }
 
 onMounted(() => {
-  console.log(imgRef.value)
-  const el = imgRef.value as HTMLDivElement
-  el.addEventListener('error', function (event) {
-    console.log(event)
-  })
+  // console.log(imgRef.value)
+  // const el = imgRef.value as HTMLDivElement
+  // el.addEventListener('error', function (event) {
+  //   console.log(event)
+  // })
 })
 // import routesV1 from '../routes-v1.json'
 // import { createRouterMatcher } from 'vue-router'
@@ -61,3 +71,16 @@ onMounted(() => {
 // import { bus, setupApp, preloadApp, startApp, destroyApp } from "wujie";
 // setupApp({ name: "aaaa", url: "http://localhost:9000/", exec: true, el: "#blog-nuxt2", sync: true })
 </script>
+<style lang="scss" scoped>
+.xxxx {
+  $bg-url: 'https://picx.zhimg.com/80/v2-8423493676f9ccce56d18159e8e26187_1440w.webp';
+  $bg-url: 'https://xxxx.com/xxx.jpg';
+  width: 200px;
+  height: 200px;
+  background-image: url('/api/hello?code=where-i-am');
+
+  @supports (background-image: url($bg-url)) {
+    background-image: url($bg-url);
+  }
+}
+</style>
