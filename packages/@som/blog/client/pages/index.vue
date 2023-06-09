@@ -32,7 +32,7 @@
             <SidebarFooter></SidebarFooter>
           </div>
         </div>
-        <div class="team-right-column mt-8 md:w-4/12 md:px-6">
+        <div class="team-right-column mt-8 max-w-full md:w-4/12 md:px-6">
           <CommentArea />
           <!-- <DarkParadise /> -->
         </div>
@@ -136,9 +136,9 @@ export default {
     .team-left-column {
       @apply max-w-[350px];
     }
-    .team-right-column {
-      @apply max-w-[350px];
-    }
+    // .team-right-column {
+    //   @apply max-w-[350px];
+    // }
   }
 }
 
