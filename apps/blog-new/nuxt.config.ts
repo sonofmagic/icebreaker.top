@@ -1,6 +1,6 @@
 // import path from 'path'
 // import routesV1 from './routes-v1.json'
-
+import nuxtPlugin from 'unplugin-tailwindcss-mangle/nuxt'
 // https://v3.nuxtjs.org/docs/directory-structure/nuxt.config
 export default defineNuxtConfig({
   extends: [
@@ -17,6 +17,13 @@ export default defineNuxtConfig({
     '@nuxtjs/color-mode',
     'nuxt-icon',
     'nuxt-config-schema'
+    // [
+    //   nuxtPlugin,
+    //   {
+    //     classSetOutput: true,
+    //     classMapOutput: true
+    //   }
+    // ]
   ],
   // https://color-mode.nuxtjs.org
   colorMode: {

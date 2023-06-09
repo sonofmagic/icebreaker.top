@@ -1,45 +1,5 @@
 <template>
-  <main>
-    404 Not Found
-    <!-- <NuxtLink to="/">
-      <button class="btn">Back to v2 blog</button>
-    </NuxtLink> -->
-
-    <!-- <ClientOnly>
-      <div class="w-full bg-sky-400 h-4 flex justify-center items-center">
-        <NuxtLink to="/" class="text-xs text-center link">
-          Click here to visit my new blog
-        </NuxtLink>
-      </div>
-
-      <WujieVue width="100%" height="100%" name="old-blog" :url="'http://localhost:9000/'" :sync="true" />
-    </ClientOnly> -->
-
-    <!-- <div
-      ref="imgRef"
-      class="h-[100px] w-[100px] bg-[url('https://xxx.com/xx.jpg')]"
-      @error="onError($event, '1')">
-      1
-    </div> -->
-
-    <!-- <div
-      ref="imgRef"
-      class="h-[100px] w-[100px] bg-[url('https://xxx.com/xx.jpg'),url('/api/hello?code=where-i-am')]"
-      @error="onError($event, '2')">
-      2
-    </div> -->
-    <!-- https://picx.zhimg.com/80/v2-8423493676f9ccce56d18159e8e26187_1440w.webp?source=1940ef5c -->
-
-    <!-- <div
-      ref="imgRef"
-      class="h-[100px] w-[100px] bg-[url('https://picx.zhimg.com/80/v2-8423493676f9ccce56d18159e8e26187_1440w.webp'),url('/api/hello?code=where-i-am')]"
-      @error="onError($event, '2')">
-      3
-    </div> -->
-
-    <!-- <div class="xxxx"></div> -->
-    <button class="btn" @click="count++">add class</button>
-  </main>
+  <main>404 Not Found</main>
 </template>
 
 <script setup lang="ts">
