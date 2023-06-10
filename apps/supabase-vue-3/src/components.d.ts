@@ -17,6 +17,7 @@ declare module 'vue' {
     ElFormItem: typeof import('element-plus/es')['ElFormItem']
     ElIcon: typeof import('element-plus/es')['ElIcon']
     ElInput: typeof import('element-plus/es')['ElInput']
+    ElUpload: typeof import('element-plus/es')['ElUpload']
     EmailForm: typeof import('./components/Login/EmailForm.vue')['default']
     EmailLogin: typeof import('./components/Login/EmailLogin.vue')['default']
     FontAwesomeIcon: typeof import('@fortawesome/vue-fontawesome')['FontAwesomeIcon']

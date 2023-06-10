@@ -1,9 +1,11 @@
 <template>
   <div class="container mx-auto">
     {{ isLogin ? 'Logined' : 'Hello world!' }}
+    <div class="2xl:text-base">2xl:text-base</div>
     <div class="2">2</div>
     <div class="a2">a2</div>
     <div class="2b">2b</div>
+    <div class="2g">2g</div>
     <div class="♥">♥</div>
     <div class="𝌆1a">𝌆1a</div>
     <div class="你和𝌆1a">你和𝌆1a</div>
@@ -50,11 +52,15 @@ const { isLogin } = useUserStoreRefs()
   color: yellow;
 }
 
-.𝌆1a{
+.𝌆1a {
   color: red;
 }
 
-.你和𝌆1a{
+.你和𝌆1a {
   color: red;
 }
+.\32g{
+  color: red;
+}
+
 </style>
