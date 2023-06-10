@@ -4,6 +4,9 @@
     <div class="2">2</div>
     <div class="a2">a2</div>
     <div class="2b">2b</div>
+    <div class="♥">♥</div>
+    <div class="𝌆1a">𝌆1a</div>
+    <div class="你和𝌆1a">你和𝌆1a</div>
   </div>
 </template>
 
@@ -36,9 +39,22 @@ const { isLogin } = useUserStoreRefs()
 .a2 {
   color: red;
 }
+
 // CSS.escape('2b')
 // '\\32 b'
 .\32 b {
   color: yellow;
+}
+
+.♥ {
+  color: yellow;
+}
+
+.𝌆1a{
+  color: red;
+}
+
+.你和𝌆1a{
+  color: red;
 }
 </style>
