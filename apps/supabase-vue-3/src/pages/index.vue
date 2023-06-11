@@ -4,6 +4,7 @@
     <div class="2xl:text-base">2xl:text-base</div>
     <div class="-3:2yo:ur[x'\ds]">-3:2yo:ur[x'\ds]</div>
     <div class="2">2</div>
+    <div class="a:">a:</div>
     <div class="a2">a2</div>
     <div class="2b">2b</div>
     <div class="2g">2g</div>
@@ -17,6 +18,13 @@
     <div :class="xx">{{ xx }}</div>
     <div class="a�b">a�b</div>
     <div class="émotion">émotion</div>
+    <div class="bg-[url('/img/hero-pattern.svg')]">
+      <!-- ... -->
+    </div>
+    <div class="text-[color:var(--my-var)]">...</div>
+    <div class="before:content-['我爱你_中国\_icebreaker']">
+      <!-- ... -->
+    </div>
   </div>
 </template>
 
@@ -103,6 +111,14 @@ const d = /\w/
 /* // .a\\\uFFFD b{
 //   color: red;
 // } */
+
+.a\: {
+  color: red;
+}
+
+.a\3a {
+  color: blue;
+}
 
 
 .\- {
