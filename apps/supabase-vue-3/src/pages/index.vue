@@ -6,9 +6,11 @@
     <div class="a2">a2</div>
     <div class="2b">2b</div>
     <div class="2g">2g</div>
+    <div class="-2g">-2g</div>
     <div class="♥">♥</div>
     <div class="𝌆1a">𝌆1a</div>
     <div class="你和𝌆1a">你和𝌆1a</div>
+    <div class="a\0b">a\0b</div>
   </div>
 </template>
 
@@ -59,8 +61,19 @@ const { isLogin } = useUserStoreRefs()
 .你和𝌆1a {
   color: red;
 }
-.\32g{
+
+.\32 g {
   color: red;
 }
 
+.-\32 g {
+  color: red;
+}
+
+// .a\\\uFFFD b{
+//   color: red;
+// }
+.a�b {
+  color: red;
+}
 </style>
