@@ -106,6 +106,9 @@ devDependencies:
   postcss-scss:
     specifier: ^4.0.6
     version: 4.0.6(postcss@8.4.24)
+  postcss-selector-parser:
+    specifier: ^6.0.13
+    version: 6.0.13
   sass:
     specifier: ^1.63.3
     version: 1.63.3

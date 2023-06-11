@@ -7,19 +7,25 @@
     <div class="2b">2b</div>
     <div class="2g">2g</div>
     <div class="-2g">-2g</div>
+    <div class="-">-</div>
     <div class="♥">♥</div>
     <div class="𝌆1a">𝌆1a</div>
     <div class="你和𝌆1a">你和𝌆1a</div>
-    <div class="a\0b">a\0b</div>
+    <div :class="slashZero">{{ slashZero }}</div>
+    <div :class="xx">{{ xx }}</div>
+    <div class="a�b">a�b</div>
+    <div class="émotion">émotion</div>
   </div>
 </template>
 
 <script setup lang="ts">
 const { isLogin } = useUserStoreRefs()
+const slashZero = 'a\0b'
+const xx = '\x80\x2D\x5F\xA9'
 </script>
 
-<style lang="scss" scoped>
-// css 选择器不合法
+<style>
+/* // css 选择器不合法
 // .2 {
 //   color: blue
 // }
@@ -36,22 +42,32 @@ const { isLogin } = useUserStoreRefs()
 // .\\32 {
 //   color: blue;
 // }
+// https://github.com/mathiasbynens/CSS.escape/blob/master/tests/tests.js
+// https://github.com/mathiasbynens/cssesc
+// https://www.w3.org/International/questions/qa-escapes
+// https://www.w3.org/International/questions/qa-escapes#css_identifiers
+// https://www.w3.org/TR/css-syntax-3/#escaping
+// https://www.w3.org/TR/css-syntax-3/#ident-token-diagram
+
+// acsii 码中 48 - 57 代表 0-9 的字符
+// 转换成16进制就是 \30 - \39 */
 .\32 {
-  color: blue;
+  color: red;
 }
+
 
 .a2 {
   color: red;
 }
 
-// CSS.escape('2b')
-// '\\32 b'
+/* // CSS.escape('2b')
+// '\\32 b' */
 .\32 b {
-  color: yellow;
+  color: red;
 }
 
 .♥ {
-  color: yellow;
+  color: red;
 }
 
 .𝌆1a {
@@ -70,10 +86,62 @@ const { isLogin } = useUserStoreRefs()
   color: red;
 }
 
-// .a\\\uFFFD b{
+/* // .a\\\uFFFD b{
 //   color: red;
-// }
-.a�b {
+// } */
+
+
+.\- {
   color: red;
 }
+
+/* .a�b {
+  color: red;
+} */
+
+/* // .ab {
+//   color: red;
+// }
+// .a\uFFFDb {
+//   color: red;
+// }
+
+// .a�b {
+//   color: red;
+// } */
+
+/* .a\000000b {
+  color: red;
+} */
+
+.a\00fffdb {
+  color: red;
+}
+
+/* .a�b{
+  color:blue;
+} */
+
+/*
+// .\x80\x2D\x5F\xA9 {
+//   color: red;
+// }
+// .\x80-_© {
+//   color: red;
+// } */
+.\80\2D\5F\A9 {
+  color: red;
+}
+
+.émotion {
+  color: red;
+}
+
+/* // .a\uFFFDb {
+//   color: red;
+// }
+
+// .a\0 b {
+//   color: red;
+// } */
 </style>
