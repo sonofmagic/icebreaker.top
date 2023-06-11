@@ -2,6 +2,7 @@
   <div class="container mx-auto">
     {{ isLogin ? 'Logined' : 'Hello world!' }}
     <div class="2xl:text-base">2xl:text-base</div>
+    <div class="-3:2yo:ur[x'\ds]">-3:2yo:ur[x'\ds]</div>
     <div class="2">2</div>
     <div class="a2">a2</div>
     <div class="2b">2b</div>
@@ -51,6 +52,11 @@ const xx = '\x80\x2D\x5F\xA9'
 
 // acsii 码中 48 - 57 代表 0-9 的字符
 // 转换成16进制就是 \30 - \39 */
+
+.-\33\:2yo\:ur\[x\'\\ds\]{
+  color: red;
+}
+
 .\32 {
   color: red;
 }
