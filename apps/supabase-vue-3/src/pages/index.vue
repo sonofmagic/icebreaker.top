@@ -11,6 +11,7 @@
     <div class="-">-</div>
     <div class="♥">♥</div>
     <div class="𝌆1a">𝌆1a</div>
+    <div class="我❤️中国,你好,世界。">我❤️中国,你好,世界。</div>
     <div class="你和𝌆1a">你和𝌆1a</div>
     <div :class="slashZero">{{ slashZero }}</div>
     <div :class="xx">{{ xx }}</div>
@@ -23,6 +24,7 @@
 const { isLogin } = useUserStoreRefs()
 const slashZero = 'a\0b'
 const xx = '\x80\x2D\x5F\xA9'
+const d = /\w/
 </script>
 
 <style>
@@ -53,7 +55,7 @@ const xx = '\x80\x2D\x5F\xA9'
 // acsii 码中 48 - 57 代表 0-9 的字符
 // 转换成16进制就是 \30 - \39 */
 
-.-\33\:2yo\:ur\[x\'\\ds\]{
+.-\33\:2yo\:ur\[x\'\\ds\] {
   color: red;
 }
 
@@ -61,6 +63,21 @@ const xx = '\x80\x2D\x5F\xA9'
   color: red;
 }
 
+.\32 b {
+  color: red;
+}
+
+.\000032b {
+  color: blue;
+}
+
+.\32 g {
+  color: red;
+}
+
+.-\32g {
+  color: red;
+}
 
 .a2 {
   color: red;
@@ -68,9 +85,7 @@ const xx = '\x80\x2D\x5F\xA9'
 
 /* // CSS.escape('2b')
 // '\\32 b' */
-.\32 b {
-  color: red;
-}
+
 
 .♥ {
   color: red;
@@ -84,13 +99,6 @@ const xx = '\x80\x2D\x5F\xA9'
   color: red;
 }
 
-.\32 g {
-  color: red;
-}
-
-.-\32 g {
-  color: red;
-}
 
 /* // .a\\\uFFFD b{
 //   color: red;
@@ -150,4 +158,8 @@ const xx = '\x80\x2D\x5F\xA9'
 // .a\0 b {
 //   color: red;
 // } */
+
+.我❤️中国\,你好\,世界。 {
+  color: red;
+}
 </style>
