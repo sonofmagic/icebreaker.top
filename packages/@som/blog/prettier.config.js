@@ -6,6 +6,8 @@ const config = {
   useTabs: false,
   semi: false,
   singleQuote: true,
+  bracketSameLine: true,
+  htmlWhitespaceSensitivity: 'ignore',
   plugins: [require('prettier-plugin-tailwindcss')],
 }
 
