@@ -148,6 +148,10 @@
     "path": "/perf/reuse-dom-with-v-show/before"
   },
   {
+    "name": "index",
+    "path": "/"
+  },
+  {
     "name": "articles-slug",
     "path": "/articles/:slug"
   },
@@ -158,9 +162,5 @@
   {
     "name": "articles-year-month-slug",
     "path": "/articles/:year/:month?/:slug"
-  },
-  {
-    "name": "index",
-    "path": "/"
   }
 ]
