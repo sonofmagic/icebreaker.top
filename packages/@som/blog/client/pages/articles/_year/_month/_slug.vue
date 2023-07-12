@@ -143,7 +143,7 @@ export default {
   },
   computed: {
     href() {
-      return `https://icebreaker.top/` + this.$route.path
+      return `https://icebreaker.top` + this.$route.path
     },
     toc() {
       return this.article.toc || []
