@@ -12,17 +12,16 @@
           v-for="inlink in inSideLinks"
           :key="inlink.key"
           class="link"
-          :to="inlink.to"
-          >{{ inlink.title }}</nuxt-link
-        >
+          :to="inlink.to">
+          {{ inlink.title }}
+        </nuxt-link>
         <a
           v-for="item in outSideLinks"
           :key="item.title"
           target="_blank"
           class="link"
           rel="nofollow"
-          :href="item.href"
-        >
+          :href="item.href">
           <span>{{ item.title }}</span>
         </a>
         <!-- <span>
@@ -127,10 +126,10 @@ export default {
           href: 'https://www.npmjs.com/~icebreaker',
           title: 'Packages',
         },
-        {
-          href: 'https://blog.icebreaker.top/',
-          title: 'Blog-v2 (Beta)',
-        },
+        // {
+        //   href: 'https://blog.icebreaker.top/',
+        //   title: 'Blog-v2 (Beta)',
+        // },
         // {
         //   href: 'https://rendertron.icebreaker.top/',
         //   title: 'Rendertron',
@@ -190,11 +189,13 @@ export default {
 .site-header {
   height: 64px;
   @apply sticky top-0 z-50 flex items-center bg-header-bg px-4 py-4 text-sm text-header-text/70 md:px-6 lg:px-8;
+
   .header-middle-area {
     .nav {
       .link {
         //https://tailwindcss.com/docs/upgrading-to-v2#update-renamed-utility-classes
-        @apply mr-4 cursor-pointer whitespace-nowrap  font-semibold text-header-logo;
+        @apply mr-4 cursor-pointer whitespace-nowrap font-semibold text-header-logo;
+
         &:hover,
         &:focus {
           @apply text-header-text/70;
@@ -202,6 +203,7 @@ export default {
       }
     }
   }
+
   .tail {
     .avatar-wrapper {
       .dropdown-caret {
@@ -217,6 +219,7 @@ export default {
         border-bottom: 0 solid transparent;
         border-left: 4px solid transparent;
       }
+
       &:hover {
         .dropdown-caret {
           border-top-color: hsla(0, 0%, 100%, 0.7);
@@ -230,6 +233,7 @@ export default {
       &:hover {
         @apply opacity-75;
       }
+
       &.round-border {
         @apply overflow-auto rounded-md border border-solid border-gray-200;
       }

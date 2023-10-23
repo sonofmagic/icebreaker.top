@@ -7,6 +7,13 @@
         <a target="_blank" rel="nofollow" href="http://beian.miit.gov.cn">
           苏ICP备19002675号-2
         </a>
+
+        <a
+          href="https://beian.mps.gov.cn/#/query/webSearch?code=32050602011962"
+          rel="noreferrer"
+          target="_blank">
+          苏公网安备32050602011962
+        </a>
       </div>
       <div>version:{{ version }}</div>
       <div>
