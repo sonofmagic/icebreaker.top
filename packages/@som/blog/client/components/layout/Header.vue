@@ -123,6 +123,10 @@ export default {
           title: 'Weapp-tw',
         },
         {
+          href: 'https://ui.icebreaker.top/zh-CN',
+          title: '@icestack/ui',
+        },
+        {
           href: 'https://www.npmjs.com/~icebreaker',
           title: 'Packages',
         },

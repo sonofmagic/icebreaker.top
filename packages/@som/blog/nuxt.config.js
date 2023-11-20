@@ -34,8 +34,34 @@ const script =
             encoding: 'utf-8',
           }),
         },
+        {
+          hid: 'google-import',
+          async: true,
+          src: 'https://www.googletagmanager.com/gtag/js?id=G-9LFZ3ZM31C',
+        },
+        {
+          hid: 'google-import-1',
+          innerHTML: `window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-9LFZ3ZM31C');`,
+        },
       ]
-    : []
+    : [
+        // {
+        //   hid: 'google-import',
+        //   async: true,
+        //   src: 'https://www.googletagmanager.com/gtag/js?id=G-9LFZ3ZM31C',
+        // },
+        // {
+        //   hid: 'google-import-1',
+        //   innerHTML: `window.dataLayer = window.dataLayer || [];
+        // function gtag(){dataLayer.push(arguments);}
+        // gtag('js', new Date());
+        // gtag('config', 'G-9LFZ3ZM31C');`,
+        // },
+      ]
 
 // const smp = new SpeedMeasurePlugin()
 
