@@ -5,15 +5,15 @@
       <div class="text-xs">
         <div>
           Hosted on
-          <OutSideLink href="https://cloud.tencent.com/product/cdn"
-            >Tencent Cloud CDN</OutSideLink
-          >
+          <OutSideLink href="https://cloud.tencent.com/product/cdn">
+            Tencent Cloud CDN
+          </OutSideLink>
         </div>
         <div>
           Deployed by
-          <OutSideLink href="https://docs.github.com/en/actions"
-            >GitHub Actions</OutSideLink
-          >
+          <OutSideLink href="https://docs.github.com/en/actions">
+            GitHub Actions
+          </OutSideLink>
         </div>
         <div class="line-through">
           Powered by
@@ -31,14 +31,13 @@
             Supabase
           </OutSideLink>
           <span class="mx-0.5">&</span>
-          <OutSideLink href="https://www.docker.com/"> Docker </OutSideLink>
+          <OutSideLink href="https://www.docker.com/">Docker</OutSideLink>
         </div>
         <div>
           <OutSideLink
             class="mr-1 text-base hover:text-gray-400"
             raw
-            href="https://github.com/sonofmagic"
-          >
+            href="https://github.com/sonofmagic">
             <FontAwesomeIcon :icon="['fab', 'github']" />
           </OutSideLink>
           <OutSideLink href="https://github.com/sonofmagic/icebreaker.top">
@@ -52,9 +51,9 @@
         About
         <span
           class="cursor-pointer hover:underline"
-          @click.stop="icebreakerQrcodeVisible = true"
-          >icebreaker</span
-        >
+          @click.stop="icebreakerQrcodeVisible = true">
+          icebreaker
+        </span>
       </div>
       <div>
         <!-- 执行下方命令就知道了 -->
@@ -92,7 +91,7 @@
       <div class="font-semibold">Skills</div>
       <div>
         <ul class="list-inside list-decimal">
-          <li>专心快速成型{{ smirk }}</li>
+          <li>快速成型{{ smirk }}</li>
           <li>各大搜索引擎专长{{ joy }}</li>
           <li>技术文档,源码,发帖提问 {{ joy }}</li>
           <li>脸皮厚{{ rofl }}</li>
@@ -108,7 +107,13 @@
       </div>
     </div>
     <div class="space-y-2">
-      <div class="font-semibold">Mini Programs</div>
+      <div class="flex font-semibold">
+        <div
+          class="cursor-pointer hover:underline"
+          @click="$router.push('/mp')">
+          My Mini Programs (Click Here)
+        </div>
+      </div>
       <div>
         <MiniPrograms></MiniPrograms>
       </div>
@@ -124,15 +129,14 @@
         </div>
         <div
           class="hover:bg-green-100 flex cursor-pointer items-center justify-center truncate rounded border border-solid border-gray-400 py-2"
-          @click="copyText('icebreaker1995')"
-        >
-          <span class="text-gray-900"
-            >icebreaker1995<FontAwesomeIcon
+          @click="copyText('icebreaker1995')">
+          <span class="text-gray-900">
+            icebreaker1995
+            <FontAwesomeIcon
               class="ml-2"
               size="sm"
-              :icon="['far', 'copy']"
-            ></FontAwesomeIcon
-          ></span>
+              :icon="['far', 'copy']"></FontAwesomeIcon>
+          </span>
         </div>
       </div>
     </SomPopup>

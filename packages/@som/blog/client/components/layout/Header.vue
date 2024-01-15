@@ -124,7 +124,7 @@ export default {
         },
         {
           href: 'https://ui.icebreaker.top/zh-CN',
-          title: '@icestack/ui',
+          title: 'IceStack',
         },
         {
           href: 'https://www.npmjs.com/~icebreaker',
@@ -166,6 +166,11 @@ export default {
           key: 300,
           to: '/demos',
           title: 'Demos',
+        },
+        {
+          key: 400,
+          to: '/mp',
+          title: 'My Mps',
         },
       ],
       defaultAvatar,

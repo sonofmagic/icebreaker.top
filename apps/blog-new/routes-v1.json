@@ -12,6 +12,10 @@
     "path": "/demos"
   },
   {
+    "name": "mp",
+    "path": "/mp"
+  },
+  {
     "name": "perf",
     "path": "/perf"
   },
