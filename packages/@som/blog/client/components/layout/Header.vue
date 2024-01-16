@@ -120,7 +120,7 @@ export default {
         // },
         {
           href: 'https://weapp-tw.icebreaker.top/',
-          title: 'Weapp-tw',
+          title: 'Weapp-tailwindcss',
         },
         {
           href: 'https://ui.icebreaker.top/zh-CN',
@@ -171,6 +171,11 @@ export default {
           key: 400,
           to: '/mp',
           title: 'My Mps',
+        },
+        {
+          key: 500,
+          to: '/friends',
+          title: 'My Friends',
         },
       ],
       defaultAvatar,

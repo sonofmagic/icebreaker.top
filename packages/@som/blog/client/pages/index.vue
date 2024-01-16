@@ -16,16 +16,14 @@
               <DarkArticleCard
                 v-for="item in arr"
                 :key="item.id"
-                :item="item"
-              ></DarkArticleCard>
+                :item="item"></DarkArticleCard>
             </div>
           </template>
           <button
             v-if="hasMore"
             class="load-more-btn"
             :disabled="btnLoading"
-            @click="next"
-          >
+            @click="next">
             {{ btnText }}
           </button>
           <div class="my-8">
@@ -33,6 +31,20 @@
           </div>
         </div>
         <div class="team-right-column mt-8 max-w-full md:w-4/12 md:px-6">
+          <!-- <div>
+            <div class="text-lg">友情链接</div>
+            <div>
+              <a
+                href="kaiyi.cool"
+                class="hover:underline"
+                title="Kai 「🕶 SuperFly Coder Life」"
+                target="_blank"
+                rel="”nofollow">
+                Kai 「🕶 SuperFly Coder Life」
+              </a>
+            </div>
+          </div> -->
+
           <CommentArea />
           <!-- <DarkParadise /> -->
         </div>

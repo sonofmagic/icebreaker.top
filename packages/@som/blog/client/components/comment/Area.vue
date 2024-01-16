@@ -13,8 +13,7 @@
       :theme="theme"
       lang="zh-CN"
       crossorigin="anonymous"
-      loading="lazy"
-    ></giscus-widget>
+      loading="lazy"></giscus-widget>
   </div>
 </template>
 

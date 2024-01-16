@@ -12,6 +12,10 @@
     "path": "/demos"
   },
   {
+    "name": "friends",
+    "path": "/friends"
+  },
+  {
     "name": "mp",
     "path": "/mp"
   },
