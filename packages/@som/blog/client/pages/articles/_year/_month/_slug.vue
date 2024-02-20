@@ -35,7 +35,7 @@
       <!-- lg: -->
 
       <div
-        class="relative m-auto mb-4 w-full max-w-2xl p-8 px-4 pb-4 pt-4 shadow ring-1 ring-gray-200 dark:ring-gray-700 sm:rounded-lg sm:px-8 sm:shadow lg:mb-0">
+        class="relative m-auto mb-4 w-full max-w-2xl p-8 px-4 pb-4 pt-4 shadow ring-0 ring-gray-200 dark:ring-gray-700 sm:rounded-lg sm:px-8 sm:shadow sm:ring-1 lg:mb-0">
         <div class="mb-2">
           <h1 class="mb-2 text-3xl">{{ article.title }}</h1>
           <div
