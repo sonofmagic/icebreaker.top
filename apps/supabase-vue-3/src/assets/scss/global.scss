@@ -1,9 +1,0 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
-@import 'element-plus/theme-chalk/dark/css-vars.css';
-@import 'swiper/css';
-html,
-body {
-  @apply transition-colors bg-white dark:bg-[rgb(0,30,38)] dark:text-white;
-}
