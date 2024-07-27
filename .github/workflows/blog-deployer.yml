@@ -11,11 +11,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-
-      - name: Set Beijing Timezone
-        uses: szenius/set-timezone@v1.0
-        with:
-          timezoneLinux: Asia/Shanghai
+      # - name: Set Beijing Timezone
+      #   uses: szenius/set-timezone@v1.0
+      #   with:
+      #     timezoneLinux: Asia/Shanghai
       # - name: Get submoudle private repo
       #   uses: actions/checkout@v2
       #   with:
@@ -24,28 +23,33 @@ jobs:
       #     token: ${{ secrets.PERSONAL_TOKEN }}
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout Self Repo # with cd command
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           submodules: 'true'
           token: ${{ secrets.PERSONAL_TOKEN }}
       - name: Setup Node.js environment
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
-          node-version: 14.x
-          cache: yarn
-          cache-dependency-path: packages/@som/blog/yarn.lock
+          node-version: '16.x'
+          cache: 'yarn'
+          cache-dependency-path: 'packages/@som/blog/yarn.lock'
+          # registry-url: 'https://registry.npmjs.org'
 
-      - name: Install Dependencies
-        run: yarn install:blog
+      - name: Install Dependencies        
+        working-directory: packages/@som/blog
+        run: yarn
       - name: Sync Articles
-        run: yarn sync:article
+        working-directory: packages/@som/blog
+        run: yarn sync
       - name: Deploy Blog Site
         shell: bash
+        working-directory: packages/@som/blog
         env:
           TENCENT_SECRET_ID: ${{ secrets.TENCENT_SECRET_ID }}
           TENCENT_SECRET_KEY: ${{ secrets.TENCENT_SECRET_KEY }}
-          TENCENT_CLOUDBASE_ENVID: ${{ secrets.TENCENT_CLOUDBASE_ENVID }}
-          BASE_URL: ${{ secrets.BASE_URL }}
-          SERVERLESS_PLATFORM_VENDOR: tencent
-        run: yarn deploy:blog
-
+          TENCENT_COS_REGION: ${{ secrets.TENCENT_COS_REGION }}
+          TENCENT_COS_BUCKET: ${{ secrets.TENCENT_COS_BUCKET }}
+          # TENCENT_CLOUDBASE_ENVID: ${{ secrets.TENCENT_CLOUDBASE_ENVID }}
+          # BASE_URL: ${{ secrets.BASE_URL }}
+          # SERVERLESS_PLATFORM_VENDOR: tencent
+        run: yarn deploy:cos

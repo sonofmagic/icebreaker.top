@@ -1,10 +1,6 @@
 <template>
   <div class="space-x-2">
-    <div
-      v-for="tag in tags"
-      :key="tag"
-      class="inline-block bg-green-100 px-2 text-green-600 text-xs rounded-3xl border border-solid border-transparent cursor-pointer hover:shadow-md"
-    >
+    <div v-for="tag in tags" :key="tag" class="ice-tag">
       {{ tag }}
     </div>
   </div>
@@ -22,8 +18,8 @@ export default {
 }
 </script>
 
-<style lang="scss">
-// --color-topic-tag-text: #0366d6;
-// --color-topic-tag-bg: #f1f8ff;
-// --color-topic-tag-hover-bg: #def;
+<style lang="scss" scoped>
+.ice-tag {
+  @apply inline-block text-accent-fg bg-accent-subtle/20 px-2 text-xs rounded-3xl border border-solid border-transparent cursor-pointer hover:bg-accent-emphasis hover:text-fg-on-emphasis;
+}
 </style>

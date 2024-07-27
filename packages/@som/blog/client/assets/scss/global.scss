@@ -1,14 +1,72 @@
-html {
-  cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABFklEQVRYR9WXURLDIAhE6/0PbSdOtUpcd1Gnpv1KGpTHBpCE1/cXq+vrMph7dGvXZTtpfW10DCA5jrH1H0Jhs5E0hnZdCR+vb5S8Nn8mQCeS9BdSalYJqMBjAGzq59xAESN7VFVUgV8AZB/dZBR7QTFDCqGquvUBVVoEtgIwpQRzmANSFHgWQKExHdIrPeuMvQNDarXe6nC/AutgV3JW+6bgqQLeV8FekRtgV+ToDKEKnACYKsfZjjkam7a0ZpYTytwmgainpC3HvwBocgKOxqRjehoR9DFKNFYtOwCGYCszobeCbl26N6yyQ6g8X/Wex/rBPsNEV6qAMaJPMynIHQCoSqS9JSMmwef51LflTgCRszU7DvAGiV6mHWfsaVUAAAAASUVORK5CYII=),
-    auto;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial,
-    sans-serif, Apple Color Emoji, Segoe UI Emoji;
-}
-a,
-button {
-  cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAzElEQVRYR+2X0Q6AIAhF5f8/2jYXZkwEjNSVvVUjDpcrGgT7FUkI2D9xRfQETwNIiWO85wfINfQUEyxBG2ArsLwC0jioGt5zFcwF4OYDPi/mBYKm4t0U8ATgRm3ThFoAqkhNgWkA0jJLvaOVSs7j3qMnSgXWBMiWPXe94QqMBMBc1VZIvaTu5u5pQewq0EqNZvIEMCmxAawK0DNkay9QmfFNAJUXfgGgUkLaE7j/h8fnASkxHTz0DGIBMCnBeeM7AArpUd3mz2x3C7wADglA8BcWMZhZAAAAAElFTkSuQmCC)
-      14 0,
-    pointer;
-}
+@use './constants.scss' as C;
+@use './util.scss' as Util;
+@use './theme/light.scss' as Light;
+// @use '../font/index.scss' as *;
+@import '../font/index.scss';
+// @import './theme.scss';
 @import './prose.scss';
 
+
+:root {
+  @each $var, $color in C.$root-vars {
+    #{$var}: Util.getRgbaString($color);
+  }
+}
+
+[data-color-mode='light'] {
+  @each $var, $color in Light.$light-vars {
+    #{$var}: Util.getRgbaString($color);
+  }
+}
+body,
+html {
+  transition: background-color 0.3s ease;
+}
+@mixin better-scrollbar {
+  // 滚动条高宽及背景
+  &::-webkit-scrollbar {
+    width: 12px;
+  }
+  // 滚动条上的滚动滑块
+  &::-webkit-scrollbar-thumb {
+    @apply bg-header-bg;
+  }
+
+  //  滚动条轨道
+  // &::-webkit-scrollbar-track {
+  //   // background: linear-gradient(90deg, #434343, #434343 1 px, #111 0, #111);
+  // }
+}
+
+.better-scroll-bar {
+  @include better-scrollbar;
+}
+
+.hover-scroll-bar {
+  &::-webkit-scrollbar {
+    width: 12px;
+  }
+  &::-webkit-scrollbar-thumb {
+    @apply transition-colors;
+  }
+  &:hover {
+    &::-webkit-scrollbar-thumb {
+      @apply bg-header-bg;
+    }
+  }
+  // 滚动条上的滚动滑块
+}
+
+[data-color-mode='light'] {
+  .hover-scroll-bar {
+    &:hover {
+      &::-webkit-scrollbar-thumb {
+        @apply bg-border-muted;
+      }
+    }
+    // 滚动条上的滚动滑块
+  }
+}
+html {
+  @include better-scrollbar;
+}

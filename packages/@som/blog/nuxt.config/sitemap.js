@@ -1,5 +1,5 @@
 import path from 'path'
-import glob from 'glob'
+import { globSync } from 'glob'
 export default {
   hostname: 'https://www.icebreaker.top',
   gzip: true,
@@ -7,7 +7,7 @@ export default {
   cacheTime: 1000 * 60 * 60 * 2,
   exclude: ['/gql/**'],
   routes() {
-    const files = glob.sync(path.join(__dirname, '../docs/**/*.html'))
+    const files = globSync(path.join(__dirname, '../docs/**/*.html'))
     const urls = files.map((file) => {
       const url = path
         .relative(path.join(__dirname, '../docs/'), file)

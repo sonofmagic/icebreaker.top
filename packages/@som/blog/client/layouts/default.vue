@@ -4,20 +4,20 @@
       <Nuxt />
     </div>
 
-    <Sitemap />
+    <!-- <Sitemap /> -->
   </CommonSlot>
 </template>
 <script>
 import { Dialog } from 'vant'
 import CommonSlot from '@/components/layout/CommonSlot'
-import Sitemap from '@/components/sitemap'
+// import Sitemap from '@/components/sitemap'
 export default {
   name: 'PublicLayout',
   components: {
     CommonSlot,
-    Sitemap,
+    // Sitemap,
   },
-  middleware: ['theme'],
+  // middleware: ['theme'],
   // async mounted() {
   //   // this.showUpgradeDialog()
   //   const workbox = await window.$workbox

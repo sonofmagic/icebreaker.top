@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray-100 min-h-screen">
+  <div class="min-h-screen bg-gray-100">
     <div class="container mx-auto">
       <van-notice-bar
         left-icon="volume-o"
@@ -13,7 +13,7 @@
           :label="link.label"
           :value="link.value"
           is-link
-          @click.stop="$router.push(`/demos/${link.href}`)"
+          @click.stop="$router.push(`${link.href}`)"
         >
           <template v-if="link.tag">
             <van-tag :type="link.tag.type">{{ link.tag.text }}</van-tag>
@@ -26,22 +26,38 @@
 
 <script>
 export default {
+  name: 'DemosIndex',
   data() {
     return {
       demosLinks: [
+        // {
+        //   title: '在serverless环境下构建canvas来处理和生成图像',
+        //   label: 'serverless-canvas',
+        //   href: '/demos/serverless-canvas',
+        //   // tag: {
+        //   //   type: 'success',
+        //   //   text: '压力测试',
+        //   // },
+        // },
+        // {
+        //   title: 'serverless ascii',
+        //   label: 'serverless-canvas(2)',
+        //   href: '/demos/ascii',
+        // },
         {
-          title: '在serverless环境下构建canvas来处理和生成图像',
-          label: 'serverless-canvas',
-          href: 'serverless-canvas',
-          // tag: {
-          //   type: 'success',
-          //   text: '压力测试',
-          // },
+          title: '批量生成并压缩二维码',
+          label: '批量生成并压缩二维码',
+          href: '/batch/qrcode',
         },
         {
-          title: 'serverless ascii',
-          label: 'serverless-canvas(2)',
-          href: 'ascii',
+          title: 'ColorPicker 主题色自定义',
+          label: 'ColorPicker 主题色自定义',
+          href: '/test/css-var',
+        },
+        {
+          title: 'vue-frame-selection',
+          label: 'vue-frame-selection 组件 demo',
+          href: '/demos/vue-frame-selection',
         },
       ],
     }

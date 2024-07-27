@@ -1,21 +1,23 @@
 <template>
-  <section style="background-color: #f2f2f2">
-    <div
-      class="flex justify-center py-1 text-lg"
-      style="background-color: #ddd"
-    >
+  <section>
+    <div class="flex justify-center pt-4 text-lg">
       <h1 class="font-light">帮助开发的小工具们</h1>
     </div>
     <div class="container mx-auto py-4">
       <div class="grid grid-cols-3 gap-4">
-        <OutSideLink v-for="u in utils" :key="u.url" raw :href="u.url">
-          <div class="shadow bg-white px-4 py-4">
-            <div class="text-orange-400 text-2xl font-thin mb-3">
-              {{ u.title }}
-            </div>
-            <div class="text-sm">{{ u.desc }}</div>
-          </div>
-        </OutSideLink>
+        <LinkCard
+          v-for="u in utils"
+          :key="u.url"
+          :to="u.url"
+          out-side
+          :title="u.title"
+          :desc="u.desc"
+        ></LinkCard>
+        <LinkCard
+          to="/utils/md2cwm"
+          title="md2cwm 工具"
+          desc="Markdown 转 Confluence Wiki Markup"
+        ></LinkCard>
       </div>
     </div>
   </section>
@@ -23,16 +25,31 @@
 
 <script>
 // 抄 https://www.tslang.cn/samples/index.html 的风格
+
+import LinkCard from '@/components/utils/LinkCard.vue'
 export default {
   name: 'UtilsIndex',
+  components: {
+    LinkCard,
+  },
   layout: 'noWrapper',
   data() {
     return {
       utils: [
         {
-          url: 'https://cdn.icebreaker.top/reg/index.html',
-          title: 'Regexper',
-          desc: '正则表达式可视化',
+          url: 'https://regex101.com/',
+          title: 'regex101',
+          desc: 'regex101',
+        },
+        {
+          url: 'https://regexr.com/',
+          title: 'regexr',
+          desc: 'regexr',
+        },
+        {
+          url: 'https://regexper.com/',
+          title: 'regexper',
+          desc: 'regexper',
         },
         {
           url: 'http://nodeca.github.io/js-yaml/',
@@ -62,12 +79,12 @@ export default {
         {
           url: 'https://webpack.js.org/configuration/',
           title: 'Webpack option 速查',
-          desc: '不解释',
+          desc: '配置项更改要看',
         },
         {
           url: 'https://nodejs.org/dist/latest-v14.x/docs/api/',
           title: 'Node LTS Api 速查',
-          desc: '太重要了',
+          desc: 'Node Api 参考',
         },
         {
           url: 'http://mongodb.github.io/node-mongodb-native/3.6/api/',

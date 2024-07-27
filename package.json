@@ -6,6 +6,14 @@
   "description": "a serverless nuxt website",
   "author": "icebreaker99 <qq1324318532@gmail.com>",
   "homepage": "http://www.icebreaker.top/",
+  "_workspaces": {
+    "nohoist": [],
+    "packages": [
+      "packages/*",
+      "apps/*",
+      "!**/@som/**"
+    ]
+  },
   "directories": {
     "packages": "packages"
   },
@@ -20,22 +28,14 @@
     "url": "https://github.com/sonofmagic/sonofmagic.github.io/issues"
   },
   "scripts": {
-    "dev": "lerna run dev --scope @som/blog",
-    "gen": "lerna run gen",
-    "deploy": "lerna run deploy",
+    "dev": "turbo run dev",
     "install:blog": "cd packages/@som/blog && yarn",
-    "deploy:blog":"cd packages/@som/blog && npm run deploy",
-    "sync:article":"cd packages/@som/blog && npm run sync",
-    "genChangelog": "node scripts/genChangelog.js"
+    "deploy:blog": "cd packages/@som/blog && npm run deploy:cos",
+    "sync:article": "cd packages/@som/blog && npm run sync"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
-    "dotenv": "^8.2.0",
-    "execa": "^5.0.0",
-    "lerna": "^3.22.1",
-    "lerna-changelog": "^1.0.1",
-    "prettier": "^2.2.1",
-    "simple-git": "^2.31.0",
-    "yargs": "^16.2.0"
+    "dotenv": "^16.0.1",
+    "execa": "^5.0.0"
   }
 }

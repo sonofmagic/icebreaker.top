@@ -3,17 +3,17 @@
     <div>
       <Nuxt />
     </div>
-    <Sitemap />
+    <!-- <Sitemap /> -->
   </CommonSlot>
 </template>
 <script>
 import CommonSlot from '@/components/layout/CommonSlot'
-import Sitemap from '@/components/sitemap'
+// import Sitemap from '@/components/sitemap'
 export default {
   name: 'NoFooterLayout',
   components: {
     CommonSlot,
-    Sitemap,
+    // Sitemap,
   },
 }
 </script>

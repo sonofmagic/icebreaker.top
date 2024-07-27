@@ -1,17 +1,10 @@
 <template>
-  <section class="bg-white dark:bg-accents-100">
-    <div v-if="!noHeader">
-      <AppHeader />
-    </div>
+  <section>
+    <AppHeader v-if="!noHeader" />
+
     <slot></slot>
-    <div
-      v-if="!noFooter"
-      class="
-        dark:bg-black dark:border-t dark:border-accents-200 dark:border-solid
-      "
-    >
-      <AppFooter />
-    </div>
+
+    <AppFooter v-if="!noFooter" />
   </section>
 </template>
 <script>

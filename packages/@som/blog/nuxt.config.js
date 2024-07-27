@@ -2,65 +2,68 @@
 // import theme from '@nuxt/content-theme-docs'
 // fibers
 import fs from 'fs'
+import path from 'path'
 import dotenv from 'dotenv'
+// import SpeedMeasurePlugin from 'speed-measure-webpack-plugin'
 import { sitemap } from './nuxt.config/index'
-// import { toHtml } from 'hast-util-to-html'
-// import dayjs from 'dayjs'
-// import hooks from './nuxt.config/hooks.js'
-// import sitemap from './nuxt.config/sitemap.js'
-// import feed from './nuxt.config/feed'
-import { isProd, isRelease, isDev } from './constants.js'
+import { isProd, isRelease } from './constants.js'
+
 console.log('[NODE_ENV]:', process.env.NODE_ENV)
 dotenv.config()
-// const slsEnv = process.env.SLS_ENV
-// const cdnSite = 'https://cdn.icebreaker.top/'
-// console.log('process.static', process.static)
-// let publicPathsuffix = `www/${slsEnv}/${nanoid(10)}`
-// // 平时打包生成publicPath.js
-// if (process.env.SLS_ENTRY_FILE !== 'sls.js') {
-//   fs.writeFileSync('./publicPath.js', `module.exports = '${publicPathsuffix}'`)
-// } else {
-//   // 线上运行时，上传publicPath.js
-//   publicPathsuffix = require('./publicPath.js').default
-// }
-// const prodPublicPath = `${cdnSite}${publicPathsuffix}`
 
-// console.log('isProd && isRelease', isProd && isRelease)
-
-const {
-  TENCENT_CLOUDBASE_ENVID,
-  SLS_ENV,
-  BASE_URL = '/',
-  // API_GW_APIAPPKEY,
-  // API_GW_APIAPPSECRET,
-} = process.env
+const { TENCENT_CLOUDBASE_ENVID, SLS_ENV, BASE_URL = '/' } = process.env
 
 const env = {
   TENCENT_CLOUDBASE_ENVID,
   SLS_ENV,
   BASE_URL,
-  // API_GW_APIAPPKEY,
-  // API_GW_APIAPPSECRET,
-  // SENTRY_VUE_DSN: process.env.SENTRY_VUE_DSN,
 }
 
 const script =
   isProd && isRelease
     ? [
-      {
-        hid: 'hm',
-        innerHTML: fs.readFileSync('./statistics/baidu.js', {
-          encoding: 'utf-8',
-        }),
-      },
-      {
-        hid: 'bp',
-        innerHTML: fs.readFileSync('./statistics/baidu-auto-push.js', {
-          encoding: 'utf-8',
-        }),
-      },
-    ]
-    : []
+        {
+          hid: 'hm',
+          innerHTML: fs.readFileSync('./statistics/baidu.js', {
+            encoding: 'utf-8',
+          }),
+        },
+        {
+          hid: 'bp',
+          innerHTML: fs.readFileSync('./statistics/baidu-auto-push.js', {
+            encoding: 'utf-8',
+          }),
+        },
+        {
+          hid: 'google-import',
+          async: true,
+          src: 'https://www.googletagmanager.com/gtag/js?id=G-9LFZ3ZM31C',
+        },
+        {
+          hid: 'google-import-1',
+          innerHTML: `window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-9LFZ3ZM31C');`,
+        },
+      ]
+    : [
+        // {
+        //   hid: 'google-import',
+        //   async: true,
+        //   src: 'https://www.googletagmanager.com/gtag/js?id=G-9LFZ3ZM31C',
+        // },
+        // {
+        //   hid: 'google-import-1',
+        //   innerHTML: `window.dataLayer = window.dataLayer || [];
+        // function gtag(){dataLayer.push(arguments);}
+        // gtag('js', new Date());
+        // gtag('config', 'G-9LFZ3ZM31C');`,
+        // },
+      ]
+
+// const smp = new SpeedMeasurePlugin()
 
 /**
  * @type {import('@nuxt/types').NuxtConfig}
@@ -68,10 +71,10 @@ const script =
 const config = {
   // Global page headers (https://go.nuxtjs.dev/config-head)
   // ssr: false,
-  modern: isProd,
+  // modern: isProd,
   telemetry: false,
   head: {
-    title: 'icebreaker_某某打字员_擅长批量生产邮件_文档和代码',
+    title: '我的技术展示_icebreaker_某某打字员_擅长批量生产邮件_文档和代码',
     meta: [
       {
         charset: 'utf-8',
@@ -90,6 +93,10 @@ const config = {
         content: '',
       },
     ],
+    htmlAttrs: {
+      lang: 'zh-CN',
+      // 'data-color-mode': 'dark',
+    },
     link: [
       {
         rel: 'icon',
@@ -109,20 +116,40 @@ const config = {
       },
     ],
   },
-  // router: {
-  //   middleware: ['theme'],
-  // },
+  router: {
+    // middleware: ['theme'],
+    extendRoutes(routes, resolve) {
+      fs.writeFileSync(
+        path.resolve(__dirname, '../../../apps/blog-new/routes-v1.json'),
+        JSON.stringify(
+          routes.map((x) => {
+            return {
+              name: x.name,
+              path: x.path,
+            }
+          }),
+          null,
+          2
+        ),
+        'utf8'
+      )
+    },
+  },
   loading: {
     color: 'rgb(121, 184, 255)',
   },
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: [
     // 'element-ui/lib/theme-chalk/index.css',
-
+    // Mark css as having side effects in @fortawesome/fontawesome-svg-core
+    // https://github.com/FortAwesome/Font-Awesome/issues/18729
     '@fortawesome/fontawesome-svg-core/styles.css',
     '@/assets/scss/global.scss',
     'github-markdown-css/github-markdown.css',
   ],
+  server: {
+    port: 9000,
+  },
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
@@ -137,15 +164,32 @@ const config = {
       src: '@/plugins/server-only.js',
       mode: 'server',
     },
-    {
-      src: '@/plugins/cloudbase/client.js',
-      mode: 'client',
-    },
+    // {
+    //   src: '@/plugins/cloudbase/client.js',
+    //   mode: 'client',
+    // },
     {
       src: '@/plugins/gsap.js',
       mode: 'client',
     },
     // { src: '@/plugins/persistedState.js' },
+  ],
+  serverMiddleware: [
+    {
+      handler(req, res, next) {
+        Object.entries({
+          'Access-Control-Allow-Credentials': true,
+          'Access-Control-Allow-Origin': req.headers.origin || '*',
+          'Access-Control-Allow-Headers': 'X-Requested-With,Content-Type',
+          'Access-Control-Allow-Methods': 'PUT,POST,GET,DELETE,OPTIONS',
+          'Content-Type': 'application/json; charset=utf-8',
+        }).forEach(([name, value]) => {
+          res.setHeader(name, value)
+        })
+
+        next()
+      },
+    },
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -166,7 +210,9 @@ const config = {
     // https://tailwindcss.nuxtjs.org/setup/
     '@nuxtjs/tailwindcss',
     '@nuxtjs/google-analytics',
-    '@nuxt/postcss8',
+    // 2.16 internal
+    // '@nuxt/postcss8',
+    '@nuxtjs/composition-api/module',
     // '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt-community/color-mode-module
     // '@nuxtjs/color-mode',
@@ -176,7 +222,7 @@ const config = {
     id: 'G-9LFZ3ZM31C',
   },
   tailwindcss: {
-    cssPath: '~/assets/css/tailwind.scss',
+    cssPath: '~/assets/scss/tailwind.scss',
     configPath: '../tailwind.config.js',
     exposeConfig: false,
     // config: {},
@@ -208,7 +254,7 @@ const config = {
   feed() {
     const websiteUrl = 'https://icebreaker.top'
     // const baseUrlArticles = 'https://icebreaker.top/'
-    //const baseLinkFeedArticles = '/feed/articles'
+    // const baseLinkFeedArticles = '/feed/articles'
     const feedFormats = {
       rss: { type: 'rss2', file: 'rss.xml' },
       json: { type: 'json1', file: 'feed.json' },
@@ -221,17 +267,16 @@ const config = {
         description: '一位打字员',
         link: websiteUrl + '/',
         language: 'zh-cn',
-        copyright: `Copyright ${(new Date()).getFullYear()} icebreaker.The contents of this feed are available for non-commercial use only.`,
+        copyright: `Copyright ${new Date().getFullYear()} icebreaker.The contents of this feed are available for non-commercial use only.`,
         generator: 'icebreaker.top',
-        author: {
-          name: "icebreaker",
-          email: "1324318532@qq.com",
-        }
+        author: 'icebreaker<1324318532@qq.com>',
         // image:''
       }
       const articles = await $content('articles', {
         deep: true,
-      }).sortBy('date', 'desc').fetch()
+      })
+        .sortBy('date', 'desc')
+        .fetch()
 
       articles.forEach((article) => {
         const url = `${websiteUrl}${article.path}`
@@ -240,24 +285,26 @@ const config = {
           title: article.title,
           id: article.id,
           link: url,
-          //date: article.published,
+          // date: article.published,
           date: new Date(article.date), //  new Date(article.date),
           description: article.description,
-          content: article.summary,// toHtml(article.body),// article.summary,
+          content: article.summary, // toHtml(article.body),// article.summary,
           author: article.authors,
           // const { name, domain } = category;
-          category: Array.isArray(article.tags) ? article.tags.map(x => {
-            return {
-              name: x
-            }
-          }) : []
+          category: Array.isArray(article.tags)
+            ? article.tags.map((x) => {
+                return {
+                  name: x,
+                }
+              })
+            : [],
         })
       })
     }
 
     return Object.values(feedFormats).map(({ file, type }) => ({
       path: `/${file}`,
-      type: type,
+      type,
       create: createFeedArticles,
     }))
   },
@@ -302,26 +349,46 @@ const config = {
       isRelease && isProd
         ? '/_ice/' /// prodPublicPath
         : //  isPublicPathExist
-        //   ? require('./publicPath.js').default
-        //   : prodPublicPath
-        '/_nuxt/',
+          //   ? require('./publicPath.js').default
+          //   : prodPublicPath
+          '/_nuxt/',
     // quiet: true,
     extractCSS: isProd,
-    optimizeCSS: isProd,
+    // optimizeCSS: isProd,
     transpile: [/^element-ui/, /vant.*?less/, /echarts/, /zrender/],
     loaders: {
       scss: {
-        // https://github.com/sass/dart-sass/issues/1319
-        // 1.32.12 不会出现 DEPRECATION WARNING
         // https://github.com/sass/dart-sass/issues/1324
         // --quiet
-        additionalData: '@import "@/uni.scss";',
+        additionalData: '@use "@/assets/scss/variables.scss" as *;',
+        sassOptions: {
+          quietDeps: true,
+        },
       },
       less: {
         lessOptions: {
           modifyVars: {
             hack: `true; @import "@/uni.less";`,
           },
+        },
+      },
+    },
+    optimization: {
+      splitChunks: {
+        cacheGroups: {
+          styles: {
+            name: 'styles',
+            test: /\.(css|vue)$/,
+            chunks: 'all',
+            enforce: true,
+          },
+        },
+      },
+    },
+    postcss: {
+      postcssOptions: {
+        plugins: {
+          'postcss-custom-properties': false,
         },
       },
     },
@@ -338,7 +405,7 @@ const config = {
     //     cacheGroups: {},
     //   },
     // },
-    extend(config, { isClient }) {
+    extend(config, { isClient, isDev }) {
       config.externals = {
         'hls.js': 'hls.js',
       }
@@ -347,6 +414,25 @@ const config = {
         fs: 'empty',
       }
 
+      if (isClient) {
+        config.module.rules.push({
+          test: /\.worker\.(c|m)?js$/i,
+          use: [
+            {
+              loader: 'worker-loader',
+            },
+            {
+              loader: 'babel-loader',
+              options: {
+                presets: ['@babel/preset-env'],
+              },
+            },
+          ],
+        })
+      }
+      // if (isDev) {
+      //   return smp.wrap(config)
+      // }
       // if (isClient && isLoadMonaco) {
       //   config.plugins.push(new MonacoWebpackPlugin())
       // }
@@ -393,7 +479,7 @@ const config = {
         document.readingMinutes = Math.round(minutes)
         document.readingWords = words
       }
-    }
+    },
   },
   srcDir: 'client/',
 }

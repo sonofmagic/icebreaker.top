@@ -32,8 +32,12 @@ const params = {
     await wait(2000)
     // Urls : 刷新Cdn，记得要刷新 sw.js service worker !!!
     // const data = await client.PurgeUrlsCache(params)
-    const data = await client.PurgePathCache(params)
-    console.log(data)
+    const res1 = await client.PurgePathCache(params)
+    console.log(res1)
+    const res2 = await client.PurgeUrlsCache({
+      Urls: params.Paths,
+    })
+    console.log(res2)
   } catch (err) {
     console.error('error', err)
   }

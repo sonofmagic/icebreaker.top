@@ -7,7 +7,16 @@ export async function contentSearch(content, query) {
     .skip((query.page - 1) * query.perPage)
     .limit(query.perPage)
     .sortBy('date', 'desc')
-    .only(['path', 'title', 'description', 'date'])
+    .only([
+      'path',
+      'title',
+      'description',
+      'date',
+      'tags',
+      'readingMinutes',
+      'readingWords',
+      'id',
+    ])
     .fetch()
 }
 
@@ -33,15 +42,11 @@ export async function getPageList(content, query) {
  * @param {String} id
  */
 export function incReadCountById(id) {
-  return request.get('/api/v1/article/readcount/inc', {
-    params: {
-      id,
-    },
-  })
+  return request.post('/blog/article/readcount/date-id-inc/' + id)
 }
 
-export function getBlogLoginQrcode(scene = '') {
-  return request.post('/api/v1/qrcode/blog-mp', {
-    scene,
-  })
-}
+// export function getBlogLoginQrcode(scene = '') {
+//   return request.post('/api/v1/qrcode/blog-mp', {
+//     scene,
+//   })
+// }

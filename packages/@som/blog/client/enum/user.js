@@ -3,3 +3,7 @@ export const UserGender = {
   FEMALE: '女',
   UNKNOWN: '未知',
 }
+
+export const LocalStorageKey = {
+  ThemeMode: 'data-color-mode',
+}

@@ -6,7 +6,7 @@
     @open="open"
     @close="close"
   >
-    <div class="w-[350px] flex flex-col items-center">
+    <div class="flex w-[350px] flex-col items-center">
       <!-- <div v-show="!toggle">
         <div class="flex justify-between mb-4 text-sm">
           请使用微信扫一扫登录
@@ -37,7 +37,7 @@
 <script>
 // import { io } from 'socket.io-client'
 import SignIn from '@/components/public/SignIn/index'
-import { getBlogLoginQrcode } from '@/api/article'
+// import { getBlogLoginQrcode } from '@/api/article'
 export default {
   name: 'SignInPopup',
   components: {
