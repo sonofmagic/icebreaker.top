@@ -1,3 +1,4 @@
+# From https://github.com/gitattributes/gitattributes/blob/master/Web.gitattributes
 ## GITATTRIBUTES FOR WEB PROJECTS
 #
 # These settings are for any web project.
@@ -26,6 +27,8 @@
 *.inc             text
 *.ini             text
 *.js              text
+*.mjs             text
+*.cjs             text
 *.json            text
 *.jsx             text
 *.less            text
@@ -42,6 +45,7 @@
 *.scm             text
 *.scss            text diff=css
 *.sh              text eol=lf
+.husky/*          text eol=lf
 *.sql             text
 *.styl            text
 *.tag             text
@@ -54,7 +58,7 @@
 Dockerfile        text
 
 # Documentation
-*.ipynb           text
+*.ipynb           text eol=lf
 *.markdown        text diff=markdown
 *.md              text diff=markdown
 *.mdwn            text diff=markdown
@@ -109,7 +113,7 @@ TODO              text
 .htaccess         text
 *.lock            text -diff
 package.json      text eol=lf
-package-lock.json text -diff
+package-lock.json text eol=lf -diff
 pnpm-lock.yaml    text eol=lf -diff
 .prettierrc       text
 yarn.lock         text -diff
@@ -119,6 +123,8 @@ yarn.lock         text -diff
 browserslist      text
 Makefile          text
 makefile          text
+# Fixes syntax highlighting on GitHub to allow comments
+tsconfig.json     linguist-language=JSON-with-Comments
 
 # Heroku
 Procfile          text
@@ -198,9 +204,15 @@ Procfile          text
 # Executables
 *.exe             binary
 *.pyc             binary
+# Prevents massive diffs caused by vendored, minified files
+**/.yarn/releases/**   binary
+**/.yarn/plugins/**    binary
 
 # RC files (like .babelrc or .eslintrc)
 *.*rc             text
 
 # Ignore files (like .npmignore or .gitignore)
 *.*ignore         text
+
+# Prevents massive diffs from built files
+dist/*            binary
