@@ -2,12 +2,13 @@
 
 import svg4everybody from 'svg4everybody'
 import mobile from 'is-mobile'
-import 'giscus'
+// import 'giscus'
 // import Aegis from 'aegis-web-sdk'
 import { LocalStorageKey } from '@/enum/user'
+
 svg4everybody()
 
-export default (ctx, inject) => {
+export default (ctx) => {
   // 这里可以获得客户端的store,进行动态注册module
   // console.log(ctx)
   // Injec  t $hello(msg) in Vue, context and store.

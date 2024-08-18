@@ -1,22 +1,3 @@
-<template>
-  <div>
-    <giscus-widget
-      repo="sonofmagic/icebreaker.top"
-      repoid="MDEwOlJlcG9zaXRvcnkzMjkxNjA0MzM="
-      category="Announcements"
-      categoryid="MDE4OkRpc2N1c3Npb25DYXRlZ29yeTMzMDMyNzIx"
-      mapping="pathname"
-      strict="0"
-      reactionsenabled="1"
-      emitmetadata="0"
-      inputposition="bottom"
-      :theme="theme"
-      lang="zh-CN"
-      crossorigin="anonymous"
-      loading="lazy"></giscus-widget>
-  </div>
-</template>
-
 <script>
 export default {
   computed: {
@@ -41,5 +22,25 @@ export default {
 //   return colorMode.value === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon'
 // })
 </script>
+
+<template>
+  <div>
+    <giscus-widget
+      repo="sonofmagic/icebreaker.top"
+      repoid="MDEwOlJlcG9zaXRvcnkzMjkxNjA0MzM="
+      category="Announcements"
+      categoryid="MDE4OkRpc2N1c3Npb25DYXRlZ29yeTMzMDMyNzIx"
+      mapping="pathname"
+      strict="0"
+      reactionsenabled="1"
+      emitmetadata="0"
+      inputposition="bottom"
+      :theme="theme"
+      lang="zh-CN"
+      crossorigin="anonymous"
+      loading="lazy"
+    />
+  </div>
+</template>
 
 <style lang="scss" scoped></style>

@@ -64,21 +64,21 @@ module.exports = {
         return {
           DEFAULT: {
             css: {
-              a: {
+              'a': {
                 color: theme('colors.primary.500'),
                 textDecoration: 'underline',
               },
-              h2: {
+              'h2': {
                 paddingBottom: theme('padding.2'),
                 borderBottomWidth: '1px',
                 borderBottomColor: theme('colors.gray.200'),
               },
-              h3: {
+              'h3': {
                 paddingBottom: theme('padding.2'),
                 borderBottomWidth: '1px',
                 borderBottomColor: theme('colors.gray.200'),
               },
-              blockquote: {
+              'blockquote': {
                 fontWeight: '400',
                 color: theme('colors.gray.600'),
                 fontStyle: 'normal',
@@ -93,7 +93,7 @@ module.exports = {
               'blockquote p:last-of-type::after': {
                 content: '',
               },
-              code: {
+              'code': {
                 fontWeight: '400',
                 backgroundColor: theme('colors.gray.100'),
                 padding: theme('padding.1'),
@@ -129,56 +129,56 @@ module.exports = {
 
           invert: {
             css: {
-              color: fontDefaultColor,
-              a: {
-                color: 'rgb(var(--color-accent-fg))',
+              'color': fontDefaultColor,
+              'a': {
+                'color': 'rgb(var(--color-accent-fg))',
                 'text-decoration': 'none',
                 '&:hover': {
                   'text-decoration': 'underline',
                 },
               },
-              blockquote: {
-                padding: '0 1em',
-                color: 'rgb(var(--color-fg-muted))',
+              'blockquote': {
+                'padding': '0 1em',
+                'color': 'rgb(var(--color-fg-muted))',
                 'border-left': '.25em solid rgb(var(--color-border-default))',
               },
-              h1: {
-                color: fontDefaultColor,
-                borderBottom: headerBottonBorder,
+              'h1': {
+                'color': fontDefaultColor,
+                'borderBottom': headerBottonBorder,
                 'font-size': '2em',
                 'padding-bottom': '0.3em',
               },
-              h2: {
+              'h2': {
                 color: fontDefaultColor,
                 borderBottom: headerBottonBorder,
                 // borderBottomColor: theme('colors.gray.800'),
               },
-              h3: {
+              'h3': {
                 color: fontDefaultColor,
                 borderBottom: headerBottonBorder,
               },
-              h4: {
+              'h4': {
                 color: fontDefaultColor,
               },
-              strong: {
+              'strong': {
                 color: fontDefaultColor,
               },
               // 'figure figcaption': {
               //   color: theme('colors.gray.400'),
               // },
-              code: {
-                color: 'rgb(var(--color-fg-default))',
-                backgroundColor: 'rgb(var(--color-neutral-muted) / 0.2)',
-                borderWidth: 0,
-                padding: '.2em .4em',
-                margin: 0,
-                fontSize: '85%',
+              'code': {
+                'color': 'rgb(var(--color-fg-default))',
+                'backgroundColor': 'rgb(var(--color-neutral-muted) / 0.2)',
+                'borderWidth': 0,
+                'padding': '.2em .4em',
+                'margin': 0,
+                'fontSize': '85%',
                 'border-radius': '6px',
                 'border-width': '0px',
                 'border-color': 'transparent',
               },
               'a code': {
-                color: 'rgb(var(--color-accent-fg))',
+                'color': 'rgb(var(--color-accent-fg))',
                 'text-decoration': 'none',
                 '&:hover': {
                   'text-decoration': 'underline',
@@ -186,9 +186,9 @@ module.exports = {
               },
               'pre > code': {
                 'background-color': 'transparent',
-                padding: 0,
+                'padding': 0,
                 'border-radius': '0px',
-                color: 'inherit',
+                'color': 'inherit',
               },
             },
           },

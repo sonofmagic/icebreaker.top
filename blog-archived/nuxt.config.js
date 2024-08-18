@@ -1,8 +1,9 @@
 // 直接搭blog可以使用 link https://content.nuxtjs.org/themes/docs
 // import theme from '@nuxt/content-theme-docs'
 // fibers
-import fs from 'fs'
-import path from 'path'
+import fs from 'node:fs'
+// import path from 'node:path'
+import process from 'node:process'
 import dotenv from 'dotenv'
 // import SpeedMeasurePlugin from 'speed-measure-webpack-plugin'
 import { sitemap } from './nuxt.config/index'
@@ -19,8 +20,8 @@ const env = {
   BASE_URL,
 }
 
-const script =
-  isProd && isRelease
+const script
+  = isProd && isRelease
     ? [
         {
           hid: 'hm',
@@ -85,7 +86,7 @@ const config = {
       },
       {
         'http-equiv': 'X-UA-Compatible',
-        content: 'IE=edge, chrome=1',
+        'content': 'IE=edge, chrome=1',
       },
       {
         hid: 'description',
@@ -118,22 +119,22 @@ const config = {
   },
   router: {
     // middleware: ['theme'],
-    extendRoutes(routes, resolve) {
-      fs.writeFileSync(
-        path.resolve(__dirname, '../../../apps/blog-new/routes-v1.json'),
-        JSON.stringify(
-          routes.map((x) => {
-            return {
-              name: x.name,
-              path: x.path,
-            }
-          }),
-          null,
-          2
-        ),
-        'utf8'
-      )
-    },
+    // extendRoutes(routes) {
+    //   fs.writeFileSync(
+    //     path.resolve(__dirname, '../../../apps/blog-new/routes-v1.json'),
+    //     JSON.stringify(
+    //       routes.map((x) => {
+    //         return {
+    //           name: x.name,
+    //           path: x.path,
+    //         }
+    //       }),
+    //       null,
+    //       2,
+    //     ),
+    //     'utf8',
+    //   )
+    // },
   },
   loading: {
     color: 'rgb(121, 184, 255)',
@@ -265,7 +266,7 @@ const config = {
       feed.options = {
         title: 'icebreaker',
         description: '一位打字员',
-        link: websiteUrl + '/',
+        link: `${websiteUrl}/`,
         language: 'zh-cn',
         copyright: `Copyright ${new Date().getFullYear()} icebreaker.The contents of this feed are available for non-commercial use only.`,
         generator: 'icebreaker.top',
@@ -293,10 +294,10 @@ const config = {
           // const { name, domain } = category;
           category: Array.isArray(article.tags)
             ? article.tags.map((x) => {
-                return {
-                  name: x,
-                }
-              })
+              return {
+                name: x,
+              }
+            })
             : [],
         })
       })
@@ -348,10 +349,7 @@ const config = {
     publicPath:
       isRelease && isProd
         ? '/_ice/' /// prodPublicPath
-        : //  isPublicPathExist
-          //   ? require('./publicPath.js').default
-          //   : prodPublicPath
-          '/_nuxt/',
+        : '/_nuxt/',
     // quiet: true,
     extractCSS: isProd,
     // optimizeCSS: isProd,
@@ -405,7 +403,7 @@ const config = {
     //     cacheGroups: {},
     //   },
     // },
-    extend(config, { isClient, isDev }) {
+    extend(config, { isClient }) {
       config.externals = {
         'hls.js': 'hls.js',
       }
