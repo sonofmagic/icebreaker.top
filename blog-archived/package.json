@@ -115,5 +115,6 @@
     "vue": "^2.7",
     "vue-server-renderer": "^2.7",
     "vue-template-compiler": "^2.7"
-  }
+  },
+  "packageManager": "yarn@1.22.22"
 }
