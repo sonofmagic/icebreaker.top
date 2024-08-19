@@ -1,42 +1,31 @@
-// https://github.com/lerna/lerna/blob/main/commands/run/index.js
-// lerna run 时，只会把 result.stdout 给 output
-
-// const path = require('path')
-
-// const jsonfile = require('jsonfile')
+import process from 'node:process'
 
 function log(...args) {
-  process.stdout.write(args.join(' ') + '\n')
-  // console.log(...args)
+  process.stdout.write(`${args.join(' ')}\n`)
 }
-// let count = 0
-module.exports = {
-  // 'content:file:beforeParse': (file) => {
-  //   console.log(++count)
-  //   jsonfile.writeFileSync('/articles.json', file, { spaces: 2, flag: 'a' })
-  // },
+export default {
   build: {
-    before(nuxt, buildOptions) {
+    before() {
       log('build before')
       // console.log('Before Nuxt build started')
     },
-    templates({ templatesFiles, templateVars, resolve }) {
+    templates() {
       log('build templates')
       // console.log('Generating .nuxt template files')
     },
-    extendRoutes(routes, resolve) {
+    extendRoutes() {
       log('build extendRoutes')
       // console.log('Generating routes')
     },
-    compile({ name, compiler }) {
+    compile({ name }) {
       log(`${name} build compile `)
       // console.log(`Before webpack compile (compiler is a webpack Compiler instance), if universal mode, called twice with name 'client' and 'server'`)
     },
-    compiled({ name, compiler, stats }) {
+    compiled({ name, stats }) {
       log(`${name} build compiled ms:${stats.endTime - stats.startTime}`)
       // console.log('webpack build finished')
     },
-    done(nuxt) {
+    done() {
       log('build done')
       // console.log('Nuxt build finished')
     },

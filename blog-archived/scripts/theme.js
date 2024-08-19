@@ -1,4 +1,4 @@
-const path = require('path')
+const path = require('node:path')
 const { generateSync } = require('tailwind-css-variables-theme-generator')
 
 const entryPoint = path.resolve(__dirname, '../client/assets/scss/expose.scss')

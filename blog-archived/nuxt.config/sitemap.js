@@ -1,5 +1,6 @@
-import path from 'path'
+import path from 'node:path'
 import { globSync } from 'glob'
+
 export default {
   hostname: 'https://www.icebreaker.top',
   gzip: true,
