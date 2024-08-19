@@ -50,18 +50,18 @@ const script
         },
       ]
     : [
-        // {
-        //   hid: 'google-import',
-        //   async: true,
-        //   src: 'https://www.googletagmanager.com/gtag/js?id=G-9LFZ3ZM31C',
-        // },
-        // {
-        //   hid: 'google-import-1',
-        //   innerHTML: `window.dataLayer = window.dataLayer || [];
-        // function gtag(){dataLayer.push(arguments);}
-        // gtag('js', new Date());
-        // gtag('config', 'G-9LFZ3ZM31C');`,
-        // },
+      // {
+      //   hid: 'google-import',
+      //   async: true,
+      //   src: 'https://www.googletagmanager.com/gtag/js?id=G-9LFZ3ZM31C',
+      // },
+      // {
+      //   hid: 'google-import-1',
+      //   innerHTML: `window.dataLayer = window.dataLayer || [];
+      // function gtag(){dataLayer.push(arguments);}
+      // gtag('js', new Date());
+      // gtag('config', 'G-9LFZ3ZM31C');`,
+      // },
       ]
 
 // const smp = new SpeedMeasurePlugin()
@@ -353,7 +353,7 @@ const config = {
     // quiet: true,
     extractCSS: isProd,
     // optimizeCSS: isProd,
-    transpile: [/^element-ui/, /vant.*?less/, /echarts/, /zrender/],
+    transpile: [/^element-ui/, /vant.*?less/, /echarts/, /zrender/, /giscus/, /@lit\/reactive-element/, /lit-html/, /lit-element/],
     loaders: {
       scss: {
         // https://github.com/sass/dart-sass/issues/1324
@@ -428,12 +428,6 @@ const config = {
           ],
         })
       }
-      // if (isDev) {
-      //   return smp.wrap(config)
-      // }
-      // if (isClient && isLoadMonaco) {
-      //   config.plugins.push(new MonacoWebpackPlugin())
-      // }
     },
     babel: {
       plugins: [

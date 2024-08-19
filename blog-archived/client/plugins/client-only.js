@@ -2,7 +2,7 @@
 
 import svg4everybody from 'svg4everybody'
 import mobile from 'is-mobile'
-// import 'giscus'
+import 'giscus'
 // import Aegis from 'aegis-web-sdk'
 import { LocalStorageKey } from '@/enum/user'
 
