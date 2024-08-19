@@ -1,5 +1,6 @@
 import postcss from 'postcss'
 import type { Config } from 'tailwindcss'
+import tailwindcss from 'tailwindcss'
 
 describe('postcss', () => {
   it('rpx case 0', async () => {
@@ -15,24 +16,24 @@ describe('postcss', () => {
         'min-h-[12rpx]',
         'max-h-[12rpx]',
         'basis-[32rpx]',
-        'text-[32rpx]'
+        'text-[32rpx]',
       ].map((x) => {
         return {
-          raw: x
+          raw: x,
         }
       }),
       corePlugins: {
-        preflight: false
-      }
+        preflight: false,
+      },
     }
     const { css } = await postcss([
-      require('tailwindcss')({
-        config
-      })
+      tailwindcss({
+        config,
+      }),
     ]).process('@tailwind components;@tailwind utilities;', {
-      from: undefined
+      from: undefined,
     })
 
     expect(css).toMatchSnapshot()
   })
-});
+})
