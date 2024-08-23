@@ -12583,9 +12583,9 @@ tencentcloud-sdk-nodejs-common@^4.0.488:
     uuid "^9.0.1"
 
 tencentcloud-sdk-nodejs@^4.0.795:
-  version "4.0.919"
-  resolved "https://registry.npmmirror.com/tencentcloud-sdk-nodejs/-/tencentcloud-sdk-nodejs-4.0.919.tgz#f3bf941d84fa8c7dba950102c25b0140fc2362e3"
-  integrity sha512-tj+idAuWrT2AVzXlZkR+Hs03UwP+Ntiuyl/abm3WaKoFRcm5/YoQQUsVcIr//lZIobWn9PaqkRT/Zl6TssmTJg==
+  version "4.0.924"
+  resolved "https://registry.npmmirror.com/tencentcloud-sdk-nodejs/-/tencentcloud-sdk-nodejs-4.0.924.tgz#b7bbe3bfee26b2a0c7a6c2e85f380465cee96d23"
+  integrity sha512-d5fj3HANbWPfm53NaWs6aOaqrwwgX0LDVUzE2289aLfTN556wlStjvikjqYh+h/QHFG0ZbAgPfi8WxI7TszHhw==
   dependencies:
     form-data "^3.0.0"
     get-stream "^6.0.0"
