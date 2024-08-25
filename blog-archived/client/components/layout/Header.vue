@@ -141,8 +141,15 @@ export default {
     </div>
 
     <client-only>
-      <div class="tail flex flex-grow justify-end sm:flex-grow-0">
-        <DarkModeToggle class="mr-2" />
+      <div class="tail flex flex-grow space-x-4 justify-end sm:flex-grow-0">
+        <DarkModeToggle />
+        <OutSideLink
+          class="text-xl text-white hover:text-gray-300"
+          raw
+          href="https://github.com/sonofmagic/icebreaker.top"
+        >
+          <FontAwesomeIcon :icon="['fab', 'github']" />
+        </OutSideLink>
       </div>
     </client-only>
   </header>

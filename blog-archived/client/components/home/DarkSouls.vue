@@ -63,18 +63,6 @@ export default {
             Docker
           </OutSideLink>
         </div>
-        <div>
-          <OutSideLink
-            class="mr-1 text-base hover:text-gray-400"
-            raw
-            href="https://github.com/sonofmagic"
-          >
-            <FontAwesomeIcon :icon="['fab', 'github']" />
-          </OutSideLink>
-          <OutSideLink href="https://github.com/sonofmagic/icebreaker.top">
-            Source Code
-          </OutSideLink>
-        </div>
       </div>
     </div>
     <div class="space-y-2">
