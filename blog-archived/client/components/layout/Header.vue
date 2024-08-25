@@ -92,12 +92,9 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('user', ['user', 'isRealLogined']),
+    ...mapGetters('user', ['user']),
   },
   methods: {
-    go2Profile() {
-      this.$router.push('/profile')
-    },
     async logout() {
       try {
         await Dialog.confirm({ message: '确定登出?' })

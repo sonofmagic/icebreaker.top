@@ -378,7 +378,7 @@ const config = {
     },
   },
   generate: {
-    dir: 'docs',
+    dir: '../dist',
   },
   target: process.env.target || 'static',
   globalName: 'icebreaker',
