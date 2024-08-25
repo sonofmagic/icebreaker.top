@@ -5,10 +5,9 @@ export function validateMobile(value) {
   return MobilePattern.test(value)
 }
 
-// eslint-disable-next-line no-useless-escape
-export const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)[-\da-zA-Z`=\\\[\];',./~!@#$%^&*()_+|{}:"<>?]{8,32}$/
-// eslint-disable-next-line no-useless-escape
-export const emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+export const passwordPattern = /^(?=.*[A-Z])(?=.*\d)[-\w`=\\[\];',./~!@#$%^&*()+|{}:"<>?]{8,32}$/i
+
+export const emailPattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\])|(([a-z\-0-9]+\.)+[a-z]{2,}))$/i
 
 export function validateEmail(value) {
   return emailPattern.test(value)

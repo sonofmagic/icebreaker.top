@@ -326,30 +326,10 @@ const config = {
         },
       },
     },
-    extend(config, { isClient }) {
-      config.externals = {
-        'hls.js': 'hls.js',
-      }
+    extend(config) {
       // Can't resolve 'fs'  in graceful-fs'
       config.node = {
         fs: 'empty',
-      }
-
-      if (isClient) {
-        config.module.rules.push({
-          test: /\.worker\.(c|m)?js$/i,
-          use: [
-            {
-              loader: 'worker-loader',
-            },
-            {
-              loader: 'babel-loader',
-              options: {
-                presets: ['@babel/preset-env'],
-              },
-            },
-          ],
-        })
       }
     },
     babel: {
@@ -378,7 +358,7 @@ const config = {
     },
   },
   generate: {
-    dir: '../dist',
+    dir: 'dist',
   },
   target: process.env.target || 'static',
   globalName: 'icebreaker',
@@ -399,9 +379,6 @@ const config = {
 if (isProd) {
   config.build.terser = {
     terserOptions: {
-      // output: {
-      //   comments: 'some', // /^\**!|@preserve|@license|@cc_on/,
-      // },
       compress: {
         drop_console: true,
         // drop_debugger: true,:default: true
@@ -411,11 +388,5 @@ if (isProd) {
     },
   }
 }
-// if (isDev) {
-//   config.modules.push([
-//     '@nuxtjs/proxy',
-//     { pathRewrite: { '^/api': { target: 'http://127.0.0.1:9000/api' } } },
-//   ])
-// }
 
 export default config // theme(config)
