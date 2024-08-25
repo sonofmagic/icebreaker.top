@@ -1,7 +1,4 @@
 <script>
-// const { nameToEmoji } = require('gemoji')
-// import { nameToEmoji } from 'gemoji'
-// import SomPlayer from '../global/SomPlayer.vue'
 import MiniPrograms from './MiniPrograms'
 import { wechat } from '@/assets/img/cloud'
 import copyTextMixin from '@/mixins/copyTextMixin'

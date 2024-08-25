@@ -70,7 +70,7 @@ export default {
       if (id) {
         gsap.to(window, {
           duration: 0.5,
-          scrollTo: { y: `#${id}`, offsetY: 16 },
+          scrollTo: { y: `#${id}`, offsetY: 72 },
         })
       }
     },

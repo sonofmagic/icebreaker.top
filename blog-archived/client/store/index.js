@@ -1,12 +1,6 @@
-// import ClientOnly from '@/storePlugins/client-only'
-// import getArticle from '@/utils/getArticle'
-// import createPersistedState from 'vuex-persistedstate'
 import { LocalStorageKey } from '@/enum/user'
-export const state = () => {
-  // let theme = 'light'
-  // if (process.client) {
-  //   theme = localStorage.getItem(LocalStorageKey.ThemeMode) || 'dark'
-  // }
+
+export function state() {
   return {
     // counter: 0,
     hrefs: [],
@@ -15,14 +9,8 @@ export const state = () => {
 }
 
 export const plugins = [
-  // (store) => {
-  //   if (process.client) {
-  //     const theme = localStorage.getItem(LocalStorageKey.ThemeMode) || 'dark'
-  //     console.log(theme, localStorage.getItem(LocalStorageKey.ThemeMode))
-  //     store.commit('set_theme', theme)
-  //   }
-  // },
-] // [ClientOnly]
+
+]
 
 export const mutations = {
   set_hrefs(state, { items }) {

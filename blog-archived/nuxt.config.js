@@ -121,7 +121,6 @@ const config = {
     // https://github.com/FortAwesome/Font-Awesome/issues/18729
     '@fortawesome/fontawesome-svg-core/styles.css',
     '@/assets/scss/global.scss',
-    'github-markdown-css/github-markdown.css',
   ],
   server: {
     port: 9000,
@@ -380,7 +379,6 @@ const config = {
   },
   generate: {
     dir: 'docs',
-    exclude: [/^\/gql/, /^\/perf/, /^\/test/],
   },
   target: process.env.target || 'static',
   globalName: 'icebreaker',

@@ -38,17 +38,11 @@
     "axios": "^0.27.2",
     "copy-text-to-clipboard": "^3.2.0",
     "core-js": "^3.33.3",
-    "d3": "^7.8.5",
     "dayjs": "^1.11.10",
-    "dompurify": "^3.0.6",
-    "dplayer": "^1.27.1",
     "echarts": "^5.4.3",
     "element-ui": "^2.15.14",
-    "eruda": "^3.0.1",
     "file-saver": "^2.0.5",
-    "gemoji": "^8.1.0",
     "giscus": "^1.5.0",
-    "github-markdown-css": "^5.4.0",
     "github-repository-distributor": "^1.1.1",
     "gsap": "^3.12.2",
     "is-mobile": "^4.0.0",
@@ -66,8 +60,7 @@
     "vue-aplayer": "^1.6.1",
     "vue-echarts": "6.6.1",
     "vue-frame-selection": "^1.0.1",
-    "vue-relation-graph": "1.0.0",
-    "vuex-persistedstate": "^4.1.0"
+    "vue-relation-graph": "1.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.23.7",
