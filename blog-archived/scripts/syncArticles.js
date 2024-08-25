@@ -7,7 +7,6 @@ const privateRepositoryPath = path.resolve(
   '../../article/content',
 )
 const currentDir = path.resolve(__dirname, '..', 'content')
-  // spider niubi!
   ; (async () => {
   await fsp.symlink(privateRepositoryPath, currentDir, 'dir')
 })()
