@@ -2,23 +2,13 @@
 // import theme from '@nuxt/content-theme-docs'
 // fibers
 import fs from 'node:fs'
-// import path from 'node:path'
 import process from 'node:process'
 import dotenv from 'dotenv'
-// import SpeedMeasurePlugin from 'speed-measure-webpack-plugin'
 import { sitemap } from './nuxt.config/index'
 import { isProd, isRelease } from './constants.js'
 
 console.log('[NODE_ENV]:', process.env.NODE_ENV)
 dotenv.config()
-
-const { TENCENT_CLOUDBASE_ENVID, SLS_ENV, BASE_URL = '/' } = process.env
-
-const env = {
-  TENCENT_CLOUDBASE_ENVID,
-  SLS_ENV,
-  BASE_URL,
-}
 
 const script
   = isProd && isRelease
@@ -118,23 +108,7 @@ const config = {
     ],
   },
   router: {
-    // middleware: ['theme'],
-    // extendRoutes(routes) {
-    //   fs.writeFileSync(
-    //     path.resolve(__dirname, '../../../apps/blog-new/routes-v1.json'),
-    //     JSON.stringify(
-    //       routes.map((x) => {
-    //         return {
-    //           name: x.name,
-    //           path: x.path,
-    //         }
-    //       }),
-    //       null,
-    //       2,
-    //     ),
-    //     'utf8',
-    //   )
-    // },
+
   },
   loading: {
     color: 'rgb(121, 184, 255)',
@@ -203,21 +177,9 @@ const config = {
 
   // Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
   buildModules: [
-    // https://go.nuxtjs.dev/eslint
-    // '@nuxtjs/eslint-module',
-    // https://go.nuxtjs.dev/stylelint
-    // '@nuxtjs/stylelint-module',
-    // Doc: https://github.com/nuxt-community/tailwindcss-module
-    // https://tailwindcss.nuxtjs.org/setup/
     '@nuxtjs/tailwindcss',
     '@nuxtjs/google-analytics',
-    // 2.16 internal
-    // '@nuxt/postcss8',
     '@nuxtjs/composition-api/module',
-    // '@nuxtjs/pwa',
-    // Doc: https://github.com/nuxt-community/color-mode-module
-    // '@nuxtjs/color-mode',
-    // '@nuxtjs/svg',
   ],
   googleAnalytics: {
     id: 'G-9LFZ3ZM31C',
@@ -309,21 +271,6 @@ const config = {
       create: createFeedArticles,
     }))
   },
-  // proxy: {
-  //   '/api': {
-  //     target: 'http://127.0.0.1:9000', // BASE_URL,
-  //     ws: true,
-  //     changeOrigin: true,
-  //     headers: {
-  //       host: 'www.icebreaker.top',
-  //     },
-  //   },
-  // },
-  // sentry: {
-  //   dsn: process.env.SENTRY_NUXT_DSN, // Enter your project's DSN here
-  //   config: {}, // Additional config
-  // },
-  // monaco: {},
   sitemap,
   // feed,
   content: {
@@ -334,17 +281,6 @@ const config = {
       },
     },
   },
-  // middleware: ['theme'],
-  // apollo: {
-  //   clientConfigs: {
-  //     default: {
-  //       httpEndpoint: 'http://localhost:3000/graphql/gql',
-  //     },
-  //   },
-  // },
-
-  // serverMiddleware: process.static ? [] : serverMiddleware,
-  // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
     publicPath:
       isRelease && isProd
@@ -390,19 +326,6 @@ const config = {
         },
       },
     },
-    // optimization: {
-    //   minimize: true,
-    //   minimizer: [
-    //     // terser-webpack-plugin
-    //     // optimize-css-assets-webpack-plugin
-    //   ],
-    //   splitChunks: {
-    //     chunks: 'all',
-    //     automaticNameDelimiter: '.',
-    //     name: undefined,
-    //     cacheGroups: {},
-    //   },
-    // },
     extend(config, { isClient }) {
       config.externals = {
         'hls.js': 'hls.js',
@@ -454,8 +377,6 @@ const config = {
       ],
     },
   },
-
-  env,
   generate: {
     dir: 'docs',
     exclude: [/^\/gql/, /^\/perf/, /^\/test/],

@@ -1,25 +1,4 @@
-<template>
-  <div>
-    <div class="container mx-auto">
-      <div>
-        <van-uploader
-          ref="uploadCom"
-          v-model="fileList"
-          :max-count="1"
-          :after-read="afterRead"
-        />
-        <van-button :loading="loading" type="primary" @click="uploadImg"
-          >上传</van-button
-        >
-      </div>
-      <pre>{{ ascii }}</pre>
-      <!-- <div v-html="ascii"></div> -->
-    </div>
-  </div>
-</template>
-
 <script>
-import { upload2Ascii, upload2Bit, upload2Ascii2 } from '@/api/upload'
 import { Toast } from 'vant'
 // import parser from 'ansi-style-parser'
 import { parse } from 'ansicolor'
@@ -73,9 +52,11 @@ export default {
         const parsed = parse(res.data)
         console.log(...parsed.asChromeConsoleLogArguments)
         this.ascii = res.data // convert.toHtml(res.data)
-      } catch (error) {
+      }
+      catch (error) {
         console.error(error)
-      } finally {
+      }
+      finally {
         this.loading = false
       }
 
@@ -93,5 +74,25 @@ export default {
   },
 }
 </script>
+
+<template>
+  <div>
+    <div class="container mx-auto">
+      <div>
+        <van-uploader
+          ref="uploadCom"
+          v-model="fileList"
+          :max-count="1"
+          :after-read="afterRead"
+        />
+        <van-button :loading="loading" type="primary" @click="uploadImg">
+          上传
+        </van-button>
+      </div>
+      <pre>{{ ascii }}</pre>
+      <!-- <div v-html="ascii"></div> -->
+    </div>
+  </div>
+</template>
 
 <style></style>
