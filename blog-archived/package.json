@@ -68,7 +68,7 @@
   "devDependencies": {
     "@icebreakers/deploy": "^0.1.5",
     "@nuxt/types": "^2.17.3",
-    "@nuxtjs/composition-api": "^0.33.1",
+    "@nuxtjs/composition-api": "^0.34.0",
     "@nuxtjs/google-analytics": "^2.4.0",
     "@types/file-saver": "^2.0.7",
     "@vue/composition-api": "^1.7.2",
