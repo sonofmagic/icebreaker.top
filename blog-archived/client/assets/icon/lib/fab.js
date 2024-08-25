@@ -1,25 +1,26 @@
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
-  faHtml5,
   faAlipay,
+  faCss3Alt,
+  faGitAlt,
+  faGitSquare,
   faGithub,
   faGithubAlt,
   faGithubSquare,
+  faHtml5,
   faJs,
   faJsSquare,
   faNode,
   faNodeJs,
   faNpm,
   faQq,
-  faWeixin,
-  faWeibo,
-  faZhihu,
-  faYarn,
-  faCss3Alt,
-  faGitAlt,
-  faGitSquare,
   faVuejs,
+  faWeibo,
+  faWeixin,
+  faYarn,
+  faZhihu,
 } from '@fortawesome/free-brands-svg-icons'
+
 library.add(
   faHtml5,
   faAlipay,
@@ -39,6 +40,6 @@ library.add(
   faCss3Alt,
   faGitAlt,
   faGitSquare,
-  faVuejs
+  faVuejs,
 )
 export default true

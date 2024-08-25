@@ -1,13 +1,13 @@
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
-  faStar,
-  faEye,
-  faQuestionCircle,
-  faFile,
-  faEnvelope,
-  faTimesCircle,
   faCopy,
   faCopyright,
+  faEnvelope,
+  faEye,
+  faFile,
+  faQuestionCircle,
+  faStar,
+  faTimesCircle,
 } from '@fortawesome/free-regular-svg-icons'
 
 library.add(
@@ -18,6 +18,6 @@ library.add(
   faEnvelope,
   faTimesCircle,
   faCopy,
-  faCopyright
+  faCopyright,
 )
 export default true

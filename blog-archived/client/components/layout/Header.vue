@@ -1,86 +1,3 @@
-<template>
-  <header class="site-header">
-    <div class="mr-4 flex items-center">
-      <router-link class="flex-shrink-0" to="/">
-        <img class="h-8 w-8 rounded-full" :src="logoUri" />
-      </router-link>
-    </div>
-    <div class="header-middle-area hidden flex-grow text-left sm:flex">
-      <HeaderSearchBar />
-      <nav class="nav ml-4 hidden lg:flex lg:items-center">
-        <nuxt-link
-          v-for="inlink in inSideLinks"
-          :key="inlink.key"
-          class="link"
-          :to="inlink.to">
-          {{ inlink.title }}
-        </nuxt-link>
-        <a
-          v-for="item in outSideLinks"
-          :key="item.title"
-          target="_blank"
-          class="link"
-          rel="nofollow"
-          :href="item.href">
-          <span>{{ item.title }}</span>
-        </a>
-        <!-- <span>
-          <ThemeSwitch></ThemeSwitch>
-        </span> -->
-      </nav>
-    </div>
-
-    <client-only>
-      <div class="tail flex flex-grow justify-end sm:flex-grow-0">
-        <DarkModeToggle class="mr-2"></DarkModeToggle>
-        <!-- <template v-if="isRealLogined">
-          <el-dropdown
-            key="drop"
-            class="outline-none"
-            size="small"
-            trigger="click"
-          >
-            <div class="avatar-wrapper flex cursor-pointer items-center">
-              <el-image
-                class="mr-2 h-6 w-6 rounded-full"
-                :src="user.realAvatarUrl || defaultAvatar"
-              ></el-image>
-              <span v-if="user" class="mr-2 text-white">{{
-                user.nickName
-              }}</span>
-              <i class="dropdown-caret"></i>
-            </div>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item style="width: 144px" @click.native="go2Profile"
-                >个人中心</el-dropdown-item
-              >
-              <el-dropdown-item @click.native="logout">退出</el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
-        </template>
-        <template v-else>
-          <button
-            key="signinpopover"
-            class="nav-btn mr-2"
-            @click="SignInVisible = !SignInVisible"
-          >
-            Sign in
-          </button>
-          <button
-            key="registerpopover"
-            class="nav-btn round-border"
-            @click="RegisterVisible = !RegisterVisible"
-          >
-            Sign up
-          </button>
-        </template> -->
-      </div>
-      <!-- <SignInPopup v-model="SignInVisible"></SignInPopup>
-      <RegisterPopup v-model="RegisterVisible"></RegisterPopup> -->
-    </client-only>
-  </header>
-</template>
-
 <script>
 import { mapGetters } from 'vuex'
 import { Dialog } from 'vant'
@@ -106,25 +23,25 @@ export default {
       SignInVisible: false,
 
       outSideLinks: [
-        // {
-        //   href: 'https://cloudbase.icebreaker.top',
-        //   title: 'SimpleCloudbase',
-        // },
-        // {
-        //   href: 'https://github.com/sonofmagic/icebreaker.top/pulls',
-        //   title: 'Pull requests',
-        // },
-        // {
-        //   href: 'https://github.com/sonofmagic/icebreaker.top/issues',
-        //   title: 'Issues',
-        // },
         {
           href: 'https://weapp-tw.icebreaker.top/',
           title: 'Weapp-tailwindcss',
         },
         {
+          href: 'https://vite.icebreaker.top/',
+          title: 'Weapp-vite',
+        },
+        {
           href: 'https://ui.icebreaker.top/zh-CN',
           title: 'IceStack',
+        },
+        {
+          href: 'https://monorepo.icebreaker.top/',
+          title: 'Monorepo',
+        },
+        {
+          href: 'https://eslint.icebreaker.top/',
+          title: 'Eslint',
         },
         {
           href: 'https://www.npmjs.com/~icebreaker',
@@ -193,11 +110,54 @@ export default {
         await Dialog.confirm({ message: '确定登出?' })
         // await this.$confirm('确定登出?')
         await this.$store.dispatch('user/signOut')
-      } catch {}
+      }
+      catch {}
     },
   },
 }
 </script>
+
+<template>
+  <header class="site-header">
+    <div class="mr-4 flex items-center">
+      <router-link class="flex-shrink-0" to="/">
+        <img class="h-8 w-8 rounded-full" :src="logoUri">
+      </router-link>
+    </div>
+    <div class="header-middle-area hidden flex-grow text-left sm:flex">
+      <HeaderSearchBar />
+      <nav class="nav ml-4 hidden lg:flex lg:items-center">
+        <nuxt-link
+          v-for="inlink in inSideLinks"
+          :key="inlink.key"
+          class="link"
+          :to="inlink.to"
+        >
+          {{ inlink.title }}
+        </nuxt-link>
+        <a
+          v-for="item in outSideLinks"
+          :key="item.title"
+          target="_blank"
+          class="link"
+          rel="nofollow"
+          :href="item.href"
+        >
+          <span>{{ item.title }}</span>
+        </a>
+        <!-- <span>
+          <ThemeSwitch></ThemeSwitch>
+        </span> -->
+      </nav>
+    </div>
+
+    <client-only>
+      <div class="tail flex flex-grow justify-end sm:flex-grow-0">
+        <DarkModeToggle class="mr-2" />
+      </div>
+    </client-only>
+  </header>
+</template>
 
 <style lang="scss" scoped>
 .site-header {

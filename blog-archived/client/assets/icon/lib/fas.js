@@ -1,31 +1,30 @@
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
-  faHome,
-  faHandsHelping,
-  faSignOutAlt,
-  faUserPlus,
-  faUsers,
-  faUser,
-  faUserCheck,
-  faUserEdit,
-  faUserCog,
-  faSignInAlt,
-  faStar,
+  faChevronRight,
   faCode,
   faCodeBranch,
-  faFolder,
-  // 为什么男人是火星，女人是 金星
-  faVenus,
-  faMars,
   faEnvelope,
+  faFolder,
+  faHandsHelping,
+  faHome,
   faMapMarkerAlt,
-  faTimesCircle,
-  faChevronRight,
-  faSun,
+  faMars,
   faMoon,
   faRssSquare,
+  faSignInAlt,
+  faSignOutAlt,
+  faStar,
+  faSun,
+  faTimesCircle,
+  faUser,
+  faUserCheck,
+  faUserCog,
+  faUserEdit,
+  faUserPlus,
+  faUsers,
+  faVenus,
 } from '@fortawesome/free-solid-svg-icons'
-
+// 为什么男人是火星，女人是 金星
 library.add(
   faHome,
   faHandsHelping,
@@ -49,6 +48,6 @@ library.add(
   faChevronRight,
   faSun,
   faMoon,
-  faRssSquare
+  faRssSquare,
 )
 export default true
