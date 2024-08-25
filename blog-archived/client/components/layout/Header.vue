@@ -127,14 +127,6 @@ export default {
     <div class="header-middle-area hidden flex-grow text-left sm:flex">
       <HeaderSearchBar />
       <nav class="nav ml-4 hidden lg:flex lg:items-center">
-        <nuxt-link
-          v-for="inlink in inSideLinks"
-          :key="inlink.key"
-          class="link"
-          :to="inlink.to"
-        >
-          {{ inlink.title }}
-        </nuxt-link>
         <a
           v-for="item in outSideLinks"
           :key="item.title"
@@ -145,6 +137,14 @@ export default {
         >
           <span>{{ item.title }}</span>
         </a>
+        <nuxt-link
+          v-for="inlink in inSideLinks"
+          :key="inlink.key"
+          class="link"
+          :to="inlink.to"
+        >
+          {{ inlink.title }}
+        </nuxt-link>
         <!-- <span>
           <ThemeSwitch></ThemeSwitch>
         </span> -->
