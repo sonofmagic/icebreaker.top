@@ -1,21 +1,7 @@
-<template>
-  <div class="container mx-auto flex">
-    <div class="w-1/2">
-      <div v-for="(v, k) in variables" :key="k">
-        '{{ removeColorPrefix(k) }}':{{ jsFilterShadow(k) }},
-      </div>
-    </div>
-    <div class="w-1/2">
-      <div v-for="(v, k) in variables" :key="k">
-        ${{ removeColorPrefix(k) }}:{{ scssFilterShadow(k) }};
-      </div>
-    </div>
-  </div>
-</template>
-
 <script>
 import variables from '@/assets/scss/export.scss'
 import copyTextMixin from '@/mixins/copyTextMixin'
+
 export default {
   mixins: [copyTextMixin],
   data() {
@@ -43,5 +29,20 @@ export default {
   },
 }
 </script>
+
+<template>
+  <div class="container mx-auto flex">
+    <div class="w-1/2">
+      <div v-for="(v, k) in variables" :key="k">
+        '{{ removeColorPrefix(k) }}':{{ jsFilterShadow(k) }},
+      </div>
+    </div>
+    <div class="w-1/2">
+      <div v-for="(v, k) in variables" :key="k">
+        ${{ removeColorPrefix(k) }}:{{ scssFilterShadow(k) }};
+      </div>
+    </div>
+  </div>
+</template>
 
 <style></style>

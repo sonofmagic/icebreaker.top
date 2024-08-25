@@ -1,39 +1,3 @@
-<template>
-  <SomPopup
-    v-model="visible"
-    title="登录"
-    @closed="closed"
-    @open="open"
-    @close="close"
-  >
-    <div class="flex w-[350px] flex-col items-center">
-      <!-- <div v-show="!toggle">
-        <div class="flex justify-between mb-4 text-sm">
-          请使用微信扫一扫登录
-          <span class="hover:underline hover:text-primary-400" @click="refresh"
-            >刷新<i class="el-icon-refresh-right"></i
-          ></span>
-        </div>
-        <van-image
-          v-loading="qrcodeLoading"
-          width="188"
-          height="188"
-          :src="qrcodeUrl"
-        >
-          <template #loading>
-            <van-loading type="spinner" size="20" />
-          </template>
-        </van-image>
-      </div> -->
-
-      <SignIn v-show="toggle" ref="signin" @success="visible = false"></SignIn>
-      <!-- <div class="mt-6 underline" @click="toggleLoginType">
-        切换{{ toggle ? '小程序码' : '账号密码' }}登录
-      </div> -->
-    </div>
-  </SomPopup>
-</template>
-
 <script>
 // import { io } from 'socket.io-client'
 import SignIn from '@/components/public/SignIn/index'
@@ -78,9 +42,11 @@ export default {
         this.qrcodeLoading = true
         const { data: imgBuf } = await getBlogLoginQrcode(scene)
         this.qrcodeUrl = imgBuf
-      } catch (err) {
+      }
+      catch (err) {
         console.error(err)
-      } finally {
+      }
+      finally {
         this.qrcodeLoading = false
       }
     },
@@ -125,3 +91,39 @@ export default {
   },
 }
 </script>
+
+<template>
+  <SomPopup
+    v-model="visible"
+    title="登录"
+    @closed="closed"
+    @open="open"
+    @close="close"
+  >
+    <div class="flex w-[350px] flex-col items-center">
+      <!-- <div v-show="!toggle">
+        <div class="flex justify-between mb-4 text-sm">
+          请使用微信扫一扫登录
+          <span class="hover:underline hover:text-primary-400" @click="refresh"
+            >刷新<i class="el-icon-refresh-right"></i
+          ></span>
+        </div>
+        <van-image
+          v-loading="qrcodeLoading"
+          width="188"
+          height="188"
+          :src="qrcodeUrl"
+        >
+          <template #loading>
+            <van-loading type="spinner" size="20" />
+          </template>
+        </van-image>
+      </div> -->
+
+      <SignIn v-show="toggle" ref="signin" @success="visible = false" />
+      <!-- <div class="mt-6 underline" @click="toggleLoginType">
+        切换{{ toggle ? '小程序码' : '账号密码' }}登录
+      </div> -->
+    </div>
+  </SomPopup>
+</template>

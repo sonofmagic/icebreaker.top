@@ -1,13 +1,3 @@
-<template>
-  <div class="container mx-auto">
-    <input
-      v-model="currentValue"
-      class="border border-solid border-green-400"
-    />
-    <slot v-for="i in renderCount" :$index="i"></slot>
-  </div>
-</template>
-
 <script>
 export default {
   components: {},
@@ -36,5 +26,15 @@ export default {
   },
 }
 </script>
+
+<template>
+  <div class="container mx-auto">
+    <input
+      v-model="currentValue"
+      class="border border-solid border-green-400"
+    >
+    <slot v-for="i in renderCount" :$index="i" />
+  </div>
+</template>
 
 <style></style>

@@ -1,40 +1,3 @@
-<template>
-  <div class="charts-full pb-12" style="background-color: #100c2a">
-    <div class="container mx-auto">
-      <div class="space-y-2 mb-6">
-        <van-notice-bar
-          left-icon="volume-o"
-          text="本压测用例，基于express返回最简单的请求，编写而成"
-        />
-        <div class="text-white">
-          <div class="flex items-center">
-            <FontAwesomeIcon class="mr-2" :icon="['fab', 'github']" />
-            <span class="text-xl">Github地址:</span>
-          </div>
-          <div
-            class="text-xs underline cursor-pointer"
-            @click.stop="
-              copyText(
-                'https://github.com/sonofmagic/tencent-web-function-benchmark'
-              )
-            "
-          >
-            sonofmagic/tencent-web-function-benchmark(点我复制)
-          </div>
-        </div>
-      </div>
-      <client-only>
-        <v-chart class="chart" :option="ReqPerSecLineOption" autoresize />
-        <v-chart class="chart" :option="ReqPerSecBarOption" autoresize />
-
-        <v-chart class="chart" :option="BytesPerSecLineOption" autoresize />
-        <v-chart class="chart" :option="BytesPerSecBarOption" autoresize />
-        <v-chart class="chart" :option="LatencyLineOption" autoresize />
-      </client-only>
-    </div>
-  </div>
-</template>
-
 <script>
 import '@/plugins/echarts'
 import VChart, { THEME_KEY } from 'vue-echarts'
@@ -44,6 +7,7 @@ import {
   chartDataMap,
   legendData,
 } from '@/dataSource/chart/scf-event-vs-web-vs-custom-image'
+
 const connectionArray = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
 
 const defaultsOption = {
@@ -358,6 +322,43 @@ export default {
 }
 </script>
 
+<template>
+  <div class="charts-full pb-12" style="background-color: #100c2a">
+    <div class="container mx-auto">
+      <div class="space-y-2 mb-6">
+        <van-notice-bar
+          left-icon="volume-o"
+          text="本压测用例，基于express返回最简单的请求，编写而成"
+        />
+        <div class="text-white">
+          <div class="flex items-center">
+            <FontAwesomeIcon class="mr-2" :icon="['fab', 'github']" />
+            <span class="text-xl">Github地址:</span>
+          </div>
+          <div
+            class="text-xs underline cursor-pointer"
+            @click.stop="
+              copyText(
+                'https://github.com/sonofmagic/tencent-web-function-benchmark',
+              )
+            "
+          >
+            sonofmagic/tencent-web-function-benchmark(点我复制)
+          </div>
+        </div>
+      </div>
+      <client-only>
+        <VChart class="chart" :option="ReqPerSecLineOption" autoresize />
+        <VChart class="chart" :option="ReqPerSecBarOption" autoresize />
+
+        <VChart class="chart" :option="BytesPerSecLineOption" autoresize />
+        <VChart class="chart" :option="BytesPerSecBarOption" autoresize />
+        <VChart class="chart" :option="LatencyLineOption" autoresize />
+      </client-only>
+    </div>
+  </div>
+</template>
+
 <style lang="scss" scoped>
 .chart {
   height: 400px;
@@ -378,6 +379,7 @@ export default {
 //   height: 600px;
 // }
 </style>
+
 <style lang="scss">
 // body {
 //   width: 100vh;

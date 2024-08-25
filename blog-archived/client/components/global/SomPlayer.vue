@@ -1,7 +1,3 @@
-<template>
-  <div ref="dplayer"></div>
-</template>
-
 <script>
 let DPlayer
 if (process.client) {
@@ -29,5 +25,9 @@ export default {
   },
 }
 </script>
+
+<template>
+  <div ref="dplayer" />
+</template>
 
 <style></style>

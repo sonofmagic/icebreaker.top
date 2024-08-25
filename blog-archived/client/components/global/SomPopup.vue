@@ -1,30 +1,3 @@
-<template>
-  <van-popup
-    v-model="visible"
-    round
-    get-container="body"
-    :close-on-click-overlay="false"
-    v-bind="$attrs"
-    :overlay-style="{
-      zIndex: 1024,
-    }"
-    v-on="$listeners"
-  >
-    <div class="px-4 pb-4">
-      <div class="py-3 mb-2 text-center relative">
-        <span class="text-lg"> {{ title }}</span>
-
-        <FontAwesomeIcon
-          class="close-btn"
-          :icon="['fas', 'times-circle']"
-          @click.stop="visible = false"
-        />
-      </div>
-      <slot></slot>
-    </div>
-  </van-popup>
-</template>
-
 <script>
 export default {
   name: 'SomPopup',
@@ -50,6 +23,34 @@ export default {
   },
 }
 </script>
+
+<template>
+  <van-popup
+    v-model="visible"
+    round
+    get-container="body"
+    :close-on-click-overlay="false"
+    v-bind="$attrs"
+    :overlay-style="{
+      zIndex: 1024,
+    }"
+    v-on="$listeners"
+  >
+    <div class="px-4 pb-4">
+      <div class="py-3 mb-2 text-center relative">
+        <span class="text-lg"> {{ title }}</span>
+
+        <FontAwesomeIcon
+          class="close-btn"
+          :icon="['fas', 'times-circle']"
+          @click.stop="visible = false"
+        />
+      </div>
+      <slot />
+    </div>
+  </van-popup>
+</template>
+
 <style lang="scss" scoped>
 .close-btn {
   color: #c8c9cc;

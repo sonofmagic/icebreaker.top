@@ -1,4 +1,4 @@
-const createMixin = (field = 'currentVisible') => {
+function createMixin(field = 'currentVisible') {
   /**
    * @type {import("vue/types/options").Component}
    */

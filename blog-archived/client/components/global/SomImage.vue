@@ -1,24 +1,6 @@
-<template>
-  <el-image
-    :src="innerSrc"
-    :lazy="lazy"
-    :preview-src-list="srcList"
-    v-bind="$attrs"
-    :style="imageStyle"
-    v-on="$listeners"
-  >
-    <template #placeholder>
-      <slot name="placeholder"></slot>
-    </template>
-    <template #error>
-      <slot name="error"></slot>
-    </template>
-  </el-image>
-</template>
-
 <script>
-import { isCloudbaseUrl } from '@/utils/validate'
 import { mapActions } from 'vuex'
+import { isCloudbaseUrl } from '@/utils/validate'
 
 const watch = {}
 if (process.client) {
@@ -83,5 +65,23 @@ export default {
   },
 }
 </script>
+
+<template>
+  <el-image
+    :src="innerSrc"
+    :lazy="lazy"
+    :preview-src-list="srcList"
+    v-bind="$attrs"
+    :style="imageStyle"
+    v-on="$listeners"
+  >
+    <template #placeholder>
+      <slot name="placeholder" />
+    </template>
+    <template #error>
+      <slot name="error" />
+    </template>
+  </el-image>
+</template>
 
 <style></style>

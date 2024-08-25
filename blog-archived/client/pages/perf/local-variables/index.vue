@@ -1,9 +1,6 @@
-<template>
-  <PerfRouteWrap category="local-variables" />
-</template>
-
 <script>
 import PerfRouteWrap from '@/components/perf/PerfRouteWrap'
+
 export default {
   components: {
     PerfRouteWrap,
@@ -14,3 +11,6 @@ export default {
 }
 </script>
 
+<template>
+  <PerfRouteWrap category="local-variables" />
+</template>

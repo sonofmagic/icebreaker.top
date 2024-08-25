@@ -1,33 +1,3 @@
-<template>
-  <div class="som-calendar-wrap">
-    <div class="month-label">{{ month }}月</div>
-    <div class="main-content">
-      <div class="date-row axis">
-        <div v-for="x in xAxisArr" :key="x" class="row-item">{{ x }}</div>
-      </div>
-      <div class="date-row">
-        <template v-for="(item, idx) in items">
-          <slot :item="item" :index="idx">
-            <div
-              :key="item.value"
-              class="row-item"
-              :class="[
-                {
-                  disabled: item.disabled,
-                  selected: item.selected,
-                },
-              ]"
-              @click="onClick(item)"
-            >
-              {{ item.text }}
-            </div>
-          </slot>
-        </template>
-      </div>
-    </div>
-  </div>
-</template>
-
 <script>
 import dayjs from 'dayjs'
 import Vue from 'vue'
@@ -72,9 +42,11 @@ export default Vue.extend({
         const idx = i % 7
         if (idx === 0) {
           p = sunday
-        } else if (idx === 6) {
+        }
+        else if (idx === 6) {
           p = saturday
-        } else {
+        }
+        else {
           p = workday
         }
         if (!item.disabled) {
@@ -116,7 +88,8 @@ export default Vue.extend({
       if (!item.disabled) {
         if (item.selected) {
           this.value.delete(item.value)
-        } else {
+        }
+        else {
           this.value.add(item.value)
         }
 
@@ -131,7 +104,7 @@ export default Vue.extend({
           selected: false,
           color: null,
         },
-        item
+        item,
       )
     },
     getItems() {
@@ -147,7 +120,7 @@ export default Vue.extend({
       const prevMonthEnd = prevMonth.endOf('month')
       const prevMonthEndDate = prevMonthEnd.date()
       const startIdx = start.day()
-      const arr = new Array(6 * 7).fill(0).map((_x, idx) => {
+      const arr = Array.from({ length: 6 * 7 }).fill(0).map((_x, idx) => {
         const offset = idx - startIdx
         // 上个月
         if (offset < 0) {
@@ -157,13 +130,14 @@ export default Vue.extend({
             text,
             value: this.valueFormat(prevMonth.year(), prevMonth.month(), text),
           })
-        } else if (offset >= daysInMonth) {
+        }
+        else if (offset >= daysInMonth) {
           // 下个月
           const text = offset - daysInMonth + 1
           const value = this.valueFormat(
             nextMonth.year(),
             nextMonth.month(),
-            text
+            text,
           )
           return this.createDateItem({
             text,
@@ -189,6 +163,40 @@ export default Vue.extend({
   },
 })
 </script>
+
+<template>
+  <div class="som-calendar-wrap">
+    <div class="month-label">
+      {{ month }}月
+    </div>
+    <div class="main-content">
+      <div class="date-row axis">
+        <div v-for="x in xAxisArr" :key="x" class="row-item">
+          {{ x }}
+        </div>
+      </div>
+      <div class="date-row">
+        <template v-for="(item, idx) in items">
+          <slot :item="item" :index="idx">
+            <div
+              :key="item.value"
+              class="row-item"
+              :class="[
+                {
+                  disabled: item.disabled,
+                  selected: item.selected,
+                },
+              ]"
+              @click="onClick(item)"
+            >
+              {{ item.text }}
+            </div>
+          </slot>
+        </template>
+      </div>
+    </div>
+  </div>
+</template>
 
 <style lang="scss" scoped>
 .som-calendar-wrap {

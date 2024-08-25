@@ -1,9 +1,3 @@
-<template>
-  <div :style="{ opacity: number / 300 }">
-    <ChildComp />
-  </div>
-</template>
-
 <script>
 export default {
   components: {
@@ -26,3 +20,9 @@ export default {
   props: ['number'],
 }
 </script>
+
+<template>
+  <div :style="{ opacity: number / 300 }">
+    <ChildComp />
+  </div>
+</template>

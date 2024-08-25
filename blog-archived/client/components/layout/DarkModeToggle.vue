@@ -1,13 +1,3 @@
-<template>
-  <div class="flex items-center text-xl text-white">
-    <font-awesome-icon
-      class="cursor-pointer"
-      :icon="icon"
-      @click="toggleTheme"
-    />
-  </div>
-</template>
-
 <script>
 import { LocalStorageKey } from '@/enum/user'
 // :class="[isDark ? 'text-white' : 'text-white']"
@@ -55,12 +45,23 @@ export default {
     toggleTheme() {
       if (this.isDark) {
         this.setTheme('light')
-      } else {
+      }
+      else {
         this.setTheme('dark')
       }
     },
   },
 }
 </script>
+
+<template>
+  <div class="flex items-center text-xl text-white">
+    <font-awesome-icon
+      class="cursor-pointer"
+      :icon="icon"
+      @click="toggleTheme"
+    />
+  </div>
+</template>
 
 <style></style>

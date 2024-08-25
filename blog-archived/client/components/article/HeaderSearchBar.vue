@@ -1,35 +1,7 @@
-<template>
-  <div>
-    <el-autocomplete
-      v-model="searchText"
-      :fetch-suggestions="searchByTitle"
-      placeholder="Search or jump to…"
-      size="mini"
-      class="header-search-wrapper"
-      :debounce="300"
-      highlight-first-item
-      :trigger-on-focus="false"
-      @select="handleSelect"
-    >
-      <template #default="{ item }">
-        <div class="flex items-center justify-between">
-          <template v-if="item.needLogin">
-            <div class="text-blue-500">Click here for Login</div>
-          </template>
-          <template v-else>
-            <div class="truncate">{{ item.title }}</div>
-            <div class="text-sm text-gray-600">{{ item.date | dayFilter }}</div>
-          </template>
-        </div>
-      </template>
-    </el-autocomplete>
-    <SignInPopup v-model="signInVisible"></SignInPopup>
-  </div>
-</template>
-
 <script>
 import { mapGetters } from 'vuex'
 import SignInPopup from '@/components/layout/SignInPopup'
+
 export default {
   name: 'HeaderSearchBar',
   components: { SignInPopup },
@@ -57,8 +29,8 @@ export default {
           .fetch()
 
         cb(options)
-      } else {
-        // eslint-disable-next-line node/no-callback-literal
+      }
+      else {
         cb([
           {
             needLogin: true,
@@ -69,13 +41,49 @@ export default {
     handleSelect(item) {
       if (item.needLogin) {
         this.signInVisible = true
-      } else {
+      }
+      else {
         this.$router.push(item.path)
       }
     },
   },
 }
 </script>
+
+<template>
+  <div>
+    <el-autocomplete
+      v-model="searchText"
+      :fetch-suggestions="searchByTitle"
+      placeholder="Search or jump to…"
+      size="mini"
+      class="header-search-wrapper"
+      :debounce="300"
+      highlight-first-item
+      :trigger-on-focus="false"
+      @select="handleSelect"
+    >
+      <template #default="{ item }">
+        <div class="flex items-center justify-between">
+          <template v-if="item.needLogin">
+            <div class="text-blue-500">
+              Click here for Login
+            </div>
+          </template>
+          <template v-else>
+            <div class="truncate">
+              {{ item.title }}
+            </div>
+            <div class="text-sm text-gray-600">
+              {{ item.date | dayFilter }}
+            </div>
+          </template>
+        </div>
+      </template>
+    </el-autocomplete>
+    <SignInPopup v-model="signInVisible" />
+  </div>
+</template>
 
 <style lang="scss" scoped>
 .header-search-wrapper {

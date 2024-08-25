@@ -1,11 +1,3 @@
-<template>
-  <div>
-    <button @click="download">download</button>
-    <el-progress :percentage="percentage"></el-progress>
-    <!-- <img :src="testJpg" /> -->
-  </div>
-</template>
-
 <script>
 import JSZip from 'jszip'
 import { saveAs } from 'file-saver'
@@ -63,7 +55,7 @@ export default {
         ({ percent, currentFile }) => {
           // console.log(percent, currentFile)
           this.percentage = 50 + percent / 2
-        }
+        },
       )
       saveAs(content, 'test-jpg.zip')
       const t2 = performance.now()
@@ -71,11 +63,21 @@ export default {
       const zipTs = (t2 - t1).toFixed(2)
       const totalTs = (t2 - t0).toFixed(2)
       console.log(
-        `生成时间:${generateTs}ms 压缩时间:${zipTs}ms 总耗时:${totalTs}ms`
+        `生成时间:${generateTs}ms 压缩时间:${zipTs}ms 总耗时:${totalTs}ms`,
       )
     },
   },
 }
 </script>
+
+<template>
+  <div>
+    <button @click="download">
+      download
+    </button>
+    <el-progress :percentage="percentage" />
+    <!-- <img :src="testJpg" /> -->
+  </div>
+</template>
 
 <style lang="scss" scoped></style>

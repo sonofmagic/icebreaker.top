@@ -1,11 +1,3 @@
-<template>
-  <div class="space-x-2">
-    <div v-for="tag in tags" :key="tag" class="ice-tag">
-      {{ tag }}
-    </div>
-  </div>
-</template>
-
 <script>
 export default {
   name: 'ArticleTags',
@@ -17,6 +9,14 @@ export default {
   },
 }
 </script>
+
+<template>
+  <div class="space-x-2">
+    <div v-for="tag in tags" :key="tag" class="ice-tag">
+      {{ tag }}
+    </div>
+  </div>
+</template>
 
 <style lang="scss" scoped>
 .ice-tag {

@@ -1,45 +1,3 @@
-<template>
-  <section>
-    <div class="tips">您账户数据将被保存在受信任的第三方平台。</div>
-    <el-form ref="form" :model="formValue">
-      <el-form-item prop="email" :rules="formRules.email">
-        <el-input
-          v-model.trim="formValue.email"
-          prefix-icon="el-icon-message"
-          placeholder="邮箱"
-          @keyup.native.enter="submit"
-        ></el-input>
-      </el-form-item>
-      <el-form-item prop="password" :rules="formRules.password">
-        <el-input
-          v-model.trim="formValue.password"
-          :type="passwordVisible ? 'text' : 'password'"
-          prefix-icon="el-icon-lock"
-          placeholder="密码"
-          @keyup.native.enter="submit"
-        >
-          <template #suffix>
-            <div class="pr-1">
-              <i
-                style="cursor: pointer"
-                :class="
-                  passwordVisible ? 'el-icon-refresh-left' : 'el-icon-view'
-                "
-                @click="switchPasswordType"
-              ></i>
-            </div>
-          </template>
-        </el-input>
-      </el-form-item>
-    </el-form>
-    <div class="flex justify-center">
-      <el-button :loading="registerBtnLoading" type="primary" @click="submit"
-        >注册</el-button
-      >
-    </div>
-  </section>
-</template>
-
 <script>
 import { passwordRule } from '@/utils/formRules'
 // import errorHandler from '@/cloudbase/errorHandler'
@@ -85,10 +43,12 @@ export default {
           // .catch(errorHandler)
           this.$message.success('邮件已发送到您填写的邮箱，请注意查收!')
           this.$emit('success')
-        } catch (error) {
+        }
+        catch (error) {
           this.$message.error(error.msg)
           this.$emit('error', error)
-        } finally {
+        }
+        finally {
           this.registerBtnLoading = false
         }
       })
@@ -102,6 +62,50 @@ export default {
   },
 }
 </script>
+
+<template>
+  <section>
+    <div class="tips">
+      您账户数据将被保存在受信任的第三方平台。
+    </div>
+    <el-form ref="form" :model="formValue">
+      <el-form-item prop="email" :rules="formRules.email">
+        <el-input
+          v-model.trim="formValue.email"
+          prefix-icon="el-icon-message"
+          placeholder="邮箱"
+          @keyup.native.enter="submit"
+        />
+      </el-form-item>
+      <el-form-item prop="password" :rules="formRules.password">
+        <el-input
+          v-model.trim="formValue.password"
+          :type="passwordVisible ? 'text' : 'password'"
+          prefix-icon="el-icon-lock"
+          placeholder="密码"
+          @keyup.native.enter="submit"
+        >
+          <template #suffix>
+            <div class="pr-1">
+              <i
+                style="cursor: pointer"
+                :class="
+                  passwordVisible ? 'el-icon-refresh-left' : 'el-icon-view'
+                "
+                @click="switchPasswordType"
+              />
+            </div>
+          </template>
+        </el-input>
+      </el-form-item>
+    </el-form>
+    <div class="flex justify-center">
+      <el-button :loading="registerBtnLoading" type="primary" @click="submit">
+        注册
+      </el-button>
+    </div>
+  </section>
+</template>
 
 <style lang="scss" scoped>
 .tips {

@@ -4,25 +4,24 @@
     margin-bottom: 1.25em;
 
     li {
-      margin-top: .5em;
-      margin-bottom: .5em;
+      margin-top: 0.5em;
+      margin-bottom: 0.5em;
     }
 
-    &>li {
+    & > li {
       position: relative;
       //padding-left: 1.75em;
 
       &::before {
-        content: "";
+        content: '';
         position: absolute;
         background-color: #cbd5e0;
         border-radius: 50%;
-        width: .375em;
-        height: .375em;
-        top: .6875em;
-        left: .25em;
+        width: 0.375em;
+        height: 0.375em;
+        top: 0.6875em;
+        left: 0.25em;
       }
-
     }
   }
 }

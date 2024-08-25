@@ -1,14 +1,3 @@
-<template>
-  <section class="container mx-auto py-8">
-    <div
-      ref="editor"
-      style="width: 800px; height: 600px; border: 1px solid #ccc"
-    >
-      {{ user }}
-    </div>
-  </section>
-</template>
-
 <script>
 import { mapGetters } from 'vuex'
 // import { authTest } from '@/api/test'
@@ -39,5 +28,16 @@ export default {
   },
 }
 </script>
+
+<template>
+  <section class="container mx-auto py-8">
+    <div
+      ref="editor"
+      style="width: 800px; height: 600px; border: 1px solid #ccc"
+    >
+      {{ user }}
+    </div>
+  </section>
+</template>
 
 <style></style>

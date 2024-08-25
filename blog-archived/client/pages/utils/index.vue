@@ -1,32 +1,8 @@
-<template>
-  <section>
-    <div class="flex justify-center pt-4 text-lg">
-      <h1 class="font-light">帮助开发的小工具们</h1>
-    </div>
-    <div class="container mx-auto py-4">
-      <div class="grid grid-cols-3 gap-4">
-        <LinkCard
-          v-for="u in utils"
-          :key="u.url"
-          :to="u.url"
-          out-side
-          :title="u.title"
-          :desc="u.desc"
-        ></LinkCard>
-        <LinkCard
-          to="/utils/md2cwm"
-          title="md2cwm 工具"
-          desc="Markdown 转 Confluence Wiki Markup"
-        ></LinkCard>
-      </div>
-    </div>
-  </section>
-</template>
-
 <script>
 // 抄 https://www.tslang.cn/samples/index.html 的风格
 
 import LinkCard from '@/components/utils/LinkCard.vue'
+
 export default {
   name: 'UtilsIndex',
   components: {
@@ -111,5 +87,32 @@ export default {
   },
 }
 </script>
+
+<template>
+  <section>
+    <div class="flex justify-center pt-4 text-lg">
+      <h1 class="font-light">
+        帮助开发的小工具们
+      </h1>
+    </div>
+    <div class="container mx-auto py-4">
+      <div class="grid grid-cols-3 gap-4">
+        <LinkCard
+          v-for="u in utils"
+          :key="u.url"
+          :to="u.url"
+          out-side
+          :title="u.title"
+          :desc="u.desc"
+        />
+        <LinkCard
+          to="/utils/md2cwm"
+          title="md2cwm 工具"
+          desc="Markdown 转 Confluence Wiki Markup"
+        />
+      </div>
+    </div>
+  </section>
+</template>
 
 <style></style>

@@ -1,16 +1,3 @@
-<template>
-  <div>
-    <!-- <div style="height: calc(100vh - 50px)">
-      <RelationGraph
-        ref="seeksRelationGraph"
-        :options="graphOptions"
-        :on-node-click="onNodeClick"
-        :on-line-click="onLineClick"
-      />
-    </div> -->
-  </div>
-</template>
-
 <script>
 // import screenfull from 'screenfull'
 
@@ -56,7 +43,7 @@ export default {
         __graph_json_data,
         (seeksRGGraph) => {
           // Called when the relation-graph is completed
-        }
+        },
       )
     },
     onNodeClick(nodeObject, $event) {
@@ -68,3 +55,16 @@ export default {
   },
 }
 </script>
+
+<template>
+  <div>
+    <!-- <div style="height: calc(100vh - 50px)">
+      <RelationGraph
+        ref="seeksRelationGraph"
+        :options="graphOptions"
+        :on-node-click="onNodeClick"
+        :on-line-click="onLineClick"
+      />
+    </div> -->
+  </div>
+</template>

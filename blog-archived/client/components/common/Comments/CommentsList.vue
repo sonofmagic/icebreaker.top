@@ -1,3 +1,57 @@
+<script>
+import UserPopover from './UserPopover'
+
+export default {
+  name: 'CommentsList',
+  components: {
+    UserPopover,
+  },
+  data() {
+    return {
+      query: {
+        page: 1,
+        perPage: 10,
+      },
+      total: 0,
+      comments: [],
+      listLoading: false,
+    }
+  },
+  watch: {
+    'query.page': function () {
+      this.refresh()
+    },
+  },
+  async created() {
+    if (process.client) {
+      await this.refresh()
+    }
+  },
+  methods: {
+    async refresh() {
+      try {
+        this.listLoading = true
+        const [{ data }, { total }] = await this.$store.dispatch(
+          'fetch/getComments',
+          {
+            id: this.$route.path,
+            opt: this.query,
+          },
+        )
+        this.comments = data
+        this.total = total
+      }
+      catch (error) {
+        console.debug(error)
+      }
+      finally {
+        this.listLoading = false
+      }
+    },
+  },
+}
+</script>
+
 <template>
   <div>
     <div v-loading="listLoading">
@@ -40,70 +94,21 @@
             </div>
           </el-tooltip>
         </div>
-        <div class="px-4 py-2 leading-8">{{ comment.content }}</div>
+        <div class="px-4 py-2 leading-8">
+          {{ comment.content }}
+        </div>
       </div>
     </div>
 
     <div class="flex justify-center">
       <el-pagination
+        v-model:page-size="query.perPage"
+        v-model:current-page="query.page"
         hide-on-single-page
         layout="prev, pager, next"
         :total="total"
-        :page-size.sync="query.perPage"
-        :current-page.sync="query.page"
         :disabled="listLoading"
-      ></el-pagination>
+      />
     </div>
   </div>
 </template>
-
-<script>
-import UserPopover from './UserPopover'
-export default {
-  name: 'CommentsList',
-  components: {
-    UserPopover,
-  },
-  data() {
-    return {
-      query: {
-        page: 1,
-        perPage: 10,
-      },
-      total: 0,
-      comments: [],
-      listLoading: false,
-    }
-  },
-  watch: {
-    'query.page'() {
-      this.refresh()
-    },
-  },
-  async created() {
-    if (process.client) {
-      await this.refresh()
-    }
-  },
-  methods: {
-    async refresh() {
-      try {
-        this.listLoading = true
-        const [{ data }, { total }] = await this.$store.dispatch(
-          'fetch/getComments',
-          {
-            id: this.$route.path,
-            opt: this.query,
-          }
-        )
-        this.comments = data
-        this.total = total
-      } catch (error) {
-        console.debug(error)
-      } finally {
-        this.listLoading = false
-      }
-    },
-  },
-}
-</script>

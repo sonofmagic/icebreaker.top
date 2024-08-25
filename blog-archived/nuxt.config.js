@@ -1,8 +1,9 @@
+/* eslint-disable node/prefer-global/process */
 // 直接搭blog可以使用 link https://content.nuxtjs.org/themes/docs
 // import theme from '@nuxt/content-theme-docs'
 // fibers
 import fs from 'node:fs'
-import process from 'node:process'
+
 import dotenv from 'dotenv'
 import { sitemap } from './nuxt.config/index'
 import { isProd, isRelease } from './constants.js'

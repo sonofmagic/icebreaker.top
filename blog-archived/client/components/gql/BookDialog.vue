@@ -1,91 +1,7 @@
-<template>
-  <el-dialog
-    title="Book"
-    :visible.sync="currentVisible"
-    :close-on-click-modal="false"
-    @open="open"
-    @close="close"
-  >
-    <el-form
-      ref="form"
-      :rules="formRules"
-      label-width="120px"
-      :model="formValue"
-      size="mini"
-    >
-      <el-form-item label="title" prop="title">
-        <el-input v-model="formValue.title"></el-input>
-      </el-form-item>
-      <el-form-item label="isbn" prop="isbn">
-        <el-input v-model="formValue.isbn"></el-input>
-      </el-form-item>
-      <el-form-item label="pageCount" prop="pageCount">
-        <el-input v-model.number="formValue.pageCount"></el-input>
-      </el-form-item>
-      <el-form-item label="publishedDate" prop="publishedDate">
-        <el-date-picker v-model="formValue.publishedDate"></el-date-picker>
-      </el-form-item>
-      <el-form-item label="status" prop="status">
-        <el-select v-model="formValue.status">
-          <el-option label="PUBLISH" value="PUBLISH"></el-option>
-          <el-option label="MEAP" value="MEAP"></el-option>
-        </el-select>
-      </el-form-item>
-      <el-button
-        type="primary"
-        icon="el-icon-circle-plus-outline"
-        circle
-        @click="addRow"
-      ></el-button>
-      <el-table size="mini" :data="formValue.covers">
-        <el-table-column label="ratingcount" prop="ratingcount">
-          <template v-slot="{ row, $index }">
-            <el-form-item
-              :prop="`covers.${$index}.ratingcount`"
-              :rules="tableFormRules.ratingcount"
-            >
-              <el-input v-model.number="row.ratingcount"></el-input>
-            </el-form-item>
-          </template>
-        </el-table-column>
-        <el-table-column label="ratingval" prop="ratingval">
-          <template v-slot="{ row, $index }">
-            <el-form-item
-              :prop="`covers.${$index}.ratingval`"
-              :rules="tableFormRules.ratingval"
-            >
-              <el-input-number
-                v-model="row.ratingval"
-                :precision="1"
-                :step="0.1"
-                :max="5"
-              ></el-input-number>
-            </el-form-item>
-          </template>
-        </el-table-column>
-        <el-table-column label="action">
-          <template v-slot="{ $index }">
-            <el-button
-              type="danger"
-              icon="el-icon-error"
-              circle
-              @click="deleteRow($index)"
-            ></el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-    </el-form>
-    <template #footer>
-      <el-button @click="doClose">取消</el-button>
-      <el-button v-if="isCreate" type="primary" @click="create">创建</el-button>
-      <el-button v-else type="primary" @click="update">修改</el-button>
-    </template>
-  </el-dialog>
-</template>
-
 <script>
 import dialogMixin from '@/mixins/dialogMixin.js'
 import { gqlCreateBook, gqlUpdateBook } from '@/gql/mutation/book'
+
 export default {
   mixins: [dialogMixin],
   props: {
@@ -163,7 +79,7 @@ export default {
     open() {
       if (this.source) {
         Object.keys(this.$data.formValue).forEach(
-          (k) => (this.$data.formValue[k] = this.source[k])
+          k => (this.$data.formValue[k] = this.source[k]),
         )
         // Object.assign(this.$data.formValue, this.source)
       }
@@ -195,7 +111,8 @@ export default {
         this.$message.success('创建成功！')
         this.currentVisible = false
         this.$emit('refresh')
-      } catch (error) {
+      }
+      catch (error) {
         console.debug(error)
       }
     },
@@ -212,10 +129,102 @@ export default {
         this.$message.success('修改成功！')
         this.currentVisible = false
         this.$emit('refresh')
-      } catch (error) {
+      }
+      catch (error) {
         console.debug(error)
       }
     },
   },
 }
 </script>
+
+<template>
+  <el-dialog
+    v-model:visible="currentVisible"
+    title="Book"
+    :close-on-click-modal="false"
+    @open="open"
+    @close="close"
+  >
+    <el-form
+      ref="form"
+      :rules="formRules"
+      label-width="120px"
+      :model="formValue"
+      size="mini"
+    >
+      <el-form-item label="title" prop="title">
+        <el-input v-model="formValue.title" />
+      </el-form-item>
+      <el-form-item label="isbn" prop="isbn">
+        <el-input v-model="formValue.isbn" />
+      </el-form-item>
+      <el-form-item label="pageCount" prop="pageCount">
+        <el-input v-model.number="formValue.pageCount" />
+      </el-form-item>
+      <el-form-item label="publishedDate" prop="publishedDate">
+        <el-date-picker v-model="formValue.publishedDate" />
+      </el-form-item>
+      <el-form-item label="status" prop="status">
+        <el-select v-model="formValue.status">
+          <el-option label="PUBLISH" value="PUBLISH" />
+          <el-option label="MEAP" value="MEAP" />
+        </el-select>
+      </el-form-item>
+      <el-button
+        type="primary"
+        icon="el-icon-circle-plus-outline"
+        circle
+        @click="addRow"
+      />
+      <el-table size="mini" :data="formValue.covers">
+        <el-table-column label="ratingcount" prop="ratingcount">
+          <template #default="{ row, $index }">
+            <el-form-item
+              :prop="`covers.${$index}.ratingcount`"
+              :rules="tableFormRules.ratingcount"
+            >
+              <el-input v-model.number="row.ratingcount" />
+            </el-form-item>
+          </template>
+        </el-table-column>
+        <el-table-column label="ratingval" prop="ratingval">
+          <template #default="{ row, $index }">
+            <el-form-item
+              :prop="`covers.${$index}.ratingval`"
+              :rules="tableFormRules.ratingval"
+            >
+              <el-input-number
+                v-model="row.ratingval"
+                :precision="1"
+                :step="0.1"
+                :max="5"
+              />
+            </el-form-item>
+          </template>
+        </el-table-column>
+        <el-table-column label="action">
+          <template #default="{ $index }">
+            <el-button
+              type="danger"
+              icon="el-icon-error"
+              circle
+              @click="deleteRow($index)"
+            />
+          </template>
+        </el-table-column>
+      </el-table>
+    </el-form>
+    <template #footer>
+      <el-button @click="doClose">
+        取消
+      </el-button>
+      <el-button v-if="isCreate" type="primary" @click="create">
+        创建
+      </el-button>
+      <el-button v-else type="primary" @click="update">
+        修改
+      </el-button>
+    </template>
+  </el-dialog>
+</template>

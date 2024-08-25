@@ -1,12 +1,3 @@
-<template>
-  <CommonSlot>
-    <div>
-      <Nuxt />
-    </div>
-
-    <!-- <Sitemap /> -->
-  </CommonSlot>
-</template>
 <script>
 import { Dialog } from 'vant'
 import CommonSlot from '@/components/layout/CommonSlot'
@@ -45,3 +36,13 @@ export default {
   },
 }
 </script>
+
+<template>
+  <CommonSlot>
+    <div>
+      <Nuxt />
+    </div>
+
+    <!-- <Sitemap /> -->
+  </CommonSlot>
+</template>

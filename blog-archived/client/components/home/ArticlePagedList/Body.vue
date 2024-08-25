@@ -1,3 +1,14 @@
+<script>
+export default {
+  props: {
+    articles: {
+      type: [Array],
+      default: () => [],
+    },
+  },
+}
+</script>
+
 <template>
   <div>
     <div
@@ -22,8 +33,7 @@
           class="cursor-pointer hover:underline hover:text-blue-600"
           @click.stop="$router.push(article.path)"
         >
-          {{ article.description }}</span
-        >
+          {{ article.description }}</span>
       </div>
       <div style="flex-basis: 100px" class="text-right text-gray-600">
         {{ article.date | timespanFilter }}
@@ -31,14 +41,3 @@
     </div>
   </div>
 </template>
-
-<script>
-export default {
-  props: {
-    articles: {
-      type: [Array],
-      default: () => [],
-    },
-  },
-}
-</script>

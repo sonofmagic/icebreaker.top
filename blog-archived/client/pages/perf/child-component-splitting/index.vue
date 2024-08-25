@@ -1,9 +1,6 @@
-<template>
-  <PerfRouteWrap category="child-component-splitting" />
-</template>
-
 <script>
 import PerfRouteWrap from '@/components/perf/PerfRouteWrap'
+
 export default {
   components: {
     PerfRouteWrap,
@@ -13,3 +10,7 @@ export default {
   },
 }
 </script>
+
+<template>
+  <PerfRouteWrap category="child-component-splitting" />
+</template>

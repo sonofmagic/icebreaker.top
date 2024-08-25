@@ -13,9 +13,7 @@ $diff-blob-deletion-line-bg: rgb(var(--color-diff-blob-deletion-line-bg));
 $diff-blob-deletion-word-bg: rgb(var(--color-diff-blob-deletion-word-bg));
 $diff-blob-hunk-num-bg: rgb(var(--color-diff-blob-hunk-num-bg));
 $diff-blob-expander-icon: rgb(var(--color-diff-blob-expander-icon));
-$diff-blob-selected-line-highlight-mix-blend-mode: rgb(
-  var(--color-diff-blob-selected-line-highlight-mix-blend-mode)
-);
+$diff-blob-selected-line-highlight-mix-blend-mode: rgb(var(--color-diff-blob-selected-line-highlight-mix-blend-mode));
 $diffstat-deletion-border: rgb(var(--color-diffstat-deletion-border));
 $diffstat-addition-border: rgb(var(--color-diffstat-addition-border));
 $diffstat-addition-bg: rgb(var(--color-diffstat-addition-bg));
@@ -23,95 +21,43 @@ $search-keyword-hl: rgb(var(--color-search-keyword-hl));
 $prettylights-syntax-comment: rgb(var(--color-prettylights-syntax-comment));
 $prettylights-syntax-constant: rgb(var(--color-prettylights-syntax-constant));
 $prettylights-syntax-entity: rgb(var(--color-prettylights-syntax-entity));
-$prettylights-syntax-storage-modifier-import: rgb(
-  var(--color-prettylights-syntax-storage-modifier-import)
-);
-$prettylights-syntax-entity-tag: rgb(
-  var(--color-prettylights-syntax-entity-tag)
-);
+$prettylights-syntax-storage-modifier-import: rgb(var(--color-prettylights-syntax-storage-modifier-import));
+$prettylights-syntax-entity-tag: rgb(var(--color-prettylights-syntax-entity-tag));
 $prettylights-syntax-keyword: rgb(var(--color-prettylights-syntax-keyword));
 $prettylights-syntax-string: rgb(var(--color-prettylights-syntax-string));
 $prettylights-syntax-variable: rgb(var(--color-prettylights-syntax-variable));
-$prettylights-syntax-brackethighlighter-unmatched: rgb(
-  var(--color-prettylights-syntax-brackethighlighter-unmatched)
-);
-$prettylights-syntax-invalid-illegal-text: rgb(
-  var(--color-prettylights-syntax-invalid-illegal-text)
-);
-$prettylights-syntax-invalid-illegal-bg: rgb(
-  var(--color-prettylights-syntax-invalid-illegal-bg)
-);
-$prettylights-syntax-carriage-return-text: rgb(
-  var(--color-prettylights-syntax-carriage-return-text)
-);
-$prettylights-syntax-carriage-return-bg: rgb(
-  var(--color-prettylights-syntax-carriage-return-bg)
-);
-$prettylights-syntax-string-regexp: rgb(
-  var(--color-prettylights-syntax-string-regexp)
-);
-$prettylights-syntax-markup-list: rgb(
-  var(--color-prettylights-syntax-markup-list)
-);
-$prettylights-syntax-markup-heading: rgb(
-  var(--color-prettylights-syntax-markup-heading)
-);
-$prettylights-syntax-markup-italic: rgb(
-  var(--color-prettylights-syntax-markup-italic)
-);
-$prettylights-syntax-markup-bold: rgb(
-  var(--color-prettylights-syntax-markup-bold)
-);
-$prettylights-syntax-markup-deleted-text: rgb(
-  var(--color-prettylights-syntax-markup-deleted-text)
-);
-$prettylights-syntax-markup-deleted-bg: rgb(
-  var(--color-prettylights-syntax-markup-deleted-bg)
-);
-$prettylights-syntax-markup-inserted-text: rgb(
-  var(--color-prettylights-syntax-markup-inserted-text)
-);
-$prettylights-syntax-markup-inserted-bg: rgb(
-  var(--color-prettylights-syntax-markup-inserted-bg)
-);
-$prettylights-syntax-markup-changed-text: rgb(
-  var(--color-prettylights-syntax-markup-changed-text)
-);
-$prettylights-syntax-markup-changed-bg: rgb(
-  var(--color-prettylights-syntax-markup-changed-bg)
-);
-$prettylights-syntax-markup-ignored-text: rgb(
-  var(--color-prettylights-syntax-markup-ignored-text)
-);
-$prettylights-syntax-markup-ignored-bg: rgb(
-  var(--color-prettylights-syntax-markup-ignored-bg)
-);
-$prettylights-syntax-meta-diff-range: rgb(
-  var(--color-prettylights-syntax-meta-diff-range)
-);
-$prettylights-syntax-brackethighlighter-angle: rgb(
-  var(--color-prettylights-syntax-brackethighlighter-angle)
-);
-$prettylights-syntax-sublimelinter-gutter-mark: rgb(
-  var(--color-prettylights-syntax-sublimelinter-gutter-mark)
-);
-$prettylights-syntax-constant-other-reference-link: rgb(
-  var(--color-prettylights-syntax-constant-other-reference-link)
-);
+$prettylights-syntax-brackethighlighter-unmatched: rgb(var(--color-prettylights-syntax-brackethighlighter-unmatched));
+$prettylights-syntax-invalid-illegal-text: rgb(var(--color-prettylights-syntax-invalid-illegal-text));
+$prettylights-syntax-invalid-illegal-bg: rgb(var(--color-prettylights-syntax-invalid-illegal-bg));
+$prettylights-syntax-carriage-return-text: rgb(var(--color-prettylights-syntax-carriage-return-text));
+$prettylights-syntax-carriage-return-bg: rgb(var(--color-prettylights-syntax-carriage-return-bg));
+$prettylights-syntax-string-regexp: rgb(var(--color-prettylights-syntax-string-regexp));
+$prettylights-syntax-markup-list: rgb(var(--color-prettylights-syntax-markup-list));
+$prettylights-syntax-markup-heading: rgb(var(--color-prettylights-syntax-markup-heading));
+$prettylights-syntax-markup-italic: rgb(var(--color-prettylights-syntax-markup-italic));
+$prettylights-syntax-markup-bold: rgb(var(--color-prettylights-syntax-markup-bold));
+$prettylights-syntax-markup-deleted-text: rgb(var(--color-prettylights-syntax-markup-deleted-text));
+$prettylights-syntax-markup-deleted-bg: rgb(var(--color-prettylights-syntax-markup-deleted-bg));
+$prettylights-syntax-markup-inserted-text: rgb(var(--color-prettylights-syntax-markup-inserted-text));
+$prettylights-syntax-markup-inserted-bg: rgb(var(--color-prettylights-syntax-markup-inserted-bg));
+$prettylights-syntax-markup-changed-text: rgb(var(--color-prettylights-syntax-markup-changed-text));
+$prettylights-syntax-markup-changed-bg: rgb(var(--color-prettylights-syntax-markup-changed-bg));
+$prettylights-syntax-markup-ignored-text: rgb(var(--color-prettylights-syntax-markup-ignored-text));
+$prettylights-syntax-markup-ignored-bg: rgb(var(--color-prettylights-syntax-markup-ignored-bg));
+$prettylights-syntax-meta-diff-range: rgb(var(--color-prettylights-syntax-meta-diff-range));
+$prettylights-syntax-brackethighlighter-angle: rgb(var(--color-prettylights-syntax-brackethighlighter-angle));
+$prettylights-syntax-sublimelinter-gutter-mark: rgb(var(--color-prettylights-syntax-sublimelinter-gutter-mark));
+$prettylights-syntax-constant-other-reference-link: rgb(var(--color-prettylights-syntax-constant-other-reference-link));
 $codemirror-text: rgb(var(--color-codemirror-text));
 $codemirror-bg: rgb(var(--color-codemirror-bg));
 $codemirror-gutters-bg: rgb(var(--color-codemirror-gutters-bg));
 $codemirror-guttermarker-text: rgb(var(--color-codemirror-guttermarker-text));
-$codemirror-guttermarker-subtle-text: rgb(
-  var(--color-codemirror-guttermarker-subtle-text)
-);
+$codemirror-guttermarker-subtle-text: rgb(var(--color-codemirror-guttermarker-subtle-text));
 $codemirror-linenumber-text: rgb(var(--color-codemirror-linenumber-text));
 $codemirror-cursor: rgb(var(--color-codemirror-cursor));
 $codemirror-selection-bg: rgb(var(--color-codemirror-selection-bg));
 $codemirror-activeline-bg: rgb(var(--color-codemirror-activeline-bg));
-$codemirror-matchingbracket-text: rgb(
-  var(--color-codemirror-matchingbracket-text)
-);
+$codemirror-matchingbracket-text: rgb(var(--color-codemirror-matchingbracket-text));
 $codemirror-lines-bg: rgb(var(--color-codemirror-lines-bg));
 $codemirror-syntax-comment: rgb(var(--color-codemirror-syntax-comment));
 $codemirror-syntax-constant: rgb(var(--color-codemirror-syntax-constant));
@@ -144,9 +90,7 @@ $checks-dropdown-border: rgb(var(--color-checks-dropdown-border));
 $checks-dropdown-shadow: var(--color-checks-dropdown-shadow);
 $checks-dropdown-hover-text: rgb(var(--color-checks-dropdown-hover-text));
 $checks-dropdown-hover-bg: rgb(var(--color-checks-dropdown-hover-bg));
-$checks-dropdown-btn-hover-text: rgb(
-  var(--color-checks-dropdown-btn-hover-text)
-);
+$checks-dropdown-btn-hover-text: rgb(var(--color-checks-dropdown-btn-hover-text));
 $checks-dropdown-btn-hover-bg: rgb(var(--color-checks-dropdown-btn-hover-bg));
 $checks-scrollbar-thumb-bg: rgb(var(--color-checks-scrollbar-thumb-bg));
 $checks-header-label-text: rgb(var(--color-checks-header-label-text));
@@ -174,9 +118,7 @@ $checks-logline-error-text: rgb(var(--color-checks-logline-error-text));
 $checks-logline-error-num-text: rgb(var(--color-checks-logline-error-num-text));
 $checks-logline-error-bg: rgb(var(--color-checks-logline-error-bg));
 $checks-logline-warning-text: rgb(var(--color-checks-logline-warning-text));
-$checks-logline-warning-num-text: rgb(
-  var(--color-checks-logline-warning-num-text)
-);
+$checks-logline-warning-num-text: rgb(var(--color-checks-logline-warning-num-text));
 $checks-logline-warning-bg: rgb(var(--color-checks-logline-warning-bg));
 $checks-logline-command-text: rgb(var(--color-checks-logline-command-text));
 $checks-logline-section-text: rgb(var(--color-checks-logline-section-text));
@@ -290,9 +232,7 @@ $btn-outline-selected-border: rgb(var(--color-btn-outline-selected-border));
 $btn-outline-selected-shadow: var(--color-btn-outline-selected-shadow);
 $btn-outline-disabled-text: rgb(var(--color-btn-outline-disabled-text));
 $btn-outline-disabled-bg: rgb(var(--color-btn-outline-disabled-bg));
-$btn-outline-disabled-counter-bg: rgb(
-  var(--color-btn-outline-disabled-counter-bg)
-);
+$btn-outline-disabled-counter-bg: rgb(var(--color-btn-outline-disabled-counter-bg));
 $btn-outline-focus-border: rgb(var(--color-btn-outline-focus-border));
 $btn-outline-focus-shadow: var(--color-btn-outline-focus-shadow);
 $btn-outline-counter-bg: rgb(var(--color-btn-outline-counter-bg));
@@ -310,36 +250,20 @@ $btn-danger-selected-border: rgb(var(--color-btn-danger-selected-border));
 $btn-danger-selected-shadow: var(--color-btn-danger-selected-shadow);
 $btn-danger-disabled-text: rgb(var(--color-btn-danger-disabled-text));
 $btn-danger-disabled-bg: rgb(var(--color-btn-danger-disabled-bg));
-$btn-danger-disabled-counter-bg: rgb(
-  var(--color-btn-danger-disabled-counter-bg)
-);
+$btn-danger-disabled-counter-bg: rgb(var(--color-btn-danger-disabled-counter-bg));
 $btn-danger-focus-border: rgb(var(--color-btn-danger-focus-border));
 $btn-danger-focus-shadow: var(--color-btn-danger-focus-shadow);
 $btn-danger-counter-bg: rgb(var(--color-btn-danger-counter-bg));
 $btn-danger-icon: rgb(var(--color-btn-danger-icon));
 $underlinenav-icon: rgb(var(--color-underlinenav-icon));
 $underlinenav-border-hover: rgb(var(--color-underlinenav-border-hover));
-$action-list-item-inline-divider: rgb(
-  var(--color-action-list-item-inline-divider)
-);
-$action-list-item-default-hover-bg: rgb(
-  var(--color-action-list-item-default-hover-bg)
-);
-$action-list-item-default-active-bg: rgb(
-  var(--color-action-list-item-default-active-bg)
-);
-$action-list-item-default-selected-bg: rgb(
-  var(--color-action-list-item-default-selected-bg)
-);
-$action-list-item-danger-hover-bg: rgb(
-  var(--color-action-list-item-danger-hover-bg)
-);
-$action-list-item-danger-active-bg: rgb(
-  var(--color-action-list-item-danger-active-bg)
-);
-$action-list-item-danger-hover-text: rgb(
-  var(--color-action-list-item-danger-hover-text)
-);
+$action-list-item-inline-divider: rgb(var(--color-action-list-item-inline-divider));
+$action-list-item-default-hover-bg: rgb(var(--color-action-list-item-default-hover-bg));
+$action-list-item-default-active-bg: rgb(var(--color-action-list-item-default-active-bg));
+$action-list-item-default-selected-bg: rgb(var(--color-action-list-item-default-selected-bg));
+$action-list-item-danger-hover-bg: rgb(var(--color-action-list-item-danger-hover-bg));
+$action-list-item-danger-active-bg: rgb(var(--color-action-list-item-danger-active-bg));
+$action-list-item-danger-hover-text: rgb(var(--color-action-list-item-danger-hover-text));
 $fg-default: rgb(var(--color-fg-default));
 $fg-muted: rgb(var(--color-fg-muted));
 $fg-subtle: rgb(var(--color-fg-subtle));

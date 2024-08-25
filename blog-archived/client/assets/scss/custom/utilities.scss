@@ -16,8 +16,7 @@
 
     &.btn-primary {
       @apply border-btn-primary-border bg-btn-primary-bg text-btn-primary-text;
-      box-shadow: var(--color-btn-primary-shadow),
-        var(--color-btn-primary-inset-shadow);
+      box-shadow: var(--color-btn-primary-shadow), var(--color-btn-primary-inset-shadow);
       &:hover {
         @apply border-btn-primary-hover-border bg-btn-primary-hover-bg;
       }

@@ -1,3 +1,19 @@
+<script>
+import Sitemap from '@/components/sitemap/index.vue'
+// default
+const tagTypeMap = ['primary', 'success', 'danger', 'warning']
+export default {
+  components: {
+    Sitemap,
+  },
+  methods: {
+    getTagType(idx = 0) {
+      return tagTypeMap[idx % tagTypeMap.length] || 'default'
+    },
+  },
+}
+</script>
+
 <template>
   <div class="container mx-auto">
     <Sitemap :hidden="false">
@@ -15,8 +31,9 @@
                         v-for="(tag, idx) in item.tags"
                         :key="tag"
                         :type="getTagType(idx)"
-                        >{{ tag }}</van-tag
                       >
+                        {{ tag }}
+                      </van-tag>
                     </div>
                   </template>
                 </div>
@@ -28,21 +45,5 @@
     </Sitemap>
   </div>
 </template>
-
-<script>
-import Sitemap from '@/components/sitemap/index.vue'
-// default
-const tagTypeMap = ['primary', 'success', 'danger', 'warning']
-export default {
-  components: {
-    Sitemap,
-  },
-  methods: {
-    getTagType(idx = 0) {
-      return tagTypeMap[idx % tagTypeMap.length] || 'default'
-    },
-  },
-}
-</script>
 
 <style></style>

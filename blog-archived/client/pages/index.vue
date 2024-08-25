@@ -1,58 +1,3 @@
-<template>
-  <div class="application-main flex min-h-screen flex-col md:flex-row">
-    <aside class="team-left-column flex-shrink-0">
-      <div class="sticky-column">
-        <div class="hover-scroll-bar sticky-column-inner">
-          <DarkSouls></DarkSouls>
-        </div>
-      </div>
-    </aside>
-    <div class="order-1 flex-auto px-4 md:order-2 md:w-8/12 lg:px-8">
-      <div class="flex flex-col sm:-mx-6 md:flex-row">
-        <div class="mt-4 px-4 md:w-full lg:w-8/12">
-          <!-- <h2 class="text-base md:pt-4">All activity</h2> -->
-          <template v-for="(arr, idx) in articlesArray">
-            <div :key="idx">
-              <DarkArticleCard
-                v-for="item in arr"
-                :key="item.id"
-                :item="item"></DarkArticleCard>
-            </div>
-          </template>
-          <button
-            v-if="hasMore"
-            class="load-more-btn"
-            :disabled="btnLoading"
-            @click="next">
-            {{ btnText }}
-          </button>
-          <div class="my-8">
-            <SidebarFooter></SidebarFooter>
-          </div>
-        </div>
-        <div class="team-right-column mt-8 max-w-full md:w-4/12 md:px-6">
-          <!-- <div>
-            <div class="text-lg">友情链接</div>
-            <div>
-              <a
-                href="kaiyi.cool"
-                class="hover:underline"
-                title="Kai 「🕶 SuperFly Coder Life」"
-                target="_blank"
-                rel="”nofollow">
-                Kai 「🕶 SuperFly Coder Life」
-              </a>
-            </div>
-          </div> -->
-
-          <CommentArea />
-          <!-- <DarkParadise /> -->
-        </div>
-      </div>
-    </div>
-  </div>
-</template>
-
 <script>
 import DarkSouls from '@/components/home/DarkSouls.vue'
 import { getPageList } from '@/api/article'
@@ -107,17 +52,20 @@ export default {
             this.btnLoading = true
             const [total, articles] = await getPageList(
               this.$content,
-              this.query
+              this.query,
             )
             this.articlesArray.push(articles) // [nextPage - 1] = articles
             this.currentIdx = this.query.page - 1
             this.total = total
-          } catch (err) {
+          }
+          catch (err) {
             console.error(err)
-          } finally {
+          }
+          finally {
             this.btnLoading = false
           }
-        } else {
+        }
+        else {
           this.currentIdx++
         }
       }
@@ -130,6 +78,63 @@ export default {
   },
 }
 </script>
+
+<template>
+  <div class="application-main flex min-h-screen flex-col md:flex-row">
+    <aside class="team-left-column flex-shrink-0">
+      <div class="sticky-column">
+        <div class="hover-scroll-bar sticky-column-inner">
+          <DarkSouls />
+        </div>
+      </div>
+    </aside>
+    <div class="order-1 flex-auto px-4 md:order-2 md:w-8/12 lg:px-8">
+      <div class="flex flex-col sm:-mx-6 md:flex-row">
+        <div class="mt-4 px-4 md:w-full lg:w-8/12">
+          <!-- <h2 class="text-base md:pt-4">All activity</h2> -->
+          <template v-for="(arr, idx) in articlesArray">
+            <div :key="idx">
+              <DarkArticleCard
+                v-for="item in arr"
+                :key="item.id"
+                :item="item"
+              />
+            </div>
+          </template>
+          <button
+            v-if="hasMore"
+            class="load-more-btn"
+            :disabled="btnLoading"
+            @click="next"
+          >
+            {{ btnText }}
+          </button>
+          <div class="my-8">
+            <SidebarFooter />
+          </div>
+        </div>
+        <div class="team-right-column mt-8 max-w-full md:w-4/12 md:px-6">
+          <!-- <div>
+            <div class="text-lg">友情链接</div>
+            <div>
+              <a
+                href="kaiyi.cool"
+                class="hover:underline"
+                title="Kai 「🕶 SuperFly Coder Life」"
+                target="_blank"
+                rel="”nofollow">
+                Kai 「🕶 SuperFly Coder Life」
+              </a>
+            </div>
+          </div> -->
+
+          <CommentArea />
+          <!-- <DarkParadise /> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
 
 <style lang="scss" scoped>
 .application-main {

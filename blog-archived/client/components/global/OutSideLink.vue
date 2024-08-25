@@ -1,9 +1,3 @@
-<template>
-  <a :target="target" :class="raw ? '' : 'link'" :rel="rel" :href="href">
-    <slot></slot>
-  </a>
-</template>
-
 <script>
 export default {
   name: 'OutSideLink',
@@ -27,3 +21,9 @@ export default {
   },
 }
 </script>
+
+<template>
+  <a :target="target" :class="raw ? '' : 'link'" :rel="rel" :href="href">
+    <slot />
+  </a>
+</template>

@@ -1,28 +1,7 @@
-<template>
-  <div>
-    <ApiWrapper :api-fn="doSomeThing">
-      <template #default="scope">
-        <div>
-          <div>scope-slot:</div>
-          <div>{{ scope }}</div>
-        </div>
-        <div>
-          <div>result:</div>
-          <div>{{ result }}</div>
-        </div>
-        <el-button
-          :loading="scope.loading"
-          @click="mySelfFnWrapper(scope.trigger)"
-          >加载数据</el-button
-        >
-      </template>
-    </ApiWrapper>
-  </div>
-</template>
-
 <script>
 import { doSomeThing } from './MockApi'
 import ApiWrapper from './ApiWrapper.vue'
+
 export default {
   name: 'TestHelloIndex',
   components: { ApiWrapper },
@@ -42,12 +21,36 @@ export default {
 
         this.result = result
         return result
-      } else {
+      }
+      else {
         return fn
       }
     },
   },
 }
 </script>
+
+<template>
+  <div>
+    <ApiWrapper :api-fn="doSomeThing">
+      <template #default="scope">
+        <div>
+          <div>scope-slot:</div>
+          <div>{{ scope }}</div>
+        </div>
+        <div>
+          <div>result:</div>
+          <div>{{ result }}</div>
+        </div>
+        <el-button
+          :loading="scope.loading"
+          @click="mySelfFnWrapper(scope.trigger)"
+        >
+          加载数据
+        </el-button>
+      </template>
+    </ApiWrapper>
+  </div>
+</template>
 
 <style></style>

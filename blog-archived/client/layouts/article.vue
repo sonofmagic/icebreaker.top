@@ -1,14 +1,3 @@
-<template>
-  <CommonSlot>
-    <div>
-      <div class="container mx-auto">
-        <Nuxt />
-      </div>
-    </div>
-    <!-- <Sitemap /> -->
-  </CommonSlot>
-</template>
-
 <script>
 import CommonSlot from '@/components/layout/CommonSlot'
 // import Sitemap from '@/components/sitemap'
@@ -21,3 +10,14 @@ export default {
   },
 }
 </script>
+
+<template>
+  <CommonSlot>
+    <div>
+      <div class="container mx-auto">
+        <Nuxt />
+      </div>
+    </div>
+    <!-- <Sitemap /> -->
+  </CommonSlot>
+</template>

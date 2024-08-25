@@ -1,126 +1,3 @@
-<template>
-  <div class="p-4">
-    <div>
-      <el-form size="small" inline>
-        <el-form-item label="年份选择">
-          <el-date-picker
-            v-model="currentYear"
-            :clearable="false"
-            value-format="yyyy"
-            type="year"
-            placeholder="选择年"
-            @change="onYearChange"
-          >
-          </el-date-picker>
-        </el-form-item>
-        <el-form-item label="设工作日为">
-          <el-select
-            v-model="workday"
-            value-key="color"
-            @change="onWorkdayChange"
-          >
-            <el-option
-              v-for="b in buttonList"
-              :key="b.color"
-              :value="b"
-              :label="b.text"
-              >{{ b.text }}</el-option
-            >
-          </el-select>
-        </el-form-item>
-        <el-form-item label="设周六为">
-          <el-select
-            v-model="saturday"
-            value-key="color"
-            @change="onSaturdayChange"
-          >
-            <el-option
-              v-for="b in buttonList"
-              :key="b.color"
-              :value="b"
-              :label="b.text"
-              >{{ b.text }}</el-option
-            >
-          </el-select>
-        </el-form-item>
-        <el-form-item label="设周日为">
-          <el-select
-            v-model="sunday"
-            value-key="color"
-            @change="onSundayChange"
-          >
-            <el-option
-              v-for="b in buttonList"
-              :key="b.color"
-              :value="b"
-              :label="b.text"
-              >{{ b.text }}</el-option
-            >
-          </el-select>
-        </el-form-item>
-      </el-form>
-    </div>
-    <div class="mb-4 space-x-3">
-      <button
-        v-for="b in buttonList"
-        :key="b.color"
-        :style="[
-          {
-            color: b.color,
-            border: '1px solid ' + b.color,
-          },
-        ]"
-        type="primary"
-        @click="onChangeColor(b)"
-      >
-        {{ b.text }}
-      </button>
-    </div>
-    <!-- @touchstart="onTouchstart"
-      @touchmove="onTouchmove"
-      @touchend="onTouchend" -->
-    <FrameSelectionGroup
-      ref="selection"
-      @mousedown="onMousedown"
-      @mousemove="onMousemove"
-      @mouseup="onMouseup"
-    >
-      <div class="date-selection-area">
-        <Calendar
-          v-for="i in 12"
-          ref="calendar"
-          :key="i"
-          class="mb-4"
-          :year="parseInt(currentYear)"
-          :month="i"
-          @init="onCalendarInit($event, i - 1)"
-        >
-          <template #default="{ item, index }">
-            <FrameSelectionItem
-              :class="[
-                {
-                  disabled: item.disabled,
-                  selected: isSelected(item, index, i),
-                },
-              ]"
-              class="row-item flex h-full w-full items-center justify-center"
-              :style="[
-                {
-                  color: item.color,
-                },
-              ]"
-            >
-              {{ item.text }}
-            </FrameSelectionItem>
-          </template>
-        </Calendar>
-      </div>
-    </FrameSelectionGroup>
-
-    <!-- <Calendar :year="1995" :month="9" :value="set"></Calendar> -->
-  </div>
-</template>
-
 <script>
 import {
   FrameSelectionGroup,
@@ -164,7 +41,7 @@ export default {
       sunday: null,
       currentYear: '2022',
       calendarItemCount,
-      calendarArray: new Array(12).fill([]),
+      calendarArray: Array.from({ length: 12 }).fill([]),
       isInTheBoxList: [],
       innerBoxRectList: [],
       selectedSet: new Set(),
@@ -271,10 +148,12 @@ export default {
               // toggle
               if (this.selectedSet.has(x)) {
                 this.selectedSet.delete(x)
-              } else {
+              }
+              else {
                 this.selectedSet.add(x)
               }
-            } else {
+            }
+            else {
               this.selectedSet.add(x)
             }
           }
@@ -294,6 +173,131 @@ export default {
   },
 }
 </script>
+
+<template>
+  <div class="p-4">
+    <div>
+      <el-form size="small" inline>
+        <el-form-item label="年份选择">
+          <el-date-picker
+            v-model="currentYear"
+            :clearable="false"
+            value-format="yyyy"
+            type="year"
+            placeholder="选择年"
+            @change="onYearChange"
+          />
+        </el-form-item>
+        <el-form-item label="设工作日为">
+          <el-select
+            v-model="workday"
+            value-key="color"
+            @change="onWorkdayChange"
+          >
+            <el-option
+              v-for="b in buttonList"
+              :key="b.color"
+              :value="b"
+              :label="b.text"
+            >
+              {{ b.text }}
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="设周六为">
+          <el-select
+            v-model="saturday"
+            value-key="color"
+            @change="onSaturdayChange"
+          >
+            <el-option
+              v-for="b in buttonList"
+              :key="b.color"
+              :value="b"
+              :label="b.text"
+            >
+              {{ b.text }}
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="设周日为">
+          <el-select
+            v-model="sunday"
+            value-key="color"
+            @change="onSundayChange"
+          >
+            <el-option
+              v-for="b in buttonList"
+              :key="b.color"
+              :value="b"
+              :label="b.text"
+            >
+              {{ b.text }}
+            </el-option>
+          </el-select>
+        </el-form-item>
+      </el-form>
+    </div>
+    <div class="mb-4 space-x-3">
+      <button
+        v-for="b in buttonList"
+        :key="b.color"
+        :style="[
+          {
+            color: b.color,
+            border: `1px solid ${b.color}`,
+          },
+        ]"
+        type="primary"
+        @click="onChangeColor(b)"
+      >
+        {{ b.text }}
+      </button>
+    </div>
+    <!-- @touchstart="onTouchstart"
+      @touchmove="onTouchmove"
+      @touchend="onTouchend" -->
+    <FrameSelectionGroup
+      ref="selection"
+      @mousedown="onMousedown"
+      @mousemove="onMousemove"
+      @mouseup="onMouseup"
+    >
+      <div class="date-selection-area">
+        <Calendar
+          v-for="i in 12"
+          ref="calendar"
+          :key="i"
+          class="mb-4"
+          :year="parseInt(currentYear)"
+          :month="i"
+          @init="onCalendarInit($event, i - 1)"
+        >
+          <template #default="{ item, index }">
+            <FrameSelectionItem
+              :class="[
+                {
+                  disabled: item.disabled,
+                  selected: isSelected(item, index, i),
+                },
+              ]"
+              class="row-item flex h-full w-full items-center justify-center"
+              :style="[
+                {
+                  color: item.color,
+                },
+              ]"
+            >
+              {{ item.text }}
+            </FrameSelectionItem>
+          </template>
+        </Calendar>
+      </div>
+    </FrameSelectionGroup>
+
+    <!-- <Calendar :year="1995" :month="9" :value="set"></Calendar> -->
+  </div>
+</template>
 
 <style lang="scss">
 @mixin responsive-grid-items($container-width, $card-width, $col-num) {

@@ -1,13 +1,7 @@
-<template>
-  <div>
-    <CommentsList ref="commentsList" />
-    <PostComment @success="refreshCommentsList" />
-  </div>
-</template>
-
 <script>
 import PostComment from './PostComment'
 import CommentsList from './CommentsList'
+
 export default {
   name: 'DarkParadise',
   components: {
@@ -21,3 +15,10 @@ export default {
   },
 }
 </script>
+
+<template>
+  <div>
+    <CommentsList ref="commentsList" />
+    <PostComment @success="refreshCommentsList" />
+  </div>
+</template>

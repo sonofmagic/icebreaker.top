@@ -1,11 +1,6 @@
-<template>
-  <SomPopup v-model="visible" title="注册" @closed="clearValidate('register')">
-    <Register ref="register" @success="visible = false" />
-  </SomPopup>
-</template>
-
 <script>
 import Register from '@/components/public/Register'
+
 export default {
   name: 'RegisterPopup',
   components: {
@@ -37,3 +32,9 @@ export default {
   },
 }
 </script>
+
+<template>
+  <SomPopup v-model="visible" title="注册" @closed="clearValidate('register')">
+    <Register ref="register" @success="visible = false" />
+  </SomPopup>
+</template>

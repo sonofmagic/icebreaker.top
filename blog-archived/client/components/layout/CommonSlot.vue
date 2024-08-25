@@ -1,12 +1,3 @@
-<template>
-  <section>
-    <AppHeader v-if="!noHeader" />
-
-    <slot></slot>
-
-    <AppFooter v-if="!noFooter" />
-  </section>
-</template>
 <script>
 import AppHeader from '@/components/layout/Header'
 import AppFooter from '@/components/layout/Footer'
@@ -29,3 +20,13 @@ export default {
   },
 }
 </script>
+
+<template>
+  <section>
+    <AppHeader v-if="!noHeader" />
+
+    <slot />
+
+    <AppFooter v-if="!noFooter" />
+  </section>
+</template>

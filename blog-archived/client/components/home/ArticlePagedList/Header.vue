@@ -1,17 +1,3 @@
-<template>
-  <div class="bg-[rgb(241,248,255)] flex justify-between px-4 py-3 text-sm">
-    <div class="flex text-gray-900 items-center">icebreaker的随笔</div>
-    <div class="flex text-gray-900 items-baseline">
-      <div class="text-xs mr-2"></div>
-      <div class="mr-2"></div>
-      <div>
-        <strong>{{ total }}</strong>
-        <span>commits</span>
-      </div>
-    </div>
-  </div>
-</template>
-
 <script>
 export default {
   name: 'ArticlePagedListHeader',
@@ -23,5 +9,21 @@ export default {
   },
 }
 </script>
+
+<template>
+  <div class="bg-[rgb(241,248,255)] flex justify-between px-4 py-3 text-sm">
+    <div class="flex text-gray-900 items-center">
+      icebreaker的随笔
+    </div>
+    <div class="flex text-gray-900 items-baseline">
+      <div class="text-xs mr-2" />
+      <div class="mr-2" />
+      <div>
+        <strong>{{ total }}</strong>
+        <span>commits</span>
+      </div>
+    </div>
+  </div>
+</template>
 
 <style></style>

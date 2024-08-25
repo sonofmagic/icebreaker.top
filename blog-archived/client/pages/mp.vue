@@ -1,14 +1,3 @@
-<template>
-  <div class="container mx-auto py-4">
-    <div class="grid grid-cols-3 place-items-center gap-2">
-      <div v-for="img in imgs" :key="img.url">
-        <img class="h-56 w-56" :src="img.url" :alt="img.alt" />
-        <div class="mt-1.5 text-center">{{ img.alt }}</div>
-      </div>
-    </div>
-  </div>
-</template>
-
 <script>
 import b0 from '@/assets/img/mini/b0.jpg'
 import b1 from '@/assets/img/mini/b1.jpg'
@@ -19,6 +8,7 @@ import icebreaker from '@/assets/img/mini/icebreaker.jpg'
 import programerCard from '@/assets/img/mini/programer-card.jpg'
 import tailwindcss from '@/assets/img/mini/tailwindcss.jpg'
 import icestack from '@/assets/img/mini/icestack.jpg'
+
 const alts = [
   '股加融资计算器',
   '股权激励设计助手',
@@ -53,5 +43,18 @@ export default {
   },
 }
 </script>
+
+<template>
+  <div class="container mx-auto py-4">
+    <div class="grid grid-cols-3 place-items-center gap-2">
+      <div v-for="img in imgs" :key="img.url">
+        <img class="h-56 w-56" :src="img.url" :alt="img.alt">
+        <div class="mt-1.5 text-center">
+          {{ img.alt }}
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
 
 <style lang="scss" scoped></style>

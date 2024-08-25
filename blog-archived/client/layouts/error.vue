@@ -1,16 +1,3 @@
-<template>
-  <div>
-    <div class="land"></div>
-    <div class="sea">
-      <div class="container mx-auto flex flex-col items-center">
-        <div class="island">404</div>
-        <div class="end">Nothing ahead</div>
-        <nuxt-link class="back-btn" tag="div" to="/">GO BACK</nuxt-link>
-      </div>
-    </div>
-  </div>
-</template>
-
 <script>
 export default {
   name: 'ErrorPage',
@@ -25,6 +12,26 @@ export default {
   },
 }
 </script>
+
+<template>
+  <div>
+    <div class="land" />
+    <div class="sea">
+      <div class="container mx-auto flex flex-col items-center">
+        <div class="island">
+          404
+        </div>
+        <div class="end">
+          Nothing ahead
+        </div>
+        <nuxt-link class="back-btn" tag="div" to="/">
+          GO BACK
+        </nuxt-link>
+      </div>
+    </div>
+  </div>
+</template>
+
 <style lang="scss" scoped>
 .land {
   height: 35vh;

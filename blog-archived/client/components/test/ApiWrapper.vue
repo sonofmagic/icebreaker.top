@@ -1,9 +1,3 @@
-<template>
-  <component is="div">
-    <slot :trigger="trigger" :loading="loading" :error="error"></slot>
-  </component>
-</template>
-
 <script>
 export default {
   props: {
@@ -25,9 +19,11 @@ export default {
         try {
           this.loading = true
           return await this.apiFn(...args)
-        } catch (err) {
+        }
+        catch (err) {
           this.error = err
-        } finally {
+        }
+        finally {
           this.loading = false
         }
       }
@@ -35,5 +31,11 @@ export default {
   },
 }
 </script>
+
+<template>
+  <component is="div">
+    <slot :trigger="trigger" :loading="loading" :error="error" />
+  </component>
+</template>
 
 <style></style>

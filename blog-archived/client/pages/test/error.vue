@@ -1,7 +1,3 @@
-<template>
-  <div>Throw Error</div>
-</template>
-
 <script>
 export default {
   name: 'TestError',
@@ -18,5 +14,9 @@ export default {
   },
 }
 </script>
+
+<template>
+  <div>Throw Error</div>
+</template>
 
 <style></style>

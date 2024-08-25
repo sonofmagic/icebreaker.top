@@ -1,81 +1,10 @@
-<template>
-  <ClientOnly>
-    <div class="border border-gray-300 rounded overflow-auto">
-      <div class="toolbar bg-[rgb(246,248,250)] h-12 pl-2 flex items-end">
-        <button
-          v-for="tab in tabList"
-          :key="tab"
-          class="tab"
-          :class="{ active: tabActiveName === tab }"
-          @click.stop="tabActiveName = tab"
-        >
-          {{ tab }}
-        </button>
-      </div>
-      <div class="p-2">
-        <div class="relative">
-          <el-input
-            v-show="isWrite"
-            v-model="formValue.comment"
-            type="textarea"
-            :rows="5"
-            placeholder="Leave a comment"
-            :disabled="!isRealLogined"
-          ></el-input>
-          <div
-            v-show="isPreview"
-            class="preview-area antialiased nuxt-content-container"
-          >
-            <div
-              v-if="previewHtml"
-              class="markdown-body"
-              v-html="previewHtml"
-            ></div>
-            <div v-else>Nothing to preview</div>
-          </div>
-          <div
-            v-if="!isRealLogined"
-            class="
-              absolute
-              top-0
-              left-0
-              right-0
-              bottom-0
-              flex
-              items-center
-              justify-center
-            "
-          >
-            <div
-              class="text-lg text-blue-500 cursor-pointer hover:underline"
-              @click.stop="signInVisible = true"
-            >
-              Click here for Login
-            </div>
-          </div>
-        </div>
-        <div class="flex flex-row-reverse pt-4">
-          <el-button
-            size="small"
-            type="primary"
-            :disabled="btnDisabled || !isRealLogined"
-            @click="doComment"
-          >
-            {{ isRealLogined ? 'Comment' : 'You should login first' }}
-          </el-button>
-        </div>
-      </div>
-      <SignInPopup v-model="signInVisible" />
-    </div>
-  </ClientOnly>
-</template>
-
 <script>
 import { mapGetters } from 'vuex'
 import trim from 'lodash/trim'
-import SignInPopup from '@/components/layout/SignInPopup'
 import marked from 'marked'
 import DOMPurify from 'dompurify'
+import SignInPopup from '@/components/layout/SignInPopup'
+
 export default {
   name: 'PostCommentZone',
   components: {
@@ -132,6 +61,81 @@ export default {
   },
 }
 </script>
+
+<template>
+  <ClientOnly>
+    <div class="border border-gray-300 rounded overflow-auto">
+      <div class="toolbar bg-[rgb(246,248,250)] h-12 pl-2 flex items-end">
+        <button
+          v-for="tab in tabList"
+          :key="tab"
+          class="tab"
+          :class="{ active: tabActiveName === tab }"
+          @click.stop="tabActiveName = tab"
+        >
+          {{ tab }}
+        </button>
+      </div>
+      <div class="p-2">
+        <div class="relative">
+          <el-input
+            v-show="isWrite"
+            v-model="formValue.comment"
+            type="textarea"
+            :rows="5"
+            placeholder="Leave a comment"
+            :disabled="!isRealLogined"
+          />
+          <div
+            v-show="isPreview"
+            class="preview-area antialiased nuxt-content-container"
+          >
+            <div
+              v-if="previewHtml"
+              class="markdown-body"
+              v-html="previewHtml"
+            />
+            <div v-else>
+              Nothing to preview
+            </div>
+          </div>
+          <div
+            v-if="!isRealLogined"
+            class="
+              absolute
+              top-0
+              left-0
+              right-0
+              bottom-0
+              flex
+              items-center
+              justify-center
+            "
+          >
+            <div
+              class="text-lg text-blue-500 cursor-pointer hover:underline"
+              @click.stop="signInVisible = true"
+            >
+              Click here for Login
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-row-reverse pt-4">
+          <el-button
+            size="small"
+            type="primary"
+            :disabled="btnDisabled || !isRealLogined"
+            @click="doComment"
+          >
+            {{ isRealLogined ? 'Comment' : 'You should login first' }}
+          </el-button>
+        </div>
+      </div>
+      <SignInPopup v-model="signInVisible" />
+    </div>
+  </ClientOnly>
+</template>
+
 <style lang="scss" scoped>
 .tab {
   @apply py-2 px-4 text-sm border border-transparent;

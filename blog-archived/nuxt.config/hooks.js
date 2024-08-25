@@ -1,4 +1,4 @@
-import process from 'node:process'
+/* eslint-disable node/prefer-global/process */
 
 function log(...args) {
   process.stdout.write(`${args.join(' ')}\n`)

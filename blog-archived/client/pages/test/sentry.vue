@@ -1,10 +1,3 @@
-<template>
-  <div>
-    <input v-model="formValue.value2" />
-    <input v-model="formValue.value.cyc" />
-  </div>
-</template>
-
 <script>
 export default {
   name: 'SentryErrorTest',
@@ -20,5 +13,12 @@ export default {
   },
 }
 </script>
+
+<template>
+  <div>
+    <input v-model="formValue.value2">
+    <input v-model="formValue.value.cyc">
+  </div>
+</template>
 
 <style></style>

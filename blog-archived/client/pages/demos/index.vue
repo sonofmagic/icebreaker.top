@@ -1,29 +1,3 @@
-<template>
-  <div class="min-h-screen bg-gray-100">
-    <div class="container mx-auto">
-      <van-notice-bar
-        left-icon="volume-o"
-        text="此页面为Demo页，用来展示一些文章内写的效果"
-      />
-      <van-cell-group title="图表索引">
-        <van-cell
-          v-for="link in demosLinks"
-          :key="link.href"
-          :title="link.title"
-          :label="link.label"
-          :value="link.value"
-          is-link
-          @click.stop="$router.push(`${link.href}`)"
-        >
-          <template v-if="link.tag">
-            <van-tag :type="link.tag.type">{{ link.tag.text }}</van-tag>
-          </template>
-        </van-cell>
-      </van-cell-group>
-    </div>
-  </div>
-</template>
-
 <script>
 export default {
   name: 'DemosIndex',
@@ -64,3 +38,31 @@ export default {
   },
 }
 </script>
+
+<template>
+  <div class="min-h-screen bg-gray-100">
+    <div class="container mx-auto">
+      <van-notice-bar
+        left-icon="volume-o"
+        text="此页面为Demo页，用来展示一些文章内写的效果"
+      />
+      <van-cell-group title="图表索引">
+        <van-cell
+          v-for="link in demosLinks"
+          :key="link.href"
+          :title="link.title"
+          :label="link.label"
+          :value="link.value"
+          is-link
+          @click.stop="$router.push(`${link.href}`)"
+        >
+          <template v-if="link.tag">
+            <van-tag :type="link.tag.type">
+              {{ link.tag.text }}
+            </van-tag>
+          </template>
+        </van-cell>
+      </van-cell-group>
+    </div>
+  </div>
+</template>

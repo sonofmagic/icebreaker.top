@@ -1,9 +1,3 @@
-<template>
-  <div :style="{ opacity: number / 300 }">
-    <div>{{ heavy() }}</div>
-  </div>
-</template>
-
 <script>
 export default {
   props: ['number'],
@@ -19,3 +13,9 @@ export default {
   },
 }
 </script>
+
+<template>
+  <div :style="{ opacity: number / 300 }">
+    <div>{{ heavy() }}</div>
+  </div>
+</template>

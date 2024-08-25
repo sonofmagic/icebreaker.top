@@ -1,7 +1,35 @@
+<script>
+import MiniPrograms from './MiniPrograms'
+// import { wechat } from '@/assets/img/cloud'
+import wechatMyQrcode from '@/assets/img/wechat.jpg'
+import copyTextMixin from '@/mixins/copyTextMixin'
+
+export default {
+  name: 'MySelf',
+  components: {
+    MiniPrograms,
+  },
+  mixins: [copyTextMixin],
+  data() {
+    const refs = {
+      joy: '😂', // nameToEmoji.joy,
+      rofl: '🤣', // nameToEmoji.rofl,
+      smirk: '😏', // nameToEmoji.smirk,
+      icebreakerQrcodeVisible: false,
+      icebreakerQrcodeUrl: wechatMyQrcode, // wechat.myQrcode2,
+    }
+
+    return refs
+  },
+}
+</script>
+
 <template>
   <div class="a-dark-soul space-y-3 py-4">
     <div class="space-y-2">
-      <div class="font-semibold">About icebreaker.top</div>
+      <div class="font-semibold">
+        About icebreaker.top
+      </div>
       <div class="text-xs">
         <div>
           Hosted on
@@ -31,13 +59,16 @@
             Supabase
           </OutSideLink>
           <span class="mx-0.5">&</span>
-          <OutSideLink href="https://www.docker.com/">Docker</OutSideLink>
+          <OutSideLink href="https://www.docker.com/">
+            Docker
+          </OutSideLink>
         </div>
         <div>
           <OutSideLink
             class="mr-1 text-base hover:text-gray-400"
             raw
-            href="https://github.com/sonofmagic">
+            href="https://github.com/sonofmagic"
+          >
             <FontAwesomeIcon :icon="['fab', 'github']" />
           </OutSideLink>
           <OutSideLink href="https://github.com/sonofmagic/icebreaker.top">
@@ -51,7 +82,8 @@
         About
         <span
           class="cursor-pointer hover:underline"
-          @click.stop="icebreakerQrcodeVisible = true">
+          @click.stop="icebreakerQrcodeVisible = true"
+        >
           icebreaker
         </span>
       </div>
@@ -88,7 +120,9 @@
       </div>
     </div> -->
     <div class="space-y-2">
-      <div class="font-semibold">Skills</div>
+      <div class="font-semibold">
+        Skills
+      </div>
       <div>
         <ul class="list-inside list-decimal">
           <li>快速成型{{ smirk }}</li>
@@ -110,12 +144,13 @@
       <div class="flex font-semibold">
         <div
           class="cursor-pointer hover:underline"
-          @click="$router.push('/mp')">
+          @click="$router.push('/mp')"
+        >
           My Mini Programs (Click Here)
         </div>
       </div>
       <div>
-        <MiniPrograms></MiniPrograms>
+        <MiniPrograms />
       </div>
     </div>
     <SomPopup v-model="icebreakerQrcodeVisible">
@@ -123,19 +158,21 @@
         <div class="text-gray-900 text-opacity-75">
           打开微信扫一扫以下二维码
         </div>
-        <SomImage class="w-64" :src="icebreakerQrcodeUrl"></SomImage>
+        <SomImage class="w-64" :src="icebreakerQrcodeUrl" />
         <div class="mb-2 text-gray-900 text-opacity-75">
           或者手动添加微信号：
         </div>
         <div
           class="hover:bg-green-100 flex cursor-pointer items-center justify-center truncate rounded border border-solid border-gray-400 py-2"
-          @click="copyText('icebreaker1995')">
+          @click="copyText('icebreaker1995')"
+        >
           <span class="text-gray-900">
             icebreaker1995
             <FontAwesomeIcon
               class="ml-2"
               size="sm"
-              :icon="['far', 'copy']"></FontAwesomeIcon>
+              :icon="['far', 'copy']"
+            />
           </span>
         </div>
       </div>
@@ -143,30 +180,6 @@
   </div>
 </template>
 
-<script>
-import MiniPrograms from './MiniPrograms'
-// import { wechat } from '@/assets/img/cloud'
-import wechatMyQrcode from '@/assets/img/wechat.jpg'
-import copyTextMixin from '@/mixins/copyTextMixin'
-export default {
-  name: 'MySelf',
-  components: {
-    MiniPrograms,
-  },
-  mixins: [copyTextMixin],
-  data() {
-    const refs = {
-      joy: '😂', // nameToEmoji.joy,
-      rofl: '🤣', // nameToEmoji.rofl,
-      smirk: '😏', // nameToEmoji.smirk,
-      icebreakerQrcodeVisible: false,
-      icebreakerQrcodeUrl: wechatMyQrcode, // wechat.myQrcode2,
-    }
-
-    return refs
-  },
-}
-</script>
 <style lang="scss">
 [data-color-mode='light'] {
   .a-dark-soul {
@@ -176,6 +189,7 @@ export default {
   }
 }
 </style>
+
 <style lang="scss" scoped>
 .a-dark-soul {
   @apply text-sm text-fg-default;

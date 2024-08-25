@@ -15,13 +15,13 @@ export function timespanFilter(value) {
       return 'Today'
     }
     case t < 31: {
-      return t + ' days ago'
+      return `${t} days ago`
     }
     case t < 366: {
-      return Math.floor(t / 30) + ' months ago'
+      return `${Math.floor(t / 30)} months ago`
     }
     case typeof t === 'number': {
-      return Math.floor(t / 365) + ' years ago'
+      return `${Math.floor(t / 365)} years ago`
     }
     default: {
       return p.format('YYYY-MM-DD')

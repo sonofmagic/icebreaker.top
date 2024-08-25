@@ -1,33 +1,7 @@
-<template>
-  <ClientOnly v-if="musicProxy.src">
-    <aplayer
-      :music="musicProxy"
-      :list="list"
-      :mini="mini"
-      :float="float"
-      :show-lrc="showLrc"
-      :mutex="mutex"
-      :theme="theme"
-      :shuffle="shuffle"
-      :repeat="repeat"
-      :list-max-height="listMaxHeight"
-      :list-folded="listFolded"
-      :autoplay="autoplay"
-      :controls="controls"
-      :muted.sync="mutedProxy"
-      :preload="preload"
-      :volume.sync="volumeProxy"
-    >
-      <template #display>
-        <slot name="display"></slot>
-      </template>
-    </aplayer>
-  </ClientOnly>
-</template>
-
 <script>
-import { isCloudbaseUrl } from '@/utils/validate'
 import { mapActions } from 'vuex'
+import { isCloudbaseUrl } from '@/utils/validate'
+
 let aplayer
 if (process.client) {
   aplayer = require('vue-aplayer')
@@ -51,7 +25,7 @@ if (process.client) {
 export default {
   name: 'SomMusic',
   components: {
-    aplayer,
+    Aplayer: aplayer,
   },
   props: {
     music: {
@@ -165,5 +139,32 @@ export default {
   },
 }
 </script>
+
+<template>
+  <ClientOnly v-if="musicProxy.src">
+    <Aplayer
+      :music="musicProxy"
+      :list="list"
+      :mini="mini"
+      :float="float"
+      :show-lrc="showLrc"
+      :mutex="mutex"
+      v-model:muted="mutedProxy"
+      :theme="theme"
+      v-model:volume="volumeProxy"
+      :shuffle="shuffle"
+      :repeat="repeat"
+      :list-max-height="listMaxHeight"
+      :list-folded="listFolded"
+      :autoplay="autoplay"
+      :controls="controls"
+      :preload="preload"
+    >
+      <template #display>
+        <slot name="display" />
+      </template>
+    </Aplayer>
+  </ClientOnly>
+</template>
 
 <style></style>

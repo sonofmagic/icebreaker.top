@@ -1,9 +1,10 @@
+/* eslint-disable node/prefer-global/process */
+
 /**
  *
  * @param {string} componentName
  * @returns
  */
-import cloneDeep from 'lodash/cloneDeep'
 
 function getValue(instance) {
   return Object.entries(instance).reduce((acc, [k, v]) => {

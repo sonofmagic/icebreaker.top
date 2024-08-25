@@ -1,4 +1,7 @@
+/* eslint-disable node/prefer-global/process */
+
 import { Toast } from 'vant'
+
 let copy
 if (process.browser) {
   copy = require('copy-text-to-clipboard').default

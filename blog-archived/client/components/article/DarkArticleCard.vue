@@ -1,3 +1,15 @@
+<script>
+export default {
+  name: 'DarkArticleCard',
+  props: {
+    item: {
+      type: [Object],
+      default: () => {},
+    },
+  },
+}
+</script>
+
 <template>
   <div class="ice-card">
     <span class="mr-2 flex-shrink-0">
@@ -12,7 +24,7 @@
           class="rounded-full flex-shrink-0"
           src="@/assets/img/avatar.jpg"
           alt="icebreaker"
-        />
+        >
       </OutSideLink>
     </span>
     <div class="flex flex-col flex-1 pt-1">
@@ -21,16 +33,16 @@
           <OutSideLink
             class="font-semibold"
             href="https://github.com/sonofmagic"
-            >sonofmagic</OutSideLink
           >
+            sonofmagic
+          </OutSideLink>
           <span class="no-underline text-fg-default">
             publish <span class="break-all inline-block">an article</span>
             <span
               class="whitespace-nowrap text-xs text-fg-muted ml-1"
               :title="item.date"
             >
-              {{ item.date | timespanFilter }}</span
-            >
+              {{ item.date | timespanFilter }}</span>
           </span>
         </div>
       </div>
@@ -44,11 +56,9 @@
             {{ item.description }}
           </div>
           <div class="bottom-row">
-            <tags :tags="item.tags"></tags>
+            <tags :tags="item.tags" />
             <div class="right-part">
-              <span class="inline-block"
-                >阅读时间 {{ item.readingMinutes }} 分钟</span
-              >
+              <span class="inline-block">阅读时间 {{ item.readingMinutes }} 分钟</span>
               <span class="inline-block">共{{ item.readingWords }}个字</span>
             </div>
           </div>
@@ -58,18 +68,6 @@
     </div>
   </div>
 </template>
-
-<script>
-export default {
-  name: 'DarkArticleCard',
-  props: {
-    item: {
-      type: [Object],
-      default: () => {},
-    },
-  },
-}
-</script>
 
 <style lang="scss" scoped>
 .ice-card {

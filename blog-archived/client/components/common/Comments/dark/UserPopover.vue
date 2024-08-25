@@ -1,3 +1,63 @@
+<script>
+// MALE: '男',
+//   FEMALE: '女',
+//   UNKNOWN: '未知',
+import { mapGetters } from 'vuex'
+
+export default {
+  name: 'UserPopover',
+  props: {
+    value: {
+      type: [String],
+      default: '',
+    },
+  },
+  data() {
+    return {
+      loading: false,
+      userInfo: {},
+    }
+  },
+  computed: {
+    ...mapGetters('user', ['isRealLogined']),
+    getColorIcon() {
+      return (gender) => {
+        if (gender === 'MALE') {
+          return {
+            icon: ['fas', 'mars'],
+            bgColor: '#60BCF0',
+          }
+        }
+        else if (gender === 'FEMALE') {
+          return {
+            icon: ['fas', 'venus'],
+            bgColor: '#FF76AB',
+          }
+        }
+      }
+    },
+  },
+  methods: {
+    async loadInfo() {
+      try {
+        if (this.isRealLogined) {
+          const uid = this.value
+          this.loading = true
+          // const userInfo = await this.$store.dispatch('cache/user/getInfo', uid)
+          // this.userInfo = userInfo
+        }
+      }
+      catch (err) {
+        console.debug(err)
+      }
+      finally {
+        this.loading = false
+      }
+    },
+  },
+}
+</script>
+
 <template>
   <el-popover
     placement="right"
@@ -9,7 +69,7 @@
           <el-avatar
             v-if="userInfo.realAvatarUrl"
             :src="userInfo.realAvatarUrl"
-          ></el-avatar>
+          />
           <span>{{ userInfo.nickName }}</span>
           <div
             v-if="getColorIcon(userInfo.gender)"
@@ -34,7 +94,7 @@
             />
           </span>
           <span>{{ userInfo.country }}{{ userInfo.province
-            }}{{ userInfo.city }}</span>
+          }}{{ userInfo.city }}</span>
         </div>
         <div class="mb-2">
           <span class="inline-block w-4">
@@ -56,65 +116,9 @@
       </span>
     </template>
     <template #reference>
-      <slot name="reference"></slot>
+      <slot name="reference" />
     </template>
   </el-popover>
 </template>
-
-<script>
-// MALE: '男',
-//   FEMALE: '女',
-//   UNKNOWN: '未知',
-import { mapGetters } from 'vuex'
-export default {
-  name: 'UserPopover',
-  props: {
-    value: {
-      type: [String],
-      default: '',
-    },
-  },
-  data() {
-    return {
-      loading: false,
-      userInfo: {},
-    }
-  },
-  computed: {
-    ...mapGetters('user', ['isRealLogined']),
-    getColorIcon() {
-      return (gender) => {
-        if (gender === 'MALE') {
-          return {
-            icon: ['fas', 'mars'],
-            bgColor: '#60BCF0',
-          }
-        } else if (gender === 'FEMALE') {
-          return {
-            icon: ['fas', 'venus'],
-            bgColor: '#FF76AB',
-          }
-        }
-      }
-    },
-  },
-  methods: {
-    async loadInfo() {
-      try {
-        if (this.isRealLogined) {
-          const uid = this.value
-          this.loading = true
-          // const userInfo = await this.$store.dispatch('cache/user/getInfo', uid)
-          // this.userInfo = userInfo
-        }
-      } catch (err) {
-        console.debug(err)
-      } finally {
-        this.loading = false
-      }
-    },
-  },
-}
-</script>
 
 <style></style>
