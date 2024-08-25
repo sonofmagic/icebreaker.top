@@ -9,18 +9,6 @@ export default {
     },
   },
 }
-// import { useColorMode } from '@vueuse/core'
-// import { computed } from 'vue'
-// import { useStore } from '@/store'
-// const store = useStore()
-// const theme = computed(() => {
-//   return store.state.theme
-// })
-
-// const colorMode = useColorMode()
-// const theme = computed(() => {
-//   return colorMode.value === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon'
-// })
 </script>
 
 <template>

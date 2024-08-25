@@ -1,20 +1,13 @@
 <script>
 import { mapGetters } from 'vuex'
 import { Dialog } from 'vant'
-// import SignInPopup from './SignInPopup'
-// import RegisterPopup from './RegisterPopup'
 import DarkModeToggle from './DarkModeToggle.vue'
-import HeaderSearchBar from '@/components/article/HeaderSearchBar'
 import defaultAvatar from '@/assets/img/default-avatar.png'
 import Logo from '@/assets/img/avatar.jpg'
-// import ThemeSwitch from '@/components/theme/ThemeSwitch.vue'
+
 export default {
   components: {
-    HeaderSearchBar,
-    // SignInPopup,
-    // RegisterPopup,
     DarkModeToggle,
-    // ThemeSwitch,
   },
   data() {
     return {
@@ -125,7 +118,6 @@ export default {
       </router-link>
     </div>
     <div class="header-middle-area hidden flex-grow text-left sm:flex">
-      <HeaderSearchBar />
       <nav class="nav ml-4 hidden lg:flex lg:items-center">
         <a
           v-for="item in outSideLinks"
