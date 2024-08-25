@@ -29,7 +29,7 @@ jobs:
       - name: Sync Articles
         working-directory: blog-archived
         run: pnpm sync
-      - name: Deploy Blog Site
+      - name: Build Site
         working-directory: blog-archived
         run: pnpm build
       - name: Deploy to Netlify
@@ -37,7 +37,7 @@ jobs:
         with:
           publish-dir: blog-archived/dist
           production-branch: master
-          github-token: ${{ secrets.PERSONAL_TOKEN }}
+          # github-token: ${{ secrets.PERSONAL_TOKEN }}
           deploy-message: Deploy from GitHub Actions
           enable-pull-request-comment: false
           enable-commit-comment: true
