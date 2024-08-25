@@ -56,10 +56,14 @@
     "svg4everybody": "^2.1.9",
     "uuid": "^9.0.1",
     "vant": "^2.12.39",
+    "vue": "^2.7",
     "vue-aplayer": "^1.6.1",
     "vue-echarts": "6.6.1",
     "vue-frame-selection": "^1.0.1",
-    "vue-relation-graph": "1.0.0"
+    "vue-relation-graph": "1.0.0",
+    "vue-router": "^3",
+    "vuex": "^3"
+
   },
   "devDependencies": {
     "@icebreakers/deploy": "^0.1.5",
@@ -67,8 +71,6 @@
     "@nuxtjs/composition-api": "^0.33.1",
     "@nuxtjs/google-analytics": "^2.4.0",
     "@types/file-saver": "^2.0.7",
-    "@types/offscreencanvas": "^2019.7.3",
-    "@types/tailwindcss": "^3.1.0",
     "@vue/composition-api": "^1.7.2",
     "babel-loader": "^8.2.5",
     "babel-plugin-component": "^1.1.1",
@@ -94,11 +96,8 @@
     "tailwindcss-patch": "^4.0.0",
     "tencentcloud-sdk-nodejs": "^4.0.795",
     "unplugin-tailwindcss-mangle": "^3.0.1",
-    "worker-loader": "^3.0.8"
-  },
-  "resolutions": {
-    "vue": "^2.7",
     "vue-server-renderer": "^2.7",
-    "vue-template-compiler": "^2.7"
+    "vue-template-compiler": "^2.7",
+    "worker-loader": "^3.0.8"
   }
 }
