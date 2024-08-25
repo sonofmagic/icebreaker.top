@@ -241,9 +241,6 @@ importers:
       vue:
         specifier: ^2.7
         version: 2.7.16
-      vue-aplayer:
-        specifier: ^1.6.1
-        version: 1.6.1(vue@2.7.16)
       vue-echarts:
         specifier: 6.6.1
         version: 6.6.1(@vue/composition-api@1.7.2(vue@2.7.16))(echarts@5.5.1)(vue@2.7.16)
@@ -10774,11 +10771,6 @@ packages:
   vue-analytics@5.22.1:
     resolution: {integrity: sha512-HPKQMN7gfcUqS5SxoO0VxqLRRSPkG1H1FqglsHccz6BatBatNtm/Vyy8brApktZxNCfnAkrSVDpxg3/FNDeOgQ==}
     deprecated: Sorry but vue-analytics is no longer maintained. I would suggest you switch to vue-gtag, with love, the guy who made the package.
-
-  vue-aplayer@1.6.1:
-    resolution: {integrity: sha512-c+ZAwZ63bVDsKkcHeKLAonIL2gY4nrVRdKypoPRXSkh+8B1cVhFT2tx8HSTNT6eX6WZyDtaYrEJfcgetrfvcdQ==}
-    peerDependencies:
-      vue: ^2.7
 
   vue-client-only@2.1.0:
     resolution: {integrity: sha512-vKl1skEKn8EK9f8P2ZzhRnuaRHLHrlt1sbRmazlvsx6EiC3A8oWF8YCBrMJzoN+W3OnElwIGbVjsx6/xelY1AA==}
@@ -23890,10 +23882,6 @@ snapshots:
   vm-browserify@1.1.2: {}
 
   vue-analytics@5.22.1: {}
-
-  vue-aplayer@1.6.1(vue@2.7.16):
-    dependencies:
-      vue: 2.7.16
 
   vue-client-only@2.1.0: {}
 

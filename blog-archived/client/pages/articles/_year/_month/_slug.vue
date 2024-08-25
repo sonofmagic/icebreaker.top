@@ -79,18 +79,17 @@ export default {
 </script>
 
 <template>
-  <div class="container mx-auto" style="max-width: 1280px">
+  <div class="container mx-auto max-w-screen-xl">
     <div class="flex flex-col py-6 lg:flex-row">
       <div
         ref="leftMenu"
-        style="min-width: 142px"
-        class="hidden sm:mb-4 sm:inline-block lg:mr-4"
+        class="hidden sm:mb-4 sm:inline-block lg:mr-4 lg:grow"
       >
         <!-- <Sticky :offset-top="20" :container="leftMenu"> -->
         <div class="sticky flex sm:block" style="top: 1rem">
           <div class="mb-4">
             <nuxt-link
-              class="inline-block w-full rounded-md border border-solid border-border-default bg-canvas-default p-1.5 text-xl font-semibold text-accent-fg hover:bg-canvas-subtle"
+              class="border-border-default bg-canvas-default text-accent-fg hover:bg-canvas-subtle inline-block w-full rounded-md border border-solid p-1.5 text-xl font-semibold"
               to="/"
               replace
             >
@@ -102,10 +101,10 @@ export default {
             v-for="t in toc"
             :key="t.id"
             :title="t.text"
-            class="w-32 truncate py-2"
+            class="truncate py-2 lg:w-32"
           >
             <a
-              class="hover:text-green-500 cursor-pointer transition-colors duration-200 hover:underline"
+              class="cursor-pointer transition-colors duration-200 hover:text-green-500 hover:underline"
               :href="`#${t.id}-f`"
               @click.stop="scrollTo(t.id)"
             >
@@ -113,13 +112,10 @@ export default {
             </a>
           </div>
         </div>
-
-        <!-- </Sticky> -->
       </div>
-      <!-- lg: -->
 
       <div
-        class="relative m-auto mb-4 w-full max-w-2xl p-8 px-4 pb-4 pt-4 shadow ring-0 ring-gray-200 dark:ring-gray-700 sm:rounded-lg sm:px-8 sm:shadow sm:ring-1 lg:mb-0"
+        class="relative m-auto mb-4 w-full p-4 shadow ring-0 ring-gray-200 sm:max-w-full sm:rounded-lg sm:px-8 sm:shadow sm:ring-1 lg:mb-0 lg:max-w-5xl dark:ring-gray-700"
       >
         <div class="mb-2">
           <h1 class="mb-2 text-3xl">
@@ -167,10 +163,10 @@ export default {
         <!-- </ClientOnly> -->
         <!-- END -->
       </div>
-      <div class="w-full flex-grow self-start p-4 shadow sm:w-auto">
-        <CommentArea />
-        <!-- <Comments /> -->
-      </div>
+    </div>
+    <div class="w-full grow self-start p-4 shadow sm:w-auto">
+      <CommentArea />
+      <!-- <Comments /> -->
     </div>
   </div>
 </template>
@@ -198,7 +194,7 @@ export default {
 <style lang="scss">
 .compose-nuxt-content {
   // default dark mode
-  @apply prose prose-sm prose-invert text-fg-default antialiased sm:prose-base; // prose-sm antialiased
+  @apply prose prose-sm prose-invert max-w-none text-fg-default antialiased sm:prose-base; // prose-sm antialiased
   // &.dark {
   //   @apply prose prose-sm prose-invert;
   // }

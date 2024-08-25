@@ -60,7 +60,6 @@
     "vue-relation-graph": "1.0.0",
     "vue-router": "^3",
     "vuex": "^3"
-
   },
   "devDependencies": {
     "@icebreakers/deploy": "^0.1.5",
