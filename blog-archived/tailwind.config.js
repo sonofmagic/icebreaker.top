@@ -1,35 +1,9 @@
-/*
- ** TailwindCSS Configuration File
- **
- ** Docs: https://tailwindcss.com/docs/configuration
- ** Default: https://github.com/tailwindcss/tailwindcss/blob/master/stubs/defaultConfig.stub.js
- */
-// const plugin = require('tailwindcss/plugin')
-// v2
-// content: {
-//   // Learn more on https://tailwindcss.com/docs/controlling-file-size/#removing-unused-css
-//   enabled: process.env.NODE_ENV === 'production',
-//   content: [
-//     'content/**/*.md',
-//     'components/**/*.vue',
-//     'layouts/**/*.vue',
-//     'pages/**/*.vue',
-//     'plugins/**/*.js',
-//     'nuxt.config.js',
-//   ],
-//   options: {
-//     whitelist: [/svg.*/, /fa.*/],
-//   },
-// },
 const defaultTheme = require('tailwindcss/defaultTheme')
 const colors = require('tailwindcss/colors')
 const extendColors = require('./client/assets/scss/expose/extendColors')
 /** @type {import('@types/tailwindcss/tailwind-config').TailwindConfig} */
 module.exports = {
-  // 3 只剩下了 jit
-  // mode: 'jit',
-  // important: true,
-  darkMode: 'class', // 'media',
+  darkMode: ['selector', '[data-color-mode="dark"]'],
   theme: {
     extend: {
       colors: {

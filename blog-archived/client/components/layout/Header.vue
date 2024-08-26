@@ -40,26 +40,6 @@ export default {
           href: 'https://www.npmjs.com/~icebreaker',
           title: 'Packages',
         },
-        // {
-        //   href: 'https://blog.icebreaker.top/',
-        //   title: 'Blog-v2 (Beta)',
-        // },
-        // {
-        //   href: 'https://rendertron.icebreaker.top/',
-        //   title: 'Rendertron',
-        // },
-        // {
-        //   href: 'https://www.shareplus.cn/',
-        //   title: 'Shareplus',
-        // },
-        // {
-        //   href: 'https://github.com/marketplace',
-        //   title: 'Marketplace',
-        // },
-        // {
-        //   href: 'https://github.com/explore',
-        //   title: 'Explore',
-        // },
       ],
       inSideLinks: [
         {
@@ -110,11 +90,11 @@ export default {
 <template>
   <header class="site-header">
     <div class="mr-4 flex items-center">
-      <router-link class="flex-shrink-0" to="/">
-        <img class="h-8 w-8 rounded-full" :src="logoUri">
+      <router-link class="shrink-0" to="/">
+        <img class="size-8 rounded-full" :src="logoUri">
       </router-link>
     </div>
-    <div class="header-middle-area hidden flex-grow text-left sm:flex">
+    <div class="header-middle-area hidden grow text-left sm:flex">
       <nav class="nav ml-4 hidden lg:flex lg:items-center">
         <a
           v-for="item in outSideLinks"
@@ -141,10 +121,10 @@ export default {
     </div>
 
     <client-only>
-      <div class="tail flex flex-grow space-x-4 justify-end sm:flex-grow-0">
+      <div class="tail flex grow justify-end space-x-4 sm:grow-0">
         <DarkModeToggle />
         <OutSideLink
-          class="text-xl text-white hover:text-gray-300"
+          class="text-xl"
           raw
           href="https://github.com/sonofmagic/icebreaker.top"
         >
@@ -158,13 +138,13 @@ export default {
 <style lang="scss" scoped>
 .site-header {
   height: 64px;
-  @apply sticky top-0 z-50 flex items-center bg-header-bg px-4 py-4 text-sm text-header-text/70 md:px-6 lg:px-8;
+  @apply sticky top-0 z-50 flex items-center bg-header-bg px-4 py-4 text-sm text-header-text/70 md:px-6 lg:px-8 border-b dark:border-0;
 
   .header-middle-area {
     .nav {
       .link {
         //https://tailwindcss.com/docs/upgrading-to-v2#update-renamed-utility-classes
-        @apply mr-4 cursor-pointer whitespace-nowrap font-semibold text-header-logo;
+        @apply mr-4 cursor-pointer whitespace-nowrap font-semibold text-header-text;
 
         &:hover,
         &:focus {
@@ -175,27 +155,7 @@ export default {
   }
 
   .tail {
-    .avatar-wrapper {
-      .dropdown-caret {
-        display: inline-block;
-        width: 0;
-        height: 0;
-        vertical-align: middle;
-        content: '';
-        border-top-style: solid;
-        border-top-width: 4px;
-        border-top-color: #fff;
-        border-right: 4px solid transparent;
-        border-bottom: 0 solid transparent;
-        border-left: 4px solid transparent;
-      }
-
-      &:hover {
-        .dropdown-caret {
-          border-top-color: hsla(0, 0%, 100%, 0.7);
-        }
-      }
-    }
+    @apply text-header-text;
 
     .nav-btn {
       @apply cursor-pointer whitespace-nowrap px-2 py-1 text-base leading-6 text-white outline-none transition-opacity duration-300;

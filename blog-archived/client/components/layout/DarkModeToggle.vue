@@ -55,7 +55,7 @@ export default {
 </script>
 
 <template>
-  <div class="flex items-center text-xl text-white">
+  <div class="flex items-center text-xl">
     <font-awesome-icon
       class="cursor-pointer"
       :icon="icon"
