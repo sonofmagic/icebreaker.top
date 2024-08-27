@@ -138,8 +138,11 @@ export default {
 <style lang="scss" scoped>
 .site-header {
   height: 64px;
-  @apply sticky top-0 z-50 flex items-center bg-header-bg px-4 py-4 text-sm text-header-text/70 md:px-6 lg:px-8 border-b dark:border-0;
-
+  @apply sticky top-0 z-50 flex items-center bg-header-bg px-4 py-4 text-sm text-header-text/70 md:px-6 lg:px-8;
+  border-bottom: 1px;
+  border-style: solid;
+  border-color: theme('colors.border-muted');
+  @apply dark:border-[transparent];
   .header-middle-area {
     .nav {
       .link {
