@@ -6,12 +6,12 @@ export default {
   gzip: true,
   path: '/sitemap.xml',
   cacheTime: 1000 * 60 * 60 * 2,
-  exclude: ['/gql/**'],
+  //  exclude: ['/gql/**'],
   routes() {
-    const files = globSync(path.join(__dirname, '../docs/**/*.html'))
+    const files = globSync(path.join(__dirname, '../dist/**/*.html'))
     const urls = files.map((file) => {
       const url = path
-        .relative(path.join(__dirname, '../docs/'), file)
+        .relative(path.join(__dirname, '../dist/'), file)
         .replace('index.html', '')
       return {
         url,
