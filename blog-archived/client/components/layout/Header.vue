@@ -1,9 +1,9 @@
 <script>
-import { mapGetters } from 'vuex'
-import { Dialog } from 'vant'
-import DarkModeToggle from './DarkModeToggle.vue'
-import defaultAvatar from '@/assets/img/default-avatar.png'
 import Logo from '@/assets/img/avatar.jpg'
+import defaultAvatar from '@/assets/img/default-avatar.png'
+import { Dialog } from 'vant'
+import { mapGetters } from 'vuex'
+import DarkModeToggle from './DarkModeToggle.vue'
 
 export default {
   components: {
@@ -96,6 +96,14 @@ export default {
     </div>
     <div class="header-middle-area hidden grow text-left sm:flex">
       <nav class="nav ml-4 hidden lg:flex lg:items-center">
+        <nuxt-link
+          v-for="inlink in inSideLinks"
+          :key="inlink.key"
+          class="link"
+          :to="inlink.to"
+        >
+          {{ inlink.title }}
+        </nuxt-link>
         <a
           v-for="item in outSideLinks"
           :key="item.title"
@@ -105,15 +113,8 @@ export default {
           :href="item.href"
         >
           <span>{{ item.title }}</span>
+          <span class="iconify line-md--external-link" />
         </a>
-        <nuxt-link
-          v-for="inlink in inSideLinks"
-          :key="inlink.key"
-          class="link"
-          :to="inlink.to"
-        >
-          {{ inlink.title }}
-        </nuxt-link>
         <!-- <span>
           <ThemeSwitch></ThemeSwitch>
         </span> -->
@@ -142,7 +143,7 @@ export default {
   border-bottom: 1px;
   border-style: solid;
   border-color: theme('colors.border-muted');
-  @apply dark:border-[transparent];
+  @apply dark:border-transparent;
   .header-middle-area {
     .nav {
       .link {

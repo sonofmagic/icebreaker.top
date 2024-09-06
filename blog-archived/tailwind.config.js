@@ -1,5 +1,6 @@
-const defaultTheme = require('tailwindcss/defaultTheme')
+const { addIconSelectors } = require('@iconify/tailwind')
 const colors = require('tailwindcss/colors')
+const defaultTheme = require('tailwindcss/defaultTheme')
 const extendColors = require('./client/assets/scss/expose/extendColors')
 /** @type {import('@types/tailwindcss/tailwind-config').TailwindConfig} */
 module.exports = {
@@ -189,7 +190,10 @@ module.exports = {
   //   defaultLineHeights: true,
   //   standardFontWeights: true,
   // },
-  plugins: [require('@tailwindcss/typography')],
+  plugins: [
+    require('@tailwindcss/typography'),
+    addIconSelectors(['line-md']),
+  ],
   content: [
     'content/**/*.md',
     'components/**/*.vue',

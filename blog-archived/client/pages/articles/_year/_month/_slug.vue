@@ -1,8 +1,8 @@
 <script>
-import { gsap } from 'gsap'
 import CommentArea from '@/components/comment/Area.vue'
 // import Comments from '@/components/common/Comments/dark/DarkParadise.vue'
 import { isProd } from '@/utils/env'
+import { gsap } from 'gsap'
 
 export default {
   name: 'ArticlesYearMonthSlug',
@@ -19,7 +19,7 @@ export default {
     try {
       article = await $content('articles', year, month, slug).fetch()
     }
-    catch (e) {
+    catch {
       error({ message: 'Article not found' })
     }
 
@@ -86,7 +86,7 @@ export default {
         class="hidden sm:mb-4 sm:inline-block lg:mr-4 lg:grow"
       >
         <!-- <Sticky :offset-top="20" :container="leftMenu"> -->
-        <div class="sticky flex sm:block" style="top: 1rem">
+        <div class="sticky top-20 flex sm:block">
           <div class="mb-4">
             <nuxt-link
               class="border-border-default bg-canvas-default text-accent-fg hover:bg-canvas-subtle inline-block w-full rounded-md border border-solid p-1.5 text-xl font-semibold"
@@ -172,7 +172,7 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-//用 @responsive 添加自定义响应式
+// 用 @responsive 添加自定义响应式
 // @variants 添加伪类
 
 // @responsive {
@@ -180,10 +180,10 @@ export default {
 //     max-width: 44.5rem;
 //   }
 // }
-//lg:content-max-width
+// lg:content-max-width
 // @responsive直接把类包裹成响应式单位
 
-//@screen相当于 @media(min-width:)的封装
+// @screen相当于 @media(min-width:)的封装
 // @screen lg {
 //   .content-max-width {
 //     max-width: 44.5rem;
