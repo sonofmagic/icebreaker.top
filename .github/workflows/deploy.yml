@@ -6,6 +6,10 @@ on:
   repository_dispatch:
     types:
       - webhook
+  push:
+    branches:
+      - main
+      - master
 
 jobs:
   build:
