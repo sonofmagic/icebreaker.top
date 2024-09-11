@@ -11,11 +11,6 @@ export default icebreaker(
       },
     },
     tailwindcss: true,
-  },
-  {
-    ignores: [
-      '**/fixtures/**',
-      'blog-archived/statistics',
-    ],
+    ignores: ['**/fixtures/**'],
   },
 )
