@@ -3,9 +3,9 @@
 // import 股加加员工端 from '@/assets/img/mini/股加加员工端.jpg'
 // import 股权健康体检 from '@/assets/img/mini/股权健康体检.jpg'
 // import 股权激励设计助手 from '@/assets/img/mini/股权激励设计助手.jpg'
+import Icebreaker from '@/assets/img/mini/icebreaker.jpg'
 // import 股加融资计算器 from '@/assets/img/mini/股加融资计算器.jpg'
 import ProgramerCard from '@/assets/img/mini/programer-card.jpg'
-import Icebreaker from '@/assets/img/mini/icebreaker.jpg'
 import Tailwindcss from '@/assets/img/mini/tailwindcss.jpg'
 
 export default {
@@ -66,7 +66,7 @@ export default {
         class="my-2 w-40 text-center text-sm"
       >
         <img class="w-40 rounded-md" :src="item.src" :alt="item.alt">
-        <div class="mt-2 mb-1">
+        <div class="mb-1 mt-2">
           {{ item.alt }}
         </div>
         <div class="text-xs text-gray-400">
@@ -100,14 +100,17 @@ export default {
     transform: translateX(-50%);
   }
 }
+
 .border-image {
   @apply relative;
+
   &:hover,
   &:focus {
     &::before {
       animation: SidebarCreate_rainbowSlide 0.75s linear infinite;
     }
   }
+
   &::before {
     content: '';
     position: absolute;

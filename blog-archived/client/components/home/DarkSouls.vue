@@ -1,8 +1,8 @@
 <script>
-import MiniPrograms from './MiniPrograms'
 // import { wechat } from '@/assets/img/cloud'
 import wechatMyQrcode from '@/assets/img/wechat.jpg'
 import copyTextMixin from '@/mixins/copyTextMixin'
+import MiniPrograms from './MiniPrograms'
 
 export default {
   name: 'MySelf',
@@ -33,8 +33,8 @@ export default {
       <div class="text-xs">
         <div>
           Hosted on
-          <OutSideLink href="https://cloud.tencent.com/product/cdn">
-            Tencent Cloud CDN
+          <OutSideLink href="https://www.netlify.com/">
+            Netlify
           </OutSideLink>
         </div>
         <div>
@@ -43,7 +43,7 @@ export default {
             GitHub Actions
           </OutSideLink>
         </div>
-        <div class="line-through">
+        <!-- <div class="line-through">
           Powered by
           <OutSideLink href="https://docs.cloudbase.net/">
             CloudBase
@@ -52,7 +52,7 @@ export default {
           <OutSideLink href="https://www.serverless.com/">
             Serverless
           </OutSideLink>
-        </div>
+        </div> -->
         <div>
           Powered by
           <OutSideLink href="https://github.com/supabase/supabase">
@@ -151,7 +151,7 @@ export default {
           或者手动添加微信号：
         </div>
         <div
-          class="hover:bg-green-100 flex cursor-pointer items-center justify-center truncate rounded border border-solid border-gray-400 py-2"
+          class="flex cursor-pointer items-center justify-center truncate rounded border border-solid border-gray-400 py-2 hover:bg-green-100"
           @click="copyText('icebreaker1995')"
         >
           <span class="text-gray-900">
@@ -181,6 +181,7 @@ export default {
 <style lang="scss" scoped>
 .a-dark-soul {
   @apply text-sm text-fg-default;
+
   .npx-command {
     @apply relative flex
               cursor-pointer
@@ -191,10 +192,13 @@ export default {
               border-[#cccccc] py-2 pl-3
               pr-5
               text-white/80 hover:border-[#00C642] hover:bg-[rgb(219,255,219)] hover:text-black/80;
+
     .copy-icon {
       @apply absolute right-1 opacity-0 transition-opacity;
+
       //
     }
+
     &:hover {
       .copy-icon {
         @apply opacity-100;
