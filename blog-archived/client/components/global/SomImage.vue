@@ -1,20 +1,6 @@
 <script>
 import { mapActions } from 'vuex'
-import { isCloudbaseUrl } from '@/utils/validate'
 
-const watch = {}
-if (process.client) {
-  watch.src = {
-    async handler(src) {
-      let tSrc = src
-      if (isCloudbaseUrl(tSrc)) {
-        tSrc = await this.getSingleUrl(tSrc)
-      }
-      this.innerSrc = tSrc
-    },
-    immediate: true,
-  }
-}
 export default {
   name: 'SomImage',
   props: {
@@ -59,7 +45,6 @@ export default {
       return obj
     },
   },
-  watch,
   methods: {
     ...mapActions('user', ['getSingleUrl']),
   },
@@ -83,5 +68,3 @@ export default {
     </template>
   </el-image>
 </template>
-
-<style></style>

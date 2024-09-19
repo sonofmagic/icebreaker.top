@@ -25,30 +25,28 @@ export default {
 <template>
   <OutSideLink
     v-if="outSide"
-    class="rounded-md border border-border-default"
+    class="border-border-default rounded-md border"
     raw
     :href="to"
   >
-    <div class="px-4 py-4 shadow">
-      <div class="mb-3 text-2xl font-thin text-accent-fg hover:underline">
+    <div class="p-4 shadow">
+      <div class="text-accent-fg mb-3 text-2xl font-thin hover:underline">
         {{ title }}
       </div>
-      <div class="text-sm text-fg-muted">
+      <div class="text-fg-muted text-sm">
         {{ desc }}
       </div>
     </div>
   </OutSideLink>
 
-  <nuxt-link v-else :to="to" class="rounded-md border border-border-default">
-    <div class="px-4 py-4 shadow">
-      <div class="mb-3 text-2xl font-thin text-accent-fg hover:underline">
+  <nuxt-link v-else :to="to" class="border-border-default rounded-md border">
+    <div class="p-4 shadow">
+      <div class="text-accent-fg mb-3 text-2xl font-thin hover:underline">
         {{ title }}
       </div>
-      <div class="text-sm text-fg-muted">
+      <div class="text-fg-muted text-sm">
         {{ desc }}
       </div>
     </div>
   </nuxt-link>
 </template>
-
-<style lang="scss" scoped></style>

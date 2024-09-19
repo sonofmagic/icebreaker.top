@@ -1,6 +1,6 @@
 <script>
-import AppHeader from '@/components/layout/Header'
 import AppFooter from '@/components/layout/Footer'
+import AppHeader from '@/components/layout/Header'
 
 export default {
   name: 'CommonSlot',

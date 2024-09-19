@@ -34,5 +34,3 @@ export default {
     </slot>
   </div>
 </template>
-
-<style></style>

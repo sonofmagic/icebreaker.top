@@ -41,7 +41,7 @@ export default {
       if (
         localStorage.theme === 'dark'
         || (!('theme' in localStorage)
-        && window.matchMedia('(prefers-color-scheme: dark)').matches)
+          && window.matchMedia('(prefers-color-scheme: dark)').matches)
       ) {
         document.documentElement.classList.add('dark')
       }
@@ -55,9 +55,7 @@ export default {
 
 <template>
   <span class="flex items-center">
-    <span class="text-sm mr-4 font-semibold">Dark Mode</span>
+    <span class="mr-4 text-sm font-semibold">Dark Mode</span>
     <el-switch v-model="theme" />
   </span>
 </template>
-
-<style></style>
