@@ -37,12 +37,9 @@ export default {
   },
   methods: {
     setTheme(theme) {
-      // document.documentElement.setAttribute(LocalStorageKey.ThemeMode, theme)
       this.mode = theme
-
-      // localStorage.setItem(LocalStorageKey.ThemeMode, theme)
     },
-    toggleTheme() {
+    toggle() {
       if (this.isDark) {
         this.setTheme('light')
       }
@@ -50,16 +47,55 @@ export default {
         this.setTheme('dark')
       }
     },
+    toggleTheme(event) {
+      const isAppearanceTransition = typeof document !== 'undefined'
+        // @ts-expect-error: Transition API
+        && document.startViewTransition
+        && !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+      if (!isAppearanceTransition || !event) {
+        this.toggle()
+        return
+      }
+
+      const x = event.clientX
+      const y = event.clientY
+      const endRadius = Math.hypot(
+        Math.max(x, innerWidth - x),
+        Math.max(y, innerHeight - y),
+      )
+      const transition = document.startViewTransition(async () => {
+        this.toggle()
+        await this.$nextTick()
+      })
+
+      transition.ready.then(() => {
+        const clipPath = [
+          `circle(0px at ${x}px ${y}px)`,
+          `circle(${endRadius}px at ${x}px ${y}px)`,
+        ]
+        document.documentElement.animate(
+          {
+            clipPath: this.isDark
+              ? [...clipPath].reverse()
+              : clipPath,
+          },
+          {
+            duration: 400,
+            easing: 'ease-in',
+            pseudoElement: this.isDark
+              ? '::view-transition-old(root)'
+              : '::view-transition-new(root)',
+          },
+        )
+      })
+    },
   },
 }
 </script>
 
 <template>
   <div class="flex items-center text-xl">
-    <font-awesome-icon
-      class="cursor-pointer"
-      :icon="icon"
-      @click="toggleTheme"
-    />
+    <font-awesome-icon class="cursor-pointer" :icon="icon" @click="toggleTheme" />
   </div>
 </template>

@@ -36,10 +36,12 @@ export default {
 .land {
   height: 35vh;
 }
+
 .sea {
   background-color: #719dce;
   height: calc(65vh - 54px);
-  //width: 100vw;
+
+  // width: 100vw;
   .island {
     color: #5a4156;
     font-size: 25vw;
@@ -47,12 +49,14 @@ export default {
     font-weight: 500;
     margin-bottom: 13vw;
   }
+
   .end {
     font-size: 50px;
     font-weight: 500;
     color: #fff;
     margin-bottom: 5vh;
   }
+
   .back-btn {
     padding: 10px 16px;
     cursor: pointer;
