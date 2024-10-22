@@ -1,5 +1,10 @@
 <script>
 export default {
+  data() {
+    return {
+      mounted: false,
+    }
+  },
   computed: {
     mode() {
       return this.$store.state.theme
@@ -7,6 +12,10 @@ export default {
     theme({ mode }) {
       return mode === 'light' ? 'light' : 'dark_dimmed'
     },
+  },
+  mounted() {
+    this.mounted = true
+    import('giscus')
   },
 }
 </script>

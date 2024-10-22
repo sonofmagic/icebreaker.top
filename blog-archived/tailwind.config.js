@@ -1,6 +1,7 @@
 const { addIconSelectors } = require('@iconify/tailwind')
 const colors = require('tailwindcss/colors')
 const defaultTheme = require('tailwindcss/defaultTheme')
+const { themeTransitionPlugin } = require('theme-transition/tailwindcss')
 const extendColors = require('./client/assets/scss/expose/extendColors')
 /** @type {import('@types/tailwindcss/tailwind-config').TailwindConfig} */
 module.exports = {
@@ -193,6 +194,7 @@ module.exports = {
   plugins: [
     require('@tailwindcss/typography'),
     addIconSelectors(['line-md']),
+    themeTransitionPlugin(),
   ],
   content: [
     'content/**/*.md',

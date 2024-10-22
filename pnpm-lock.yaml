@@ -359,6 +359,9 @@ importers:
       tailwindcss-patch:
         specifier: ^4.0.0
         version: 4.0.0(magicast@0.3.5)(tailwindcss@3.4.14(ts-node@10.9.2(@types/node@22.7.7)(typescript@5.6.3)))
+      theme-transition:
+        specifier: ^0.0.4
+        version: 0.0.4
       unplugin-tailwindcss-mangle:
         specifier: ^3.0.1
         version: 3.0.1(magicast@0.3.5)(rollup@4.22.0)(webpack-sources@3.2.3)
@@ -9898,6 +9901,9 @@ packages:
 
   text-table@0.2.0:
     resolution: {integrity: sha512-N+8UisAXDGk8PFXP4HAzVR9nbfmVJ3zYLAWiTIoqC5v5isinhr+r5uaO8+7r3BMfuNIufIsA7RdpVgacC2cSpw==}
+
+  theme-transition@0.0.4:
+    resolution: {integrity: sha512-Tu6NIKYH1aa1Grl+dGGdoR8+CtLVMNEJVY1xi2uypVEdjGBwv+LU52uEx4npQqWWP4q0NHKTK7JxUFhvpM1mRw==}
 
   thenify-all@1.6.0:
     resolution: {integrity: sha512-RNxQH/qI8/t3thXJDwcstUO4zeqo64+Uy/+sNVRBx4Xn2OX+OZ9oP+iJnNFqplFra2ZUVeKCSa2oVWi3T4uVmA==}
@@ -22933,6 +22939,8 @@ snapshots:
       utrie: 1.0.2
 
   text-table@0.2.0: {}
+
+  theme-transition@0.0.4: {}
 
   thenify-all@1.6.0:
     dependencies:

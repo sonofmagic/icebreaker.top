@@ -1,5 +1,7 @@
 <script>
 import { LocalStorageKey } from '@/enum/user'
+import { useToggleDark } from 'theme-transition'
+
 // :class="[isDark ? 'text-white' : 'text-white']"
 export default {
   data() {
@@ -35,6 +37,22 @@ export default {
       return isDark ? ['fas', 'sun'] : ['fas', 'moon']
     },
   },
+  created() {
+    if (!process.server) {
+      const { toggleDark } = useToggleDark({
+        getDarkValue: () => {
+          return this.isDark
+        },
+        toggle: this.toggle,
+        viewTransition: {
+          after: async () => {
+            await this.$nextTick()
+          },
+        },
+      })
+      this.toggleDark = toggleDark
+    }
+  },
   methods: {
     setTheme(theme) {
       this.mode = theme
@@ -48,47 +66,7 @@ export default {
       }
     },
     toggleTheme(event) {
-      const isAppearanceTransition = typeof document !== 'undefined'
-        // @ts-expect-error: Transition API
-        && document.startViewTransition
-        && !window.matchMedia('(prefers-reduced-motion: reduce)').matches
-
-      if (!isAppearanceTransition || !event) {
-        this.toggle()
-        return
-      }
-
-      const x = event.clientX
-      const y = event.clientY
-      const endRadius = Math.hypot(
-        Math.max(x, innerWidth - x),
-        Math.max(y, innerHeight - y),
-      )
-      const transition = document.startViewTransition(async () => {
-        this.toggle()
-        await this.$nextTick()
-      })
-
-      transition.ready.then(() => {
-        const clipPath = [
-          `circle(0px at ${x}px ${y}px)`,
-          `circle(${endRadius}px at ${x}px ${y}px)`,
-        ]
-        document.documentElement.animate(
-          {
-            clipPath: this.isDark
-              ? [...clipPath].reverse()
-              : clipPath,
-          },
-          {
-            duration: 400,
-            easing: 'ease-in',
-            pseudoElement: this.isDark
-              ? '::view-transition-old(root)'
-              : '::view-transition-new(root)',
-          },
-        )
-      })
+      this.toggleDark(event)
     },
   },
 }
