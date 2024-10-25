@@ -5,8 +5,8 @@
 import fs from 'node:fs'
 
 import dotenv from 'dotenv'
-import { sitemap } from './nuxt.config/index'
 import { isProd, isRelease } from './constants.js'
+import { sitemap } from './nuxt.config/index'
 
 console.log('[NODE_ENV]:', process.env.NODE_ENV)
 dotenv.config()
@@ -289,7 +289,7 @@ const config = {
     // quiet: true,
     extractCSS: isProd,
     // optimizeCSS: isProd,
-    transpile: [/^element-ui/, /vant.*?less/, /echarts/, /zrender/, /giscus/, /@lit\/reactive-element/, /lit-html/, /lit-element/],
+    transpile: [/^element-ui/, /vant.*?less/, /echarts/, /zrender/, /giscus/, /@lit[/\\]reactive-element/, /lit-html/, /lit-element/],
     loaders: {
       scss: {
         // https://github.com/sass/dart-sass/issues/1324
