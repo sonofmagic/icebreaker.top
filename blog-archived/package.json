@@ -27,7 +27,7 @@
     "@nuxt/content": "^1.15.1",
     "@nuxtjs/feed": "^2.0.0",
     "@nuxtjs/proxy": "^2.1.0",
-    "@nuxtjs/sitemap": "^2.4.0",
+    "@nuxtjs/sitemap": "^6.0.0",
     "@nuxtjs/tailwindcss": "^6.12.2",
     "@popperjs/core": "^2.11.8",
     "@tailwindcss/typography": "^0.5.15",
