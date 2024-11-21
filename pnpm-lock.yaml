@@ -303,8 +303,8 @@ importers:
         specifier: ^1.7.2
         version: 1.7.2(vue@2.7.16)
       babel-loader:
-        specifier: ^8.4.1
-        version: 8.4.1(@babel/core@7.24.9)(webpack@4.47.0)
+        specifier: ^9.0.0
+        version: 9.2.1(@babel/core@7.24.9)(webpack@4.47.0)
       babel-plugin-component:
         specifier: ^1.1.1
         version: 1.1.1
@@ -2146,6 +2146,7 @@ packages:
   '@koa/router@12.0.1':
     resolution: {integrity: sha512-ribfPYfHb+Uw3b27Eiw6NPqjhIhTpVFzEWLwyc/1Xp+DCdwRRyIlAUODX+9bPARF6aQtUu1+/PHzdNvRzcs/+Q==}
     engines: {node: '>= 12'}
+    deprecated: Use v12.0.2 or higher to fix the vulnerability issue
 
   '@kwsites/file-exists@1.1.1':
     resolution: {integrity: sha512-m9/5YGR18lIwxSFDwfE3oA7bWuq9kdau6ugN4H2rJeyhFQZcG9AgSHkQtSD15a8WvTgfz9aikZMrKPHvbpqFiw==}
@@ -3605,6 +3606,13 @@ packages:
       '@babel/core': ^7.0.0
       webpack: '>=2'
 
+  babel-loader@9.2.1:
+    resolution: {integrity: sha512-fqe8naHt46e0yIdkjUZYqddSXfej3AHajX+CSO5X7oy0EmPc6o5Xh+RClNoHjnieWz9AW4kZxW9yyFMhVB1QLA==}
+    engines: {node: '>= 14.15.0'}
+    peerDependencies:
+      '@babel/core': ^7.12.0
+      webpack: '>=5'
+
   babel-plugin-component@1.1.1:
     resolution: {integrity: sha512-WUw887kJf2GH80Ng/ZMctKZ511iamHNqPhd9uKo14yzisvV7Wt1EckIrb8oq/uCz3B3PpAW7Xfl7AkTLDYT6ag==}
 
@@ -4093,6 +4101,9 @@ packages:
   comment-parser@1.4.1:
     resolution: {integrity: sha512-buhp5kePrmda3vhc5B9t7pUQXAb2Tnd0qgpkIhPhkHXxJpiPJ11H0ZEU0oBpJ2QztSbzG/ZxMj/CHsYJqRHmyg==}
     engines: {node: '>= 12.0.0'}
+
+  common-path-prefix@3.0.0:
+    resolution: {integrity: sha512-QE33hToZseCH3jS0qN96O/bSh3kaw/h+Tq7ngyY9eWDUnTlTNUyqfqvCXioLe5Na5jFsL78ra/wuBU4iuEgd4w==}
 
   commondir@1.0.1:
     resolution: {integrity: sha512-W9pAhw0ja1Edb5GVdIF1mjZw/ASI0AlShXM83UUGe2DVr5TdAPEA1OA8m/g8zWp9x6On7gqufY+FatDbC3MDQg==}
@@ -5529,6 +5540,10 @@ packages:
     resolution: {integrity: sha512-wXZV5emFEjrridIgED11OoUKLxiYjAcqot/NJdAkOhlJ+vGzwhOAfcG5OX1jP+S0PcjEn8bdMJv+g2jwQ3Onig==}
     engines: {node: '>=8'}
 
+  find-cache-dir@4.0.0:
+    resolution: {integrity: sha512-9ZonPT4ZAK4a+1pUPVPZJapbi7O5qbbJPdYw/NOQWZZbVLdDTYM3A4R9z/DpAM08IDaFGsvPgiGZ82WEwUDWjg==}
+    engines: {node: '>=14.16'}
+
   find-up-simple@1.0.0:
     resolution: {integrity: sha512-q7Us7kcjj2VMePAa02hDAF6d+MzsdsAWEwYyOpwUtlerRBkOEPBCRZrAV4XfcSN8fHAgaD0hP7miwoay6DCprw==}
     engines: {node: '>=18'}
@@ -5544,6 +5559,10 @@ packages:
   find-up@5.0.0:
     resolution: {integrity: sha512-78/PXT1wlLLDgTzDs7sjq9hzz0vXD+zn+7wypEe4fXQxCmdmqfGsEPQxmiCSQI3ajFV91bVSsvNtrJRiW6nGng==}
     engines: {node: '>=10'}
+
+  find-up@6.3.0:
+    resolution: {integrity: sha512-v2ZsoEuVHYy8ZIlYqwPe/39Cy+cFDzp4dXPaxNvkEuouymu+2Jbz0PxpKarJHYJTmv2HWT3O382qY8l4jMWthw==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
 
   find-up@7.0.0:
     resolution: {integrity: sha512-YyZM99iHrqLKjmt4LJDj58KI+fYyufRLBSYcqycxf//KpBk9FoewoGX0450m9nB44qrZnovzC2oeP5hUibxc/g==}
@@ -8029,6 +8048,10 @@ packages:
   pkg-dir@4.2.0:
     resolution: {integrity: sha512-HRDzbaKjC+AOWVXxAU/x54COGeIv9eb+6CkDSQoNTt4XyWoIJvuPsXizxu/Fr23EiekbtZwmh1IcIG/l/a10GQ==}
     engines: {node: '>=8'}
+
+  pkg-dir@7.0.0:
+    resolution: {integrity: sha512-Ie9z/WINcxxLp27BKOCHGde4ITq9UklYKDzVo1nhk5sqGEXU3FpkwP5GM2voTGJkGd9B3Otl+Q4uwSOeSUtOBA==}
+    engines: {node: '>=14.16'}
 
   pkg-types@1.2.1:
     resolution: {integrity: sha512-sQoqa8alT3nHjGuTjuKgOnvjo4cljkufdtLMnO2LBP/wRwuDlo1tkaEdMxCRhyGRPacv/ztlZgDPm2b7FAmEvw==}
@@ -15401,6 +15424,13 @@ snapshots:
       schema-utils: 2.7.1
       webpack: 4.47.0
 
+  babel-loader@9.2.1(@babel/core@7.24.9)(webpack@4.47.0):
+    dependencies:
+      '@babel/core': 7.24.9
+      find-cache-dir: 4.0.0
+      schema-utils: 4.2.0
+      webpack: 4.47.0
+
   babel-plugin-component@1.1.1:
     dependencies:
       '@babel/helper-module-imports': 7.0.0-beta.35
@@ -16012,6 +16042,8 @@ snapshots:
       repeat-string: 1.6.1
 
   comment-parser@1.4.1: {}
+
+  common-path-prefix@3.0.0: {}
 
   commondir@1.0.1: {}
 
@@ -17711,6 +17743,11 @@ snapshots:
       make-dir: 3.1.0
       pkg-dir: 4.2.0
 
+  find-cache-dir@4.0.0:
+    dependencies:
+      common-path-prefix: 3.0.0
+      pkg-dir: 7.0.0
+
   find-up-simple@1.0.0: {}
 
   find-up@3.0.0:
@@ -17726,6 +17763,11 @@ snapshots:
     dependencies:
       locate-path: 6.0.0
       path-exists: 4.0.0
+
+  find-up@6.3.0:
+    dependencies:
+      locate-path: 7.2.0
+      path-exists: 5.0.0
 
   find-up@7.0.0:
     dependencies:
@@ -20777,6 +20819,10 @@ snapshots:
   pkg-dir@4.2.0:
     dependencies:
       find-up: 4.1.0
+
+  pkg-dir@7.0.0:
+    dependencies:
+      find-up: 6.3.0
 
   pkg-types@1.2.1:
     dependencies:
