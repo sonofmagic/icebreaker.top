@@ -55,7 +55,7 @@
     "uuid": "^10.0.0",
     "vant": "^2.12.39",
     "vue": "^2.7",
-    "vue-echarts": "6.6.1",
+    "vue-echarts": "6.7.3",
     "vue-frame-selection": "^1.0.1",
     "vue-relation-graph": "1.0.0",
     "vue-router": "^3",
