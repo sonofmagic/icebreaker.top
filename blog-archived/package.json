@@ -83,7 +83,7 @@
     "postcss": "^8.4.49",
     "reading-time": "^1.5.0",
     "sass": "1.83.0",
-    "sass-loader": "^10.0.0",
+    "sass-loader": "^16.0.0",
     "speed-measure-webpack-plugin": "^1.5.0",
     "tailwind-config-viewer": "^2.0.4",
     "tailwind-css-variables-theme-generator": "^0.4.0",
