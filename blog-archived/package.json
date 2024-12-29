@@ -24,7 +24,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@fortawesome/vue-fontawesome": "^2.0.9",
     "@giscus/vue": "^3.0.0",
-    "@nuxt/content": "^1.15.1",
+    "@nuxt/content": "^2.0.0",
     "@nuxtjs/feed": "^2.0.0",
     "@nuxtjs/proxy": "^2.1.0",
     "@nuxtjs/sitemap": "^2.4.0",
