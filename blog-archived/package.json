@@ -54,7 +54,7 @@
     "svg4everybody": "^2.1.9",
     "uuid": "^10.0.0",
     "vant": "^2.12.39",
-    "vue": "^2.7",
+    "vue": "^3.0.0",
     "vue-echarts": "6.6.1",
     "vue-frame-selection": "^1.0.1",
     "vue-relation-graph": "1.0.0",
