@@ -256,10 +256,10 @@ const config = {
           // const { name, domain } = category;
           category: Array.isArray(article.tags)
             ? article.tags.map((x) => {
-              return {
-                name: x,
-              }
-            })
+                return {
+                  name: x,
+                }
+              })
             : [],
         })
       })
@@ -297,6 +297,7 @@ const config = {
         additionalData: '@use "@/assets/scss/variables.scss" as *;',
         sassOptions: {
           quietDeps: true,
+          silenceDeprecations: ['legacy-js-api', 'import', 'color-functions'],
         },
       },
       less: {
