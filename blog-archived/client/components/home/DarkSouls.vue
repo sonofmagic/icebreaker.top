@@ -128,7 +128,7 @@ export default {
         /> -->
       </div>
     </div>
-    <div class="space-y-2">
+    <!-- <div class="space-y-2">
       <div class="flex font-semibold">
         <div
           class="cursor-pointer hover:underline"
@@ -140,7 +140,7 @@ export default {
       <div>
         <MiniPrograms />
       </div>
-    </div>
+    </div> -->
     <SomPopup v-model="icebreakerQrcodeVisible">
       <div class="px-4 text-center">
         <div class="text-gray-900 text-opacity-75">
