@@ -197,8 +197,8 @@ importers:
         specifier: ^2.0.3
         version: 2.0.3
       axios:
-        specifier: ^1.8.1
-        version: 1.8.1
+        specifier: ^1.8.2
+        version: 1.8.2
       copy-text-to-clipboard:
         specifier: ^3.2.0
         version: 3.2.0
@@ -360,8 +360,8 @@ importers:
         specifier: ^7.0.2
         version: 7.0.2(magicast@0.3.5)(tailwindcss@3.4.17(ts-node@10.9.2(@types/node@22.13.9)(typescript@5.8.2)))
       theme-transition:
-        specifier: ^0.0.5
-        version: 0.0.5
+        specifier: ^1.0.1
+        version: 1.0.1
       unplugin-tailwindcss-mangle:
         specifier: ^4.0.10
         version: 4.0.10(magicast@0.3.5)(rollup@4.34.9)
@@ -3457,8 +3457,8 @@ packages:
     resolution: {integrity: sha512-Xm7bpRXnDSX2YE2YFfBk2FnF0ep6tmG7xPh8iHee8MIcrgq762Nkce856dYtJYLkuIoYZvGfTs/PbZhideTcEg==}
     engines: {node: '>=4'}
 
-  axios@1.8.1:
-    resolution: {integrity: sha512-NN+fvwH/kV01dYUQ3PTOZns4LWtWhOFCAhQ/pHb88WQ1hNe5V/dvFwc4VJcDL11LT9xSX0QtsR8sWUuyOuOq7g==}
+  axios@1.8.2:
+    resolution: {integrity: sha512-ls4GYBm5aig9vWx8AWDSGLpnpDQRtWAfrjU+EuytuODrFBkqesN2RkOQCBzrA1RQNHw1SmRMSDDDSwzNAYQ6Rg==}
 
   axobject-query@4.1.0:
     resolution: {integrity: sha512-qIj0G9wZbMGNLjLmg1PT6v2mE9AH2zlnADJD/2tC6E00hgmhUOfEB6greHPAfLRSufHqROIUTkw6E+M3lH0PTQ==}
@@ -9878,8 +9878,8 @@ packages:
   text-segmentation@1.0.3:
     resolution: {integrity: sha512-iOiPUo/BGnZ6+54OsWxZidGCsdU8YbE4PSpdPinp7DeMtUJNJBoJ/ouUSTJjHkh1KntHaltHl/gDs2FC4i5+Nw==}
 
-  theme-transition@0.0.5:
-    resolution: {integrity: sha512-KTC0xWDXfk2Uurd9sPs0X3rp6pmKIKdiNPoDl3lCnIXH1VMnDT9eF1tWwj/+dtSGnT8yJBf+O9I7jkJr+UM/9w==}
+  theme-transition@1.0.1:
+    resolution: {integrity: sha512-YFVhAAJpGsiKIhft76zp/QZoQgw2IC7qUMQIXg6pOHmigMQ6AywcIKB3RGc2gfFIOQ6/AodWX6thv+0yIq9Khw==}
 
   thenify-all@1.6.0:
     resolution: {integrity: sha512-RNxQH/qI8/t3thXJDwcstUO4zeqo64+Uy/+sNVRBx4Xn2OX+OZ9oP+iJnNFqplFra2ZUVeKCSa2oVWi3T4uVmA==}
@@ -15211,7 +15211,7 @@ snapshots:
 
   axe-core@4.10.3: {}
 
-  axios@1.8.1:
+  axios@1.8.2:
     dependencies:
       follow-redirects: 1.15.9
       form-data: 4.0.2
@@ -22902,7 +22902,7 @@ snapshots:
     dependencies:
       utrie: 1.0.2
 
-  theme-transition@0.0.5: {}
+  theme-transition@1.0.1: {}
 
   thenify-all@1.6.0:
     dependencies:

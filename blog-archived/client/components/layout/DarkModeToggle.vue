@@ -1,6 +1,6 @@
 <script>
 import { LocalStorageKey } from '@/enum/user'
-import { useToggleDark } from 'theme-transition'
+import { useToggleTheme } from 'theme-transition'
 
 // :class="[isDark ? 'text-white' : 'text-white']"
 export default {
@@ -39,8 +39,8 @@ export default {
   },
   created() {
     if (!process.server) {
-      const { toggleDark } = useToggleDark({
-        getDarkValue: () => {
+      const { toggleTheme } = useToggleTheme({
+        isCurrentDark: () => {
           return this.isDark
         },
         toggle: this.toggle,
@@ -50,7 +50,7 @@ export default {
           },
         },
       })
-      this.toggleDark = toggleDark
+      this.toggleTheme = toggleTheme
     }
   },
   methods: {
@@ -66,7 +66,7 @@ export default {
       }
     },
     toggleTheme(event) {
-      this.toggleDark(event)
+      this.toggleTheme(event)
     },
   },
 }
