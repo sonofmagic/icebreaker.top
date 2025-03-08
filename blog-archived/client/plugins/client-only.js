@@ -1,10 +1,10 @@
 // import Vue from 'vue'
 
-import mobile from 'is-mobile'
-import svg4everybody from 'svg4everybody'
-
 // import Aegis from 'aegis-web-sdk'
 import { LocalStorageKey } from '@/enum/user'
+import mobile from 'is-mobile'
+
+import svg4everybody from 'svg4everybody'
 
 svg4everybody()
 
@@ -29,3 +29,37 @@ export default (ctx) => {
   ctx.store.dispatch('device/setIsMobile', isMobile)
   // inject('aegis', aegis)
 }
+
+const baseUrls = ['fastly.jsdelivr.net', 'gcore.jsdelivr.net', 'cdn.jsdelivr.net']
+
+const offsetWeakMap = new WeakMap()
+
+window.addEventListener(
+  'error',
+  (event) => {
+    const dom = event.target
+    if (!/img/i.test(dom.nodeName)) {
+      return
+    }
+    const src = dom.src
+    const isJsdelivr = /jsdelivr\.net/.test(src)
+    if (isJsdelivr) {
+      let offset = offsetWeakMap.get(dom) ?? 0
+      if (offset < baseUrls.length) {
+        const url = new URL(src)
+        for (let i = offset; i < baseUrls.length; i++) {
+          const baseUrl = baseUrls[i]
+          if (url.hostname === baseUrl) {
+            continue
+          }
+          url.hostname = baseUrl
+          offset++
+          dom.src = url
+          offsetWeakMap.set(dom, offset)
+          break
+        }
+      }
+    }
+  },
+  true,
+)
