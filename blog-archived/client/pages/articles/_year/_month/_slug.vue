@@ -128,38 +128,37 @@ export default {
               <tags :tags="tags" />
             </div>
 
-            <div class="flex space-x-4 self-end md:min-w-[240px]">
+            <div class="flex md:min-w-[240px] md:justify-end">
               <div class="whitespace-no-wrap text-xs">
                 共{{ article.readingWords }}个字，阅读时间
                 {{ article.readingMinutes }} 分钟
               </div>
             </div>
           </div>
-          <div class="text-xs">
-            <div>
-              版权声明：本文为博主原创文章，遵循
-              <a
-                href="http://creativecommons.org/licenses/by-sa/4.0/"
-                target="_blank"
-                rel="noopener"
-                class="text-accent-fg underline"
-              >
-                CC 4.0 BY-SA
-              </a>
-              版权协议，转载请附上原文出处链接和本声明。
-            </div>
-            <div class="article-source-link">
-              本文链接：
-              <a class="text-accent-fg underline" :href="href" target="_blank">
-                {{ href }}
-              </a>
-            </div>
-          </div>
         </div>
         <!-- 不让爬虫爬了，降低风险 -->
         <!-- <ClientOnly> -->
         <nuxt-content class="compose-nuxt-content" :document="article" />
-
+        <div class="text-xs">
+          <div>
+            版权声明：本文为博主原创文章，遵循
+            <a
+              href="http://creativecommons.org/licenses/by-sa/4.0/"
+              target="_blank"
+              rel="noopener"
+              class="text-accent-fg underline"
+            >
+              CC 4.0 BY-SA
+            </a>
+            版权协议，转载请附上原文出处链接和本声明。
+          </div>
+          <div class="article-source-link">
+            本文链接：
+            <a class="text-accent-fg underline" :href="href" target="_blank">
+              {{ href }}
+            </a>
+          </div>
+        </div>
         <!-- </ClientOnly> -->
         <!-- END -->
       </div>
