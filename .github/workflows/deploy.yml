@@ -36,16 +36,28 @@ jobs:
       - name: Build Site
         working-directory: blog-archived
         run: pnpm build
-      - name: Deploy to Netlify
-        uses: nwtgck/actions-netlify@v3.0
+      # - name: Deploy to Netlify
+      #   uses: nwtgck/actions-netlify@v3.0
+      #   with:
+      #     publish-dir: blog-archived/dist
+      #     production-branch: master
+      #     # github-token: ${{ secrets.PERSONAL_TOKEN }}
+      #     deploy-message: Deploy from GitHub Actions
+      #     enable-pull-request-comment: false
+      #     enable-commit-comment: true
+      #     overwrites-pull-request-comment: true
+      #   env:
+      #     NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+      #     NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+      - name: Deploy to Cloudflare Pages
+        id: deploy
+        uses: cloudflare/wrangler-action@v3
+        
         with:
-          publish-dir: blog-archived/dist
-          production-branch: master
-          # github-token: ${{ secrets.PERSONAL_TOKEN }}
-          deploy-message: Deploy from GitHub Actions
-          enable-pull-request-comment: false
-          enable-commit-comment: true
-          overwrites-pull-request-comment: true
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }} 
+          workingDirectory: blog-archived
+          command: pages deploy dist --project-name=blog
+      - name: print deployment-url
         env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          DEPLOYMENT_URL: ${{ steps.deploy.outputs.deployment-url }}
+        run: echo $DEPLOYMENT_URL    
