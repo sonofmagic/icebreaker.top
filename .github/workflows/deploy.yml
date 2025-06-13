@@ -3,13 +3,13 @@ name: Deploy
 on:
   workflow_dispatch:
   # add webhook
-  repository_dispatch:
-    types:
-      - webhook
-  push:
-    branches:
-      - main
-      - master
+  # repository_dispatch:
+  #   types:
+  #     - webhook
+  # push:
+  #   branches:
+  #     - main
+  #     - master
 
 jobs:
   build:
