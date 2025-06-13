@@ -55,8 +55,7 @@ jobs:
         
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }} 
-          workingDirectory: blog-archived
-          command: pages deploy dist --project-name=blog
+          command: pages deploy blog-archived/dist --project-name=blog
       - name: print deployment-url
         env:
           DEPLOYMENT_URL: ${{ steps.deploy.outputs.deployment-url }}
