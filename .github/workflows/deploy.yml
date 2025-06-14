@@ -3,13 +3,13 @@ name: Deploy
 on:
   workflow_dispatch:
   # add webhook
-  # repository_dispatch:
-  #   types:
-  #     - webhook
-  # push:
-  #   branches:
-  #     - main
-  #     - master
+  repository_dispatch:
+    types:
+      - webhook
+  push:
+    branches:
+      - main
+      - master
 
 jobs:
   build:
@@ -55,7 +55,7 @@ jobs:
         
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }} 
-          command: pages deploy blog-archived/dist --project-name=blog
+          command: pages deploy blog-archived/dist --project-name=icebreaker-blog
       - name: print deployment-url
         env:
           DEPLOYMENT_URL: ${{ steps.deploy.outputs.deployment-url }}
