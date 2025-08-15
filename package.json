@@ -81,6 +81,16 @@
       "vue-template-compiler": "^2.7"
     },
     "onlyBuiltDependencies": [
+      "@parcel/watcher",
+      "@tailwindcss/oxide",
+      "core-js",
+      "esbuild",
+      "fsevents",
+      "nuxt",
+      "sharp",
+      "unrs-resolver",
+      "vue-demi",
+      "vue-echarts",
       "workerd"
     ]
   },
