@@ -44,3 +44,6 @@ next-env.d.ts
 !.dev.vars.example
 .env*
 !.env.example
+
+# https://fumadocs.dev/docs/ui/manual-installation
+.source
