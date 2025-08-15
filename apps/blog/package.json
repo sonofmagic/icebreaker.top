@@ -1,37 +1,38 @@
 {
-	"name": "blog",
-	"version": "0.1.0",
-	"private": true,
-	"scripts": {
-		"dev": "next dev --turbopack",
-		"build": "next build",
-		"start": "next start",
-		"lint": "next lint",
-		"deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
-		"preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
-		"cf-typegen": "wrangler types --env-interface CloudflareEnv ./cloudflare-env.d.ts",
-		"postinstall": "fumadocs-mdx"
-	},
-	"dependencies": {
-		"@opennextjs/cloudflare": "^1.6.5",
-		"@types/mdx": "^2.0.13",
-		"fumadocs-core": "^15.6.10",
-		"fumadocs-mdx": "^11.7.5",
-		"fumadocs-ui": "^15.6.10",
-		"next": "15.4.6",
-		"react": "19.1.1",
-		"react-dom": "19.1.1"
-	},
-	"devDependencies": {
-		"@eslint/eslintrc": "^3",
-		"@tailwindcss/postcss": "^4",
-		"@types/node": "^20.19.10",
-		"@types/react": "^19",
-		"@types/react-dom": "^19",
-		"eslint": "^9",
-		"eslint-config-next": "15.4.6",
-		"tailwindcss": "^4",
-		"typescript": "^5",
-		"wrangler": "^4.30.0"
-	}
+  "name": "blog",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
+    "cf-typegen": "wrangler types --env-interface CloudflareEnv ./cloudflare-env.d.ts",
+    "postinstall": "fumadocs-mdx",
+    "sync": "tsx scripts/sync.ts"
+  },
+  "dependencies": {
+    "@opennextjs/cloudflare": "^1.6.5",
+    "@types/mdx": "^2.0.13",
+    "fumadocs-core": "^15.6.10",
+    "fumadocs-mdx": "^11.7.5",
+    "fumadocs-ui": "^15.6.10",
+    "next": "15.4.6",
+    "react": "19.1.1",
+    "react-dom": "19.1.1"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20.19.10",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "15.4.6",
+    "tailwindcss": "^4",
+    "typescript": "^5",
+    "wrangler": "^4.30.0"
+  }
 }

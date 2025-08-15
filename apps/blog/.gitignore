@@ -47,3 +47,5 @@ next-env.d.ts
 
 # https://fumadocs.dev/docs/ui/manual-installation
 .source
+
+content/articles
