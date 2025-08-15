@@ -1,10 +1,10 @@
 // import Vue from 'vue'
 
+import mobile from 'is-mobile'
+import svg4everybody from 'svg4everybody'
+
 // import Aegis from 'aegis-web-sdk'
 import { LocalStorageKey } from '@/enum/user'
-import mobile from 'is-mobile'
-
-import svg4everybody from 'svg4everybody'
 
 svg4everybody()
 

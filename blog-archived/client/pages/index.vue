@@ -1,9 +1,9 @@
 <script>
-import DarkSouls from '@/components/home/DarkSouls.vue'
 import { getPageList } from '@/api/article'
 import DarkArticleCard from '@/components/article/DarkArticleCard.vue'
-import SidebarFooter from '@/components/layout/SidebarFooter'
 import CommentArea from '@/components/comment/Area.vue'
+import DarkSouls from '@/components/home/DarkSouls.vue'
+import SidebarFooter from '@/components/layout/SidebarFooter'
 // import DarkParadise from '@/components/common/Comments/dark/DarkParadise.vue'
 
 export default {
@@ -81,7 +81,7 @@ export default {
 
 <template>
   <div class="application-main flex min-h-screen flex-col md:flex-row">
-    <aside class="team-left-column flex-shrink-0">
+    <aside class="team-left-column shrink-0">
       <div class="sticky-column">
         <div class="hover-scroll-bar sticky-column-inner">
           <DarkSouls />

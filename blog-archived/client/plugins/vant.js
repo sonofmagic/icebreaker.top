@@ -1,20 +1,20 @@
-import Vue from 'vue'
 import {
-  Popup,
-  Dialog,
-  Toast,
+  Button,
   Cell,
   CellGroup,
-  Tag,
-  NoticeBar,
-  Icon,
-  Uploader,
-  Button,
+  Dialog,
   Grid,
   GridItem,
+  Icon,
   Image,
   Loading,
+  NoticeBar,
+  Popup,
+  Tag,
+  Toast,
+  Uploader,
 } from 'vant'
+import Vue from 'vue'
 
 const coms = [
   Popup,

@@ -5,9 +5,9 @@ import b2 from '@/assets/img/mini/b2.jpg'
 import b3 from '@/assets/img/mini/b3.jpg'
 import b4 from '@/assets/img/mini/b4.jpg'
 import icebreaker from '@/assets/img/mini/icebreaker.jpg'
+import icestack from '@/assets/img/mini/icestack.jpg'
 import programerCard from '@/assets/img/mini/programer-card.jpg'
 import tailwindcss from '@/assets/img/mini/tailwindcss.jpg'
-import icestack from '@/assets/img/mini/icestack.jpg'
 
 const alts = [
   '股加融资计算器',
@@ -48,7 +48,7 @@ export default {
   <div class="container mx-auto py-4">
     <div class="grid grid-cols-3 place-items-center gap-2">
       <div v-for="img in imgs" :key="img.url">
-        <img class="h-56 w-56" :src="img.url" :alt="img.alt">
+        <img class="size-56" :src="img.url" :alt="img.alt">
         <div class="mt-1.5 text-center">
           {{ img.alt }}
         </div>

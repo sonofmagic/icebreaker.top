@@ -135,10 +135,10 @@ const config = {
       src: '@/plugins/client-only.js',
       mode: 'client',
     },
-    {
-      src: '@/plugins/server-only.js',
-      mode: 'server',
-    },
+    // {
+    //   src: '@/plugins/server-only.js',
+    //   mode: 'server',
+    // },
     // {
     //   src: '@/plugins/cloudbase/client.js',
     //   mode: 'client',

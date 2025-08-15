@@ -1,4 +1,5 @@
 import { passwordPattern } from './validate'
+
 export const passwordRule = [
   {
     required: true,
@@ -17,7 +18,8 @@ export const passwordRule = [
     validator(rule, value, callback) {
       if (/\s/.test(value)) {
         callback(new Error('不能含有空格'))
-      } else {
+      }
+      else {
         callback()
       }
     },

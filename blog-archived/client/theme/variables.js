@@ -13,9 +13,11 @@ export class ThemeVariablesManager {
       return Object.entries(param).reduce((acc, [k, v]) => {
         if (typeof v === 'string') {
           this.setRootSingleVariable(k, v)
-        } else if (typeof v === 'object') {
+        }
+        else if (typeof v === 'object') {
           this.setRootSingleVariable(k, v.value, v.priority)
-        } else if (typeof v === 'function') {
+        }
+        else if (typeof v === 'function') {
           const value2 = this.getPropertyValue(k)
           const priority2 = this.getPropertyPriority(k)
           const { value, priority } = v({ value: value2, priority: priority2 })
@@ -71,7 +73,7 @@ export class ThemeVariablesManager {
   }
 }
 
-export const createGlobalThemeManager = () => {
+export function createGlobalThemeManager() {
   return new ThemeVariablesManager()
 }
 
@@ -79,7 +81,7 @@ export const createGlobalThemeManager = () => {
  *
  * @param {HTMLElement} dom
  */
-export const createDomThemeManager = (dom) => {
+export function createDomThemeManager(dom) {
   return new ThemeVariablesManager(dom)
 }
 

@@ -1,4 +1,4 @@
-export const state = () => {
+export function state() {
   return {
     isMobile: false,
   }
@@ -17,5 +17,5 @@ export const actions = {
 }
 
 export const getters = {
-  isMobile: (state) => state.isMobile,
+  isMobile: state => state.isMobile,
 }
