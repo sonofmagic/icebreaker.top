@@ -1,11 +1,24 @@
-import { defineDocs } from 'fumadocs-mdx/config';
-
+import { defineDocs, defineCollections } from 'fumadocs-mdx/config';
+// getDefaultMDXOptions
+// import { remarkImage } from 'fumadocs-core/mdx-plugins';
 export const docs = defineDocs({
   dir: 'content/docs',
 });
 
-export const articles = defineDocs({
+const articlesDocCollection = defineCollections({
   dir: 'content/articles',
+  type: 'doc',
+  // mdxOptions: {
+  //   ...getDefaultMDXOptions({
+  //     remarkPlugins: [
+  //       [remarkImage, { useImport: false }]
+  //     ]
+  //   }),
+  // },
+})
+
+export const articles = defineDocs({
+  docs: articlesDocCollection,
 })
 
 
