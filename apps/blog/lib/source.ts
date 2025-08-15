@@ -1,5 +1,5 @@
 // .source folder will be generated when you run `next dev`
-import { docs, articles } from '@/.source';
+import { docs } from '@/.source';
 import { loader } from 'fumadocs-core/source';
 export const docsSource = loader({
   baseUrl: '/docs',
@@ -7,7 +7,3 @@ export const docsSource = loader({
 });
 
 
-export const articlesSource = loader({
-  baseUrl: '/articles',
-  source: articles.toFumadocsSource(),
-});
