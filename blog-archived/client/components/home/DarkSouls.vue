@@ -1,7 +1,7 @@
 <script>
 // import { wechat } from '@/assets/img/cloud'
 import wechatMyQrcode from '@/assets/img/wechat.jpg'
-import copyTextMixin from '@/mixins/copyTextMixin'
+import copyText from 'copy-text-to-clipboard'
 import MiniPrograms from './MiniPrograms'
 
 export default {
@@ -9,18 +9,19 @@ export default {
   components: {
     MiniPrograms,
   },
-  mixins: [copyTextMixin],
   data() {
     const refs = {
       joy: '😂', // nameToEmoji.joy,
       rofl: '🤣', // nameToEmoji.rofl,
       smirk: '😏', // nameToEmoji.smirk,
-      icebreakerQrcodeVisible: false,
       icebreakerQrcodeUrl: wechatMyQrcode, // wechat.myQrcode2,
     }
 
     return refs
   },
+  methods:{
+    copyText
+  }
 }
 </script>
 
@@ -33,8 +34,8 @@ export default {
       <div class="text-xs">
         <div>
           Hosted on
-          <OutSideLink href="https://www.netlify.com/">
-            Netlify
+          <OutSideLink href="https://www.cloudflare.com/">
+            Cloudflare
           </OutSideLink>
         </div>
         <div>
@@ -43,47 +44,17 @@ export default {
             GitHub Actions
           </OutSideLink>
         </div>
-        <!-- <div class="line-through">
-          Powered by
-          <OutSideLink href="https://docs.cloudbase.net/">
-            CloudBase
-          </OutSideLink>
-          <span class="mx-0.5">&</span>
-          <OutSideLink href="https://www.serverless.com/">
-            Serverless
-          </OutSideLink>
-        </div> -->
-        <div>
-          Powered by
-          <OutSideLink href="https://github.com/supabase/supabase">
-            Supabase
-          </OutSideLink>
-          <span class="mx-0.5">&</span>
-          <OutSideLink href="https://www.docker.com/">
-            Docker
-          </OutSideLink>
-        </div>
       </div>
     </div>
     <div class="space-y-2">
       <div class="font-semibold">
         About
         <span
-          class="cursor-pointer hover:underline"
-          @click.stop="icebreakerQrcodeVisible = true"
         >
           icebreaker
         </span>
       </div>
       <div>
-        <!-- 执行下方命令就知道了 -->
-        <!-- <div>某热爱技术的打字员一枚</div>
-
-        <div>
-          对Vue/Nuxt,React,uni-app,小程序,nodejs,serverless等有较深入的理解
-        </div>
-        <div>擅长扯淡,吹牛,撕x</div> -->
-        <!-- <OutSideLink href="https://www.shareplus.cn/"></OutSideLink> -->
         <div class="mt-2 flex">
           <div class="npx-command" @click="copyText('npx sonofmagic@latest')">
             <span>
@@ -98,15 +69,6 @@ export default {
         </div>
       </div>
     </div>
-    <!-- <div class="space-y-2">
-      <div class="font-semibold">Languages</div>
-      <div>
-        <ul class="list-inside list-decimal">
-          <li>js/c#</li>
-          <li>中文/English</li>
-        </ul>
-      </div>
-    </div> -->
     <div class="space-y-2">
       <div class="font-semibold">
         Skills
@@ -118,14 +80,6 @@ export default {
           <li>技术文档,源码,发帖提问 {{ joy }}</li>
           <li>脸皮厚{{ rofl }}</li>
         </ul>
-
-        <!-- <FontAwesomeIcon
-          v-for="(icon, idx) in skills"
-          :key="idx"
-          size="2x"
-          :icon="icon"
-          class="mr-2 text-blue-400"
-        /> -->
       </div>
     </div>
     <div class="space-y-2">
@@ -141,30 +95,7 @@ export default {
         <MiniPrograms />
       </div>
     </div>
-    <SomPopup v-model="icebreakerQrcodeVisible">
-      <div class="px-4 text-center">
-        <div class="text-gray-900 text-opacity-75">
-          打开微信扫一扫以下二维码
-        </div>
-        <SomImage class="w-64" :src="icebreakerQrcodeUrl" />
-        <div class="mb-2 text-gray-900 text-opacity-75">
-          或者手动添加微信号：
-        </div>
-        <div
-          class="flex cursor-pointer items-center justify-center truncate rounded border border-solid border-gray-400 py-2 hover:bg-green-100"
-          @click="copyText('icebreaker1995')"
-        >
-          <span class="text-gray-900">
-            icebreaker1995
-            <FontAwesomeIcon
-              class="ml-2"
-              size="sm"
-              :icon="['far', 'copy']"
-            />
-          </span>
-        </div>
-      </div>
-    </SomPopup>
+
   </div>
 </template>
 

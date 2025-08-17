@@ -3,14 +3,14 @@ packages:
   - 'packages/*'
   - blog-archived
 
-# hoistPattern:
-#   - '!tailwindcss'
-#   - '!@iconify/tailwind'
+hoistPattern:
+  - '!tailwindcss'
+  - '!@iconify/tailwind'
 
-# publicHoistPattern:
-#   - '!tailwindcss'
+publicHoistPattern:
+  - '!tailwindcss'
 
-# hoist: false
+hoist: false
 
 nodeLinker: hoisted
 

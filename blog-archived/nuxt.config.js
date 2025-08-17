@@ -5,8 +5,10 @@
 import fs from 'node:fs'
 
 import dotenv from 'dotenv'
-import { isProd, isRelease } from './constants.js'
 import { sitemap } from './nuxt.config/index'
+export const isProd = process.env.NODE_ENV === 'production'
+export const isRelease = process.env.SLS_ENV === 'release'
+export const isDev = process.env.NODE_ENV === 'development'
 
 console.log('[NODE_ENV]:', process.env.NODE_ENV)
 dotenv.config()
@@ -129,45 +131,12 @@ const config = {
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
     '@/plugins/element-ui',
-    '@/plugins/vant',
     '@/plugins/main',
     {
       src: '@/plugins/client-only.js',
       mode: 'client',
     },
-    // {
-    //   src: '@/plugins/server-only.js',
-    //   mode: 'server',
-    // },
-    // {
-    //   src: '@/plugins/cloudbase/client.js',
-    //   mode: 'client',
-    // },
-    {
-      src: '@/plugins/gsap.js',
-      mode: 'client',
-    },
-    // { src: '@/plugins/persistedState.js' },
   ],
-  serverMiddleware: [
-    {
-      handler(req, res, next) {
-        Object.entries({
-          'Access-Control-Allow-Credentials': true,
-          'Access-Control-Allow-Origin': req.headers.origin || '*',
-          'Access-Control-Allow-Headers': 'X-Requested-With,Content-Type',
-          'Access-Control-Allow-Methods': 'PUT,POST,GET,DELETE,OPTIONS',
-          'Content-Type': 'application/json; charset=utf-8',
-        }).forEach(([name, value]) => {
-          res.setHeader(name, value)
-        })
-
-        next()
-      },
-    },
-  ],
-
-  // Auto import components (https://go.nuxtjs.dev/config-components)
   components: [
     {
       path: '@/components/global',

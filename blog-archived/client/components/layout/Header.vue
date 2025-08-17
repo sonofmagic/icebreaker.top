@@ -1,7 +1,6 @@
 <script>
 import Logo from '@/assets/img/avatar.jpg'
 import defaultAvatar from '@/assets/img/default-avatar.png'
-import { Dialog } from 'vant'
 import { mapGetters } from 'vuex'
 import DarkModeToggle from './DarkModeToggle.vue'
 
@@ -17,7 +16,7 @@ export default {
 
       outSideLinks: [
         {
-          href: 'https://weapp-tw.icebreaker.top/',
+          href: 'https://tw.icebreaker.top/',
           title: 'Weapp-tailwindcss',
         },
         {
@@ -42,47 +41,17 @@ export default {
         },
       ],
       inSideLinks: [
-        {
-          key: 100,
-          to: '/utils',
-          title: 'Utils',
-        },
-        {
-          key: 200,
-          to: '/chart',
-          title: 'Charts',
-        },
-        {
-          key: 300,
-          to: '/demos',
-          title: 'Demos',
-        },
-        {
-          key: 400,
-          to: '/mp',
-          title: 'My Mps',
-        },
-        {
-          key: 500,
-          to: '/friends',
-          title: 'My Friends',
-        },
+        // {
+        //   key: 400,
+        //   to: '/mp',
+        //   title: 'My Mps',
+        // },
       ],
       defaultAvatar,
     }
   },
   computed: {
     ...mapGetters('user', ['user']),
-  },
-  methods: {
-    async logout() {
-      try {
-        await Dialog.confirm({ message: '确定登出?' })
-        // await this.$confirm('确定登出?')
-        await this.$store.dispatch('user/signOut')
-      }
-      catch {}
-    },
   },
 }
 </script>
