@@ -1,12 +1,10 @@
 <script>
 import { LocalStorageKey } from '@/enum/user'
 import { useToggleTheme } from 'theme-transition'
-
-// :class="[isDark ? 'text-white' : 'text-white']"
 export default {
   data() {
     return {
-      // mode: localStorage.getItem(LocalStorageKey.ThemeMode) || 'dark',
+
     }
   },
   head() {

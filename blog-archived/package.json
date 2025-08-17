@@ -32,7 +32,6 @@
     "copy-text-to-clipboard": "^3.2.0",
     "core-js": "^3.45.0",
     "dayjs": "^1.11.10",
-    "element-ui": "^2.15.14",
     "file-saver": "^2.0.5",
     "giscus": "^1.6.0",
     "is-mobile": "^5.0.0",

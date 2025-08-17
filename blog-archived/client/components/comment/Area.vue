@@ -23,7 +23,7 @@ export default {
 <template>
   <div>
     <giscus-widget
-      repo="sonofmagic/icebreaker.top"
+      repo="sonofmagic/blog.icebreaker.top"
       repoid="MDEwOlJlcG9zaXRvcnkzMjkxNjA0MzM="
       category="Announcements"
       categoryid="MDE4OkRpc2N1c3Npb25DYXRlZ29yeTMzMDMyNzIx"

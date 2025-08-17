@@ -3,12 +3,6 @@ import { mapState } from 'vuex'
 
 export default {
   name: 'SitemapList',
-  // props: {
-  //   items: {
-  //     type: Array,
-  //     default: () => [],
-  //   },
-  // },
   props: {
     hidden: {
       type: Boolean,

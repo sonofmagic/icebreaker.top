@@ -41,11 +41,7 @@ export default {
         },
       ],
       inSideLinks: [
-        // {
-        //   key: 400,
-        //   to: '/mp',
-        //   title: 'My Mps',
-        // },
+
       ],
       defaultAvatar,
     }
