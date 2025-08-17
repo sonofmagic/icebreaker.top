@@ -268,13 +268,6 @@ const config = {
           silenceDeprecations: ['legacy-js-api', 'import', 'color-functions'],
         },
       },
-      less: {
-        lessOptions: {
-          modifyVars: {
-            hack: `true; @import "@/uni.less";`,
-          },
-        },
-      },
     },
     optimization: {
       splitChunks: {

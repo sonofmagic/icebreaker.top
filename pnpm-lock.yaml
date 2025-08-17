@@ -349,12 +349,6 @@ importers:
       klaw:
         specifier: ^4.1.0
         version: 4.1.0
-      less:
-        specifier: ^4.4.0
-        version: 4.4.0
-      less-loader:
-        specifier: ^7.0.0
-        version: 7.3.0(less@4.4.0)(webpack@4.47.0)
       postcss:
         specifier: ^8.5.6
         version: 8.5.6
@@ -394,9 +388,6 @@ importers:
       vue-template-compiler:
         specifier: ^2.7
         version: 2.7.16
-      worker-loader:
-        specifier: ^3.0.8
-        version: 3.0.8(webpack@4.47.0)
 
 packages:
 
@@ -9315,13 +9306,6 @@ packages:
   launch-editor@2.9.1:
     resolution: {integrity: sha512-Gcnl4Bd+hRO9P9icCP/RVVT2o8SFlPXofuCxvA2SaZuH45whSvf5p8x5oih5ftLiVhEI4sp5xDY+R+b3zJBh5w==}
 
-  less-loader@7.3.0:
-    resolution: {integrity: sha512-Mi8915g7NMaLlgi77mgTTQvK022xKRQBIVDSyfl3ErTuBhmZBQab0mjeJjNNqGbdR+qrfTleKXqbGI4uEFavxg==}
-    engines: {node: '>= 10.13.0'}
-    peerDependencies:
-      less: ^3.5.0 || ^4.0.0
-      webpack: ^4.0.0 || ^5.0.0
-
   less@4.4.0:
     resolution: {integrity: sha512-kdTwsyRuncDfjEs0DlRILWNvxhDG/Zij4YLO4TMJgDLW+8OzpfkdPnRgrsRuY1o+oaxJGWsps5f/RVBgGmmN0w==}
     engines: {node: '>=14'}
@@ -13915,12 +13899,6 @@ packages:
 
   worker-farm@1.7.0:
     resolution: {integrity: sha512-rvw3QTZc8lAxyVrqcSGVm5yP/IJ2UcB3U0graE3LCFoZ0Yn2x4EoVSqJKdB/T5M+FLcRPjz4TDacRf3OCfNUzw==}
-
-  worker-loader@3.0.8:
-    resolution: {integrity: sha512-XQyQkIFeRVC7f7uRhFdNMe/iJOdO6zxAaR3EWbDp45v3mDhrTi+++oswKNxShUNjPC/1xUp5DB29YKLhFo129g==}
-    engines: {node: '>= 10.13.0'}
-    peerDependencies:
-      webpack: ^4.0.0 || ^5.0.0
 
   workerd@1.20250813.0:
     resolution: {integrity: sha512-bDlPGSnb/KESpGFE57cDjgP8mEKDM4WBTd/uGJBsQYCB6Aokk1eK3ivtHoxFx3MfJNo3v6/hJy6KK1b6rw1gvg==}
@@ -22480,6 +22458,7 @@ snapshots:
   copy-anything@2.0.6:
     dependencies:
       is-what: 3.14.1
+    optional: true
 
   copy-concurrently@1.0.5:
     dependencies:
@@ -25442,7 +25421,8 @@ snapshots:
       call-bound: 1.0.4
       get-intrinsic: 1.3.0
 
-  is-what@3.14.1: {}
+  is-what@3.14.1:
+    optional: true
 
   is-windows@1.0.2: {}
 
@@ -25723,14 +25703,6 @@ snapshots:
       picocolors: 1.1.1
       shell-quote: 1.8.1
 
-  less-loader@7.3.0(less@4.4.0)(webpack@4.47.0):
-    dependencies:
-      klona: 2.0.6
-      less: 4.4.0
-      loader-utils: 2.0.4
-      schema-utils: 3.3.0
-      webpack: 4.47.0
-
   less@4.4.0:
     dependencies:
       copy-anything: 2.0.6
@@ -25744,6 +25716,7 @@ snapshots:
       mime: 1.6.0
       needle: 3.3.1
       source-map: 0.6.1
+    optional: true
 
   levn@0.4.1:
     dependencies:
@@ -27636,7 +27609,8 @@ snapshots:
 
   parse-ms@4.0.0: {}
 
-  parse-node-version@1.0.1: {}
+  parse-node-version@1.0.1:
+    optional: true
 
   parse-npm-tarball-url@3.0.0:
     dependencies:
@@ -31509,12 +31483,6 @@ snapshots:
   worker-farm@1.7.0:
     dependencies:
       errno: 0.1.8
-
-  worker-loader@3.0.8(webpack@4.47.0):
-    dependencies:
-      loader-utils: 2.0.4
-      schema-utils: 3.3.0
-      webpack: 4.47.0
 
   workerd@1.20250813.0:
     optionalDependencies:

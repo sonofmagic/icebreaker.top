@@ -65,8 +65,6 @@
     "dotenv": "^17.2.1",
     "glob": "^11.0.3",
     "klaw": "^4.1.0",
-    "less": "^4.4.0",
-    "less-loader": "^7.0.0",
     "postcss": "^8.5.6",
     "reading-time": "^1.5.0",
     "sass": "1.90.0",
@@ -79,7 +77,6 @@
     "theme-transition": "^1.0.2",
     "unplugin-tailwindcss-mangle": "^4.1.2",
     "vue-server-renderer": "^2.7",
-    "vue-template-compiler": "^2.7",
-    "worker-loader": "^3.0.8"
+    "vue-template-compiler": "^2.7"
   }
 }
