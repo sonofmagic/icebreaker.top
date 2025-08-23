@@ -1,12 +1,19 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next'
+import path from 'node:path'
+// added by create cloudflare to enable calling `getCloudflareContext()` in `next dev`
+import { initOpenNextCloudflareForDev } from '@opennextjs/cloudflare'
+
+import { createMDX } from 'fumadocs-mdx/next'
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  output: 'export'
-};
+  // output: 'export',
+  turbopack: {
+    root: path.resolve(__dirname, '../..'),
+  },
+}
 
-export default nextConfig
+const withMDX = createMDX()
 
-// added by create cloudflare to enable calling `getCloudflareContext()` in `next dev`
-import { initOpenNextCloudflareForDev } from '@opennextjs/cloudflare';
-initOpenNextCloudflareForDev();
+export default withMDX(nextConfig)
+initOpenNextCloudflareForDev()

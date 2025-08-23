@@ -10,10 +10,15 @@
     "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
     "cf-typegen": "wrangler types --env-interface CloudflareEnv ./cloudflare-env.d.ts",
-    "sync": "tsx scripts/sync.ts"
+    "sync": "tsx scripts/sync.ts",
+    "postinstall": "fumadocs-mdx"
   },
   "dependencies": {
     "@opennextjs/cloudflare": "^1.6.5",
+    "@types/mdx": "^2.0.13",
+    "fumadocs-core": "^15.7.1",
+    "fumadocs-mdx": "^11.8.0",
+    "fumadocs-ui": "^15.7.1",
     "next": "15.5.0",
     "react": "19.1.1",
     "react-dom": "19.1.1"
