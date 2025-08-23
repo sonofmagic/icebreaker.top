@@ -166,6 +166,9 @@ importers:
       '@opennextjs/cloudflare':
         specifier: ^1.6.5
         version: 1.6.5(encoding@0.1.13)(wrangler@4.32.0)
+      '@orama/orama':
+        specifier: ^3.1.11
+        version: 3.1.11
       '@types/mdx':
         specifier: ^2.0.13
         version: 2.0.13

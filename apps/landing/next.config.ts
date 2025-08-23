@@ -7,9 +7,12 @@ import { createMDX } from 'fumadocs-mdx/next'
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  // output: 'export',
+  output: 'export',
   turbopack: {
     root: path.resolve(__dirname, '../..'),
+  },
+  images: {
+    unoptimized: true,
   },
 }
 
